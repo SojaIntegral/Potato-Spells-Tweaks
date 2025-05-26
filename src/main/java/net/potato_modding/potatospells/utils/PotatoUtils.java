@@ -13,7 +13,7 @@ public class PotatoUtils {
     static String cduncap = ServerConfigs.COOLDOWN_UNCAP.get();
     public static double cooldownsoftcap(double x) {
         if(Objects.equals(cduncap, "0")) {
-            return x >= -29 ? 2 - (30 / (29+x)) : 2 - (30 / (28.999+x));
+            return x >= 0 ? 2 - (30 / (29+x)) : 2 - ((30 - x) / 30);
         }
         else if(Objects.equals(cduncap, "2")) {
             return x <= 4.80999 ? 2*(Math.sin(0.28*(x+0.8))) : 2;
@@ -30,7 +30,7 @@ public class PotatoUtils {
     static String ctuncap = ServerConfigs.CAST_UNCAP.get();
     public static double castsoftcap(double x) {
         if(Objects.equals(ctuncap, "0")) {
-            return x >= -29 ? 2 - (30 / (29+x)) : 2 - (30 / (28.999+x));
+            return x >= 0 ? 2 - (30 / (29+x)) : 2 - ((30 - x) / 30);
         }
         else if(Objects.equals(ctuncap, "2")) {
             return x <= 4.80999 ? 2*(Math.sin(0.28*(x+0.8))) : 2;
@@ -47,7 +47,7 @@ public class PotatoUtils {
     static String runcap = ServerConfigs.RESIST_UNCAP.get();
     public static double resistsoftcap(double x) {
         if(Objects.equals(runcap, "0")) {
-            return x >= -29 ? 2 - (30 / (29+x)) : 2 - (30 / (28.999+x));
+            return x >= 0 ? 2 - (30 / (29+x)) : 2 - ((30 - x) / 30);
         }
         else if(Objects.equals(runcap, "2")) {
             return x <= 4.80999 ? 2*(Math.sin(0.28*(x+0.8))) : 2;
