@@ -71,9 +71,9 @@ public class ServerConfigs {
             BUILDER.push("Potato Spells Utils");
             BUILDER.comment("RE-BALANCE FORMULAS:");
             BUILDER.comment("Accept '1', '2' or '3'");
-            BUILDER.comment("0 = 'Founded': Reaches ~100% at stupidly high numbers - Formula inspired by TheFounded");
+            BUILDER.comment("0 = 'Alternative': Reaches ~100% at stupidly high numbers - Formula inspired by TheFounded");
             BUILDER.comment("1 = 'Default': Reaches 100% at ~3.63 (full immunity / instant cast / 0 cooldown)");
-            BUILDER.comment("2 = 'MM3': Reaches 100% at ~4.99 (full immunity / instant cast / 0 cooldown)");
+            BUILDER.comment("2 = 'Made for the MM3 SMP server': Reaches 100% at ~4.99 (full immunity / instant cast / 0 cooldown)");
             BUILDER.comment("3 = 'Nerfed': Reaches 100% at ~8.02 (full immunity / instant cast / 0 cooldown)");
             COOLDOWN_UNCAP = BUILDER.worldRestart().define("Cooldown Formula", "1");
             CAST_UNCAP = BUILDER.worldRestart().define("Cast Time Formula", "1");
