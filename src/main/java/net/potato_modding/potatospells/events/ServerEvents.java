@@ -27,6 +27,13 @@ public class ServerEvents {
         {
             setIfNonNull(mob, AttributeRegistry.SPELL_RESIST, ServerConfigs.TYROS_RESIST.get());
             setIfNonNull(mob, AttributeRegistry.FIRE_MAGIC_RESIST, ServerConfigs.TYROS_FIRE_RESIST.get());
+            setIfNonNull(mob, AttributeRegistry.NATURE_MAGIC_RESIST, ServerConfigs.TYROS_NATURE_RESIST.get());
+            setIfNonNull(mob, AttributeRegistry.ENDER_MAGIC_RESIST, ServerConfigs.TYROS_ENDER_RESIST.get());
+            setIfNonNull(mob, AttributeRegistry.BLOOD_MAGIC_RESIST, ServerConfigs.TYROS_BLOOD_RESIST.get());
+            setIfNonNull(mob, AttributeRegistry.ICE_MAGIC_RESIST, ServerConfigs.TYROS_ICE_RESIST.get());
+            setIfNonNull(mob, AttributeRegistry.LIGHTNING_MAGIC_RESIST, ServerConfigs.TYROS_LIGHTNING_RESIST.get());
+            setIfNonNull(mob, AttributeRegistry.ELDRITCH_MAGIC_RESIST, ServerConfigs.TYROS_ELDRITCH_RESIST.get());
+            setIfNonNull(mob, AttributeRegistry.HOLY_MAGIC_RESIST, ServerConfigs.TYROS_HOLY_RESIST.get());
             setIfNonNull(mob, AttributeRegistry.SPELL_POWER, ServerConfigs.TYROS_POWER.get());
             setIfNonNull(mob, AttributeRegistry.FIRE_SPELL_POWER, ServerConfigs.TYROS_FIRE_SPELL.get());
             setIfNonNull(mob, Attributes.ARMOR, ServerConfigs.TYROS_ARMOR.get());
@@ -56,8 +63,15 @@ public class ServerEvents {
         // Living Armor modifiers
         if (mob.getType().is(PotatoTags.KEEPER_MOB))
         {
-            setIfNonNull(mob, AttributeRegistry.SPELL_RESIST, ServerConfigs.KEEPER_RESIST.get());
-            setIfNonNull(mob, AttributeRegistry.FIRE_MAGIC_RESIST, ServerConfigs.KEEPER_FIRE.get());
+            setIfNonNull(mob, AttributeRegistry.SPELL_RESIST, ServerConfigs.TYROS_RESIST.get());
+            setIfNonNull(mob, AttributeRegistry.FIRE_MAGIC_RESIST, ServerConfigs.TYROS_FIRE_RESIST.get());
+            setIfNonNull(mob, AttributeRegistry.NATURE_MAGIC_RESIST, ServerConfigs.TYROS_NATURE_RESIST.get());
+            setIfNonNull(mob, AttributeRegistry.ENDER_MAGIC_RESIST, ServerConfigs.TYROS_ENDER_RESIST.get());
+            setIfNonNull(mob, AttributeRegistry.BLOOD_MAGIC_RESIST, ServerConfigs.TYROS_BLOOD_RESIST.get());
+            setIfNonNull(mob, AttributeRegistry.ICE_MAGIC_RESIST, ServerConfigs.TYROS_ICE_RESIST.get());
+            setIfNonNull(mob, AttributeRegistry.LIGHTNING_MAGIC_RESIST, ServerConfigs.TYROS_LIGHTNING_RESIST.get());
+            setIfNonNull(mob, AttributeRegistry.ELDRITCH_MAGIC_RESIST, ServerConfigs.TYROS_ELDRITCH_RESIST.get());
+            setIfNonNull(mob, AttributeRegistry.HOLY_MAGIC_RESIST, ServerConfigs.TYROS_HOLY_RESIST.get());
             setIfNonNull(mob, Attributes.ARMOR, ServerConfigs.KEEPER_ARMOR.get());
             setIfNonNull(mob, Attributes.ARMOR_TOUGHNESS, ServerConfigs.KEEPER_TOUGHNESS.get());
             setIfNonNull(mob, Attributes.ATTACK_DAMAGE, ServerConfigs.KEEPER_ATTACK.get());
