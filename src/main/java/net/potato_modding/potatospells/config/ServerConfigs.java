@@ -9,6 +9,36 @@ public class ServerConfigs {
     public static ModConfigSpec.ConfigValue<String> CAST_UNCAP;
     public static ModConfigSpec.ConfigValue<String> RESIST_UNCAP;
 
+    public static ModConfigSpec.ConfigValue<Double> TYROS_RESIST;
+    public static ModConfigSpec.ConfigValue<Double> TYROS_FIRE_RESIST;
+    public static ModConfigSpec.ConfigValue<Double> TYROS_POWER;
+    public static ModConfigSpec.ConfigValue<Double> TYROS_FIRE_SPELL;
+    public static ModConfigSpec.ConfigValue<Double> TYROS_ARMOR;
+    public static ModConfigSpec.ConfigValue<Double> TYROS_TOUGHNESS;
+    public static ModConfigSpec.ConfigValue<Double> TYROS_ATTACK;
+
+    public static ModConfigSpec.ConfigValue<Double> DEAD_POWER;
+    public static ModConfigSpec.ConfigValue<Double> DEAD_BLOOD_SPELL;
+    public static ModConfigSpec.ConfigValue<Double> DEAD_RESIST;
+    public static ModConfigSpec.ConfigValue<Double> DEAD_FIRE_RESIST;
+    public static ModConfigSpec.ConfigValue<Double> DEAD_ICE_RESIST;
+    public static ModConfigSpec.ConfigValue<Double> DEAD_HOLY_RESIST;
+    public static ModConfigSpec.ConfigValue<Double> DEAD_NATURE_RESIST;
+    public static ModConfigSpec.ConfigValue<Double> DEAD_BLOOD_RESIST;
+    public static ModConfigSpec.ConfigValue<Double> DEAD_ENDER_RESIST;
+    public static ModConfigSpec.ConfigValue<Double> DEAD_LIGHTNING_RESIST;
+    public static ModConfigSpec.ConfigValue<Double> DEAD_ELDRITCH_RESIST;
+    public static ModConfigSpec.ConfigValue<Double> DEAD_ARMOR;
+    public static ModConfigSpec.ConfigValue<Double> DEAD_TOUGHNESS;
+    public static ModConfigSpec.ConfigValue<Double> DEAD_ATTACK;
+
+    public static ModConfigSpec.ConfigValue<Double> KEEPER_ATTACK;
+    public static ModConfigSpec.ConfigValue<Double> KEEPER_RESIST;
+    public static ModConfigSpec.ConfigValue<Double> KEEPER_FIRE;
+    public static ModConfigSpec.ConfigValue<Double> KEEPER_ARMOR;
+    public static ModConfigSpec.ConfigValue<Double> KEEPER_TOUGHNESS;
+
+
     static {
         {
             BUILDER.push("Potato Spells Utils");
@@ -21,6 +51,45 @@ public class ServerConfigs {
             COOLDOWN_UNCAP = BUILDER.worldRestart().define("Cooldown Formula", "1");
             CAST_UNCAP = BUILDER.worldRestart().define("Cast Time Formula", "1");
             RESIST_UNCAP = BUILDER.worldRestart().define("Spell Resist Formula", "1");
+            BUILDER.pop();
+        }
+        {
+            BUILDER.push("Tyros Attributes");
+            TYROS_POWER = BUILDER.worldRestart().define("Spell Power", 1.75);
+            TYROS_FIRE_SPELL = BUILDER.worldRestart().define("Fire Spell Power", 1.75);
+            TYROS_RESIST = BUILDER.worldRestart().define("Spell Resist", 1.55);
+            TYROS_FIRE_RESIST = BUILDER.worldRestart().define("Fire Spell Resistance", 2.0);
+            TYROS_ARMOR = BUILDER.worldRestart().define("Armor ", 15.0);
+            TYROS_TOUGHNESS = BUILDER.worldRestart().define("Armor Toughness", 10.0);
+            TYROS_ATTACK = BUILDER.worldRestart().define("Attack Damage", 13.0);
+            BUILDER.pop();
+        }
+        {
+            BUILDER.push("Dead King Attributes");
+            DEAD_POWER = BUILDER.worldRestart().define("Spell Power", 1.35);
+            DEAD_BLOOD_SPELL = BUILDER.worldRestart().define("Blood Spell Power", 1.45);
+            DEAD_RESIST = BUILDER.worldRestart().define("Spell Resist", 1.35);
+            DEAD_FIRE_RESIST = BUILDER.worldRestart().define("Fire Spell Resistance", 0.45);
+            DEAD_ICE_RESIST = BUILDER.worldRestart().define("Ice Spell Resistance", 1.15);
+            DEAD_HOLY_RESIST = BUILDER.worldRestart().define("Holy Spell Resistance", -0.25);
+            DEAD_NATURE_RESIST = BUILDER.worldRestart().define("Nature Spell Resistance", 1.25);
+            DEAD_BLOOD_RESIST = BUILDER.worldRestart().define("Blood Spell Resistance", 1.75);
+            DEAD_ENDER_RESIST = BUILDER.worldRestart().define("Ender Spell Resistance", 1.55);
+            DEAD_LIGHTNING_RESIST = BUILDER.worldRestart().define("Lightning Spell Resistance", 0.85);
+            DEAD_ELDRITCH_RESIST = BUILDER.worldRestart().define("Eldritch Spell Resistance", 2.0);
+            DEAD_ARMOR = BUILDER.worldRestart().define("Armor ", 25.0);
+            DEAD_TOUGHNESS = BUILDER.worldRestart().define("Armor Toughness", 5.0);
+            DEAD_ATTACK = BUILDER.worldRestart().define("Attack Damage", 11.0);
+            BUILDER.pop();
+        }
+
+        {
+            BUILDER.push("Living Armor Attributes");
+            KEEPER_RESIST = BUILDER.worldRestart().define("Spell Resistance", 1.75);
+            KEEPER_FIRE = BUILDER.worldRestart().define("Fire Spell Resistance", 1.0);
+            KEEPER_ARMOR = BUILDER.worldRestart().define("Armor ", 20.0);
+            KEEPER_TOUGHNESS = BUILDER.worldRestart().define("Armor Toughness", 10.0);
+            KEEPER_ATTACK = BUILDER.worldRestart().define("Attack Damage", 13.5);
             BUILDER.pop();
         }
         BUILDING = BUILDER.build();
