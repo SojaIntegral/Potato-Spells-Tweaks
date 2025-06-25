@@ -9,6 +9,7 @@ public class ServerConfigs {
     public static ModConfigSpec.ConfigValue<String> COOLDOWN_UNCAP;
     public static ModConfigSpec.ConfigValue<String> CAST_UNCAP;
     public static ModConfigSpec.ConfigValue<String> RESIST_UNCAP;
+    public static ModConfigSpec.ConfigValue<Boolean> MUTUAL_EFFECTS;
 
     public static ModConfigSpec.ConfigValue<Double> TYROS_RESIST;
     public static ModConfigSpec.ConfigValue<Double> TYROS_FIRE_RESIST;
@@ -78,6 +79,7 @@ public class ServerConfigs {
             COOLDOWN_UNCAP = BUILDER.worldRestart().define("Cooldown Formula", "1");
             CAST_UNCAP = BUILDER.worldRestart().define("Cast Time Formula", "1");
             RESIST_UNCAP = BUILDER.worldRestart().define("Spell Resist Formula", "1");
+            MUTUAL_EFFECTS = BUILDER.worldRestart().define("Should Charge and Haste be mutually exclusive to other potion effects (determined by mob effect tags): ", true);
             BUILDER.pop();
         }
         {
