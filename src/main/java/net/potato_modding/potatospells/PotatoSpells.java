@@ -1,5 +1,6 @@
 package net.potato_modding.potatospells;
 
+import net.neoforged.bus.api.Event;
 import net.neoforged.fml.config.ModConfig;
 import net.potato_modding.potatospells.config.ServerConfigs;
 import org.slf4j.Logger;
@@ -28,6 +29,7 @@ public class PotatoSpells {
     // FML will recognize some parameter types like IEventBus or ModContainer and pass them in automatically.
     public PotatoSpells(IEventBus modEventBus, ModContainer modContainer) {
         // Register the commonSetup method for modloading
+
         modEventBus.addListener(this::commonSetup);
 
         // Register ourselves for server and other game events we are interested in.
@@ -41,7 +43,6 @@ public class PotatoSpells {
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
-
     }
 
     // Add the example block item to the building blocks tab
@@ -52,7 +53,6 @@ public class PotatoSpells {
     // You can use SubscribeEvent and let the Event Bus discover methods to call
     @SubscribeEvent
     public void onServerStarting(ServerStartingEvent event) {
-
     }
 
     // You can use EventBusSubscriber to automatically register all static methods in the class annotated with @SubscribeEvent

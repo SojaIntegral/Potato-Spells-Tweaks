@@ -5,10 +5,7 @@
   "mixins": [
     "SpellResistMixin",
     "CooldownMixin",
-    "CastTimeMixin",
-    "DeadKingMixin",
-    "CitadelKeeperMixin",
-    "TyrosMixin"
+    "CastTimeMixin"
   ],
   "client": [
   ],
