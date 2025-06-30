@@ -2,10 +2,8 @@ package net.potato_modding.potatospells.utils;
 
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.item.Item;
 import net.potato_modding.potatospells.PotatoSpells;
 
 public class PotatoTags {
@@ -14,5 +12,18 @@ public class PotatoTags {
     // Blocks
 
     // Entities
-    public static final TagKey<EntityType<?>> SPELL_RES_ENTITIES = TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "spell_res_entities"));
+    public static final TagKey<EntityType<?>> TYROS_BOSS =
+            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "tyros_boss"));
+
+
+    public static final TagKey<EntityType<?>> DEADKING_BOSS =
+            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "deadking_boss"));
+
+
+    public static final TagKey<EntityType<?>> KEEPER_MOB =
+            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "citadel_keeper"));
+
+
+    public static final TagKey<EntityType<?>> SUMMONS =
+            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "summons"));
 }
