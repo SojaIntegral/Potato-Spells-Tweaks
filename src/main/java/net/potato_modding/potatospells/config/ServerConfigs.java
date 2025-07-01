@@ -9,7 +9,7 @@ public class ServerConfigs {
     public static ModConfigSpec.ConfigValue<String> COOLDOWN_UNCAP;
     public static ModConfigSpec.ConfigValue<String> CAST_UNCAP;
     public static ModConfigSpec.ConfigValue<String> RESIST_UNCAP;
-    public static ModConfigSpec.ConfigValue<Boolean> MUTUAL_EFFECTS;
+    public static ModConfigSpec.ConfigValue<Boolean> AUTO_BALANCE;
 
     public static ModConfigSpec.ConfigValue<Double> TYROS_RESIST;
     public static ModConfigSpec.ConfigValue<Double> TYROS_FIRE_RESIST;
@@ -75,11 +75,22 @@ public class ServerConfigs {
             BUILDER.comment("1 = 'Default': Maximum at ~3.6 (Made for your average ISS experience)");
             BUILDER.comment("2 = 'Nerfed': Maximum at ~5.0 (Made for SMPs and PvP)");
             BUILDER.comment("3 = 'Apotheosis': Maximum at ~8.0 (Made for Apotheosis compat)");
+            BUILDER.comment("Warning: When using 'Alternative' on any config, make sure Spell Resist is also on 'Alternative' setting!");
+            BUILDER.comment("The game may break otherwise, as it raises the difficulty quite a lot.");
             COOLDOWN_UNCAP = BUILDER.worldRestart().define("Cooldown Formula", "1");
             CAST_UNCAP = BUILDER.worldRestart().define("Cast Time Formula", "1");
             RESIST_UNCAP = BUILDER.worldRestart().define("Spell Resist Formula", "1");
-            BUILDER.comment("Not yet implemented!");
-            MUTUAL_EFFECTS = BUILDER.worldRestart().define("Should Charge and Haste be mutually exclusive to other potion effects (determined by mob effect tags): ", true);
+            BUILDER.pop();
+        }
+
+        // AUTOMATIC BALANCING
+        {
+            BUILDER.push("Manual Mode");
+            BUILDER.comment("This will disable the auto-balance feature of the mod!!");
+            BUILDER.comment("Instead, you will be able to configure everything by yourself.");
+            BUILDER.comment("This feature is mainly for modpack devs and not recommended for the average player!");
+            BUILDER.comment("True = Auto-balance ON || False = Auto-balance OFF");
+            AUTO_BALANCE = BUILDER.worldRestart().define("Automatic balance", true);
             BUILDER.pop();
         }
 
@@ -188,6 +199,7 @@ public class ServerConfigs {
             KEEPER_ATTACK = BUILDER.worldRestart().define("Attack Damage", 13.5);
             BUILDER.pop();
         }
+
         BUILDING = BUILDER.build();
     }
 }

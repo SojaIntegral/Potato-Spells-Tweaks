@@ -12,22 +12,21 @@ public class PotatoTags {
 
     // Blocks
 
-    // Entities
+    // ISS Entities
     public static final TagKey<EntityType<?>> TYROS_BOSS =
             TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "tyros_boss"));
-
-
     public static final TagKey<EntityType<?>> DEADKING_BOSS =
             TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "deadking_boss"));
-
-
     public static final TagKey<EntityType<?>> KEEPER_MOB =
             TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "citadel_keeper"));
-
-
     public static final TagKey<EntityType<?>> SUMMONS =
             TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "summons"));
 
+    // Cataclysm Entities
+    public static final TagKey<EntityType<?>> AMETHYST_CRAB =
+            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "amethyst_crab"));
+
+    // Not implemented yet
     public static final TagKey<MobEffect> INCOMPATIBLE_WITH_CHARGE =
             TagKey.create(Registries.MOB_EFFECT, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "incompatible_with_charge"));
 }
