@@ -175,23 +175,23 @@ dependencies {
     //localRuntime "curse.maven:mouse-tweaks-60089:5637846"
 
     // Alshanex's Familiars
-    implementation "curse.maven:alshanexs-familiars-1171602:6539981"
+        implementation "curse.maven:alshanexs-familiars-1171602:6539981"
 
     // Aeromancy
-    implementation "curse.maven:snackpirates-aeromancy-additions-1160104:6566417"
-    implementation "curse.maven:expandability-465066:5428824"
+        implementation "curse.maven:snackpirates-aeromancy-additions-1160104:6566417"
+        implementation "curse.maven:expandability-465066:5428824"
 
     // CAT:S
-    implementation "curse.maven:cataclysm-spellbooks-1099461:6427259"
-    compileOnly "curse.maven:cataclysm-spellbooks-551586:6709307"
-    localRuntime "curse.maven:cataclysm-spellbooks-551586:6709307"
-    compileOnly "curse.maven:lionfish-api-1001614:6168249"
-    localRuntime "curse.maven:lionfish-api-1001614:6168249"
-    compileOnly "curse.maven:azurelib-817423:6541667"
-    localRuntime "curse.maven:azurelib-817423:6541667"
+        implementation "curse.maven:cataclysm-spellbooks-1099461:6427259"
+        compileOnly "curse.maven:cataclysm-spellbooks-551586:6709307"
+        localRuntime "curse.maven:cataclysm-spellbooks-551586:6709307"
+        compileOnly "curse.maven:lionfish-api-1001614:6168249"
+        localRuntime "curse.maven:lionfish-api-1001614:6168249"
+        compileOnly "curse.maven:azurelib-817423:6541667"
+        localRuntime "curse.maven:azurelib-817423:6541667"
 
     // Ender's Stuff
-    implementation "curse.maven:enders-spellsandstuff-1140215:6427854"
+        implementation "curse.maven:enders-spellsandstuff-1140215:6427854"
 
     // JSON
     implementation "com.google.code.gson:gson:${gson_version}"

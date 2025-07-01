@@ -66,22 +66,24 @@ public class ServerConfigs {
     public static ModConfigSpec.ConfigValue<Double> KEEPER_ARMOR;
     public static ModConfigSpec.ConfigValue<Double> KEEPER_TOUGHNESS;
 
-
     static {
         {
             BUILDER.push("Potato Spells Utils");
             BUILDER.comment("RE-BALANCE FORMULAS:");
             BUILDER.comment("Accept '1', '2' or '3'");
-            BUILDER.comment("0 = 'Alternative': Reaches ~100% at stupidly high numbers - Formula inspired by TheFounded");
-            BUILDER.comment("1 = 'Default': Reaches 100% at ~3.63 (full immunity / instant cast / 0 cooldown)");
-            BUILDER.comment("2 = 'Made for the MM3 SMP server': Reaches 100% at ~4.99 (full immunity / instant cast / 0 cooldown)");
-            BUILDER.comment("3 = 'Nerfed': Reaches 100% at ~8.02 (full immunity / instant cast / 0 cooldown)");
+            BUILDER.comment("0 = 'Alternative': Uncapped (Alternative for classical ISS formula)");
+            BUILDER.comment("1 = 'Default': Maximum at ~3.6 (Made for your average ISS experience)");
+            BUILDER.comment("2 = 'Nerfed': Maximum at ~5.0 (Made for SMPs and PvP)");
+            BUILDER.comment("3 = 'Apotheosis': Maximum at ~8.0 (Made for Apotheosis compat)");
             COOLDOWN_UNCAP = BUILDER.worldRestart().define("Cooldown Formula", "1");
             CAST_UNCAP = BUILDER.worldRestart().define("Cast Time Formula", "1");
             RESIST_UNCAP = BUILDER.worldRestart().define("Spell Resist Formula", "1");
+            BUILDER.comment("Not yet implemented!");
             MUTUAL_EFFECTS = BUILDER.worldRestart().define("Should Charge and Haste be mutually exclusive to other potion effects (determined by mob effect tags): ", true);
             BUILDER.pop();
         }
+
+        // TYROS (FIRE BOSS)
         {
             BUILDER.push("Tyros Attributes");
             TYROS_POWER = BUILDER.worldRestart().define("Spell Power", 1.75);
@@ -96,19 +98,19 @@ public class ServerConfigs {
             TYROS_LIGHTNING_RESIST = BUILDER.worldRestart().define("Lightning Spell Resistance", 0.75);
             TYROS_ELDRITCH_RESIST = BUILDER.worldRestart().define("Eldritch Spell Resistance", 1.0);
             if (ModList.get().isLoaded("cataclysm_spellbooks")) {
-                BUILDER.comment("This is not functional yet");
+                BUILDER.comment("Only works when [Cataclysm: Spellbooks] mod is present");
                 TYROS_ABYSSAL_RESIST = BUILDER.worldRestart().define("Abyssal Spell Resistance", 0.5);
             }
             if (ModList.get().isLoaded("endersequipment")) {
-                BUILDER.comment("This is not functional yet");
+                BUILDER.comment("Only works when [Ender's Spells and Stuff] mod is present");
                 TYROS_BLADE_RESIST = BUILDER.worldRestart().define("Blade Spell Resistance", 1.15);
             }
             if (ModList.get().isLoaded("alshanex_familiars")) {
-                BUILDER.comment("This is not functional yet");
+                BUILDER.comment("Only works when [Alshanex's Familiars] mod is present");
                 TYROS_MUSIC_RESIST = BUILDER.worldRestart().define("Sound Spell Resistance", 1.05);
             }
             if (ModList.get().isLoaded("aero_additions")) {
-                BUILDER.comment("This is not functional yet");
+                BUILDER.comment("Only works when [SnackPirate's Aeromancy] mod is present");
                 TYROS_WIND_RESIST = BUILDER.worldRestart().define("Air Spell Resistance", 0.7);
             }
             TYROS_ARMOR = BUILDER.worldRestart().define("Armor ", 15.0);
@@ -116,6 +118,8 @@ public class ServerConfigs {
             TYROS_ATTACK = BUILDER.worldRestart().define("Attack Damage", 13.0);
             BUILDER.pop();
         }
+
+        // DEAD KING BOSS
         {
             BUILDER.push("Dead King Attributes");
             DEAD_POWER = BUILDER.worldRestart().define("Spell Power", 1.35);
@@ -130,19 +134,19 @@ public class ServerConfigs {
             DEAD_LIGHTNING_RESIST = BUILDER.worldRestart().define("Lightning Spell Resistance", 0.85);
             DEAD_ELDRITCH_RESIST = BUILDER.worldRestart().define("Eldritch Spell Resistance", 2.0);
             if (ModList.get().isLoaded("cataclysm_spellbooks")) {
-                BUILDER.comment("This is not functional yet");
+                BUILDER.comment("Only works when [Cataclysm: Spellbooks] mod is present");
                 DEAD_ABYSSAL_RESIST = BUILDER.worldRestart().define("Abyssal Spell Resistance", 1.85);
             }
             if (ModList.get().isLoaded("endersequipment")) {
-                BUILDER.comment("This is not functional yet");
+                BUILDER.comment("Only works when [Ender's Spells and Stuff] mod is present");
                 DEAD_BLADE_RESIST = BUILDER.worldRestart().define("Blade Spell Resistance", 0.8);
             }
             if (ModList.get().isLoaded("alshanex_familiars")) {
-                BUILDER.comment("This is not functional yet");
+                BUILDER.comment("Only works when [Alshanex's Familiars] mod is present");
                 DEAD_MUSIC_RESIST = BUILDER.worldRestart().define("Sound Spell Resistance", 0.35);
             }
             if (ModList.get().isLoaded("aero_additions")) {
-                BUILDER.comment("This is not functional yet");
+                BUILDER.comment("Only works when [SnackPirate's Aeromancy] mod is present");
                 DEAD_WIND_RESIST = BUILDER.worldRestart().define("Air Spell Resistance", 1.2);
             }
             DEAD_ARMOR = BUILDER.worldRestart().define("Armor ", 25.0);
@@ -151,6 +155,7 @@ public class ServerConfigs {
             BUILDER.pop();
         }
 
+        // LIVING ARMOR (CITADEL KEEPER)
         {
             BUILDER.push("Living Armor Attributes");
             KEEPER_RESIST = BUILDER.worldRestart().define("Spell Resist", 1.1);
@@ -163,19 +168,19 @@ public class ServerConfigs {
             KEEPER_LIGHTNING_RESIST = BUILDER.worldRestart().define("Lightning Spell Resistance", -0.3);
             KEEPER_ELDRITCH_RESIST = BUILDER.worldRestart().define("Eldritch Spell Resistance", 1.0);
             if (ModList.get().isLoaded("cataclysm_spellbooks")) {
-                BUILDER.comment("This is not functional yet");
+                BUILDER.comment("Only works when [Cataclysm: Spellbooks] mod is present");
                 KEEPER_ABYSSAL_RESIST = BUILDER.worldRestart().define("Abyssal Spell Resistance", 0.6);
             }
             if (ModList.get().isLoaded("endersequipment")) {
-                BUILDER.comment("This is not functional yet");
+                BUILDER.comment("Only works when [Ender's Spells and Stuff] mod is present");
                 KEEPER_BLADE_RESIST = BUILDER.worldRestart().define("Blade Spell Resistance", 1.5);
             }
             if (ModList.get().isLoaded("alshanex_familiars")) {
-                BUILDER.comment("This is not functional yet");
+                BUILDER.comment("Only works when [Alshanex's Familiars] mod is present");
                 KEEPER_MUSIC_RESIST = BUILDER.worldRestart().define("Sound Spell Resistance", 1.4);
             }
             if (ModList.get().isLoaded("aero_additions")) {
-                BUILDER.comment("This is not functional yet");
+                BUILDER.comment("Only works when [SnackPirate's Aeromancy] mod is present");
                 KEEPER_WIND_RESIST = BUILDER.worldRestart().define("Air Spell Resistance", 1.85);
             }
             KEEPER_ARMOR = BUILDER.worldRestart().define("Armor ", 20.0);

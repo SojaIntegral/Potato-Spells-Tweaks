@@ -3,6 +3,7 @@ package net.potato_modding.potatospells.utils;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
+import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.EntityType;
 import net.potato_modding.potatospells.PotatoSpells;
 
@@ -26,4 +27,7 @@ public class PotatoTags {
 
     public static final TagKey<EntityType<?>> SUMMONS =
             TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "summons"));
+
+    public static final TagKey<MobEffect> INCOMPATIBLE_WITH_CHARGE =
+            TagKey.create(Registries.MOB_EFFECT, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "incompatible_with_charge"));
 }
