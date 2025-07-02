@@ -13,15 +13,15 @@ public class PotatoUtils {
     if we go by what the mod was intended to do.
     */
 
-    static String cduncap = ServerConfigs.COOLDOWN_UNCAP.get();
+    static int cduncap = ServerConfigs.COOLDOWN_UNCAP.get();
     public static double cooldownsoftcap(double x) {
-        if(Objects.equals(cduncap, "2")) {
+        if(cduncap == 2) {
             return x <= 4.80999 ? 2*(Math.sin(0.28*(x+0.8))) : 2;
         }
-        else if(Objects.equals(cduncap, "1")) {
+        else if(cduncap == 1) {
             return x <= 3.62699 ? 2*(Math.sin(0.4*(x+0.3))) : 2;
         }
-        else if(Objects.equals(cduncap, "3")) {
+        else if(cduncap == 3) {
             return x <= 8.01198 ? 2*(Math.sin(0.15*(x+2.46))) : 2;
         }
         else {
@@ -30,15 +30,15 @@ public class PotatoUtils {
         }
     }
 
-    static String ctuncap = ServerConfigs.CAST_UNCAP.get();
+    static int ctuncap = ServerConfigs.CAST_UNCAP.get();
     public static double castsoftcap(double x) {
-        if(Objects.equals(ctuncap, "2")) {
+        if(ctuncap == 2) {
             return x <= 4.80999 ? 2*(Math.sin(0.28*(x+0.8))) : 2;
         }
-        else if(Objects.equals(ctuncap, "1")) {
+        else if(ctuncap == 1) {
             return x <= 3.62699 ? 2*(Math.sin(0.4*(x+0.3))) : 2;
         }
-        else if(Objects.equals(ctuncap, "3")) {
+        else if(ctuncap == 3) {
             return x <= 8.01198 ? 2*(Math.sin(0.15*(x+2.46))) : 2;
         }
         else {
@@ -47,15 +47,15 @@ public class PotatoUtils {
         }
     }
 
-    static String runcap = ServerConfigs.RESIST_UNCAP.get();
+    static int runcap = ServerConfigs.RESIST_UNCAP.get();
     public static double resistsoftcap(double x) {
-        if(Objects.equals(runcap, "2")) {
+        if(runcap == 2) {
             return x <= 4.80999 ? 2*(Math.sin(0.28*(x+0.8))) : 2;
         }
-        else if(Objects.equals(runcap, "1")) {
+        else if(runcap == 1) {
             return x <= 3.62699 ? 2*(Math.sin(0.4*(x+0.3))) : 2;
         }
-        else if(Objects.equals(runcap, "3")) {
+        else if(runcap == 3) {
             return x <= 8.01198 ? 2*(Math.sin(0.15*(x+2.46))) : 2;
         }
         else {

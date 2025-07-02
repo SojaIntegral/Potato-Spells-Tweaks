@@ -14,21 +14,21 @@ public class CompatFormulas {
 
     static {
         // List of possible valid configs
-        List<String> safetyCheck = new ArrayList<>();
-        safetyCheck.add("1");
-        safetyCheck.add("2");
-        safetyCheck.add("3");
-        safetyCheck.add("4");
+        List<Integer> safetyCheck = new ArrayList<>();
+        safetyCheck.add(1);
+        safetyCheck.add(2);
+        safetyCheck.add(3);
+        safetyCheck.add(4);
 
-        a = Integer.parseInt(ServerConfigs.COOLDOWN_UNCAP.get());
+        a = ServerConfigs.COOLDOWN_UNCAP.get();
         // Making sure we aren't trying to math out nonsense for a
         if(!safetyCheck.contains(ServerConfigs.COOLDOWN_UNCAP.get())) a = 4;
 
-        b = Integer.parseInt(ServerConfigs.CAST_UNCAP.get());
+        b = ServerConfigs.CAST_UNCAP.get();
         // Making sure we aren't trying to math out nonsense for b
         if(!safetyCheck.contains(ServerConfigs.CAST_UNCAP.get())) b = 4;
 
-        c = Integer.parseInt(ServerConfigs.RESIST_UNCAP.get());
+        c = ServerConfigs.RESIST_UNCAP.get();
         // Making sure we aren't trying to math out nonsense for c
         if(!safetyCheck.contains(ServerConfigs.RESIST_UNCAP.get())) c = 4;
     }

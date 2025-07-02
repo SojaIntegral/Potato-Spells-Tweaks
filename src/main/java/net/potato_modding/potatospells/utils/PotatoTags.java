@@ -25,6 +25,8 @@ public class PotatoTags {
     // Cataclysm Entities
     public static final TagKey<EntityType<?>> AMETHYST_CRAB =
             TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "amethyst_crab"));
+    public static final TagKey<EntityType<?>> DEEPLINGS =
+            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "deeplings"));
 
     // Not implemented yet
     public static final TagKey<MobEffect> INCOMPATIBLE_WITH_CHARGE =

@@ -6,9 +6,9 @@ import net.neoforged.neoforge.common.ModConfigSpec;
 public class ServerConfigs {
     private static final ModConfigSpec.Builder BUILDER = new ModConfigSpec.Builder();
     public static final ModConfigSpec BUILDING;
-    public static ModConfigSpec.ConfigValue<String> COOLDOWN_UNCAP;
-    public static ModConfigSpec.ConfigValue<String> CAST_UNCAP;
-    public static ModConfigSpec.ConfigValue<String> RESIST_UNCAP;
+    public static ModConfigSpec.ConfigValue<Integer> COOLDOWN_UNCAP;
+    public static ModConfigSpec.ConfigValue<Integer> CAST_UNCAP;
+    public static ModConfigSpec.ConfigValue<Integer> RESIST_UNCAP;
 
     public static ModConfigSpec.ConfigValue<Boolean> ISS_SWITCH;
 
@@ -69,6 +69,56 @@ public class ServerConfigs {
 
     public static ModConfigSpec.ConfigValue<Boolean> CAT_SWITCH;
 
+    public static ModConfigSpec.ConfigValue<Double> CRAB_RESIST;
+    public static ModConfigSpec.ConfigValue<Double> CRAB_FIRE_RESIST;
+    public static ModConfigSpec.ConfigValue<Double> CRAB_ICE_RESIST;
+    public static ModConfigSpec.ConfigValue<Double> CRAB_HOLY_RESIST;
+    public static ModConfigSpec.ConfigValue<Double> CRAB_NATURE_RESIST;
+    public static ModConfigSpec.ConfigValue<Double> CRAB_BLOOD_RESIST;
+    public static ModConfigSpec.ConfigValue<Double> CRAB_ENDER_RESIST;
+    public static ModConfigSpec.ConfigValue<Double> CRAB_LIGHTNING_RESIST;
+    public static ModConfigSpec.ConfigValue<Double> CRAB_ELDRITCH_RESIST;
+    public static ModConfigSpec.ConfigValue<Double> CRAB_ABYSSAL_RESIST;
+    public static ModConfigSpec.ConfigValue<Double> CRAB_BLADE_RESIST;
+    public static ModConfigSpec.ConfigValue<Double> CRAB_MUSIC_RESIST;
+    public static ModConfigSpec.ConfigValue<Double> CRAB_WIND_RESIST;
+    public static ModConfigSpec.ConfigValue<Double> CRAB_ARMOR;
+    public static ModConfigSpec.ConfigValue<Double> CRAB_TOUGHNESS;
+
+    public static ModConfigSpec.ConfigValue<Double> DEEP_RESIST;
+    public static ModConfigSpec.ConfigValue<Double> DEEP_FIRE_RESIST;
+    public static ModConfigSpec.ConfigValue<Double> DEEP_ICE_RESIST;
+    public static ModConfigSpec.ConfigValue<Double> DEEP_HOLY_RESIST;
+    public static ModConfigSpec.ConfigValue<Double> DEEP_NATURE_RESIST;
+    public static ModConfigSpec.ConfigValue<Double> DEEP_BLOOD_RESIST;
+    public static ModConfigSpec.ConfigValue<Double> DEEP_ENDER_RESIST;
+    public static ModConfigSpec.ConfigValue<Double> DEEP_LIGHTNING_RESIST;
+    public static ModConfigSpec.ConfigValue<Double> DEEP_ELDRITCH_RESIST;
+    public static ModConfigSpec.ConfigValue<Double> DEEP_ABYSSAL_RESIST;
+    public static ModConfigSpec.ConfigValue<Double> DEEP_BLADE_RESIST;
+    public static ModConfigSpec.ConfigValue<Double> DEEP_MUSIC_RESIST;
+    public static ModConfigSpec.ConfigValue<Double> DEEP_WIND_RESIST;
+    public static ModConfigSpec.ConfigValue<Double> DEEP_ARMOR;
+    public static ModConfigSpec.ConfigValue<Double> DEEP_TOUGHNESS;
+    public static ModConfigSpec.ConfigValue<Double> DEEP_ATTACK;
+
+    public static ModConfigSpec.ConfigValue<Double> CORALO_RESIST;
+    public static ModConfigSpec.ConfigValue<Double> CORALO_FIRE_RESIST;
+    public static ModConfigSpec.ConfigValue<Double> CORALO_ICE_RESIST;
+    public static ModConfigSpec.ConfigValue<Double> CORALO_HOLY_RESIST;
+    public static ModConfigSpec.ConfigValue<Double> CORALO_NATURE_RESIST;
+    public static ModConfigSpec.ConfigValue<Double> CORALO_BLOOD_RESIST;
+    public static ModConfigSpec.ConfigValue<Double> CORALO_ENDER_RESIST;
+    public static ModConfigSpec.ConfigValue<Double> CORALO_LIGHTNING_RESIST;
+    public static ModConfigSpec.ConfigValue<Double> CORALO_ELDRITCH_RESIST;
+    public static ModConfigSpec.ConfigValue<Double> CORALO_ABYSSAL_RESIST;
+    public static ModConfigSpec.ConfigValue<Double> CORALO_BLADE_RESIST;
+    public static ModConfigSpec.ConfigValue<Double> CORALO_MUSIC_RESIST;
+    public static ModConfigSpec.ConfigValue<Double> CORALO_WIND_RESIST;
+    public static ModConfigSpec.ConfigValue<Double> CORALO_ARMOR;
+    public static ModConfigSpec.ConfigValue<Double> CORALO_TOUGHNESS;
+    public static ModConfigSpec.ConfigValue<Double> CORALO_ATTACK;
+
     static {
 
         // MAIN CONFIG
@@ -81,14 +131,13 @@ public class ServerConfigs {
             BUILDER.comment("3 = 'Apotheosis': Maximum at ~8.0 (Made for Apotheosis compat)");
             BUILDER.comment("4 = 'Alternative': Uncapped (For when number go big)");
             BUILDER.comment("Warning: Using 'Alternative' on anything will raise the difficulty by A LOT!");
-            COOLDOWN_UNCAP = BUILDER.worldRestart().define("Cooldown Formula", "1");
-            CAST_UNCAP = BUILDER.worldRestart().define("Cast Time Formula", "1");
-            RESIST_UNCAP = BUILDER.worldRestart().define("Spell Resist Formula", "1");
-            CAT_SWITCH = BUILDER.worldRestart().define("not yet implemented", true);
+            COOLDOWN_UNCAP = BUILDER.worldRestart().define("Cooldown Formula", 1);
+            CAST_UNCAP = BUILDER.worldRestart().define("Cast Time Formula", 1);
+            RESIST_UNCAP = BUILDER.worldRestart().define("Spell Resist Formula", 1);
             BUILDER.pop();
         }
 
-        // TYROS (FIRE BOSS)
+        // IRONS SPELLS
         {
             BUILDER.push("ISS");
             BUILDER.comment("Turns ON/OFF automatic attributes balance for Iron's Spells mod. | Default: true");
@@ -195,6 +244,116 @@ public class ServerConfigs {
                 KEEPER_ARMOR = BUILDER.worldRestart().define("Armor ", 20.0);
                 KEEPER_TOUGHNESS = BUILDER.worldRestart().define("Armor Toughness", 10.0);
                 KEEPER_ATTACK = BUILDER.worldRestart().define("Attack Damage", 13.5);
+                BUILDER.pop();
+            }
+            BUILDER.pop();
+        }
+
+        // CATACLYSM
+        {
+            BUILDER.push("Cataclysm");
+            BUILDER.comment("Turns ON/OFF automatic attributes balance for Cataclysm mod. | Default: true");
+            CAT_SWITCH = BUILDER.worldRestart().define("Automatic Rebalance", true);
+
+            // KREB
+            {
+                BUILDER.push("Amethyst Crab");
+                CRAB_RESIST = BUILDER.worldRestart().define("Spell Resist", 1.2);
+                CRAB_FIRE_RESIST = BUILDER.worldRestart().define("Fire Spell Resistance", -0.85);
+                CRAB_ICE_RESIST = BUILDER.worldRestart().define("Ice Spell Resistance", 0.2);
+                CRAB_HOLY_RESIST = BUILDER.worldRestart().define("Holy Spell Resistance", 1.6);
+                CRAB_NATURE_RESIST = BUILDER.worldRestart().define("Nature Spell Resistance", 3.25);
+                CRAB_BLOOD_RESIST = BUILDER.worldRestart().define("Blood Spell Resistance", 0.45);
+                CRAB_ENDER_RESIST = BUILDER.worldRestart().define("Ender Spell Resistance", 1.3);
+                CRAB_LIGHTNING_RESIST = BUILDER.worldRestart().define("Lightning Spell Resistance", 1.95);
+                CRAB_ELDRITCH_RESIST = BUILDER.worldRestart().define("Eldritch Spell Resistance", 0.35);
+                if (ModList.get().isLoaded("cataclysm_spellbooks")) {
+                    BUILDER.comment("Only works when [Cataclysm: Spellbooks] mod is present");
+                    CRAB_ABYSSAL_RESIST = BUILDER.worldRestart().define("Abyssal Spell Resistance", 0.4);
+                }
+                if (ModList.get().isLoaded("endersequipment")) {
+                    BUILDER.comment("Only works when [Ender's Spells and Stuff] mod is present");
+                    CRAB_BLADE_RESIST = BUILDER.worldRestart().define("Blade Spell Resistance", 2.0);
+                }
+                if (ModList.get().isLoaded("alshanex_familiars")) {
+                    BUILDER.comment("Only works when [Alshanex's Familiars] mod is present");
+                    CRAB_MUSIC_RESIST = BUILDER.worldRestart().define("Sound Spell Resistance", 1.7);
+                }
+                if (ModList.get().isLoaded("aero_additions")) {
+                    BUILDER.comment("Only works when [SnackPirate's Aeromancy] mod is present");
+                    CRAB_WIND_RESIST = BUILDER.worldRestart().define("Air Spell Resistance", 1.35);
+                }
+                CRAB_ARMOR = BUILDER.worldRestart().define("Armor ", 30.0);
+                CRAB_TOUGHNESS = BUILDER.worldRestart().define("Armor Toughness", 12.0);
+                BUILDER.pop();
+            }
+
+            // DEEPLINGS
+            {
+                BUILDER.push("Deeplings Attributes");
+                DEEP_RESIST = BUILDER.worldRestart().define("Spell Resist", 1.2);
+                DEEP_FIRE_RESIST = BUILDER.worldRestart().define("Fire Spell Resistance", 2.35);
+                DEEP_ICE_RESIST = BUILDER.worldRestart().define("Ice Spell Resistance", 1.85);
+                DEEP_HOLY_RESIST = BUILDER.worldRestart().define("Holy Spell Resistance", 0.7);
+                DEEP_NATURE_RESIST = BUILDER.worldRestart().define("Nature Spell Resistance", 0.8);
+                DEEP_BLOOD_RESIST = BUILDER.worldRestart().define("Blood Spell Resistance", 0.9);
+                DEEP_ENDER_RESIST = BUILDER.worldRestart().define("Ender Spell Resistance", 1.65);
+                DEEP_LIGHTNING_RESIST = BUILDER.worldRestart().define("Lightning Spell Resistance", -0.25);
+                DEEP_ELDRITCH_RESIST = BUILDER.worldRestart().define("Eldritch Spell Resistance", 1.6);
+                if (ModList.get().isLoaded("cataclysm_spellbooks")) {
+                    BUILDER.comment("Only works when [Cataclysm: Spellbooks] mod is present");
+                    DEEP_ABYSSAL_RESIST = BUILDER.worldRestart().define("Abyssal Spell Resistance", 3.25);
+                }
+                if (ModList.get().isLoaded("endersequipment")) {
+                    BUILDER.comment("Only works when [Ender's Spells and Stuff] mod is present");
+                    DEEP_BLADE_RESIST = BUILDER.worldRestart().define("Blade Spell Resistance", 0.7);
+                }
+                if (ModList.get().isLoaded("alshanex_familiars")) {
+                    BUILDER.comment("Only works when [Alshanex's Familiars] mod is present");
+                    DEEP_MUSIC_RESIST = BUILDER.worldRestart().define("Sound Spell Resistance", 0.75);
+                }
+                if (ModList.get().isLoaded("aero_additions")) {
+                    BUILDER.comment("Only works when [SnackPirate's Aeromancy] mod is present");
+                    DEEP_WIND_RESIST = BUILDER.worldRestart().define("Air Spell Resistance", 1.1);
+                }
+                DEEP_ARMOR = BUILDER.worldRestart().define("Armor ", 10.0);
+                DEEP_TOUGHNESS = BUILDER.worldRestart().define("Armor Toughness", 5.0);
+                DEEP_ATTACK = BUILDER.worldRestart().define("Attack Damage", 11.5);
+
+                BUILDER.pop();
+            }
+
+            // CORALSSUS
+            {
+                BUILDER.push("Coralssus Miniboss");
+                CORALO_RESIST = BUILDER.worldRestart().define("Spell Resist", 1.5);
+                CORALO_FIRE_RESIST = BUILDER.worldRestart().define("Fire Spell Resistance", 2.15);
+                CORALO_ICE_RESIST = BUILDER.worldRestart().define("Ice Spell Resistance", 1.55);
+                CORALO_HOLY_RESIST = BUILDER.worldRestart().define("Holy Spell Resistance", 0.95);
+                CORALO_NATURE_RESIST = BUILDER.worldRestart().define("Nature Spell Resistance", 0.9);
+                CORALO_BLOOD_RESIST = BUILDER.worldRestart().define("Blood Spell Resistance", 1.1);
+                CORALO_ENDER_RESIST = BUILDER.worldRestart().define("Ender Spell Resistance", 1.75);
+                CORALO_LIGHTNING_RESIST = BUILDER.worldRestart().define("Lightning Spell Resistance", 0.35);
+                CORALO_ELDRITCH_RESIST = BUILDER.worldRestart().define("Eldritch Spell Resistance", 1.8);
+                if (ModList.get().isLoaded("cataclysm_spellbooks")) {
+                    BUILDER.comment("Only works when [Cataclysm: Spellbooks] mod is present");
+                    CORALO_ABYSSAL_RESIST = BUILDER.worldRestart().define("Abyssal Spell Resistance", 3.2);
+                }
+                if (ModList.get().isLoaded("endersequipment")) {
+                    BUILDER.comment("Only works when [Ender's Spells and Stuff] mod is present");
+                    CORALO_BLADE_RESIST = BUILDER.worldRestart().define("Blade Spell Resistance", 1.65);
+                }
+                if (ModList.get().isLoaded("alshanex_familiars")) {
+                    BUILDER.comment("Only works when [Alshanex's Familiars] mod is present");
+                    CORALO_MUSIC_RESIST = BUILDER.worldRestart().define("Sound Spell Resistance", 0.55);
+                }
+                if (ModList.get().isLoaded("aero_additions")) {
+                    BUILDER.comment("Only works when [SnackPirate's Aeromancy] mod is present");
+                    CORALO_WIND_RESIST = BUILDER.worldRestart().define("Air Spell Resistance", 0.7);
+                }
+                CORALO_ARMOR = BUILDER.worldRestart().define("Armor ", 30.0);
+                CORALO_TOUGHNESS = BUILDER.worldRestart().define("Armor Toughness", 15.0);
+                CORALO_ATTACK = BUILDER.worldRestart().define("Attack Damage", 12.0);
                 BUILDER.pop();
             }
             BUILDER.pop();
