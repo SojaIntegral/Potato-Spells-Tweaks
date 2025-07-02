@@ -27,6 +27,8 @@ public class PotatoTags {
             TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "amethyst_crab"));
     public static final TagKey<EntityType<?>> DEEPLINGS =
             TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "deeplings"));
+    public static final TagKey<EntityType<?>> CORALSSUS =
+            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "coralssus"));
 
     // Not implemented yet
     public static final TagKey<MobEffect> INCOMPATIBLE_WITH_CHARGE =

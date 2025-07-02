@@ -80,7 +80,7 @@ public class Coralssus {
             WindRes = ServerConfigs.DEEP_WIND_RESIST.get();
         }
 
-        if (ModList.get().isLoaded("cataclysm_spellbooks") && mob.getType().is(PotatoTags.DEEPLINGS)) {
+        if (ModList.get().isLoaded("cataclysm_spellbooks") && mob.getType().is(PotatoTags.CORALSSUS)) {
             setIfNonNull(mob, Attributes.ARMOR, Armor);
             setIfNonNull(mob, Attributes.ARMOR_TOUGHNESS, Tough);
             setIfNonNull(mob, Attributes.ATTACK_DAMAGE, Attack);
