@@ -1,6 +1,5 @@
 package net.potato_modding.potatospells;
 
-import net.neoforged.bus.api.Event;
 import net.neoforged.fml.config.ModConfig;
 import net.potato_modding.potatospells.config.ServerConfigs;
 import org.slf4j.Logger;

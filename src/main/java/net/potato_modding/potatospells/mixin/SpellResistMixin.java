@@ -15,10 +15,10 @@ public class SpellResistMixin {
     @WrapMethod(method = "getResist")
     private static float getResist(LivingEntity entity, SchoolType damageSchool, Operation<Float> original) {
         var baseResist = entity.getAttributeValue(AttributeRegistry.SPELL_RESIST);
+
         if (damageSchool == null)
             return 2 - (float) PotatoUtils.resistsoftcap(baseResist);
         else
             return 2 - (float) PotatoUtils.resistsoftcap(damageSchool.getResistanceFor(entity) * baseResist);
     }
-
 }
