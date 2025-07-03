@@ -7,6 +7,7 @@ import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.EntityType;
 import net.potato_modding.potatospells.PotatoSpells;
 
+@SuppressWarnings("unused")
 public class PotatoTags {
     // Items
 
