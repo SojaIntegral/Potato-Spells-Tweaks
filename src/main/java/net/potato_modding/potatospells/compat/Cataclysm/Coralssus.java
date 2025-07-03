@@ -62,22 +62,22 @@ public class Coralssus {
         }
 
         else {
-            Armor = ServerConfigs.DEEP_ARMOR.get();
-            Tough = ServerConfigs.DEEP_TOUGHNESS.get();
-            Attack = ServerConfigs.DEEP_ATTACK.get();
-            Resist = ServerConfigs.DEEP_RESIST.get();
-            FireRes = ServerConfigs.DEEP_FIRE_RESIST.get();
-            NatRes = ServerConfigs.DEEP_NATURE_RESIST.get();
-            EndRes = ServerConfigs.DEEP_ENDER_RESIST.get();
-            BldRes = ServerConfigs.DEEP_BLOOD_RESIST.get();
-            IceRes = ServerConfigs.DEEP_ICE_RESIST.get();
-            LigRes = ServerConfigs.DEEP_LIGHTNING_RESIST.get();
-            EldRes = ServerConfigs.DEEP_ELDRITCH_RESIST.get();
-            HolyRes = ServerConfigs.DEEP_HOLY_RESIST.get();
-            BladeRes = ServerConfigs.DEEP_BLADE_RESIST.get();
-            AbyssRes = ServerConfigs.DEEP_ABYSSAL_RESIST.get();
-            SoundRes = ServerConfigs.DEEP_MUSIC_RESIST.get();
-            WindRes = ServerConfigs.DEEP_WIND_RESIST.get();
+            Armor = ServerConfigs.CORALO_ARMOR.get();
+            Tough = ServerConfigs.CORALO_TOUGHNESS.get();
+            Attack = ServerConfigs.CORALO_ATTACK.get();
+            Resist = ServerConfigs.CORALO_RESIST.get();
+            FireRes = ServerConfigs.CORALO_FIRE_RESIST.get();
+            NatRes = ServerConfigs.CORALO_NATURE_RESIST.get();
+            EndRes = ServerConfigs.CORALO_ENDER_RESIST.get();
+            BldRes = ServerConfigs.CORALO_BLOOD_RESIST.get();
+            IceRes = ServerConfigs.CORALO_ICE_RESIST.get();
+            LigRes = ServerConfigs.CORALO_LIGHTNING_RESIST.get();
+            EldRes = ServerConfigs.CORALO_ELDRITCH_RESIST.get();
+            HolyRes = ServerConfigs.CORALO_HOLY_RESIST.get();
+            BladeRes = ServerConfigs.CORALO_BLADE_RESIST.get();
+            AbyssRes = ServerConfigs.CORALO_ABYSSAL_RESIST.get();
+            SoundRes = ServerConfigs.CORALO_MUSIC_RESIST.get();
+            WindRes = ServerConfigs.CORALO_WIND_RESIST.get();
         }
 
         if (ModList.get().isLoaded("cataclysm_spellbooks") && mob.getType().is(PotatoTags.CORALSSUS)) {

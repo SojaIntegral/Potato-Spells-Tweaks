@@ -119,6 +119,23 @@ public class ServerConfigs {
     public static ModConfigSpec.ConfigValue<Double> CORALO_TOUGHNESS;
     public static ModConfigSpec.ConfigValue<Double> CORALO_ATTACK;
 
+    public static ModConfigSpec.ConfigValue<Double> CORALG_RESIST;
+    public static ModConfigSpec.ConfigValue<Double> CORALG_FIRE_RESIST;
+    public static ModConfigSpec.ConfigValue<Double> CORALG_ICE_RESIST;
+    public static ModConfigSpec.ConfigValue<Double> CORALG_HOLY_RESIST;
+    public static ModConfigSpec.ConfigValue<Double> CORALG_NATURE_RESIST;
+    public static ModConfigSpec.ConfigValue<Double> CORALG_BLOOD_RESIST;
+    public static ModConfigSpec.ConfigValue<Double> CORALG_ENDER_RESIST;
+    public static ModConfigSpec.ConfigValue<Double> CORALG_LIGHTNING_RESIST;
+    public static ModConfigSpec.ConfigValue<Double> CORALG_ELDRITCH_RESIST;
+    public static ModConfigSpec.ConfigValue<Double> CORALG_ABYSSAL_RESIST;
+    public static ModConfigSpec.ConfigValue<Double> CORALG_BLADE_RESIST;
+    public static ModConfigSpec.ConfigValue<Double> CORALG_MUSIC_RESIST;
+    public static ModConfigSpec.ConfigValue<Double> CORALG_WIND_RESIST;
+    public static ModConfigSpec.ConfigValue<Double> CORALG_ARMOR;
+    public static ModConfigSpec.ConfigValue<Double> CORALG_TOUGHNESS;
+    public static ModConfigSpec.ConfigValue<Double> CORALG_ATTACK;
+
     static {
 
         // MAIN CONFIG
@@ -354,6 +371,40 @@ public class ServerConfigs {
                 CORALO_ARMOR = BUILDER.worldRestart().define("Armor ", 30.0);
                 CORALO_TOUGHNESS = BUILDER.worldRestart().define("Armor Toughness", 15.0);
                 CORALO_ATTACK = BUILDER.worldRestart().define("Attack Damage", 12.0);
+                BUILDER.pop();
+            }
+
+            // CORAL GOLEM
+            {
+                BUILDER.push("Coral Golem");
+                CORALG_RESIST = BUILDER.worldRestart().define("Spell Resist", 1.15);
+                CORALG_FIRE_RESIST = BUILDER.worldRestart().define("Fire Spell Resistance", 2.15);
+                CORALG_ICE_RESIST = BUILDER.worldRestart().define("Ice Spell Resistance", 1.55);
+                CORALG_HOLY_RESIST = BUILDER.worldRestart().define("Holy Spell Resistance", 0.95);
+                CORALG_NATURE_RESIST = BUILDER.worldRestart().define("Nature Spell Resistance", 0.9);
+                CORALG_BLOOD_RESIST = BUILDER.worldRestart().define("Blood Spell Resistance", 1.1);
+                CORALG_ENDER_RESIST = BUILDER.worldRestart().define("Ender Spell Resistance", 1.75);
+                CORALG_LIGHTNING_RESIST = BUILDER.worldRestart().define("Lightning Spell Resistance", 0.35);
+                CORALG_ELDRITCH_RESIST = BUILDER.worldRestart().define("Eldritch Spell Resistance", 1.8);
+                if (ModList.get().isLoaded("cataclysm_spellbooks")) {
+                    BUILDER.comment("Only works when [Cataclysm: Spellbooks] mod is present");
+                    CORALG_ABYSSAL_RESIST = BUILDER.worldRestart().define("Abyssal Spell Resistance", 3.2);
+                }
+                if (ModList.get().isLoaded("endersequipment")) {
+                    BUILDER.comment("Only works when [Ender's Spells and Stuff] mod is present");
+                    CORALG_BLADE_RESIST = BUILDER.worldRestart().define("Blade Spell Resistance", 1.65);
+                }
+                if (ModList.get().isLoaded("alshanex_familiars")) {
+                    BUILDER.comment("Only works when [Alshanex's Familiars] mod is present");
+                    CORALG_MUSIC_RESIST = BUILDER.worldRestart().define("Sound Spell Resistance", 0.55);
+                }
+                if (ModList.get().isLoaded("aero_additions")) {
+                    BUILDER.comment("Only works when [SnackPirate's Aeromancy] mod is present");
+                    CORALG_WIND_RESIST = BUILDER.worldRestart().define("Air Spell Resistance", 0.7);
+                }
+                CORALG_ARMOR = BUILDER.worldRestart().define("Armor ", 30.0);
+                CORALG_TOUGHNESS = BUILDER.worldRestart().define("Armor Toughness", 15.0);
+                CORALG_ATTACK = BUILDER.worldRestart().define("Attack Damage", 12.0);
                 BUILDER.pop();
             }
             BUILDER.pop();

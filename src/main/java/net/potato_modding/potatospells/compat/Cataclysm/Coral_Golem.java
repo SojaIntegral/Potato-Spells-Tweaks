@@ -15,7 +15,7 @@ import net.potato_modding.potatospells.utils.PotatoTags;
 
 @SuppressWarnings("unused")
 @EventBusSubscriber
-public class Amethyst_Crab {
+public class Coral_Golem {
 
     @SubscribeEvent
     public static void handleResistanceAttributeSpawn(FinalizeSpawnEvent event) {
@@ -26,6 +26,7 @@ public class Amethyst_Crab {
 
         double Armor = 0;
         double Tough = 0;
+        double Attack = 0;
         double Resist = 0;
         double FireRes = 0;
         double NatRes = 0;
@@ -42,44 +43,47 @@ public class Amethyst_Crab {
 
         if (ServerConfigs.CAT_SWITCH.get()) {
             // Amethyst  attributes
-            Armor += 30 * (1 + m/4);
-            Tough += 12 * (1 + m/4);
-            Resist += Math.pow(1.15, m);
-            FireRes -= Math.pow(0.95, m);
-            NatRes += Math.pow(3.0, m);
-            EndRes += Math.pow(1.25, m);
-            BldRes += Math.pow(0.35, m);
-            IceRes += Math.pow(0.75, m);
-            LigRes += Math.pow(1.8, m);
-            EldRes -= Math.pow(0.2, m);
-            HolyRes += Math.pow(1.5, m);
-            BladeRes += Math.pow(1.95, m);
-            AbyssRes += Math.pow(0.25, m);
-            SoundRes += Math.pow(1.6, m);
-            WindRes += Math.pow(1.2, m);
+            Armor += 20 * (1 + m/4);
+            Tough += 20 * (1 + m/4);
+            Attack += 9.5 * (1 + m/4);
+            Resist += Math.pow(1.1, m);
+            FireRes += Math.pow(1.95, m);
+            NatRes += Math.pow(0.55, m);
+            EndRes += Math.pow(1.3, m);
+            BldRes += Math.pow(0.85, m);
+            IceRes += Math.pow(1.55, m);
+            LigRes += Math.pow(0.2, m);
+            EldRes += Math.pow(1.85, m);
+            HolyRes += Math.pow(1.15, m);
+            BladeRes += Math.pow(1.9, m);
+            AbyssRes += Math.pow(2.5, m);
+            SoundRes += Math.pow(0.85, m);
+            WindRes += Math.pow(0.6, m);
         }
 
         else {
-            Armor = ServerConfigs.CRAB_ARMOR.get();
-            Tough = ServerConfigs.CRAB_TOUGHNESS.get();
-            Resist = ServerConfigs.CRAB_RESIST.get();
-            FireRes = ServerConfigs.CRAB_FIRE_RESIST.get();
-            NatRes = ServerConfigs.CRAB_NATURE_RESIST.get();
-            EndRes = ServerConfigs.CRAB_ENDER_RESIST.get();
-            BldRes = ServerConfigs.CRAB_BLOOD_RESIST.get();
-            IceRes = ServerConfigs.CRAB_ICE_RESIST.get();
-            LigRes = ServerConfigs.CRAB_LIGHTNING_RESIST.get();
-            EldRes = ServerConfigs.CRAB_ELDRITCH_RESIST.get();
-            HolyRes = ServerConfigs.CRAB_HOLY_RESIST.get();
-            BladeRes = ServerConfigs.CRAB_BLADE_RESIST.get();
-            AbyssRes = ServerConfigs.CRAB_ABYSSAL_RESIST.get();
-            SoundRes = ServerConfigs.CRAB_MUSIC_RESIST.get();
-            WindRes = ServerConfigs.CRAB_WIND_RESIST.get();
+            Armor = ServerConfigs.CORALG_ARMOR.get();
+            Tough = ServerConfigs.CORALG_TOUGHNESS.get();
+            Attack = ServerConfigs.CORALG_ATTACK.get();
+            Resist = ServerConfigs.CORALG_RESIST.get();
+            FireRes = ServerConfigs.CORALG_FIRE_RESIST.get();
+            NatRes = ServerConfigs.CORALG_NATURE_RESIST.get();
+            EndRes = ServerConfigs.CORALG_ENDER_RESIST.get();
+            BldRes = ServerConfigs.CORALG_BLOOD_RESIST.get();
+            IceRes = ServerConfigs.CORALG_ICE_RESIST.get();
+            LigRes = ServerConfigs.CORALG_LIGHTNING_RESIST.get();
+            EldRes = ServerConfigs.CORALG_ELDRITCH_RESIST.get();
+            HolyRes = ServerConfigs.CORALG_HOLY_RESIST.get();
+            BladeRes = ServerConfigs.CORALG_BLADE_RESIST.get();
+            AbyssRes = ServerConfigs.CORALG_ABYSSAL_RESIST.get();
+            SoundRes = ServerConfigs.CORALG_MUSIC_RESIST.get();
+            WindRes = ServerConfigs.CORALG_WIND_RESIST.get();
         }
 
-        if (ModList.get().isLoaded("cataclysm_spellbooks") && mob.getType().is(PotatoTags.AMETHYST_CRAB)) {
+        if (ModList.get().isLoaded("cataclysm_spellbooks") && mob.getType().is(PotatoTags.CORALGOLEM)) {
             setIfNonNull(mob, Attributes.ARMOR, Armor);
             setIfNonNull(mob, Attributes.ARMOR_TOUGHNESS, Tough);
+            setIfNonNull(mob, Attributes.ATTACK_DAMAGE, Attack);
             setIfNonNull(mob, AttributeRegistry.SPELL_RESIST, Resist);
             setIfNonNull(mob, AttributeRegistry.FIRE_MAGIC_RESIST, FireRes);
             setIfNonNull(mob, AttributeRegistry.NATURE_MAGIC_RESIST, NatRes);
