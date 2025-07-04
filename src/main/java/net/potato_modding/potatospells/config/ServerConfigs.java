@@ -136,6 +136,23 @@ public class ServerConfigs {
     public static ModConfigSpec.ConfigValue<Double> CORALG_TOUGHNESS;
     public static ModConfigSpec.ConfigValue<Double> CORALG_ATTACK;
 
+    public static ModConfigSpec.ConfigValue<Double> LEVIA_RESIST;
+    public static ModConfigSpec.ConfigValue<Double> LEVIA_FIRE_RESIST;
+    public static ModConfigSpec.ConfigValue<Double> LEVIA_ICE_RESIST;
+    public static ModConfigSpec.ConfigValue<Double> LEVIA_HOLY_RESIST;
+    public static ModConfigSpec.ConfigValue<Double> LEVIA_NATURE_RESIST;
+    public static ModConfigSpec.ConfigValue<Double> LEVIA_BLOOD_RESIST;
+    public static ModConfigSpec.ConfigValue<Double> LEVIA_ENDER_RESIST;
+    public static ModConfigSpec.ConfigValue<Double> LEVIA_LIGHTNING_RESIST;
+    public static ModConfigSpec.ConfigValue<Double> LEVIA_ELDRITCH_RESIST;
+    public static ModConfigSpec.ConfigValue<Double> LEVIA_ABYSSAL_RESIST;
+    public static ModConfigSpec.ConfigValue<Double> LEVIA_BLADE_RESIST;
+    public static ModConfigSpec.ConfigValue<Double> LEVIA_MUSIC_RESIST;
+    public static ModConfigSpec.ConfigValue<Double> LEVIA_WIND_RESIST;
+    public static ModConfigSpec.ConfigValue<Double> LEVIA_ARMOR;
+    public static ModConfigSpec.ConfigValue<Double> LEVIA_TOUGHNESS;
+    public static ModConfigSpec.ConfigValue<Double> LEVIA_ATTACK;
+
     static {
 
         // MAIN CONFIG
@@ -405,6 +422,40 @@ public class ServerConfigs {
                 CORALG_ARMOR = BUILDER.worldRestart().define("Armor ", 30.0);
                 CORALG_TOUGHNESS = BUILDER.worldRestart().define("Armor Toughness", 15.0);
                 CORALG_ATTACK = BUILDER.worldRestart().define("Attack Damage", 12.0);
+                BUILDER.pop();
+            }
+
+            // CORAL GOLEM
+            {
+                BUILDER.push("Leviathan Boss");
+                LEVIA_RESIST = BUILDER.worldRestart().define("Spell Resist", 1.25);
+                LEVIA_FIRE_RESIST = BUILDER.worldRestart().define("Fire Spell Resistance", 2.3);
+                LEVIA_ICE_RESIST = BUILDER.worldRestart().define("Ice Spell Resistance", 1.6);
+                LEVIA_HOLY_RESIST = BUILDER.worldRestart().define("Holy Spell Resistance", 0.8);
+                LEVIA_NATURE_RESIST = BUILDER.worldRestart().define("Nature Spell Resistance", 0.95);
+                LEVIA_BLOOD_RESIST = BUILDER.worldRestart().define("Blood Spell Resistance", 1.05);
+                LEVIA_ENDER_RESIST = BUILDER.worldRestart().define("Ender Spell Resistance", 1.9);
+                LEVIA_LIGHTNING_RESIST = BUILDER.worldRestart().define("Lightning Spell Resistance", 0.65);
+                LEVIA_ELDRITCH_RESIST = BUILDER.worldRestart().define("Eldritch Spell Resistance", 2.0);
+                if (ModList.get().isLoaded("cataclysm_spellbooks")) {
+                    BUILDER.comment("Only works when [Cataclysm: Spellbooks] mod is present");
+                    LEVIA_ABYSSAL_RESIST = BUILDER.worldRestart().define("Abyssal Spell Resistance", 3.5);
+                }
+                if (ModList.get().isLoaded("endersequipment")) {
+                    BUILDER.comment("Only works when [Ender's Spells and Stuff] mod is present");
+                    LEVIA_BLADE_RESIST = BUILDER.worldRestart().define("Blade Spell Resistance", 1.35);
+                }
+                if (ModList.get().isLoaded("alshanex_familiars")) {
+                    BUILDER.comment("Only works when [Alshanex's Familiars] mod is present");
+                    LEVIA_MUSIC_RESIST = BUILDER.worldRestart().define("Sound Spell Resistance", 0.85);
+                }
+                if (ModList.get().isLoaded("aero_additions")) {
+                    BUILDER.comment("Only works when [SnackPirate's Aeromancy] mod is present");
+                    LEVIA_WIND_RESIST = BUILDER.worldRestart().define("Air Spell Resistance", 1.15);
+                }
+                LEVIA_ARMOR = BUILDER.worldRestart().define("Armor ", 15.0);
+                LEVIA_TOUGHNESS = BUILDER.worldRestart().define("Armor Toughness", 15.0);
+                LEVIA_ATTACK = BUILDER.worldRestart().define("Attack Damage", 10.0);
                 BUILDER.pop();
             }
             BUILDER.pop();

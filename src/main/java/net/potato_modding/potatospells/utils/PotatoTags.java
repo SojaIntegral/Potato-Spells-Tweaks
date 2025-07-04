@@ -9,9 +9,6 @@ import net.potato_modding.potatospells.PotatoSpells;
 
 @SuppressWarnings("unused")
 public class PotatoTags {
-    // Items
-
-    // Blocks
 
     // ISS Entities
     public static final TagKey<EntityType<?>> TYROS_BOSS =
@@ -32,6 +29,10 @@ public class PotatoTags {
             TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "coralssus"));
     public static final TagKey<EntityType<?>> CORALGOLEM =
             TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "coral_golem"));
+    public static final TagKey<EntityType<?>> LEVIATHAN =
+            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "leviathan_boss"));
+    public static final TagKey<EntityType<?>> MINI_LEVIATHAN =
+            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "mini_leviathan"));
 
     // Not implemented yet
     public static final TagKey<MobEffect> INCOMPATIBLE_WITH_CHARGE =
