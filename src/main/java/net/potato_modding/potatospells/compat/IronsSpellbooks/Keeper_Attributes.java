@@ -13,11 +13,13 @@ import net.potato_modding.potatospells.compat.CompatFormulas;
 import net.potato_modding.potatospells.config.ServerConfigs;
 import net.potato_modding.potatospells.utils.PotatoTags;
 
+import static net.neoforged.bus.api.EventPriority.LOWEST;
+
 @SuppressWarnings("unused")
 @EventBusSubscriber
 public class Keeper_Attributes {
 
-    @SubscribeEvent
+    @SubscribeEvent(priority = LOWEST)
     public static void handleResistanceAttributeSpawn(FinalizeSpawnEvent event) {
         //System.out.println("Event");
         var mob = event.getEntity();

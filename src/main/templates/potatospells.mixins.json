@@ -5,8 +5,7 @@
   "mixins": [
     "SpellResistMixin",
     "CooldownMixin",
-    "CastTimeMixin",
-    "ResistanceFixerMixin"
+    "CastTimeMixin"
   ],
   "client": [
   ],

@@ -13,12 +13,13 @@ import net.potato_modding.potatospells.compat.CompatFormulas;
 import net.potato_modding.potatospells.config.ServerConfigs;
 import net.potato_modding.potatospells.utils.PotatoTags;
 
-/*
+import static net.neoforged.bus.api.EventPriority.LOWEST;
+
 @SuppressWarnings("unused")
 @EventBusSubscriber
 public class Symbiocto {
 
-    @SubscribeEvent
+    @SubscribeEvent(priority = LOWEST)
     public static void handleResistanceAttributeSpawn(FinalizeSpawnEvent event) {
         //System.out.println("Event");
         var mob = event.getEntity();
@@ -94,7 +95,7 @@ public class Symbiocto {
             setIfNonNull(mob, AttributeRegistry.LIGHTNING_MAGIC_RESIST, LigRes);
             setIfNonNull(mob, AttributeRegistry.ELDRITCH_MAGIC_RESIST, EldRes);
             setIfNonNull(mob, AttributeRegistry.HOLY_MAGIC_RESIST, HolyRes);
-            // This needs to be conditional or the game shits itself if the mod is not present
+            // This needs tohttps://www.oxente.ch/english/legends-and-stories/legend-of-mani/ be conditional or the game shits itself if the mod is not present
             if (ModList.get().isLoaded("endersequipment")) {
                 setIfNonNull(mob, net.ender.endersequipment.registries.EEAttributeRegistry.BLADE_MAGIC_RESIST, BladeRes);
             }
@@ -120,4 +121,3 @@ public class Symbiocto {
         }
     }
 }
- */
