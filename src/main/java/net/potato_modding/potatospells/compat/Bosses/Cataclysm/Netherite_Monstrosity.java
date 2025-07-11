@@ -1,4 +1,4 @@
-package net.potato_modding.potatospells.compat.Cataclysm;
+package net.potato_modding.potatospells.compat.Bosses.Cataclysm;
 
 import io.redspace.ironsspellbooks.api.registry.AttributeRegistry;
 import net.minecraft.core.Holder;
@@ -9,7 +9,7 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModList;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.living.FinalizeSpawnEvent;
-import net.potato_modding.potatospells.compat.CompatFormulas;
+import net.potato_modding.potatospells.utils.ConfigFormulas;
 import net.potato_modding.potatospells.config.ServerConfigs;
 import net.potato_modding.potatospells.utils.PotatoTags;
 
@@ -17,18 +17,17 @@ import static net.neoforged.bus.api.EventPriority.LOWEST;
 
 @SuppressWarnings("unused")
 @EventBusSubscriber
-public class Deeplings {
+public class Netherite_Monstrosity {
 
     @SubscribeEvent(priority = LOWEST)
     public static void handleResistanceAttributeSpawn(FinalizeSpawnEvent event) {
         //System.out.println("Event");
         var mob = event.getEntity();
 
-        double m = CompatFormulas.attrFormula;
+        double m = ConfigFormulas.attrFormula;
 
         double Armor = 0;
         double Tough = 0;
-        double Attack = 0;
         double Resist = 0;
         double FireRes = 0;
         double NatRes = 0;
@@ -43,49 +42,46 @@ public class Deeplings {
         double SoundRes = 0;
         double WindRes = 0;
 
-        if (ServerConfigs.CAT_SWITCH.get()) {
+        if (ServerConfigs.BOSS_SWITCH.get()) {
             // Amethyst  attributes
-            Armor += 10 * (1 + m/4);
-            Tough += 5 * (1 + m/4);
-            Attack += 10 * (1 + m/4);
+            Armor += 20 * (1 + m/4);
+            Tough += 20 * (1 + m/4);
             Resist += Math.pow(1.2, m);
-            FireRes += Math.pow(2.25, m);
-            NatRes += Math.pow(0.65, m);
-            EndRes += Math.pow(1.5, m);
-            BldRes += Math.pow(0.75, m);
-            IceRes += Math.pow(1.7, m);
-            LigRes -= Math.pow(0.3, m);
-            EldRes += Math.pow(1.45, m);
-            HolyRes += Math.pow(0.7, m);
-            BladeRes += Math.pow(0.55, m);
-            AbyssRes += Math.pow(3.0, m);
-            SoundRes += Math.pow(0.6, m);
-            WindRes += Math.pow(0.9, m);
+            FireRes += Math.pow(3.25, m);
+            IceRes -= Math.pow(0.45, m);
+            HolyRes += Math.pow(1.65, m);
+            NatRes += Math.pow(2.0, m);
+            BldRes += Math.pow(1.85, m);
+            EndRes += Math.pow(0.85, m);
+            LigRes += Math.pow(0.9, m);
+            EldRes += Math.pow(1.25, m);
+            AbyssRes -= Math.pow(0.75, m);
+            BladeRes += Math.pow(2.35, m);
+            SoundRes += Math.pow(1.45, m);
+            WindRes += Math.pow(1.7, m);
         }
 
         else {
-            Armor = ServerConfigs.DEEP_ARMOR.get();
-            Tough = ServerConfigs.DEEP_TOUGHNESS.get();
-            Attack = ServerConfigs.DEEP_ATTACK.get();
-            Resist = ServerConfigs.DEEP_RESIST.get();
-            FireRes = ServerConfigs.DEEP_FIRE_RESIST.get();
-            NatRes = ServerConfigs.DEEP_NATURE_RESIST.get();
-            EndRes = ServerConfigs.DEEP_ENDER_RESIST.get();
-            BldRes = ServerConfigs.DEEP_BLOOD_RESIST.get();
-            IceRes = ServerConfigs.DEEP_ICE_RESIST.get();
-            LigRes = ServerConfigs.DEEP_LIGHTNING_RESIST.get();
-            EldRes = ServerConfigs.DEEP_ELDRITCH_RESIST.get();
-            HolyRes = ServerConfigs.DEEP_HOLY_RESIST.get();
-            BladeRes = ServerConfigs.DEEP_BLADE_RESIST.get();
-            AbyssRes = ServerConfigs.DEEP_ABYSSAL_RESIST.get();
-            SoundRes = ServerConfigs.DEEP_MUSIC_RESIST.get();
-            WindRes = ServerConfigs.DEEP_WIND_RESIST.get();
+            Armor = ServerConfigs.NETMONST_ARMOR.get();
+            Tough = ServerConfigs.NETMONST_TOUGHNESS.get();
+            Resist = ServerConfigs.NETMONST_RESIST.get();
+            FireRes = ServerConfigs.NETMONST_FIRE_RESIST.get();
+            NatRes = ServerConfigs.NETMONST_NATURE_RESIST.get();
+            EndRes = ServerConfigs.NETMONST_ENDER_RESIST.get();
+            BldRes = ServerConfigs.NETMONST_BLOOD_RESIST.get();
+            IceRes = ServerConfigs.NETMONST_ICE_RESIST.get();
+            LigRes = ServerConfigs.NETMONST_LIGHTNING_RESIST.get();
+            EldRes = ServerConfigs.NETMONST_ELDRITCH_RESIST.get();
+            HolyRes = ServerConfigs.NETMONST_HOLY_RESIST.get();
+            BladeRes = ServerConfigs.NETMONST_BLADE_RESIST.get();
+            AbyssRes = ServerConfigs.NETMONST_ABYSSAL_RESIST.get();
+            SoundRes = ServerConfigs.NETMONST_MUSIC_RESIST.get();
+            WindRes = ServerConfigs.NETMONST_WIND_RESIST.get();
         }
 
-        if (ModList.get().isLoaded("cataclysm_spellbooks") && mob.getType().is(PotatoTags.DEEPLINGS)) {
+        if (ModList.get().isLoaded("cataclysm_spellbooks") && mob.getType().is(PotatoTags.NETHERITE_MONSTROSITY)) {
             setIfNonNull(mob, Attributes.ARMOR, Armor);
             setIfNonNull(mob, Attributes.ARMOR_TOUGHNESS, Tough);
-            setIfNonNull(mob, Attributes.ATTACK_DAMAGE, Attack);
             setIfNonNull(mob, AttributeRegistry.SPELL_RESIST, Resist);
             setIfNonNull(mob, AttributeRegistry.FIRE_MAGIC_RESIST, FireRes);
             setIfNonNull(mob, AttributeRegistry.NATURE_MAGIC_RESIST, NatRes);

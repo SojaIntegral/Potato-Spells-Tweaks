@@ -1,16 +1,15 @@
-package net.potato_modding.potatospells.compat.IronsSpellbooks;
+package net.potato_modding.potatospells.compat.Bosses.ISS;
 
 import io.redspace.ironsspellbooks.api.registry.AttributeRegistry;
 import net.minecraft.core.Holder;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.PowerableMob;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModList;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.living.FinalizeSpawnEvent;
-import net.potato_modding.potatospells.compat.CompatFormulas;
+import net.potato_modding.potatospells.utils.ConfigFormulas;
 import net.potato_modding.potatospells.config.ServerConfigs;
 import net.potato_modding.potatospells.utils.PotatoTags;
 
@@ -18,14 +17,14 @@ import static net.neoforged.bus.api.EventPriority.LOWEST;
 
 @SuppressWarnings("unused")
 @EventBusSubscriber
-public class Tyros_Attributes {
+public class Tyros {
 
     @SubscribeEvent(priority = LOWEST)
     public static void handleResistanceAttributeSpawn(FinalizeSpawnEvent event) {
         //System.out.println("Event");
         var mob = event.getEntity();
 
-        double m = CompatFormulas.attrFormula;
+        double m = ConfigFormulas.attrFormula;
 
         double Armor = 0;
         double Tough = 0;
@@ -46,7 +45,7 @@ public class Tyros_Attributes {
         double SoundRes = 0;
         double WindRes = 0;
 
-        if (ServerConfigs.CAT_SWITCH.get()) {
+        if (ServerConfigs.BOSS_SWITCH.get()) {
             // Amethyst  attributes
             Armor += 25 * (1 + m/4);
             Tough += 10 * (1 + m/4);
@@ -68,7 +67,7 @@ public class Tyros_Attributes {
             WindRes += Math.pow(0.8, m);
         }
 
-        if (!ServerConfigs.CAT_SWITCH.get()) {
+        else {
             Armor = ServerConfigs.TYROS_ARMOR.get();
             Tough = ServerConfigs.TYROS_TOUGHNESS.get();
             Attack = ServerConfigs.TYROS_ATTACK.get();

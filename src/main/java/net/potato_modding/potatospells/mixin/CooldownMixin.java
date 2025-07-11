@@ -5,6 +5,7 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import io.redspace.ironsspellbooks.api.spells.CastSource;
 import io.redspace.ironsspellbooks.capabilities.magic.MagicManager;
 import io.redspace.ironsspellbooks.config.ServerConfigs;
+import net.potato_modding.potatospells.utils.MixinFixes;
 import org.spongepowered.asm.mixin.Mixin;
 import io.redspace.ironsspellbooks.api.spells.AbstractSpell;
 import net.minecraft.world.entity.player.Player;
@@ -21,6 +22,6 @@ public class CooldownMixin {
         if (castSource == CastSource.SWORD) {
             itemCoolDownModifer = ServerConfigs.SWORDS_CD_MULTIPLIER.get().floatValue();
         }
-        return (int) (spell.getSpellCooldown() * (2 - net.potato_modding.potatospells.utils.PotatoUtils.cooldownsoftcap(playerCooldownModifier)) * itemCoolDownModifer);
+        return (int) (spell.getSpellCooldown() * (2 - MixinFixes.cooldownsoftcap(playerCooldownModifier)) * itemCoolDownModifer);
     }
 }

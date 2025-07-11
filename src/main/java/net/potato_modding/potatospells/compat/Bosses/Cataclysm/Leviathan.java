@@ -1,4 +1,4 @@
-package net.potato_modding.potatospells.compat.IronsSpellbooks;
+package net.potato_modding.potatospells.compat.Bosses.Cataclysm;
 
 import io.redspace.ironsspellbooks.api.registry.AttributeRegistry;
 import net.minecraft.core.Holder;
@@ -9,7 +9,7 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModList;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.living.FinalizeSpawnEvent;
-import net.potato_modding.potatospells.compat.CompatFormulas;
+import net.potato_modding.potatospells.utils.ConfigFormulas;
 import net.potato_modding.potatospells.config.ServerConfigs;
 import net.potato_modding.potatospells.utils.PotatoTags;
 
@@ -17,20 +17,18 @@ import static net.neoforged.bus.api.EventPriority.LOWEST;
 
 @SuppressWarnings("unused")
 @EventBusSubscriber
-public class DeadKing_Attributes {
+public class Leviathan {
 
     @SubscribeEvent(priority = LOWEST)
     public static void handleResistanceAttributeSpawn(FinalizeSpawnEvent event) {
         //System.out.println("Event");
         var mob = event.getEntity();
 
-        double m = CompatFormulas.attrFormula;
+        double m = ConfigFormulas.attrFormula;
 
         double Armor = 0;
         double Tough = 0;
         double Attack = 0;
-        double Power = 0;
-        double FirePower = 0;
         double Resist = 0;
         double FireRes = 0;
         double NatRes = 0;
@@ -45,55 +43,49 @@ public class DeadKing_Attributes {
         double SoundRes = 0;
         double WindRes = 0;
 
-        if (ServerConfigs.CAT_SWITCH.get()) {
+        if (ServerConfigs.BOSS_SWITCH.get()) {
             // Amethyst  attributes
-            Armor += 18 * (1 + m/4);
-            Tough += 7 * (1 + m/4);
-            Attack += 7.5 * (1 + m/4);
-            Power += Math.pow(1.25, m);
-            FirePower += Math.pow(1.35, m);
-            Resist += Math.pow(1.6, m);
-            FireRes -= Math.pow(0.3, m);
-            NatRes += Math.pow(0.8, m);
-            EndRes += Math.pow(1.55, m);
-            BldRes += Math.pow(0.5, m);
-            IceRes += Math.pow(1.35, m);
-            LigRes += Math.pow(0.75, m);
+            Armor += 15 * (1 + m/4);
+            Tough += 15 * (1 + m/4);
+            Attack += 10 * (1 + m/4);
+            Resist += Math.pow(1.3, m);
+            FireRes += Math.pow(2.5, m);
+            NatRes += Math.pow(0.75, m);
+            EndRes += Math.pow(1.75, m);
+            BldRes += Math.pow(0.8, m);
+            IceRes += Math.pow(1.9, m);
+            LigRes -= Math.pow(0.15, m);
             EldRes += Math.pow(2.0, m);
-            HolyRes -= Math.pow(1.0, m);
-            BladeRes += Math.pow(0.85, m);
-            AbyssRes += Math.pow(1.45, m);
-            SoundRes -= Math.pow(0.5, m);
-            WindRes += Math.pow(1.4, m);
+            HolyRes += Math.pow(0.85, m);
+            BladeRes += Math.pow(0.65, m);
+            AbyssRes += Math.pow(4.0, m);
+            SoundRes += Math.pow(0.95, m);
+            WindRes += Math.pow(1.2, m);
         }
 
-        if (!ServerConfigs.CAT_SWITCH.get()) {
-            Armor = ServerConfigs.DEAD_ARMOR.get();
-            Tough = ServerConfigs.DEAD_TOUGHNESS.get();
-            Attack = ServerConfigs.DEAD_ATTACK.get();
-            Resist = ServerConfigs.DEAD_RESIST.get();
-            Power = ServerConfigs.DEAD_POWER.get();
-            FirePower = ServerConfigs.DEAD_BLOOD_SPELL.get();
-            FireRes = ServerConfigs.DEAD_FIRE_RESIST.get();
-            NatRes = ServerConfigs.DEAD_NATURE_RESIST.get();
-            EndRes = ServerConfigs.DEAD_ENDER_RESIST.get();
-            BldRes = ServerConfigs.DEAD_BLOOD_RESIST.get();
-            IceRes = ServerConfigs.DEAD_ICE_RESIST.get();
-            LigRes = ServerConfigs.DEAD_LIGHTNING_RESIST.get();
-            EldRes = ServerConfigs.DEAD_ELDRITCH_RESIST.get();
-            HolyRes = ServerConfigs.DEAD_HOLY_RESIST.get();
-            BladeRes = ServerConfigs.DEAD_BLADE_RESIST.get();
-            AbyssRes = ServerConfigs.DEAD_ABYSSAL_RESIST.get();
-            SoundRes = ServerConfigs.DEAD_MUSIC_RESIST.get();
-            WindRes = ServerConfigs.DEAD_WIND_RESIST.get();
+        else {
+            Armor = ServerConfigs.LEVIA_ARMOR.get();
+            Tough = ServerConfigs.LEVIA_TOUGHNESS.get();
+            Attack = ServerConfigs.LEVIA_ATTACK.get();
+            Resist = ServerConfigs.LEVIA_RESIST.get();
+            FireRes = ServerConfigs.LEVIA_FIRE_RESIST.get();
+            NatRes = ServerConfigs.LEVIA_NATURE_RESIST.get();
+            EndRes = ServerConfigs.LEVIA_ENDER_RESIST.get();
+            BldRes = ServerConfigs.LEVIA_BLOOD_RESIST.get();
+            IceRes = ServerConfigs.LEVIA_ICE_RESIST.get();
+            LigRes = ServerConfigs.LEVIA_LIGHTNING_RESIST.get();
+            EldRes = ServerConfigs.LEVIA_ELDRITCH_RESIST.get();
+            HolyRes = ServerConfigs.LEVIA_HOLY_RESIST.get();
+            BladeRes = ServerConfigs.LEVIA_BLADE_RESIST.get();
+            AbyssRes = ServerConfigs.LEVIA_ABYSSAL_RESIST.get();
+            SoundRes = ServerConfigs.LEVIA_MUSIC_RESIST.get();
+            WindRes = ServerConfigs.LEVIA_WIND_RESIST.get();
         }
 
-        if (mob.getType().is(PotatoTags.DEADKING_BOSS)) {
+        if (ModList.get().isLoaded("cataclysm_spellbooks") && mob.getType().is(PotatoTags.LEVIATHAN)) {
             setIfNonNull(mob, Attributes.ARMOR, Armor);
             setIfNonNull(mob, Attributes.ARMOR_TOUGHNESS, Tough);
             setIfNonNull(mob, Attributes.ATTACK_DAMAGE, Attack);
-            setIfNonNull(mob, AttributeRegistry.SPELL_POWER, Power);
-            setIfNonNull(mob, AttributeRegistry.BLOOD_SPELL_POWER, FirePower);
             setIfNonNull(mob, AttributeRegistry.SPELL_RESIST, Resist);
             setIfNonNull(mob, AttributeRegistry.FIRE_MAGIC_RESIST, FireRes);
             setIfNonNull(mob, AttributeRegistry.NATURE_MAGIC_RESIST, NatRes);

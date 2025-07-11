@@ -2,9 +2,7 @@ package net.potato_modding.potatospells.utils;
 
 import net.potato_modding.potatospells.config.ServerConfigs;
 
-import java.util.Objects;
-
-public class PotatoUtils {
+public class MixinFixes {
 
     /*
     SOFTCAP FORMULAS

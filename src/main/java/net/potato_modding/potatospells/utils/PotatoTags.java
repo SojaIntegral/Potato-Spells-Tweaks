@@ -17,22 +17,12 @@ public class PotatoTags {
             TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "deadking_boss"));
     public static final TagKey<EntityType<?>> KEEPER_MOB =
             TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "citadel_keeper"));
-    public static final TagKey<EntityType<?>> SUMMONS =
-            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "summons"));
 
     // Cataclysm Entities
-    public static final TagKey<EntityType<?>> AMETHYST_CRAB =
-            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "amethyst_crab"));
-    public static final TagKey<EntityType<?>> DEEPLINGS =
-            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "deeplings"));
-    public static final TagKey<EntityType<?>> CORALSSUS =
-            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "coralssus"));
-    public static final TagKey<EntityType<?>> CORALGOLEM =
-            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "coral_golem"));
-    public static final TagKey<EntityType<?>> LEVIATHAN =
+    public static final TagKey<EntityType<?>> NETHERITE_MONSTROSITY =
+            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "netherite_monstrosity"));
+   public static final TagKey<EntityType<?>> LEVIATHAN =
             TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "leviathan_boss"));
-    public static final TagKey<EntityType<?>> MINI_LEVIATHAN =
-            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "mini_leviathan"));
 
     // Not implemented yet
     public static final TagKey<MobEffect> INCOMPATIBLE_WITH_CHARGE =

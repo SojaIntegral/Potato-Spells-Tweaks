@@ -1,6 +1,6 @@
 package net.potato_modding.potatospells.mixin;
 
-import net.potato_modding.potatospells.utils.PotatoUtils;
+import net.potato_modding.potatospells.utils.MixinFixes;
 import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import io.redspace.ironsspellbooks.api.registry.AttributeRegistry;
@@ -17,8 +17,8 @@ public class SpellResistMixin {
         var baseResist = entity.getAttributeValue(AttributeRegistry.SPELL_RESIST);
 
         if (damageSchool == null)
-            return 2 - (float) PotatoUtils.resistsoftcap(baseResist);
+            return 2 - (float) MixinFixes.resistsoftcap(baseResist);
         else
-            return 2 - (float) PotatoUtils.resistsoftcap(damageSchool.getResistanceFor(entity) * baseResist);
+            return 2 - (float) MixinFixes.resistsoftcap(damageSchool.getResistanceFor(entity) * baseResist);
     }
 }

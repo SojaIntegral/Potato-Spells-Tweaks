@@ -1,11 +1,11 @@
-package net.potato_modding.potatospells.compat;
+package net.potato_modding.potatospells.utils;
 
 import net.potato_modding.potatospells.config.ServerConfigs;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CompatFormulas {
+public class ConfigFormulas {
 
     // Defining variables that hod the values that were input in the configs
     public static int a;
