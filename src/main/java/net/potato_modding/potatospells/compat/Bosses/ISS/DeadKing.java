@@ -9,49 +9,26 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModList;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.living.FinalizeSpawnEvent;
-import net.potato_modding.potatospells.utils.ConfigFormulas;
 import net.potato_modding.potatospells.config.ServerConfigs;
 import net.potato_modding.potatospells.utils.PotatoTags;
 
-import static net.neoforged.bus.api.EventPriority.LOWEST;
+import static net.potato_modding.potatospells.utils.ConfigFormulas.*;
 
 @SuppressWarnings("unused")
 @EventBusSubscriber
 public class DeadKing {
 
-    @SubscribeEvent(priority = LOWEST)
-    public static void handleResistanceAttributeSpawn(FinalizeSpawnEvent event) {
-        //System.out.println("Event");
+    @SubscribeEvent(priority = net.neoforged.bus.api.EventPriority.LOWEST)
+    private static void handleResistanceAttributeSpawn(FinalizeSpawnEvent event) {
         var mob = event.getEntity();
-
-        double m = ConfigFormulas.attrFormula;
-
-        double Armor = 0;
-        double Tough = 0;
-        double Attack = 0;
-        double Power = 0;
-        double FirePower = 0;
-        double Resist = 0;
-        double FireRes = 0;
-        double NatRes = 0;
-        double EndRes = 0;
-        double BldRes = 0;
-        double IceRes = 0;
-        double LigRes = 0;
-        double EldRes = 0;
-        double HolyRes = 0;
-        double BladeRes = 0;
-        double AbyssRes = 0;
-        double SoundRes = 0;
-        double WindRes = 0;
 
         if (ServerConfigs.BOSS_SWITCH.get()) {
             // Amethyst  attributes
             Armor += 18 * (1 + m/4);
             Tough += 7 * (1 + m/4);
             Attack += 7.5 * (1 + m/4);
-            Power += Math.pow(1.25, m);
-            FirePower += Math.pow(1.35, m);
+            SpellPower += Math.pow(1.25, m);
+            SchoolPower += Math.pow(1.35, m);
             Resist += Math.pow(1.6, m);
             FireRes -= Math.pow(0.3, m);
             NatRes += Math.pow(0.8, m);
@@ -72,8 +49,8 @@ public class DeadKing {
             Tough = ServerConfigs.DEAD_TOUGHNESS.get();
             Attack = ServerConfigs.DEAD_ATTACK.get();
             Resist = ServerConfigs.DEAD_RESIST.get();
-            Power = ServerConfigs.DEAD_POWER.get();
-            FirePower = ServerConfigs.DEAD_BLOOD_SPELL.get();
+            SpellPower = ServerConfigs.DEAD_POWER.get();
+            SchoolPower = ServerConfigs.DEAD_BLOOD_SPELL.get();
             FireRes = ServerConfigs.DEAD_FIRE_RESIST.get();
             NatRes = ServerConfigs.DEAD_NATURE_RESIST.get();
             EndRes = ServerConfigs.DEAD_ENDER_RESIST.get();
@@ -92,8 +69,8 @@ public class DeadKing {
             setIfNonNull(mob, Attributes.ARMOR, Armor);
             setIfNonNull(mob, Attributes.ARMOR_TOUGHNESS, Tough);
             setIfNonNull(mob, Attributes.ATTACK_DAMAGE, Attack);
-            setIfNonNull(mob, AttributeRegistry.SPELL_POWER, Power);
-            setIfNonNull(mob, AttributeRegistry.BLOOD_SPELL_POWER, FirePower);
+            setIfNonNull(mob, AttributeRegistry.SPELL_POWER, SpellPower);
+            setIfNonNull(mob, AttributeRegistry.BLOOD_SPELL_POWER, SchoolPower);
             setIfNonNull(mob, AttributeRegistry.SPELL_RESIST, Resist);
             setIfNonNull(mob, AttributeRegistry.FIRE_MAGIC_RESIST, FireRes);
             setIfNonNull(mob, AttributeRegistry.NATURE_MAGIC_RESIST, NatRes);
@@ -116,6 +93,28 @@ public class DeadKing {
             if (ModList.get().isLoaded("aero_additions")) {
                 setIfNonNull(mob, com.snackpirate.aeromancy.spells.AASpells.Attributes.WIND_MAGIC_RESIST, WindRes);
             }
+        }
+
+        // We reset this stuff so it doesn't make other mobs go crazy
+        {
+            SpellPower = 0;
+            SchoolPower = 0;
+            Resist = 0;
+            FireRes = 0;
+            IceRes = 0;
+            HolyRes = 0;
+            NatRes = 0;
+            BldRes = 0;
+            EndRes = 0;
+            LigRes = 0;
+            EldRes = 0;
+            AbyssRes = 0;
+            BladeRes = 0;
+            SoundRes = 0;
+            WindRes = 0;
+            Armor = 0;
+            Tough = 0;
+            Attack = 0;
         }
     }
 

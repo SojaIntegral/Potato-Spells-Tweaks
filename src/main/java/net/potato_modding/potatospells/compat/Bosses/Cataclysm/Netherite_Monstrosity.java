@@ -9,46 +9,24 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModList;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.living.FinalizeSpawnEvent;
-import net.potato_modding.potatospells.utils.ConfigFormulas;
 import net.potato_modding.potatospells.config.ServerConfigs;
 import net.potato_modding.potatospells.utils.PotatoTags;
 
-import static net.neoforged.bus.api.EventPriority.LOWEST;
+import static net.potato_modding.potatospells.utils.ConfigFormulas.*;
 
 @SuppressWarnings("unused")
 @EventBusSubscriber
 public class Netherite_Monstrosity {
 
-    @SubscribeEvent(priority = LOWEST)
-    public static void handleResistanceAttributeSpawn(FinalizeSpawnEvent event) {
-        //System.out.println("Event");
+    @SubscribeEvent(priority = net.neoforged.bus.api.EventPriority.LOWEST)
+    private static void handleResistanceAttributeSpawn(FinalizeSpawnEvent event) {
         var mob = event.getEntity();
-
-        double m = ConfigFormulas.attrFormula;
-
-        double Armor = 0;
-        double Tough = 0;
-        double Resist = 0;
-        double FireRes = 0;
-        double NatRes = 0;
-        double EndRes = 0;
-        double BldRes = 0;
-        double IceRes = 0;
-        double LigRes = 0;
-        double EldRes = 0;
-        double HolyRes = 0;
-        double BladeRes = 0;
-        double AbyssRes = 0;
-        double SoundRes = 0;
-        double WindRes = 0;
 
         if (ServerConfigs.BOSS_SWITCH.get()) {
             // Amethyst  attributes
-            Armor += 20 * (1 + m/4);
-            Tough += 20 * (1 + m/4);
             Resist += Math.pow(1.2, m);
             FireRes += Math.pow(3.25, m);
-            IceRes -= Math.pow(0.45, m);
+            IceRes -= Math.pow(1.05, m);
             HolyRes += Math.pow(1.65, m);
             NatRes += Math.pow(2.0, m);
             BldRes += Math.pow(1.85, m);
@@ -59,6 +37,8 @@ public class Netherite_Monstrosity {
             BladeRes += Math.pow(2.35, m);
             SoundRes += Math.pow(1.45, m);
             WindRes += Math.pow(1.7, m);
+            Armor += 20 * (1 + m/4);
+            Tough += 20 * (1 + m/4);
         }
 
         else {
@@ -104,6 +84,28 @@ public class Netherite_Monstrosity {
             if (ModList.get().isLoaded("aero_additions")) {
                 setIfNonNull(mob, com.snackpirate.aeromancy.spells.AASpells.Attributes.WIND_MAGIC_RESIST, WindRes);
             }
+        }
+
+        // We reset this stuff so it doesn't make other mobs go crazy
+        {
+            SpellPower = 0;
+            SchoolPower = 0;
+            Resist = 0;
+            FireRes = 0;
+            IceRes = 0;
+            HolyRes = 0;
+            NatRes = 0;
+            BldRes = 0;
+            EndRes = 0;
+            LigRes = 0;
+            EldRes = 0;
+            AbyssRes = 0;
+            BladeRes = 0;
+            SoundRes = 0;
+            WindRes = 0;
+            Armor = 0;
+            Tough = 0;
+            Attack = 0;
         }
     }
 

@@ -34,7 +34,8 @@ public class ConfigFormulas {
     }
 
     // Now defining the formula for the sake of organization
-    public static double attrFormula;
+    // m stands for Modifier
+    public static double m;
 
     static {
         int a1 = a/12;
@@ -44,6 +45,28 @@ public class ConfigFormulas {
 
         // Trust me, this works
         // This is peak math
-        attrFormula = Math.pow(2, (Math.pow(exp, 2) / 4));
+        // Edit: This is not working properly (fix later)
+        m = Math.pow(2, (Math.pow(exp, 2) / 4));
     }
+
+
+    // Attributes for mobs
+    public static double SpellPower = 0;
+    public static double SchoolPower = 0;
+    public static double Resist = 0;
+    public static double FireRes = 0;
+    public static double IceRes = 0;
+    public static double HolyRes = 0;
+    public static double NatRes = 0;
+    public static double BldRes = 0;
+    public static double EndRes = 0;
+    public static double LigRes = 0;
+    public static double EldRes = 0;
+    public static double AbyssRes = 0;
+    public static double BladeRes = 0;
+    public static double SoundRes = 0;
+    public static double WindRes = 0;
+    public static double Armor = 0;
+    public static double Tough = 0;
+    public static double Attack = 0;
 }

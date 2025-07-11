@@ -9,39 +9,18 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModList;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.living.FinalizeSpawnEvent;
-import net.potato_modding.potatospells.utils.ConfigFormulas;
 import net.potato_modding.potatospells.config.ServerConfigs;
 import net.potato_modding.potatospells.utils.PotatoTags;
 
-import static net.neoforged.bus.api.EventPriority.LOWEST;
+import static net.potato_modding.potatospells.utils.ConfigFormulas.*;
 
 @SuppressWarnings("unused")
 @EventBusSubscriber
 public class Keeper_Attributes {
 
-    @SubscribeEvent(priority = LOWEST)
-    public static void handleResistanceAttributeSpawn(FinalizeSpawnEvent event) {
-        //System.out.println("Event");
+    @SubscribeEvent(priority = net.neoforged.bus.api.EventPriority.LOWEST)
+    private static void handleResistanceAttributeSpawn(FinalizeSpawnEvent event) {
         var mob = event.getEntity();
-
-        double m = ConfigFormulas.attrFormula;
-
-        double Armor = 0;
-        double Tough = 0;
-        double Attack = 0;
-        double Resist = 0;
-        double FireRes = 0;
-        double NatRes = 0;
-        double EndRes = 0;
-        double BldRes = 0;
-        double IceRes = 0;
-        double LigRes = 0;
-        double EldRes = 0;
-        double HolyRes = 0;
-        double BladeRes = 0;
-        double AbyssRes = 0;
-        double SoundRes = 0;
-        double WindRes = 0;
 
         if (ServerConfigs.MINIBOSS_SWITCH.get()) {
             // Amethyst  attributes
@@ -108,6 +87,28 @@ public class Keeper_Attributes {
             if (ModList.get().isLoaded("aero_additions")) {
                 setIfNonNull(mob, com.snackpirate.aeromancy.spells.AASpells.Attributes.WIND_MAGIC_RESIST, WindRes);
             }
+        }
+
+        // We reset this stuff so it doesn't make other mobs go crazy
+        {
+            SpellPower = 0;
+            SchoolPower = 0;
+            Resist = 0;
+            FireRes = 0;
+            IceRes = 0;
+            HolyRes = 0;
+            NatRes = 0;
+            BldRes = 0;
+            EndRes = 0;
+            LigRes = 0;
+            EldRes = 0;
+            AbyssRes = 0;
+            BladeRes = 0;
+            SoundRes = 0;
+            WindRes = 0;
+            Armor = 0;
+            Tough = 0;
+            Attack = 0;
         }
     }
 

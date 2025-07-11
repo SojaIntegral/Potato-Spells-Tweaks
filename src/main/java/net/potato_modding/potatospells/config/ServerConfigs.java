@@ -12,6 +12,7 @@ public class ServerConfigs {
 
     public static ModConfigSpec.ConfigValue<Boolean> BOSS_SWITCH;
     public static ModConfigSpec.ConfigValue<Boolean> MINIBOSS_SWITCH;
+    public static ModConfigSpec.ConfigValue<Boolean> MOB_SWITCH;
 
     public static ModConfigSpec.ConfigValue<Double> TYROS_RESIST;
     public static ModConfigSpec.ConfigValue<Double> TYROS_FIRE_RESIST;
@@ -105,6 +106,7 @@ public class ServerConfigs {
 
         // MAIN CONFIG
         {
+            // Unify configs? (would eliminate issues down the line with complexity for automatic stuff)
             BUILDER.push("Main");
             BUILDER.comment("RE-BALANCE FORMULAS:");
             BUILDER.comment("Accept '1', '2', '3' or '4'");
@@ -232,11 +234,23 @@ public class ServerConfigs {
             BUILDER.pop();
         }
 
-        // MINIBOSS
+        // MINIBOSSES
         {
             BUILDER.push("MINIBOSS");
             BUILDER.comment("Turns ON/OFF automatic attributes balance for Mini-Bosses. | Default: true");
             MINIBOSS_SWITCH = BUILDER.worldRestart().define("Automatic Rebalance", true);
+
+            {
+
+            }
+            BUILDER.pop();
+        }
+
+        // MOBS
+        {
+            BUILDER.push("MINIBOSS");
+            BUILDER.comment("Turns ON/OFF automatic attributes balance for Mobs. | Default: true");
+            MOB_SWITCH = BUILDER.worldRestart().define("Automatic Rebalance", true);
 
             // LIVING ARMOR (CITADEL KEEPER)
             {
