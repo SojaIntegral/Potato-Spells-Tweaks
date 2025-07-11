@@ -6,6 +6,7 @@ import io.redspace.ironsspellbooks.api.util.Utils;
 import net.potato_modding.potatospells.utils.MixinFixes;
 import org.spongepowered.asm.mixin.Mixin;
 
+@SuppressWarnings("unused")
 @Mixin(Utils.class)
 public class CastTimeMixin {
 

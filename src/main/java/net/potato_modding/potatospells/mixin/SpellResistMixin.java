@@ -9,6 +9,7 @@ import io.redspace.ironsspellbooks.damage.DamageSources;
 import net.minecraft.world.entity.LivingEntity;
 import org.spongepowered.asm.mixin.Mixin;
 
+@SuppressWarnings("unused")
 @Mixin(DamageSources.class)
 public class SpellResistMixin {
 

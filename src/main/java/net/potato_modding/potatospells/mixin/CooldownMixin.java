@@ -11,6 +11,7 @@ import io.redspace.ironsspellbooks.api.spells.AbstractSpell;
 import net.minecraft.world.entity.player.Player;
 import static io.redspace.ironsspellbooks.api.registry.AttributeRegistry.COOLDOWN_REDUCTION;
 
+@SuppressWarnings("unused")
 @Mixin(MagicManager.class)
 public class CooldownMixin {
 
