@@ -1,4 +1,4 @@
-package net.potato_modding.potatospells.compat.Bosses.ISS;
+package net.potato_modding.potatospells.compat.Mobs.ISS;
 
 import io.redspace.ironsspellbooks.api.registry.AttributeRegistry;
 import net.minecraft.core.Holder;
@@ -9,68 +9,40 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModList;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
-import net.potato_modding.potatospells.config.ServerConfigs;
 import net.potato_modding.potatospells.utils.PotatoTags;
 
 import static net.potato_modding.potatospells.utils.ConfigFormulas.*;
 
 @SuppressWarnings("unused")
 @EventBusSubscriber
-public class DeadKing {
+public class Citadel_Keeper {
 
     @SubscribeEvent(priority = net.neoforged.bus.api.EventPriority.LOWEST)
     private static void handleResistanceAttributeCataclysm(EntityJoinLevelEvent event) {
         var mob = event.getEntity();
 
-        if (ServerConfigs.BOSS_SWITCH.get()) {
             // Amethyst  attributes
-            Armor += 18 * (1 + m/3.25);
-            Tough += 7 * (1 + m/3.25);
-            Attack += 7.5 * (1 + m/3.25);
-            SpellPower += 1.25 * m;
-            SchoolPower += 1.35 * m;
-            Resist += 1.6 * m;
-            FireRes -= 0.3 * m;
-            NatRes += 0.8 * m;
-            EndRes += 1.55 * m;
-            BldRes += 0.5 * m;
-            IceRes += 1.35 * m;
-            LigRes += 0.75 * m;
-            EldRes += 2.0 * m;
-            HolyRes -= 0.95 * m;
-            BladeRes += 0.85 * m;
-            AbyssRes += 1.45 * m;
-            SoundRes -= 0.5 * m;
-            WindRes += 1.4 * m;
-        }
+            Armor += 20 * (1 + m/3.25);
+            Tough += 10 * (1 + m/3.25);
+            Attack += 10.5 * (1 + m/3.25);
+            Resist += 0.9 * m;
+            FireRes += 1.75 * m;
+            NatRes += 1.5 * m;
+            EndRes += 1.2 * m;
+            BldRes += 1.5 * m;
+            IceRes += 0.3 * m;
+            LigRes += 1.65 * m;
+            EldRes += 1.7 * m;
+            HolyRes -= 0.5 * m;
+            BladeRes += 1.65 * m;
+            AbyssRes += 1.15 * m;
+            SoundRes += 1.4 * m;
+            WindRes += 1.35 * m;
 
-        else {
-            Armor = ServerConfigs.DEAD_ARMOR.get();
-            Tough = ServerConfigs.DEAD_TOUGHNESS.get();
-            Attack = ServerConfigs.DEAD_ATTACK.get();
-            Resist = ServerConfigs.DEAD_RESIST.get();
-            SpellPower = ServerConfigs.DEAD_POWER.get();
-            SchoolPower = ServerConfigs.DEAD_BLOOD_SPELL.get();
-            FireRes = ServerConfigs.DEAD_FIRE_RESIST.get();
-            NatRes = ServerConfigs.DEAD_NATURE_RESIST.get();
-            EndRes = ServerConfigs.DEAD_ENDER_RESIST.get();
-            BldRes = ServerConfigs.DEAD_BLOOD_RESIST.get();
-            IceRes = ServerConfigs.DEAD_ICE_RESIST.get();
-            LigRes = ServerConfigs.DEAD_LIGHTNING_RESIST.get();
-            EldRes = ServerConfigs.DEAD_ELDRITCH_RESIST.get();
-            HolyRes = ServerConfigs.DEAD_HOLY_RESIST.get();
-            BladeRes = ServerConfigs.DEAD_BLADE_RESIST.get();
-            AbyssRes = ServerConfigs.DEAD_ABYSSAL_RESIST.get();
-            SoundRes = ServerConfigs.DEAD_MUSIC_RESIST.get();
-            WindRes = ServerConfigs.DEAD_WIND_RESIST.get();
-        }
-
-        if (mob.getType().is(PotatoTags.DEADKING_BOSS)) {
+        if (mob.getType().is(PotatoTags.KEEPER_MOB)) {
             setIfNonNull((LivingEntity) mob, Attributes.ARMOR, Armor);
             setIfNonNull((LivingEntity) mob, Attributes.ARMOR_TOUGHNESS, Tough);
             setIfNonNull((LivingEntity) mob, Attributes.ATTACK_DAMAGE, Attack);
-            setIfNonNull((LivingEntity) mob, AttributeRegistry.SPELL_POWER, SpellPower);
-            setIfNonNull((LivingEntity) mob, AttributeRegistry.BLOOD_SPELL_POWER, SchoolPower);
             setIfNonNull((LivingEntity) mob, AttributeRegistry.SPELL_RESIST, Resist);
             setIfNonNull((LivingEntity) mob, AttributeRegistry.FIRE_MAGIC_RESIST, FireRes);
             setIfNonNull((LivingEntity) mob, AttributeRegistry.NATURE_MAGIC_RESIST, NatRes);

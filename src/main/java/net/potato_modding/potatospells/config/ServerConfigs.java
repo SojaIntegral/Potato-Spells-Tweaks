@@ -10,7 +10,6 @@ public class ServerConfigs {
 
     public static ModConfigSpec.ConfigValue<Boolean> BOSS_SWITCH;
     public static ModConfigSpec.ConfigValue<Boolean> MINIBOSS_SWITCH;
-    public static ModConfigSpec.ConfigValue<Boolean> MOB_SWITCH;
 
     public static ModConfigSpec.ConfigValue<Double> TYROS_RESIST;
     public static ModConfigSpec.ConfigValue<Double> TYROS_FIRE_RESIST;

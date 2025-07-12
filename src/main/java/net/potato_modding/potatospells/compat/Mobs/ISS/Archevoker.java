@@ -8,17 +8,17 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModList;
 import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.neoforge.event.entity.living.FinalizeSpawnEvent;
+import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
 import net.potato_modding.potatospells.utils.PotatoTags;
 
 import static net.potato_modding.potatospells.utils.ConfigFormulas.*;
 
 @SuppressWarnings("unused")
 @EventBusSubscriber
-public class Keeper_Attributes {
+public class Archevoker {
 
     @SubscribeEvent(priority = net.neoforged.bus.api.EventPriority.LOWEST)
-    private static void handleResistanceAttributeSpawn(FinalizeSpawnEvent event) {
+    private static void handleResistanceAttributeCataclysm(EntityJoinLevelEvent event) {
         var mob = event.getEntity();
 
             // Amethyst  attributes
@@ -39,31 +39,31 @@ public class Keeper_Attributes {
             SoundRes += 1.4 * m;
             WindRes += 1.35 * m;
 
-        if (mob.getType().is(PotatoTags.KEEPER_MOB)) {
-            setIfNonNull(mob, Attributes.ARMOR, Armor);
-            setIfNonNull(mob, Attributes.ARMOR_TOUGHNESS, Tough);
-            setIfNonNull(mob, Attributes.ATTACK_DAMAGE, Attack);
-            setIfNonNull(mob, AttributeRegistry.SPELL_RESIST, Resist);
-            setIfNonNull(mob, AttributeRegistry.FIRE_MAGIC_RESIST, FireRes);
-            setIfNonNull(mob, AttributeRegistry.NATURE_MAGIC_RESIST, NatRes);
-            setIfNonNull(mob, AttributeRegistry.ENDER_MAGIC_RESIST, EndRes);
-            setIfNonNull(mob, AttributeRegistry.BLOOD_MAGIC_RESIST, BldRes);
-            setIfNonNull(mob, AttributeRegistry.ICE_MAGIC_RESIST, IceRes);
-            setIfNonNull(mob, AttributeRegistry.LIGHTNING_MAGIC_RESIST, LigRes);
-            setIfNonNull(mob, AttributeRegistry.ELDRITCH_MAGIC_RESIST, EldRes);
-            setIfNonNull(mob, AttributeRegistry.HOLY_MAGIC_RESIST, HolyRes);
+        if (mob.getType().is(PotatoTags.MAGE_EVOKE)) {
+            setIfNonNull((LivingEntity) mob, Attributes.ARMOR, Armor);
+            setIfNonNull((LivingEntity) mob, Attributes.ARMOR_TOUGHNESS, Tough);
+            setIfNonNull((LivingEntity) mob, Attributes.ATTACK_DAMAGE, Attack);
+            setIfNonNull((LivingEntity) mob, AttributeRegistry.SPELL_RESIST, Resist);
+            setIfNonNull((LivingEntity) mob, AttributeRegistry.FIRE_MAGIC_RESIST, FireRes);
+            setIfNonNull((LivingEntity) mob, AttributeRegistry.NATURE_MAGIC_RESIST, NatRes);
+            setIfNonNull((LivingEntity) mob, AttributeRegistry.ENDER_MAGIC_RESIST, EndRes);
+            setIfNonNull((LivingEntity) mob, AttributeRegistry.BLOOD_MAGIC_RESIST, BldRes);
+            setIfNonNull((LivingEntity) mob, AttributeRegistry.ICE_MAGIC_RESIST, IceRes);
+            setIfNonNull((LivingEntity) mob, AttributeRegistry.LIGHTNING_MAGIC_RESIST, LigRes);
+            setIfNonNull((LivingEntity) mob, AttributeRegistry.ELDRITCH_MAGIC_RESIST, EldRes);
+            setIfNonNull((LivingEntity) mob, AttributeRegistry.HOLY_MAGIC_RESIST, HolyRes);
             // This needs to be conditional or the game shits itself if the mod is not present
             if (ModList.get().isLoaded("endersequipment")) {
-                setIfNonNull(mob, net.ender.endersequipment.registries.EEAttributeRegistry.BLADE_MAGIC_RESIST, BladeRes);
+                setIfNonNull((LivingEntity) mob, net.ender.endersequipment.registries.EEAttributeRegistry.BLADE_MAGIC_RESIST, BladeRes);
             }
             if (ModList.get().isLoaded("cataclysm_spellbooks")) {
-                setIfNonNull(mob, net.acetheeldritchking.cataclysm_spellbooks.registries.CSAttributeRegistry.ABYSSAL_MAGIC_RESIST, AbyssRes);
+                setIfNonNull((LivingEntity) mob, net.acetheeldritchking.cataclysm_spellbooks.registries.CSAttributeRegistry.ABYSSAL_MAGIC_RESIST, AbyssRes);
             }
             if (ModList.get().isLoaded("alshanex_familiars")) {
-                setIfNonNull(mob, net.alshanex.alshanex_familiars.registry.AttributeRegistry.SOUND_MAGIC_RESIST, SoundRes);
+                setIfNonNull((LivingEntity) mob, net.alshanex.alshanex_familiars.registry.AttributeRegistry.SOUND_MAGIC_RESIST, SoundRes);
             }
             if (ModList.get().isLoaded("aero_additions")) {
-                setIfNonNull(mob, com.snackpirate.aeromancy.spells.AASpells.Attributes.WIND_MAGIC_RESIST, WindRes);
+                setIfNonNull((LivingEntity) mob, com.snackpirate.aeromancy.spells.AASpells.Attributes.WIND_MAGIC_RESIST, WindRes);
             }
         }
 

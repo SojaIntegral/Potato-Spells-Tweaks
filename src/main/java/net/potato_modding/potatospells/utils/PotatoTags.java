@@ -12,17 +12,35 @@ public class PotatoTags {
 
     // ISS Entities
     public static final TagKey<EntityType<?>> TYROS_BOSS =
-            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "tyros_boss"));
+            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "bosses/iss/tyros_boss"));
     public static final TagKey<EntityType<?>> DEADKING_BOSS =
-            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "deadking_boss"));
+            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "bosses/iss/deadking_boss"));
+
     public static final TagKey<EntityType<?>> KEEPER_MOB =
-            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "citadel_keeper"));
+            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "mobs/iss/citadel_keeper"));
+    public static final TagKey<EntityType<?>> ICE_SPIDER =
+            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "mobs/iss/ice_spider"));
+
+    public static final TagKey<EntityType<?>> MAGE_BLOOD =
+            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "mobs/iss/mage_blood"));
+    public static final TagKey<EntityType<?>> MAGE_EVOKE =
+            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "mobs/iss/mage_evoke"));
+    public static final TagKey<EntityType<?>> MAGE_FIRE =
+            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "mobs/iss/mage_fire"));
+    public static final TagKey<EntityType<?>> MAGE_HOLY =
+            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "mobs/iss/mage_holy"));
+    public static final TagKey<EntityType<?>> MAGE_ICE =
+            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "mobs/iss/mage_ice"));
+    public static final TagKey<EntityType<?>> MAGE_NATURE =
+            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "mobs/iss/mage_nature"));
+
 
     // Cataclysm Entities
     public static final TagKey<EntityType<?>> NETHERITE_MONSTROSITY =
-            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "netherite_monstrosity"));
+            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "bosses/cataclysm/netherite_monstrosity"));
    public static final TagKey<EntityType<?>> LEVIATHAN =
-            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "leviathan_boss"));
+            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "bosses/cataclysm/leviathan_boss"));
+
 
     // Not implemented yet
     public static final TagKey<MobEffect> INCOMPATIBLE_WITH_CHARGE =

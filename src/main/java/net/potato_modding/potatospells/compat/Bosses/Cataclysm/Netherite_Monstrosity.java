@@ -2,20 +2,15 @@ package net.potato_modding.potatospells.compat.Bosses.Cataclysm;
 
 import io.redspace.ironsspellbooks.api.registry.AttributeRegistry;
 import net.minecraft.core.Holder;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModList;
 import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.neoforge.event.entity.living.FinalizeSpawnEvent;
-import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
+import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
 import net.potato_modding.potatospells.config.ServerConfigs;
 import net.potato_modding.potatospells.utils.PotatoTags;
-
-import java.util.Objects;
 
 import static net.potato_modding.potatospells.utils.ConfigFormulas.*;
 
@@ -24,7 +19,7 @@ import static net.potato_modding.potatospells.utils.ConfigFormulas.*;
 public class Netherite_Monstrosity {
 
     @SubscribeEvent(priority = net.neoforged.bus.api.EventPriority.LOWEST)
-    private static void handleResistanceAttributeSpawn(FinalizeSpawnEvent event) {
+    private static void handleResistanceAttributeCataclysm(EntityJoinLevelEvent event) {
         var mob = event.getEntity();
 
         if (ServerConfigs.BOSS_SWITCH.get()) {
@@ -64,94 +59,54 @@ public class Netherite_Monstrosity {
             WindRes = ServerConfigs.NETMONST_WIND_RESIST.get();
         }
 
-        if (ModList.get().isLoaded("cataclysm_spellbooks") && mob.getType().is(PotatoTags.NETHERITE_MONSTROSITY)) {
-            setIfNonNull(mob, Attributes.ARMOR, Armor);
-            setIfNonNull(mob, Attributes.ARMOR_TOUGHNESS, Tough);
-            setIfNonNull(mob, AttributeRegistry.SPELL_RESIST, Resist);
-            setIfNonNull(mob, AttributeRegistry.FIRE_MAGIC_RESIST, FireRes);
-            setIfNonNull(mob, AttributeRegistry.NATURE_MAGIC_RESIST, NatRes);
-            setIfNonNull(mob, AttributeRegistry.ENDER_MAGIC_RESIST, EndRes);
-            setIfNonNull(mob, AttributeRegistry.BLOOD_MAGIC_RESIST, BldRes);
-            setIfNonNull(mob, AttributeRegistry.ICE_MAGIC_RESIST, IceRes);
-            setIfNonNull(mob, AttributeRegistry.LIGHTNING_MAGIC_RESIST, LigRes);
-            setIfNonNull(mob, AttributeRegistry.ELDRITCH_MAGIC_RESIST, EldRes);
-            setIfNonNull(mob, AttributeRegistry.HOLY_MAGIC_RESIST, HolyRes);
+        if (ModList.get().isLoaded("cataclysm") && mob.getType().is(PotatoTags.NETHERITE_MONSTROSITY)) {
+            setIfNonNull((LivingEntity) mob, Attributes.ARMOR, Armor);
+            setIfNonNull((LivingEntity) mob, Attributes.ARMOR_TOUGHNESS, Tough);
+            setIfNonNull((LivingEntity) mob, AttributeRegistry.SPELL_RESIST, Resist);
+            setIfNonNull((LivingEntity) mob, AttributeRegistry.FIRE_MAGIC_RESIST, FireRes);
+            setIfNonNull((LivingEntity) mob, AttributeRegistry.NATURE_MAGIC_RESIST, NatRes);
+            setIfNonNull((LivingEntity) mob, AttributeRegistry.ENDER_MAGIC_RESIST, EndRes);
+            setIfNonNull((LivingEntity) mob, AttributeRegistry.BLOOD_MAGIC_RESIST, BldRes);
+            setIfNonNull((LivingEntity) mob, AttributeRegistry.ICE_MAGIC_RESIST, IceRes);
+            setIfNonNull((LivingEntity) mob, AttributeRegistry.LIGHTNING_MAGIC_RESIST, LigRes);
+            setIfNonNull((LivingEntity) mob, AttributeRegistry.ELDRITCH_MAGIC_RESIST, EldRes);
+            setIfNonNull((LivingEntity) mob, AttributeRegistry.HOLY_MAGIC_RESIST, HolyRes);
             // This needs to be conditional or the game shits itself if the mod is not present
             if (ModList.get().isLoaded("endersequipment")) {
-                setIfNonNull(mob, net.ender.endersequipment.registries.EEAttributeRegistry.BLADE_MAGIC_RESIST, BladeRes);
+                setIfNonNull((LivingEntity) mob, net.ender.endersequipment.registries.EEAttributeRegistry.BLADE_MAGIC_RESIST, BladeRes);
             }
             if (ModList.get().isLoaded("cataclysm_spellbooks")) {
-                setIfNonNull(mob, net.acetheeldritchking.cataclysm_spellbooks.registries.CSAttributeRegistry.ABYSSAL_MAGIC_RESIST, AbyssRes);
+                setIfNonNull((LivingEntity) mob, net.acetheeldritchking.cataclysm_spellbooks.registries.CSAttributeRegistry.ABYSSAL_MAGIC_RESIST, AbyssRes);
             }
             if (ModList.get().isLoaded("alshanex_familiars")) {
-                setIfNonNull(mob, net.alshanex.alshanex_familiars.registry.AttributeRegistry.SOUND_MAGIC_RESIST, SoundRes);
+                setIfNonNull((LivingEntity) mob, net.alshanex.alshanex_familiars.registry.AttributeRegistry.SOUND_MAGIC_RESIST, SoundRes);
             }
             if (ModList.get().isLoaded("aero_additions")) {
-                setIfNonNull(mob, com.snackpirate.aeromancy.spells.AASpells.Attributes.WIND_MAGIC_RESIST, WindRes);
+                setIfNonNull((LivingEntity) mob, com.snackpirate.aeromancy.spells.AASpells.Attributes.WIND_MAGIC_RESIST, WindRes);
             }
         }
-    }
 
-    private static final ResourceLocation ATTR_FIX = Objects.requireNonNull(ResourceLocation.tryParse("potatospells:damage_boost"));
-
-    @SubscribeEvent
-    public static void onMobDamage(LivingIncomingDamageEvent event) {
-        LivingEntity entity = event.getEntity();
-        if (!(entity instanceof Mob mob)) return;
-
-        if (Objects.requireNonNull(mob.getAttribute(Attributes.ATTACK_DAMAGE)).getModifier(ATTR_FIX) == null) {
-            float originalDamage = event.getContainer().getOriginalDamage();
-            event.setAmount(originalDamage * 0);
-
-            if (ModList.get().isLoaded("cataclysm_spellbooks") && mob.getType().is(PotatoTags.NETHERITE_MONSTROSITY)) {
-                setIfNonNull(mob, Attributes.ARMOR, Armor);
-                setIfNonNull(mob, Attributes.ARMOR_TOUGHNESS, Tough);
-                setIfNonNull(mob, AttributeRegistry.SPELL_RESIST, Resist);
-                setIfNonNull(mob, AttributeRegistry.FIRE_MAGIC_RESIST, FireRes);
-                setIfNonNull(mob, AttributeRegistry.NATURE_MAGIC_RESIST, NatRes);
-                setIfNonNull(mob, AttributeRegistry.ENDER_MAGIC_RESIST, EndRes);
-                setIfNonNull(mob, AttributeRegistry.BLOOD_MAGIC_RESIST, BldRes);
-                setIfNonNull(mob, AttributeRegistry.ICE_MAGIC_RESIST, IceRes);
-                setIfNonNull(mob, AttributeRegistry.LIGHTNING_MAGIC_RESIST, LigRes);
-                setIfNonNull(mob, AttributeRegistry.ELDRITCH_MAGIC_RESIST, EldRes);
-                setIfNonNull(mob, AttributeRegistry.HOLY_MAGIC_RESIST, HolyRes);
-                // This needs to be conditional or the game shits itself if the mod is not present
-                if (ModList.get().isLoaded("endersequipment")) {
-                    setIfNonNull(mob, net.ender.endersequipment.registries.EEAttributeRegistry.BLADE_MAGIC_RESIST, BladeRes);
-                }
-                if (ModList.get().isLoaded("cataclysm_spellbooks")) {
-                    setIfNonNull(mob, net.acetheeldritchking.cataclysm_spellbooks.registries.CSAttributeRegistry.ABYSSAL_MAGIC_RESIST, AbyssRes);
-                }
-                if (ModList.get().isLoaded("alshanex_familiars")) {
-                    setIfNonNull(mob, net.alshanex.alshanex_familiars.registry.AttributeRegistry.SOUND_MAGIC_RESIST, SoundRes);
-                }
-                if (ModList.get().isLoaded("aero_additions")) {
-                    setIfNonNull(mob, com.snackpirate.aeromancy.spells.AASpells.Attributes.WIND_MAGIC_RESIST, WindRes);
-                }
-            }
+        // We reset this stuff so it doesn't make other mobs go crazy
+        {
+            SpellPower = 0;
+            SchoolPower = 0;
+            Resist = 0;
+            FireRes = 0;
+            IceRes = 0;
+            HolyRes = 0;
+            NatRes = 0;
+            BldRes = 0;
+            EndRes = 0;
+            LigRes = 0;
+            EldRes = 0;
+            AbyssRes = 0;
+            BladeRes = 0;
+            SoundRes = 0;
+            WindRes = 0;
+            Armor = 0;
+            Tough = 0;
+            Attack = 0;
         }
-    }
-
-    // We reset this stuff so it doesn't make other mobs go crazy
-    {
-        SpellPower = 0;
-        SchoolPower = 0;
-        Resist = 0;
-        FireRes = 0;
-        IceRes = 0;
-        HolyRes = 0;
-        NatRes = 0;
-        BldRes = 0;
-        EndRes = 0;
-        LigRes = 0;
-        EldRes = 0;
-        AbyssRes = 0;
-        BladeRes = 0;
-        SoundRes = 0;
-        WindRes = 0;
-        Armor = 0;
-        Tough = 0;
-        Attack = 0;
     }
 
     // Actually sets the attributes
