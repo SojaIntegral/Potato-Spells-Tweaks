@@ -12,7 +12,7 @@ public class CastTimeMixin {
 
     @WrapMethod(method = "softCapFormula")
     private static double SoftCapFormula(double x, Operation<Double> original) {
-        return (float) MixinFixes.castsoftcap(x);
+        return (float) MixinFixes.rebalanceFormula(x);
     }
 
 }

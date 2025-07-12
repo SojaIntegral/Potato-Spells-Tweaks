@@ -24,24 +24,24 @@ public class Tyros {
 
         if (ServerConfigs.BOSS_SWITCH.get()) {
             // Amethyst  attributes
-            Armor += 25 * (1 + m/4);
-            Tough += 10 * (1 + m/4);
-            Attack += 11 * (1 + m/4);
-            SpellPower += Math.pow(1.2, m);
-            SchoolPower += Math.pow(1.65, m);
-            Resist += Math.pow(1.3, m);
-            FireRes += Math.pow(2.0, m);
-            NatRes += Math.pow(1.5, m);
-            EndRes += Math.pow(0.8, m);
-            BldRes += Math.pow(1.35, m);
-            IceRes += Math.pow(0.3, m);
-            LigRes += Math.pow(1.2, m);
-            EldRes += Math.pow(1.0, m);
-            HolyRes += Math.pow(0.6, m);
-            BladeRes += Math.pow(1.1, m);
-            AbyssRes += Math.pow(0.25, m);
-            SoundRes += Math.pow(0.75, m);
-            WindRes += Math.pow(0.8, m);
+            Armor += 25 * (1 + m/3.25);
+            Tough += 10 * (1 + m/3.25);
+            Attack += 11 * (1 + m/3.25);
+            SpellPower += 1.2 * m;
+            SchoolPower += 1.65 * m;
+            Resist += 1.3 * m;
+            FireRes += 2.0 * m;
+            NatRes += 1.5 * m;
+            EndRes += 0.8 * m;
+            BldRes += 1.35 * m;
+            IceRes += 0.3 * m;
+            LigRes += 1.2 * m;
+            EldRes += 1.05 * m;
+            HolyRes += 0.6 * m;
+            BladeRes += 1.1 * m;
+            AbyssRes += 0.25 * m;
+            SoundRes += 0.75 * m;
+            WindRes += 0.8 * m;
         }
 
         else {

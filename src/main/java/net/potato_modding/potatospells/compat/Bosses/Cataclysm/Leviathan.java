@@ -24,22 +24,22 @@ public class Leviathan {
 
         if (ServerConfigs.BOSS_SWITCH.get()) {
             // Amethyst  attributes
-            Armor += 15 * (1 + m/4);
-            Tough += 15 * (1 + m/4);
-            Attack += 10 * (1 + m/4);
-            Resist += Math.pow(1.3, m);
-            FireRes += Math.pow(2.5, m);
-            NatRes += Math.pow(0.75, m);
-            EndRes += Math.pow(1.75, m);
-            BldRes += Math.pow(0.8, m);
-            IceRes += Math.pow(1.9, m);
-            LigRes -= Math.pow(0.15, m);
-            EldRes += Math.pow(2.0, m);
-            HolyRes += Math.pow(0.85, m);
-            BladeRes += Math.pow(0.65, m);
-            AbyssRes += Math.pow(4.0, m);
-            SoundRes += Math.pow(0.95, m);
-            WindRes += Math.pow(1.2, m);
+            Armor += 15 * (1 + m / 3.25);
+            Tough += 15 * (1 + m / 3.25);
+            Attack += 10 * (1 + m / 3.25);
+            Resist += 1.3 * m;
+            FireRes += 2.5 * m;
+            NatRes += 0.75 * m;
+            EndRes += 1.75 * m;
+            BldRes += 0.8 * m;
+            IceRes += 1.9 * m;
+            LigRes -= 0.15 * m;
+            EldRes += 2.0 * m;
+            HolyRes += 0.85 * m;
+            BladeRes += 0.65 * m;
+            AbyssRes += 4.0 * m;
+            SoundRes += 0.95 * m;
+            WindRes += 1.2 * m;
         }
 
         else {

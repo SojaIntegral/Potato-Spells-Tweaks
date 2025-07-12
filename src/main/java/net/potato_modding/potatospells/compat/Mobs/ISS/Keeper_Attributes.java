@@ -9,7 +9,6 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModList;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.living.FinalizeSpawnEvent;
-import net.potato_modding.potatospells.config.ServerConfigs;
 import net.potato_modding.potatospells.utils.PotatoTags;
 
 import static net.potato_modding.potatospells.utils.ConfigFormulas.*;
@@ -22,44 +21,23 @@ public class Keeper_Attributes {
     private static void handleResistanceAttributeSpawn(FinalizeSpawnEvent event) {
         var mob = event.getEntity();
 
-        if (ServerConfigs.MINIBOSS_SWITCH.get()) {
             // Amethyst  attributes
-            Armor += 20 * (1 + m/4);
-            Tough += 10 * (1 + m/4);
-            Attack += 10.5 * (1 + m/4);
-            Resist += Math.pow(1.2, m);
-            FireRes += Math.pow(1.75, m);
-            NatRes += Math.pow(1.5, m);
-            EndRes += Math.pow(1.2, m);
-            BldRes += Math.pow(1.9, m);
-            IceRes += Math.pow(0.3, m);
-            LigRes += Math.pow(2.0, m);
-            EldRes += Math.pow(1.7, m);
-            HolyRes -= Math.pow(0.5, m);
-            BladeRes += Math.pow(1.65, m);
-            AbyssRes += Math.pow(1.15, m);
-            SoundRes += Math.pow(1.4, m);
-            WindRes += Math.pow(1.35, m);
-        }
-
-        else {
-            Armor = ServerConfigs.KEEPER_ARMOR.get();
-            Tough = ServerConfigs.KEEPER_TOUGHNESS.get();
-            Attack = ServerConfigs.KEEPER_ATTACK.get();
-            Resist = ServerConfigs.KEEPER_RESIST.get();
-            FireRes = ServerConfigs.KEEPER_FIRE_RESIST.get();
-            NatRes = ServerConfigs.KEEPER_NATURE_RESIST.get();
-            EndRes = ServerConfigs.KEEPER_ENDER_RESIST.get();
-            BldRes = ServerConfigs.KEEPER_BLOOD_RESIST.get();
-            IceRes = ServerConfigs.KEEPER_ICE_RESIST.get();
-            LigRes = ServerConfigs.KEEPER_LIGHTNING_RESIST.get();
-            EldRes = ServerConfigs.KEEPER_ELDRITCH_RESIST.get();
-            HolyRes = ServerConfigs.KEEPER_HOLY_RESIST.get();
-            BladeRes = ServerConfigs.KEEPER_BLADE_RESIST.get();
-            AbyssRes = ServerConfigs.KEEPER_ABYSSAL_RESIST.get();
-            SoundRes = ServerConfigs.KEEPER_MUSIC_RESIST.get();
-            WindRes = ServerConfigs.KEEPER_WIND_RESIST.get();
-        }
+            Armor += 20 * (1 + m/3.25);
+            Tough += 10 * (1 + m/3.25);
+            Attack += 10.5 * (1 + m/3.25);
+            Resist += 0.9 * m;
+            FireRes += 1.75 * m;
+            NatRes += 1.5 * m;
+            EndRes += 1.2 * m;
+            BldRes += 1.5 * m;
+            IceRes += 0.3 * m;
+            LigRes += 1.65 * m;
+            EldRes += 1.7 * m;
+            HolyRes -= 0.5 * m;
+            BladeRes += 1.65 * m;
+            AbyssRes += 1.15 * m;
+            SoundRes += 1.4 * m;
+            WindRes += 1.35 * m;
 
         if (mob.getType().is(PotatoTags.KEEPER_MOB)) {
             setIfNonNull(mob, Attributes.ARMOR, Armor);

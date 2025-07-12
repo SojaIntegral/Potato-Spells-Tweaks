@@ -6,9 +6,7 @@ import net.neoforged.neoforge.common.ModConfigSpec;
 public class ServerConfigs {
     private static final ModConfigSpec.Builder BUILDER = new ModConfigSpec.Builder();
     public static final ModConfigSpec BUILDING;
-    public static ModConfigSpec.ConfigValue<Integer> COOLDOWN_UNCAP;
-    public static ModConfigSpec.ConfigValue<Integer> CAST_UNCAP;
-    public static ModConfigSpec.ConfigValue<Integer> RESIST_UNCAP;
+    public static ModConfigSpec.ConfigValue<Integer> FORMULA_REBALANCE;
 
     public static ModConfigSpec.ConfigValue<Boolean> BOSS_SWITCH;
     public static ModConfigSpec.ConfigValue<Boolean> MINIBOSS_SWITCH;
@@ -52,23 +50,6 @@ public class ServerConfigs {
     public static ModConfigSpec.ConfigValue<Double> DEAD_TOUGHNESS;
     public static ModConfigSpec.ConfigValue<Double> DEAD_ATTACK;
 
-    public static ModConfigSpec.ConfigValue<Double> KEEPER_ATTACK;
-    public static ModConfigSpec.ConfigValue<Double> KEEPER_RESIST;
-    public static ModConfigSpec.ConfigValue<Double> KEEPER_FIRE_RESIST;
-    public static ModConfigSpec.ConfigValue<Double> KEEPER_ICE_RESIST;
-    public static ModConfigSpec.ConfigValue<Double> KEEPER_HOLY_RESIST;
-    public static ModConfigSpec.ConfigValue<Double> KEEPER_NATURE_RESIST;
-    public static ModConfigSpec.ConfigValue<Double> KEEPER_BLOOD_RESIST;
-    public static ModConfigSpec.ConfigValue<Double> KEEPER_ENDER_RESIST;
-    public static ModConfigSpec.ConfigValue<Double> KEEPER_LIGHTNING_RESIST;
-    public static ModConfigSpec.ConfigValue<Double> KEEPER_ELDRITCH_RESIST;
-    public static ModConfigSpec.ConfigValue<Double> KEEPER_ABYSSAL_RESIST;
-    public static ModConfigSpec.ConfigValue<Double> KEEPER_BLADE_RESIST;
-    public static ModConfigSpec.ConfigValue<Double> KEEPER_MUSIC_RESIST;
-    public static ModConfigSpec.ConfigValue<Double> KEEPER_WIND_RESIST;
-    public static ModConfigSpec.ConfigValue<Double> KEEPER_ARMOR;
-    public static ModConfigSpec.ConfigValue<Double> KEEPER_TOUGHNESS;
-
     public static ModConfigSpec.ConfigValue<Double> NETMONST_RESIST;
     public static ModConfigSpec.ConfigValue<Double> NETMONST_FIRE_RESIST;
     public static ModConfigSpec.ConfigValue<Double> NETMONST_ICE_RESIST;
@@ -106,18 +87,14 @@ public class ServerConfigs {
 
         // MAIN CONFIG
         {
-            // Unify configs? (would eliminate issues down the line with complexity for automatic stuff)
-            BUILDER.push("Main");
-            BUILDER.comment("RE-BALANCE FORMULAS:");
+            BUILDER.push("Re-Balance");
             BUILDER.comment("Accept '1', '2', '3' or '4'");
             BUILDER.comment("1 = 'Default': Maximum at ~3.6 (Made for your average ISS experience)");
             BUILDER.comment("2 = 'Nerfed': Maximum at ~5.0 (Made for SMPs and PvP)");
             BUILDER.comment("3 = 'Apotheosis': Maximum at ~8.0 (Made for Apotheosis compat)");
-            BUILDER.comment("4 = 'Alternative': Uncapped (For when number go big)");
-            BUILDER.comment("Warning: Using 'Alternative' on anything will raise the difficulty by A LOT!");
-            COOLDOWN_UNCAP = BUILDER.worldRestart().define("Cooldown Formula", 1);
-            CAST_UNCAP = BUILDER.worldRestart().define("Cast Time Formula", 1);
-            RESIST_UNCAP = BUILDER.worldRestart().define("Spell Resist Formula", 1);
+            BUILDER.comment("4 = 'Alternative': Uncapped (Recommended for PvP servers)");
+            FORMULA_REBALANCE = BUILDER.worldRestart().define("Rebalanced Formula", 1);
+            BUILDER.comment("WARNING: This affects Spell Resistance, Cast Speed AND Cooldown Reduction!");
             BUILDER.pop();
         }
 
@@ -126,6 +103,7 @@ public class ServerConfigs {
             BUILDER.push("BOSS");
             BUILDER.comment("Turns ON/OFF automatic attributes balance for Bosses. | Default: true");
             BOSS_SWITCH = BUILDER.worldRestart().define("Automatic Rebalance", true);
+            BUILDER.comment("Turning automatic rebalance off will create A LOT of stuff here. I warned you.");
 
             // TYROS (FIRE BOSS)
             {
@@ -242,48 +220,6 @@ public class ServerConfigs {
 
             {
 
-            }
-            BUILDER.pop();
-        }
-
-        // MOBS
-        {
-            BUILDER.push("MINIBOSS");
-            BUILDER.comment("Turns ON/OFF automatic attributes balance for Mobs. | Default: true");
-            MOB_SWITCH = BUILDER.worldRestart().define("Automatic Rebalance", true);
-
-            // LIVING ARMOR (CITADEL KEEPER)
-            {
-                BUILDER.push("Living Armor Attributes");
-                KEEPER_RESIST = BUILDER.worldRestart().define("Spell Resist", 1.1);
-                KEEPER_FIRE_RESIST = BUILDER.worldRestart().define("Fire Spell Resistance", 1.5);
-                KEEPER_ICE_RESIST = BUILDER.worldRestart().define("Ice Spell Resistance", 0.8);
-                KEEPER_HOLY_RESIST = BUILDER.worldRestart().define("Holy Spell Resistance", 0.3);
-                KEEPER_NATURE_RESIST = BUILDER.worldRestart().define("Nature Spell Resistance", 2.0);
-                KEEPER_BLOOD_RESIST = BUILDER.worldRestart().define("Blood Spell Resistance", 2.0);
-                KEEPER_ENDER_RESIST = BUILDER.worldRestart().define("Ender Spell Resistance", 1.55);
-                KEEPER_LIGHTNING_RESIST = BUILDER.worldRestart().define("Lightning Spell Resistance", -0.3);
-                KEEPER_ELDRITCH_RESIST = BUILDER.worldRestart().define("Eldritch Spell Resistance", 1.0);
-                if (ModList.get().isLoaded("cataclysm_spellbooks")) {
-                    BUILDER.comment("Only works when [Cataclysm: Spellbooks] mod is present");
-                    KEEPER_ABYSSAL_RESIST = BUILDER.worldRestart().define("Abyssal Spell Resistance", 0.6);
-                }
-                if (ModList.get().isLoaded("endersequipment")) {
-                    BUILDER.comment("Only works when [Ender's Spells and Stuff] mod is present");
-                    KEEPER_BLADE_RESIST = BUILDER.worldRestart().define("Blade Spell Resistance", 1.5);
-                }
-                if (ModList.get().isLoaded("alshanex_familiars")) {
-                    BUILDER.comment("Only works when [Alshanex's Familiars] mod is present");
-                    KEEPER_MUSIC_RESIST = BUILDER.worldRestart().define("Sound Spell Resistance", 1.4);
-                }
-                if (ModList.get().isLoaded("aero_additions")) {
-                    BUILDER.comment("Only works when [SnackPirate's Aeromancy] mod is present");
-                    KEEPER_WIND_RESIST = BUILDER.worldRestart().define("Air Spell Resistance", 1.85);
-                }
-                KEEPER_ARMOR = BUILDER.worldRestart().define("Armor ", 20.0);
-                KEEPER_TOUGHNESS = BUILDER.worldRestart().define("Armor Toughness", 10.0);
-                KEEPER_ATTACK = BUILDER.worldRestart().define("Attack Damage", 13.5);
-                BUILDER.pop();
             }
             BUILDER.pop();
         }

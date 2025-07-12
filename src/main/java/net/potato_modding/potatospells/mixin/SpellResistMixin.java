@@ -18,8 +18,8 @@ public class SpellResistMixin {
         var baseResist = entity.getAttributeValue(AttributeRegistry.SPELL_RESIST);
 
         if (damageSchool == null)
-            return 2 - (float) MixinFixes.resistsoftcap(baseResist);
+            return 2 - (float) MixinFixes.rebalanceFormula(baseResist);
         else
-            return 2 - (float) MixinFixes.resistsoftcap(damageSchool.getResistanceFor(entity) * baseResist);
+            return 2 - (float) MixinFixes.rebalanceFormula(damageSchool.getResistanceFor(entity) * baseResist);
     }
 }

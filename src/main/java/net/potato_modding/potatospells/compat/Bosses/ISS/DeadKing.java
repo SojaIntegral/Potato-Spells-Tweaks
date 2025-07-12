@@ -24,24 +24,24 @@ public class DeadKing {
 
         if (ServerConfigs.BOSS_SWITCH.get()) {
             // Amethyst  attributes
-            Armor += 18 * (1 + m/4);
-            Tough += 7 * (1 + m/4);
-            Attack += 7.5 * (1 + m/4);
-            SpellPower += Math.pow(1.25, m);
-            SchoolPower += Math.pow(1.35, m);
-            Resist += Math.pow(1.6, m);
-            FireRes -= Math.pow(0.3, m);
-            NatRes += Math.pow(0.8, m);
-            EndRes += Math.pow(1.55, m);
-            BldRes += Math.pow(0.5, m);
-            IceRes += Math.pow(1.35, m);
-            LigRes += Math.pow(0.75, m);
-            EldRes += Math.pow(2.0, m);
-            HolyRes -= Math.pow(1.0, m);
-            BladeRes += Math.pow(0.85, m);
-            AbyssRes += Math.pow(1.45, m);
-            SoundRes -= Math.pow(0.5, m);
-            WindRes += Math.pow(1.4, m);
+            Armor += 18 * (1 + m/3.25);
+            Tough += 7 * (1 + m/3.25);
+            Attack += 7.5 * (1 + m/3.25);
+            SpellPower += 1.25 * m;
+            SchoolPower += 1.35 * m;
+            Resist += 1.6 * m;
+            FireRes -= 0.3 * m;
+            NatRes += 0.8 * m;
+            EndRes += 1.55 * m;
+            BldRes += 0.5 * m;
+            IceRes += 1.35 * m;
+            LigRes += 0.75 * m;
+            EldRes += 2.0 * m;
+            HolyRes -= 0.95 * m;
+            BladeRes += 0.85 * m;
+            AbyssRes += 1.45 * m;
+            SoundRes -= 0.5 * m;
+            WindRes += 1.4 * m;
         }
 
         else {

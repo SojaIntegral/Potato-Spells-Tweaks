@@ -23,6 +23,6 @@ public class CooldownMixin {
         if (castSource == CastSource.SWORD) {
             itemCoolDownModifer = ServerConfigs.SWORDS_CD_MULTIPLIER.get().floatValue();
         }
-        return (int) (spell.getSpellCooldown() * (2 - MixinFixes.cooldownsoftcap(playerCooldownModifier)) * itemCoolDownModifer);
+        return (int) (spell.getSpellCooldown() * (2 - MixinFixes.rebalanceFormula(playerCooldownModifier)) * itemCoolDownModifer);
     }
 }
