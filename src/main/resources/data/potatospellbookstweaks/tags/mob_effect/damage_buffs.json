@@ -1,5 +1,9 @@
 {
   "replace": false,
   "values": [
+    "irons_spellbooks:charged",
+    "minecraft:strength",
+    "endersequipment:ebony_armor",
+    "cataclysm_spellbooks:abyssal_predator_effect"
   ]
 }
