@@ -42,7 +42,7 @@ public class Mage_Blood {
             WindRes += 1.05 * mob_mod;
             Armor += 4 * spec_mod;
             Tough += 2 * spec_mod;
-            Attack += 9.0 * spec_mod;
+            Attack += 9.5 * spec_mod;
 
             // Updates mob attributes
             {

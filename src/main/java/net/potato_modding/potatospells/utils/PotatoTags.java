@@ -104,7 +104,23 @@ public class PotatoTags {
             TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "mobs/cataclysm/endermaptera"));
 
 
-    // Not implemented yet
-    public static final TagKey<MobEffect> INCOMPATIBLE_WITH_CHARGE =
-            TagKey.create(Registries.MOB_EFFECT, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "incompatible_with_charge"));
+    // Effects Blacklists (prevent buff / debuff stacking from getting out of hand)
+    public static final TagKey<MobEffect> POSITIVE_BUFFS =
+            TagKey.create(Registries.MOB_EFFECT, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "positive_buffs"));
+    public static final TagKey<MobEffect> DEFENSIVE_BUFFS =
+            TagKey.create(Registries.MOB_EFFECT, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "defensive_buffs"));
+    public static final TagKey<MobEffect> DAMAGE_BUFFS =
+            TagKey.create(Registries.MOB_EFFECT, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "damage_buffs"));
+    public static final TagKey<MobEffect> POSITIVE_BUFFS2 =
+            TagKey.create(Registries.MOB_EFFECT, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "positive_buffs_2"));
+    public static final TagKey<MobEffect> DEFENSIVE_BUFFS2 =
+            TagKey.create(Registries.MOB_EFFECT, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "defensive_buffs_2"));
+    public static final TagKey<MobEffect> DAMAGE_BUFFS2 =
+            TagKey.create(Registries.MOB_EFFECT, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "damage_buffs_2"));
+    public static final TagKey<MobEffect> DEBUFF_BLOCK =
+            TagKey.create(Registries.MOB_EFFECT, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "debuff_block"));
+    public static final TagKey<MobEffect> DEBUFF_BLOCK2 =
+            TagKey.create(Registries.MOB_EFFECT, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "debuff_block_2"));
+    public static final TagKey<MobEffect> DEBUFF_BLOCK3 =
+            TagKey.create(Registries.MOB_EFFECT, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "debuff_block_3"));
 }
