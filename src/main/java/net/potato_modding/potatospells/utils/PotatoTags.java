@@ -10,17 +10,21 @@ import net.potato_modding.potatospells.PotatoSpells;
 @SuppressWarnings("unused")
 public class PotatoTags {
 
-    // ISS Entities
+    // ISS Bosses
     public static final TagKey<EntityType<?>> TYROS_BOSS =
             TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "bosses/iss/tyros_boss"));
     public static final TagKey<EntityType<?>> DEADKING_BOSS =
             TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "bosses/iss/deadking_boss"));
 
+
+    // ISS Mobs
     public static final TagKey<EntityType<?>> KEEPER_MOB =
             TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "mobs/iss/citadel_keeper"));
     public static final TagKey<EntityType<?>> ICE_SPIDER =
             TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "mobs/iss/ice_spider"));
 
+
+    // Mages pre-sets
     public static final TagKey<EntityType<?>> MAGE_BLOOD =
             TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "mobs/iss/mage_blood"));
     public static final TagKey<EntityType<?>> MAGE_EVOKE =

@@ -18,7 +18,7 @@ import static net.potato_modding.potatospells.utils.ConfigFormulas.*;
 public class Citadel_Keeper {
 
     @SubscribeEvent(priority = net.neoforged.bus.api.EventPriority.LOWEST)
-    private static void handleResistanceAttributeCataclysm(EntityJoinLevelEvent event) {
+    private static void handleResistanceAttributeMob(EntityJoinLevelEvent event) {
         var mob = event.getEntity();
 
             // Amethyst  attributes
