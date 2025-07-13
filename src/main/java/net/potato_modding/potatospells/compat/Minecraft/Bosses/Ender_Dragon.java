@@ -1,4 +1,4 @@
-package net.potato_modding.potatospells.compat.ISS.Mages;
+package net.potato_modding.potatospells.compat.Minecraft.Bosses;
 
 import dev.shadowsoffire.apothic_attributes.api.ALObjects;
 import io.redspace.ironsspellbooks.api.registry.AttributeRegistry;
@@ -10,47 +10,64 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModList;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
+import net.potato_modding.potatospells.config.ServerConfigs;
 import net.potato_modding.potatospells.utils.PotatoTags;
 
 import static net.potato_modding.potatospells.utils.ConfigFormulas.*;
 
 @SuppressWarnings("unused")
 @EventBusSubscriber
-public class Mage_Abyss {
+public class Ender_Dragon {
 
     @SubscribeEvent(priority = net.neoforged.bus.api.EventPriority.LOWEST)
-    private static void handleResistanceAttributePreset(EntityJoinLevelEvent event) {
+    private static void handleResistanceAttributeCataclysm(EntityJoinLevelEvent event) {
         var mob = event.getEntity();
 
-        if (mob.getType().is(PotatoTags.MAGE_NATURE)) {
+        if (mob.getType().is(PotatoTags.ENDER_DRAGON)) {
 
-            // Amethyst  attributes
-            SpellPower += 1.15 * mob_mod;
-            SchoolPower += 1.55 * mob_mod;
-            Resist += 1.25 * mob_mod;
-            FireRes += 1.85 * mob_mod;
-            NatRes += 1.45 * mob_mod;
-            EndRes += 1.75 * mob_mod;
-            BldRes += 1.35 * mob_mod;
-            IceRes += 1.5 * mob_mod;
-            LigRes -= 0.45 * mob_mod;
-            EldRes += 1.8 * mob_mod;
-            HolyRes += 0.65 * mob_mod;
-            BladeRes += 1.05 * mob_mod;
-            AbyssRes += 2.0 * mob_mod;
-            SoundRes += 0.85 * mob_mod;
-            WindRes += 1.15 * mob_mod;
-            Armor += 6 * spec_mod;
-            Tough += 5 * spec_mod;
-            Attack += 10.0 * spec_mod;
+            if (!ServerConfigs.ENDER_DRAGON_SWITCH.get()) {
+                // Amethyst  attributes
+                Resist += 1.4 * boss_mod;
+                FireRes += 1.25 * boss_mod;
+                IceRes += 0.95 * boss_mod;
+                HolyRes += 0.8 * boss_mod;
+                NatRes += 1.25 * boss_mod;
+                BldRes += 1.4 * boss_mod;
+                EndRes += 1.5 * boss_mod;
+                LigRes += 0.75 * boss_mod;
+                EldRes += 1.45 * boss_mod;
+                AbyssRes += 1.35 * boss_mod;
+                BladeRes += 1.05 * boss_mod;
+                SoundRes += 0.85 * boss_mod;
+                WindRes += 1.6 * boss_mod;
+                Armor += 15 * spec_mod;
+                Tough += 10 * spec_mod;
+                Attack += 7 * spec_mod;
+            }
 
-            // Updates mob attributes
+            else {
+                Armor = ServerConfigs.ENDER_DRAGON_ARMOR.get();
+                Tough = ServerConfigs.ENDER_DRAGON_TOUGHNESS.get();
+                Attack = ServerConfigs.ENDER_DRAGON_ATTACK.get();
+                Resist = ServerConfigs.ENDER_DRAGON_RESIST.get();
+                FireRes = ServerConfigs.ENDER_DRAGON_FIRE_RESIST.get();
+                NatRes = ServerConfigs.ENDER_DRAGON_NATURE_RESIST.get();
+                EndRes = ServerConfigs.ENDER_DRAGON_ENDER_RESIST.get();
+                BldRes = ServerConfigs.ENDER_DRAGON_BLOOD_RESIST.get();
+                IceRes = ServerConfigs.ENDER_DRAGON_ICE_RESIST.get();
+                LigRes = ServerConfigs.ENDER_DRAGON_LIGHTNING_RESIST.get();
+                EldRes = ServerConfigs.ENDER_DRAGON_ELDRITCH_RESIST.get();
+                HolyRes = ServerConfigs.ENDER_DRAGON_HOLY_RESIST.get();
+                BladeRes = ServerConfigs.ENDER_DRAGON_BLADE_RESIST.get();
+                AbyssRes = ServerConfigs.ENDER_DRAGON_ABYSSAL_RESIST.get();
+                SoundRes = ServerConfigs.ENDER_DRAGON_MUSIC_RESIST.get();
+                WindRes = ServerConfigs.ENDER_DRAGON_WIND_RESIST.get();
+            }
+
             {
                 setIfNonNull((LivingEntity) mob, Attributes.ARMOR, Armor);
                 setIfNonNull((LivingEntity) mob, Attributes.ARMOR_TOUGHNESS, Tough);
                 setIfNonNull((LivingEntity) mob, Attributes.ATTACK_DAMAGE, Attack);
-                setIfNonNull((LivingEntity) mob, AttributeRegistry.SPELL_POWER, SpellPower);
-                setIfNonNull((LivingEntity) mob, AttributeRegistry.NATURE_SPELL_POWER, SchoolPower);
                 setIfNonNull((LivingEntity) mob, AttributeRegistry.SPELL_RESIST, Resist);
                 setIfNonNull((LivingEntity) mob, AttributeRegistry.FIRE_MAGIC_RESIST, FireRes);
                 setIfNonNull((LivingEntity) mob, AttributeRegistry.NATURE_MAGIC_RESIST, NatRes);
@@ -74,10 +91,10 @@ public class Mage_Abyss {
                     setIfNonNull((LivingEntity) mob, com.snackpirate.aeromancy.spells.AASpells.Attributes.WIND_MAGIC_RESIST, WindRes);
                 }
                 // Fixed Attributes
-                setIfNonNull((LivingEntity) mob, ALObjects.Attributes.ARMOR_PIERCE, mob_armor_pen);
-                setIfNonNull((LivingEntity) mob, ALObjects.Attributes.ARMOR_SHRED, mob_armor_shred);
-                setIfNonNull((LivingEntity) mob, ALObjects.Attributes.PROT_PIERCE, mob_prot_pen);
-                setIfNonNull((LivingEntity) mob, ALObjects.Attributes.PROT_SHRED, mob_prot_shred);
+                setIfNonNull((LivingEntity) mob, ALObjects.Attributes.ARMOR_PIERCE, boss_armor_pen);
+                setIfNonNull((LivingEntity) mob, ALObjects.Attributes.ARMOR_SHRED, boss_armor_shred);
+                setIfNonNull((LivingEntity) mob, ALObjects.Attributes.PROT_PIERCE, boss_prot_pen);
+                setIfNonNull((LivingEntity) mob, ALObjects.Attributes.PROT_SHRED, boss_prot_shred);
             }
 
             // We reset this stuff so it doesn't make other mobs go crazy

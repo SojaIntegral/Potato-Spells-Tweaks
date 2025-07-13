@@ -1,4 +1,4 @@
-package net.potato_modding.potatospells.compat.ISS.Mages;
+package net.potato_modding.potatospells.compat.Cataclysm.Bosses;
 
 import dev.shadowsoffire.apothic_attributes.api.ALObjects;
 import io.redspace.ironsspellbooks.api.registry.AttributeRegistry;
@@ -10,47 +10,65 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModList;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
+import net.potato_modding.potatospells.config.ServerConfigs;
 import net.potato_modding.potatospells.utils.PotatoTags;
 
 import static net.potato_modding.potatospells.utils.ConfigFormulas.*;
 
 @SuppressWarnings("unused")
 @EventBusSubscriber
-public class Mage_Abyss {
+public class Scylla {
 
     @SubscribeEvent(priority = net.neoforged.bus.api.EventPriority.LOWEST)
-    private static void handleResistanceAttributePreset(EntityJoinLevelEvent event) {
+    private static void handleResistanceAttributeCataclysm(EntityJoinLevelEvent event) {
         var mob = event.getEntity();
 
-        if (mob.getType().is(PotatoTags.MAGE_NATURE)) {
+        if (ModList.get().isLoaded("cataclysm") && mob.getType().is(PotatoTags.SCYLLA)) {
 
-            // Amethyst  attributes
-            SpellPower += 1.15 * mob_mod;
-            SchoolPower += 1.55 * mob_mod;
-            Resist += 1.25 * mob_mod;
-            FireRes += 1.85 * mob_mod;
-            NatRes += 1.45 * mob_mod;
-            EndRes += 1.75 * mob_mod;
-            BldRes += 1.35 * mob_mod;
-            IceRes += 1.5 * mob_mod;
-            LigRes -= 0.45 * mob_mod;
-            EldRes += 1.8 * mob_mod;
-            HolyRes += 0.65 * mob_mod;
-            BladeRes += 1.05 * mob_mod;
-            AbyssRes += 2.0 * mob_mod;
-            SoundRes += 0.85 * mob_mod;
-            WindRes += 1.15 * mob_mod;
-            Armor += 6 * spec_mod;
-            Tough += 5 * spec_mod;
-            Attack += 10.0 * spec_mod;
+            if (!ServerConfigs.SCYLLA_SWITCH.get()) {
+                // Amethyst  attributes
+                Resist += 1.1 * boss_mod;
+                FireRes += 1.5 * boss_mod;
+                IceRes += 1.35 * boss_mod;
+                HolyRes += 1.05 * boss_mod;
+                NatRes += 0.85 * boss_mod;
+                BldRes += 0.95 * boss_mod;
+                EndRes += 1.05 * boss_mod;
+                LigRes += 1.6 * boss_mod;
+                EldRes += 0.8 * boss_mod;
+                AbyssRes += 1.75 * boss_mod;
+                BladeRes += 1.4 * boss_mod;
+                SoundRes += 0.85 * boss_mod;
+                WindRes += 1.25 * boss_mod;
+                Armor += 25 * spec_mod;
+                Tough += 15 * spec_mod;
+                Attack += 12 * spec_mod;
+            }
+
+            else {
+                Armor = ServerConfigs.SCYLLA_ARMOR.get();
+                Tough = ServerConfigs.SCYLLA_TOUGHNESS.get();
+                Attack = ServerConfigs.SCYLLA_ATTACK.get();
+                Resist = ServerConfigs.SCYLLA_RESIST.get();
+                FireRes = ServerConfigs.SCYLLA_FIRE_RESIST.get();
+                NatRes = ServerConfigs.SCYLLA_NATURE_RESIST.get();
+                EndRes = ServerConfigs.SCYLLA_ENDER_RESIST.get();
+                BldRes = ServerConfigs.SCYLLA_BLOOD_RESIST.get();
+                IceRes = ServerConfigs.SCYLLA_ICE_RESIST.get();
+                LigRes = ServerConfigs.SCYLLA_LIGHTNING_RESIST.get();
+                EldRes = ServerConfigs.SCYLLA_ELDRITCH_RESIST.get();
+                HolyRes = ServerConfigs.SCYLLA_HOLY_RESIST.get();
+                BladeRes = ServerConfigs.SCYLLA_BLADE_RESIST.get();
+                AbyssRes = ServerConfigs.SCYLLA_ABYSSAL_RESIST.get();
+                SoundRes = ServerConfigs.SCYLLA_MUSIC_RESIST.get();
+                WindRes = ServerConfigs.SCYLLA_WIND_RESIST.get();
+            }
 
             // Updates mob attributes
             {
                 setIfNonNull((LivingEntity) mob, Attributes.ARMOR, Armor);
                 setIfNonNull((LivingEntity) mob, Attributes.ARMOR_TOUGHNESS, Tough);
                 setIfNonNull((LivingEntity) mob, Attributes.ATTACK_DAMAGE, Attack);
-                setIfNonNull((LivingEntity) mob, AttributeRegistry.SPELL_POWER, SpellPower);
-                setIfNonNull((LivingEntity) mob, AttributeRegistry.NATURE_SPELL_POWER, SchoolPower);
                 setIfNonNull((LivingEntity) mob, AttributeRegistry.SPELL_RESIST, Resist);
                 setIfNonNull((LivingEntity) mob, AttributeRegistry.FIRE_MAGIC_RESIST, FireRes);
                 setIfNonNull((LivingEntity) mob, AttributeRegistry.NATURE_MAGIC_RESIST, NatRes);
@@ -74,10 +92,10 @@ public class Mage_Abyss {
                     setIfNonNull((LivingEntity) mob, com.snackpirate.aeromancy.spells.AASpells.Attributes.WIND_MAGIC_RESIST, WindRes);
                 }
                 // Fixed Attributes
-                setIfNonNull((LivingEntity) mob, ALObjects.Attributes.ARMOR_PIERCE, mob_armor_pen);
-                setIfNonNull((LivingEntity) mob, ALObjects.Attributes.ARMOR_SHRED, mob_armor_shred);
-                setIfNonNull((LivingEntity) mob, ALObjects.Attributes.PROT_PIERCE, mob_prot_pen);
-                setIfNonNull((LivingEntity) mob, ALObjects.Attributes.PROT_SHRED, mob_prot_shred);
+                setIfNonNull((LivingEntity) mob, ALObjects.Attributes.ARMOR_PIERCE, boss_armor_pen);
+                setIfNonNull((LivingEntity) mob, ALObjects.Attributes.ARMOR_SHRED, boss_armor_shred);
+                setIfNonNull((LivingEntity) mob, ALObjects.Attributes.PROT_PIERCE, boss_prot_pen);
+                setIfNonNull((LivingEntity) mob, ALObjects.Attributes.PROT_SHRED, boss_prot_shred);
             }
 
             // We reset this stuff so it doesn't make other mobs go crazy
