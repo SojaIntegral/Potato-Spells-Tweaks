@@ -1,4 +1,4 @@
-package net.potato_modding.potatospells.compat.Bosses.Cataclysm;
+package net.potato_modding.potatospells.compat.ISS.Mages;
 
 import io.redspace.ironsspellbooks.api.registry.AttributeRegistry;
 import net.minecraft.core.Holder;
@@ -9,59 +9,44 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModList;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
-import net.potato_modding.potatospells.config.ServerConfigs;
 import net.potato_modding.potatospells.utils.PotatoTags;
 
 import static net.potato_modding.potatospells.utils.ConfigFormulas.*;
 
 @SuppressWarnings("unused")
 @EventBusSubscriber
-public class Netherite_Monstrosity {
+public class Mage_Blood {
 
     @SubscribeEvent(priority = net.neoforged.bus.api.EventPriority.LOWEST)
-    private static void handleResistanceAttributeCataclysm(EntityJoinLevelEvent event) {
+    private static void handleResistanceAttributePreset(EntityJoinLevelEvent event) {
         var mob = event.getEntity();
 
-        if (ServerConfigs.BOSS_SWITCH.get()) {
             // Amethyst  attributes
-            Resist += 1.3 * m;
-            FireRes += 2.35 * m;
-            IceRes -= 0.85 * m;
-            HolyRes += 1.35 * m;
+            Armor += 12 * (1 + m/3.25);
+            Tough += 15 * (1 + m/3.25);
+            Attack += 9.0 * (1 + m/3.25);
+            SpellPower += 1.15 * m;
+            SchoolPower += 2.0 * m;
+            Resist += 0.5 * m;
+            FireRes += 0.8 * m;
             NatRes += 1.85 * m;
-            BldRes += 1.65 * m;
-            EndRes += 0.85 * m;
-            LigRes += 0.9 * m;
-            EldRes += 1.25 * m;
-            AbyssRes -= 0.7 * m;
-            BladeRes += 2.0 * m;
-            SoundRes += 1.35 * m;
-            WindRes += 1.65 * m;
-            Armor += 20 * (1 + m / 3.25);
-            Tough += 20 * (1 + m / 3.25);
-        }
+            EndRes += 2.0 * m;
+            BldRes += 2.55 * m;
+            IceRes += 0.6 * m;
+            LigRes += 0.75 * m;
+            EldRes += 2.25 * m;
+            HolyRes -= 0.35 * m;
+            BladeRes += 0.65 * m;
+            AbyssRes += 1.35 * m;
+            SoundRes += 0.15 * m;
+            WindRes += 1.05 * m;
 
-        else {
-            Armor = ServerConfigs.NETMONST_ARMOR.get();
-            Tough = ServerConfigs.NETMONST_TOUGHNESS.get();
-            Resist = ServerConfigs.NETMONST_RESIST.get();
-            FireRes = ServerConfigs.NETMONST_FIRE_RESIST.get();
-            NatRes = ServerConfigs.NETMONST_NATURE_RESIST.get();
-            EndRes = ServerConfigs.NETMONST_ENDER_RESIST.get();
-            BldRes = ServerConfigs.NETMONST_BLOOD_RESIST.get();
-            IceRes = ServerConfigs.NETMONST_ICE_RESIST.get();
-            LigRes = ServerConfigs.NETMONST_LIGHTNING_RESIST.get();
-            EldRes = ServerConfigs.NETMONST_ELDRITCH_RESIST.get();
-            HolyRes = ServerConfigs.NETMONST_HOLY_RESIST.get();
-            BladeRes = ServerConfigs.NETMONST_BLADE_RESIST.get();
-            AbyssRes = ServerConfigs.NETMONST_ABYSSAL_RESIST.get();
-            SoundRes = ServerConfigs.NETMONST_MUSIC_RESIST.get();
-            WindRes = ServerConfigs.NETMONST_WIND_RESIST.get();
-        }
-
-        if (ModList.get().isLoaded("cataclysm") && mob.getType().is(PotatoTags.NETHERITE_MONSTROSITY)) {
+        if (mob.getType().is(PotatoTags.MAGE_BLOOD)) {
             setIfNonNull((LivingEntity) mob, Attributes.ARMOR, Armor);
             setIfNonNull((LivingEntity) mob, Attributes.ARMOR_TOUGHNESS, Tough);
+            setIfNonNull((LivingEntity) mob, Attributes.ATTACK_DAMAGE, Attack);
+            setIfNonNull((LivingEntity) mob, AttributeRegistry.SPELL_POWER, SpellPower);
+            setIfNonNull((LivingEntity) mob, AttributeRegistry.NATURE_SPELL_POWER, SchoolPower);
             setIfNonNull((LivingEntity) mob, AttributeRegistry.SPELL_RESIST, Resist);
             setIfNonNull((LivingEntity) mob, AttributeRegistry.FIRE_MAGIC_RESIST, FireRes);
             setIfNonNull((LivingEntity) mob, AttributeRegistry.NATURE_MAGIC_RESIST, NatRes);

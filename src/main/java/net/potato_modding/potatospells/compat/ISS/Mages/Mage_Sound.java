@@ -1,4 +1,4 @@
-package net.potato_modding.potatospells.compat.Mobs.ISS.Mages;
+package net.potato_modding.potatospells.compat.ISS.Mages;
 
 import io.redspace.ironsspellbooks.api.registry.AttributeRegistry;
 import net.minecraft.core.Holder;
@@ -15,31 +15,31 @@ import static net.potato_modding.potatospells.utils.ConfigFormulas.*;
 
 @SuppressWarnings("unused")
 @EventBusSubscriber
-public class Mage_Nature {
+public class Mage_Sound {
 
     @SubscribeEvent(priority = net.neoforged.bus.api.EventPriority.LOWEST)
     private static void handleResistanceAttributePreset(EntityJoinLevelEvent event) {
         var mob = event.getEntity();
 
             // Amethyst  attributes
-            Armor += 15 * (1 + m/3.25);
-            Tough += 10 * (1 + m/3.25);
-            Attack += 6.5 * (1 + m/3.25);
-            SpellPower += 1.2 * m;
-            SchoolPower += 1.65 * m;
-            Resist += 1.2 * m;
-            FireRes -= 0.65 * m;
-            NatRes += 1.95 * m;
-            EndRes += 0.35 * m;
-            BldRes += 1.5 * m;
-            IceRes += 0.5 * m;
-            LigRes += 1.45 * m;
-            EldRes -= 0.4 * m;
-            HolyRes -= 0.5 * m;
-            BladeRes += 0.55 * m;
-            AbyssRes += 1.4 * m;
-            SoundRes += 1.6 * m;
-            WindRes += 1.75 * m;
+        Armor += 3 * (1 + m/3.25);
+        Tough += 6 * (1 + m/3.25);
+        Attack += 4.0 * (1 + m/3.25);
+        SpellPower += 1.45 * m;
+        SchoolPower += 1.75 * m;
+        Resist += 1.35 * m;
+        FireRes += 1.35 * m;
+        NatRes += 1.35 * m;
+        EndRes += 0.95 * m;
+        BldRes += 0.55 * m;
+        IceRes += 1.35 * m;
+        LigRes += 1.35 * m;
+        EldRes -= 0.45 * m;
+        HolyRes += 1.65 * m;
+        BladeRes += 0.75 * m;
+        AbyssRes += 0.95 * m;
+        SoundRes += 1.75 * m;
+        WindRes += 1.5 * m;
 
         if (mob.getType().is(PotatoTags.MAGE_NATURE)) {
             setIfNonNull((LivingEntity) mob, Attributes.ARMOR, Armor);

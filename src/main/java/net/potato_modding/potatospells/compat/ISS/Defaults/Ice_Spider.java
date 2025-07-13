@@ -1,4 +1,4 @@
-package net.potato_modding.potatospells.compat.Bosses.Cataclysm;
+package net.potato_modding.potatospells.compat.ISS.Defaults;
 
 import io.redspace.ironsspellbooks.api.registry.AttributeRegistry;
 import net.minecraft.core.Holder;
@@ -9,59 +9,37 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModList;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
-import net.potato_modding.potatospells.config.ServerConfigs;
 import net.potato_modding.potatospells.utils.PotatoTags;
 
 import static net.potato_modding.potatospells.utils.ConfigFormulas.*;
 
 @SuppressWarnings("unused")
 @EventBusSubscriber
-public class Leviathan {
+public class Ice_Spider {
 
     @SubscribeEvent(priority = net.neoforged.bus.api.EventPriority.LOWEST)
-    private static void handleResistanceAttributeCataclysm(EntityJoinLevelEvent event) {
+    private static void handleResistanceAttributeMob(EntityJoinLevelEvent event) {
         var mob = event.getEntity();
 
-        if (ServerConfigs.BOSS_SWITCH.get()) {
             // Amethyst  attributes
-            Armor += 15 * (1 + m / 3.25);
-            Tough += 15 * (1 + m / 3.25);
-            Attack += 10 * (1 + m / 3.25);
-            Resist += 1.3 * m;
-            FireRes += 2.5 * m;
-            NatRes += 0.75 * m;
-            EndRes += 1.75 * m;
-            BldRes += 0.8 * m;
-            IceRes += 1.9 * m;
-            LigRes -= 0.15 * m;
-            EldRes += 2.0 * m;
-            HolyRes += 0.85 * m;
-            BladeRes += 0.65 * m;
-            AbyssRes += 4.0 * m;
-            SoundRes += 0.95 * m;
-            WindRes += 1.2 * m;
-        }
+            Armor += 12 * (1 + m/3.25);
+            Tough += 5 * (1 + m/3.25);
+            Attack += 8.5 * (1 + m/3.25);
+            Resist += 0.8 * m;
+            FireRes -= 0.45 * m;
+            NatRes += 1.25 * m;
+            EndRes += 1.45 * m;
+            BldRes += 0.75 * m;
+            IceRes += 1.85 * m;
+            LigRes += 1.3 * m;
+            EldRes += 1.4 * m;
+            HolyRes += 1.15 * m;
+            BladeRes += 0.9 * m;
+            AbyssRes += 1.55 * m;
+            SoundRes += 1.1 * m;
+            WindRes += 1.6 * m;
 
-        else {
-            Armor = ServerConfigs.LEVIA_ARMOR.get();
-            Tough = ServerConfigs.LEVIA_TOUGHNESS.get();
-            Attack = ServerConfigs.LEVIA_ATTACK.get();
-            Resist = ServerConfigs.LEVIA_RESIST.get();
-            FireRes = ServerConfigs.LEVIA_FIRE_RESIST.get();
-            NatRes = ServerConfigs.LEVIA_NATURE_RESIST.get();
-            EndRes = ServerConfigs.LEVIA_ENDER_RESIST.get();
-            BldRes = ServerConfigs.LEVIA_BLOOD_RESIST.get();
-            IceRes = ServerConfigs.LEVIA_ICE_RESIST.get();
-            LigRes = ServerConfigs.LEVIA_LIGHTNING_RESIST.get();
-            EldRes = ServerConfigs.LEVIA_ELDRITCH_RESIST.get();
-            HolyRes = ServerConfigs.LEVIA_HOLY_RESIST.get();
-            BladeRes = ServerConfigs.LEVIA_BLADE_RESIST.get();
-            AbyssRes = ServerConfigs.LEVIA_ABYSSAL_RESIST.get();
-            SoundRes = ServerConfigs.LEVIA_MUSIC_RESIST.get();
-            WindRes = ServerConfigs.LEVIA_WIND_RESIST.get();
-        }
-
-        if (ModList.get().isLoaded("cataclysm") && mob.getType().is(PotatoTags.LEVIATHAN)) {
+        if (mob.getType().is(PotatoTags.ICE_SPIDER)) {
             setIfNonNull((LivingEntity) mob, Attributes.ARMOR, Armor);
             setIfNonNull((LivingEntity) mob, Attributes.ARMOR_TOUGHNESS, Tough);
             setIfNonNull((LivingEntity) mob, Attributes.ATTACK_DAMAGE, Attack);

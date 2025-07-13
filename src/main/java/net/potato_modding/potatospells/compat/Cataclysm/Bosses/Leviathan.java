@@ -1,4 +1,4 @@
-package net.potato_modding.potatospells.compat.Mobs.ISS.Mages;
+package net.potato_modding.potatospells.compat.Cataclysm.Bosses;
 
 import io.redspace.ironsspellbooks.api.registry.AttributeRegistry;
 import net.minecraft.core.Holder;
@@ -9,44 +9,62 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModList;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
+import net.potato_modding.potatospells.config.ServerConfigs;
 import net.potato_modding.potatospells.utils.PotatoTags;
 
 import static net.potato_modding.potatospells.utils.ConfigFormulas.*;
 
 @SuppressWarnings("unused")
 @EventBusSubscriber
-public class Mage_Sound {
+public class Leviathan {
 
     @SubscribeEvent(priority = net.neoforged.bus.api.EventPriority.LOWEST)
-    private static void handleResistanceAttributePreset(EntityJoinLevelEvent event) {
+    private static void handleResistanceAttributeCataclysm(EntityJoinLevelEvent event) {
         var mob = event.getEntity();
 
+        if (ServerConfigs.BOSS_SWITCH.get()) {
             // Amethyst  attributes
-        Armor += 3 * (1 + m/3.25);
-        Tough += 6 * (1 + m/3.25);
-        Attack += 4.0 * (1 + m/3.25);
-        SpellPower += 1.45 * m;
-        SchoolPower += 1.75 * m;
-        Resist += 1.35 * m;
-        FireRes += 1.35 * m;
-        NatRes += 1.35 * m;
-        EndRes += 0.95 * m;
-        BldRes += 0.55 * m;
-        IceRes += 1.35 * m;
-        LigRes += 1.35 * m;
-        EldRes -= 0.45 * m;
-        HolyRes += 1.65 * m;
-        BladeRes += 0.75 * m;
-        AbyssRes += 0.95 * m;
-        SoundRes += 1.75 * m;
-        WindRes += 1.5 * m;
+            Armor += 15 * (1 + m / 3.25);
+            Tough += 15 * (1 + m / 3.25);
+            Attack += 10 * (1 + m / 3.25);
+            Resist += 1.3 * m;
+            FireRes += 2.5 * m;
+            NatRes += 0.75 * m;
+            EndRes += 1.75 * m;
+            BldRes += 0.8 * m;
+            IceRes += 1.9 * m;
+            LigRes -= 0.15 * m;
+            EldRes += 2.0 * m;
+            HolyRes += 0.85 * m;
+            BladeRes += 0.65 * m;
+            AbyssRes += 4.0 * m;
+            SoundRes += 0.95 * m;
+            WindRes += 1.2 * m;
+        }
 
-        if (mob.getType().is(PotatoTags.MAGE_NATURE)) {
+        else {
+            Armor = ServerConfigs.LEVIA_ARMOR.get();
+            Tough = ServerConfigs.LEVIA_TOUGHNESS.get();
+            Attack = ServerConfigs.LEVIA_ATTACK.get();
+            Resist = ServerConfigs.LEVIA_RESIST.get();
+            FireRes = ServerConfigs.LEVIA_FIRE_RESIST.get();
+            NatRes = ServerConfigs.LEVIA_NATURE_RESIST.get();
+            EndRes = ServerConfigs.LEVIA_ENDER_RESIST.get();
+            BldRes = ServerConfigs.LEVIA_BLOOD_RESIST.get();
+            IceRes = ServerConfigs.LEVIA_ICE_RESIST.get();
+            LigRes = ServerConfigs.LEVIA_LIGHTNING_RESIST.get();
+            EldRes = ServerConfigs.LEVIA_ELDRITCH_RESIST.get();
+            HolyRes = ServerConfigs.LEVIA_HOLY_RESIST.get();
+            BladeRes = ServerConfigs.LEVIA_BLADE_RESIST.get();
+            AbyssRes = ServerConfigs.LEVIA_ABYSSAL_RESIST.get();
+            SoundRes = ServerConfigs.LEVIA_MUSIC_RESIST.get();
+            WindRes = ServerConfigs.LEVIA_WIND_RESIST.get();
+        }
+
+        if (ModList.get().isLoaded("cataclysm") && mob.getType().is(PotatoTags.LEVIATHAN)) {
             setIfNonNull((LivingEntity) mob, Attributes.ARMOR, Armor);
             setIfNonNull((LivingEntity) mob, Attributes.ARMOR_TOUGHNESS, Tough);
             setIfNonNull((LivingEntity) mob, Attributes.ATTACK_DAMAGE, Attack);
-            setIfNonNull((LivingEntity) mob, AttributeRegistry.SPELL_POWER, SpellPower);
-            setIfNonNull((LivingEntity) mob, AttributeRegistry.NATURE_SPELL_POWER, SchoolPower);
             setIfNonNull((LivingEntity) mob, AttributeRegistry.SPELL_RESIST, Resist);
             setIfNonNull((LivingEntity) mob, AttributeRegistry.FIRE_MAGIC_RESIST, FireRes);
             setIfNonNull((LivingEntity) mob, AttributeRegistry.NATURE_MAGIC_RESIST, NatRes);

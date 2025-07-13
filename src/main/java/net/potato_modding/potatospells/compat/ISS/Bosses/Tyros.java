@@ -1,4 +1,4 @@
-package net.potato_modding.potatospells.compat.Mobs.ISS;
+package net.potato_modding.potatospells.compat.ISS.Bosses;
 
 import io.redspace.ironsspellbooks.api.registry.AttributeRegistry;
 import net.minecraft.core.Holder;
@@ -9,40 +9,68 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModList;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
+import net.potato_modding.potatospells.config.ServerConfigs;
 import net.potato_modding.potatospells.utils.PotatoTags;
 
 import static net.potato_modding.potatospells.utils.ConfigFormulas.*;
 
 @SuppressWarnings("unused")
 @EventBusSubscriber
-public class Ice_Spider {
+public class Tyros {
 
     @SubscribeEvent(priority = net.neoforged.bus.api.EventPriority.LOWEST)
-    private static void handleResistanceAttributeMob(EntityJoinLevelEvent event) {
+    private static void handleResistanceAttributeCataclysm(EntityJoinLevelEvent event) {
         var mob = event.getEntity();
 
+        if (ServerConfigs.BOSS_SWITCH.get()) {
             // Amethyst  attributes
-            Armor += 12 * (1 + m/3.25);
-            Tough += 5 * (1 + m/3.25);
-            Attack += 8.5 * (1 + m/3.25);
-            Resist += 0.8 * m;
-            FireRes -= 0.45 * m;
-            NatRes += 1.25 * m;
-            EndRes += 1.45 * m;
-            BldRes += 0.75 * m;
-            IceRes += 1.85 * m;
-            LigRes += 1.3 * m;
-            EldRes += 1.4 * m;
-            HolyRes += 1.15 * m;
-            BladeRes += 0.9 * m;
-            AbyssRes += 1.55 * m;
-            SoundRes += 1.1 * m;
-            WindRes += 1.6 * m;
+            Armor += 25 * (1 + m/3.25);
+            Tough += 10 * (1 + m/3.25);
+            Attack += 11 * (1 + m/3.25);
+            SpellPower += 1.2 * m;
+            SchoolPower += 1.65 * m;
+            Resist += 1.3 * m;
+            FireRes += 2.0 * m;
+            NatRes += 1.5 * m;
+            EndRes += 0.8 * m;
+            BldRes += 1.35 * m;
+            IceRes += 0.3 * m;
+            LigRes += 1.2 * m;
+            EldRes += 1.05 * m;
+            HolyRes += 0.6 * m;
+            BladeRes += 1.1 * m;
+            AbyssRes += 0.25 * m;
+            SoundRes += 0.75 * m;
+            WindRes += 0.8 * m;
+        }
 
-        if (mob.getType().is(PotatoTags.ICE_SPIDER)) {
+        else {
+            Armor = ServerConfigs.TYROS_ARMOR.get();
+            Tough = ServerConfigs.TYROS_TOUGHNESS.get();
+            Attack = ServerConfigs.TYROS_ATTACK.get();
+            Resist = ServerConfigs.TYROS_RESIST.get();
+            SpellPower = ServerConfigs.TYROS_POWER.get();
+            SchoolPower = ServerConfigs.TYROS_FIRE_SPELL.get();
+            FireRes = ServerConfigs.TYROS_FIRE_RESIST.get();
+            NatRes = ServerConfigs.TYROS_NATURE_RESIST.get();
+            EndRes = ServerConfigs.TYROS_ENDER_RESIST.get();
+            BldRes = ServerConfigs.TYROS_BLOOD_RESIST.get();
+            IceRes = ServerConfigs.TYROS_ICE_RESIST.get();
+            LigRes = ServerConfigs.TYROS_LIGHTNING_RESIST.get();
+            EldRes = ServerConfigs.TYROS_ELDRITCH_RESIST.get();
+            HolyRes = ServerConfigs.TYROS_HOLY_RESIST.get();
+            BladeRes = ServerConfigs.TYROS_BLADE_RESIST.get();
+            AbyssRes = ServerConfigs.TYROS_ABYSSAL_RESIST.get();
+            SoundRes = ServerConfigs.TYROS_MUSIC_RESIST.get();
+            WindRes = ServerConfigs.TYROS_WIND_RESIST.get();
+        }
+
+        if (mob.getType().is(PotatoTags.TYROS_BOSS)) {
             setIfNonNull((LivingEntity) mob, Attributes.ARMOR, Armor);
             setIfNonNull((LivingEntity) mob, Attributes.ARMOR_TOUGHNESS, Tough);
             setIfNonNull((LivingEntity) mob, Attributes.ATTACK_DAMAGE, Attack);
+            setIfNonNull((LivingEntity) mob, AttributeRegistry.SPELL_POWER, SpellPower);
+            setIfNonNull((LivingEntity) mob, AttributeRegistry.FIRE_SPELL_POWER, SchoolPower);
             setIfNonNull((LivingEntity) mob, AttributeRegistry.SPELL_RESIST, Resist);
             setIfNonNull((LivingEntity) mob, AttributeRegistry.FIRE_MAGIC_RESIST, FireRes);
             setIfNonNull((LivingEntity) mob, AttributeRegistry.NATURE_MAGIC_RESIST, NatRes);
@@ -89,9 +117,8 @@ public class Ice_Spider {
             Attack = 0;
         }
     }
-
     // Actually sets the attributes
-    private static void setIfNonNull(LivingEntity entity, Holder<Attribute> attribute, double value)
+    private static void setIfNonNull(LivingEntity entity, Holder< Attribute > attribute, double value)
     {
         var instance = entity.getAttributes().getInstance(attribute);
         if (instance != null)
