@@ -21,25 +21,25 @@ public class Mage_Evoke {
     private static void handleResistanceAttributePreset(EntityJoinLevelEvent event) {
         var mob = event.getEntity();
 
-            // Amethyst  attributes
-            Armor += 5 * (1 + m/3.25);
-            Tough += 3 * (1 + m/3.25);
-            Attack += 5.5 * (1 + m/3.25);
-            SpellPower += 1.5 * m;
-            SchoolPower += 1.5 * m;
-            Resist += 1.55 * m;
-            FireRes += 1.25 * m;
-            NatRes += 1.25 * m;
-            EndRes += 1.25 * m;
-            BldRes += 1.25 * m;
-            IceRes += 1.25 * m;
-            LigRes += 1.25 * m;
-            EldRes += 1.25 * m;
-            HolyRes += 1.25 * m;
-            BladeRes += 1.25 * m;
-            AbyssRes += 1.25 * m;
-            SoundRes += 1.25 * m;
-            WindRes += 1.25 * m;
+        // Amethyst  attributes
+        Armor += 5 * (1 + m / 3.25);
+        Tough += 3 * (1 + m / 3.25);
+        Attack += 5.5 * (1 + m / 3.25);
+        SpellPower += 1.5 * m;
+        SchoolPower += 1.5 * m;
+        Resist += 1.55 * m;
+        FireRes += 1.25 * m;
+        NatRes += 1.25 * m;
+        EndRes += 1.25 * m;
+        BldRes += 1.25 * m;
+        IceRes += 1.25 * m;
+        LigRes += 1.25 * m;
+        EldRes += 1.25 * m;
+        HolyRes += 1.25 * m;
+        BladeRes += 1.25 * m;
+        AbyssRes += 1.25 * m;
+        SoundRes += 1.25 * m;
+        WindRes += 1.25 * m;
 
         if (mob.getType().is(PotatoTags.MAGE_EVOKE)) {
             setIfNonNull((LivingEntity) mob, Attributes.ARMOR, Armor);
@@ -95,13 +95,13 @@ public class Mage_Evoke {
         }
     }
 
-    // Actually sets the attributes
-    private static void setIfNonNull(LivingEntity entity, Holder<Attribute> attribute, double value)
-    {
-        var instance = entity.getAttributes().getInstance(attribute);
-        if (instance != null)
+    private static void setIfNonNull(LivingEntity entity, Holder<Attribute> attribute, double value) {
         {
-            instance.setBaseValue(value);
+            var instance = entity.getAttributes().getInstance(attribute);
+            if (instance != null) {
+                instance.setBaseValue(value);
+            }
         }
     }
 }
+
