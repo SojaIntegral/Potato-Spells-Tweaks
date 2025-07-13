@@ -28,20 +28,20 @@ public class Harbinger {
             if (!ServerConfigs.HARBINGER_SWITCH.get()) {
                 // Amethyst  attributes
                 Resist += 1.3 * boss_mod;
-                FireRes += 1.8 * boss_mod;
-                IceRes += 1.15 * boss_mod;
-                HolyRes += 1.35 * boss_mod;
-                NatRes += 1.65 * boss_mod;
-                BldRes += 1.7 * boss_mod;
-                EndRes += 1.1 * boss_mod;
-                LigRes += 1.2 * boss_mod;
-                EldRes += 0.75 * boss_mod;
-                AbyssRes -= 0.15 * boss_mod;
-                BladeRes += 1.5 * boss_mod;
-                SoundRes += 1.05 * boss_mod;
-                WindRes += 1.4 * boss_mod;
-                Armor += 20 * spec_mod;
-                Tough += 10 * spec_mod;
+                FireRes += 1.05 * boss_mod;
+                IceRes += 1.35 * boss_mod;
+                HolyRes += 1.4 * boss_mod;
+                NatRes += 1.6 * boss_mod;
+                BloodRes += 1.9 * boss_mod;
+                EndRes += 1.3 * boss_mod;
+                LigRes -= 0.2 * boss_mod;
+                EldRes += 1.45 * boss_mod;
+                AbyssRes += 0.45 * boss_mod;
+                BladeRes += 1.15 * boss_mod;
+                SoundRes += 1.25 * boss_mod;
+                WindRes += 1.05 * boss_mod;
+                Armor += 13 * spec_mod;
+                Tough += 13 * spec_mod;
                 Attack += 10 * spec_mod;
             }
 
@@ -53,7 +53,7 @@ public class Harbinger {
                 FireRes = ServerConfigs.HARBINGER_FIRE_RESIST.get();
                 NatRes = ServerConfigs.HARBINGER_NATURE_RESIST.get();
                 EndRes = ServerConfigs.HARBINGER_ENDER_RESIST.get();
-                BldRes = ServerConfigs.HARBINGER_BLOOD_RESIST.get();
+                BloodRes = ServerConfigs.HARBINGER_BLOOD_RESIST.get();
                 IceRes = ServerConfigs.HARBINGER_ICE_RESIST.get();
                 LigRes = ServerConfigs.HARBINGER_LIGHTNING_RESIST.get();
                 EldRes = ServerConfigs.HARBINGER_ELDRITCH_RESIST.get();
@@ -73,7 +73,7 @@ public class Harbinger {
                 setIfNonNull((LivingEntity) mob, AttributeRegistry.FIRE_MAGIC_RESIST, FireRes);
                 setIfNonNull((LivingEntity) mob, AttributeRegistry.NATURE_MAGIC_RESIST, NatRes);
                 setIfNonNull((LivingEntity) mob, AttributeRegistry.ENDER_MAGIC_RESIST, EndRes);
-                setIfNonNull((LivingEntity) mob, AttributeRegistry.BLOOD_MAGIC_RESIST, BldRes);
+                setIfNonNull((LivingEntity) mob, AttributeRegistry.BLOOD_MAGIC_RESIST, BloodRes);
                 setIfNonNull((LivingEntity) mob, AttributeRegistry.ICE_MAGIC_RESIST, IceRes);
                 setIfNonNull((LivingEntity) mob, AttributeRegistry.LIGHTNING_MAGIC_RESIST, LigRes);
                 setIfNonNull((LivingEntity) mob, AttributeRegistry.ELDRITCH_MAGIC_RESIST, EldRes);
@@ -107,7 +107,7 @@ public class Harbinger {
                 IceRes = 0;
                 HolyRes = 0;
                 NatRes = 0;
-                BldRes = 0;
+                BloodRes = 0;
                 EndRes = 0;
                 LigRes = 0;
                 EldRes = 0;

@@ -29,7 +29,7 @@ public class Citadel_Keeper {
             FireRes += 1.75 * mob_mod;
             NatRes += 1.5 * mob_mod;
             EndRes += 1.2 * mob_mod;
-            BldRes += 1.5 * mob_mod;
+            BloodRes += 1.5 * mob_mod;
             IceRes += 0.3 * mob_mod;
             LigRes += 1.65 * mob_mod;
             EldRes += 1.7 * mob_mod;
@@ -50,7 +50,7 @@ public class Citadel_Keeper {
                 setIfNonNull((LivingEntity) mob, AttributeRegistry.FIRE_MAGIC_RESIST, FireRes);
                 setIfNonNull((LivingEntity) mob, AttributeRegistry.NATURE_MAGIC_RESIST, NatRes);
                 setIfNonNull((LivingEntity) mob, AttributeRegistry.ENDER_MAGIC_RESIST, EndRes);
-                setIfNonNull((LivingEntity) mob, AttributeRegistry.BLOOD_MAGIC_RESIST, BldRes);
+                setIfNonNull((LivingEntity) mob, AttributeRegistry.BLOOD_MAGIC_RESIST, BloodRes);
                 setIfNonNull((LivingEntity) mob, AttributeRegistry.ICE_MAGIC_RESIST, IceRes);
                 setIfNonNull((LivingEntity) mob, AttributeRegistry.LIGHTNING_MAGIC_RESIST, LigRes);
                 setIfNonNull((LivingEntity) mob, AttributeRegistry.ELDRITCH_MAGIC_RESIST, EldRes);
@@ -84,7 +84,7 @@ public class Citadel_Keeper {
                 IceRes = 0;
                 HolyRes = 0;
                 NatRes = 0;
-                BldRes = 0;
+                BloodRes = 0;
                 EndRes = 0;
                 LigRes = 0;
                 EldRes = 0;

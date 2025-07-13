@@ -30,7 +30,7 @@ public class Ender_Guardian {
             IceRes += 1.25 * mini_mod;
             HolyRes += 1.1 * mini_mod;
             NatRes += 1.25 * mini_mod;
-            BldRes += 1.3 * mini_mod;
+            BloodRes += 1.3 * mini_mod;
             EndRes += 1.6 * mini_mod;
             LigRes += 1.3 * mini_mod;
             EldRes += 0.85 * mini_mod;
@@ -51,7 +51,7 @@ public class Ender_Guardian {
                 setIfNonNull((LivingEntity) mob, AttributeRegistry.FIRE_MAGIC_RESIST, FireRes);
                 setIfNonNull((LivingEntity) mob, AttributeRegistry.NATURE_MAGIC_RESIST, NatRes);
                 setIfNonNull((LivingEntity) mob, AttributeRegistry.ENDER_MAGIC_RESIST, EndRes);
-                setIfNonNull((LivingEntity) mob, AttributeRegistry.BLOOD_MAGIC_RESIST, BldRes);
+                setIfNonNull((LivingEntity) mob, AttributeRegistry.BLOOD_MAGIC_RESIST, BloodRes);
                 setIfNonNull((LivingEntity) mob, AttributeRegistry.ICE_MAGIC_RESIST, IceRes);
                 setIfNonNull((LivingEntity) mob, AttributeRegistry.LIGHTNING_MAGIC_RESIST, LigRes);
                 setIfNonNull((LivingEntity) mob, AttributeRegistry.ELDRITCH_MAGIC_RESIST, EldRes);
@@ -85,7 +85,7 @@ public class Ender_Guardian {
                 IceRes = 0;
                 HolyRes = 0;
                 NatRes = 0;
-                BldRes = 0;
+                BloodRes = 0;
                 EndRes = 0;
                 LigRes = 0;
                 EldRes = 0;

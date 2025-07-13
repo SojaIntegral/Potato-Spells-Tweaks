@@ -32,7 +32,7 @@ public class Maledictus {
                 IceRes += 1.65 * boss_mod;
                 HolyRes += 0.9 * boss_mod;
                 NatRes += 1.25 * boss_mod;
-                BldRes += 1.35 * boss_mod;
+                BloodRes += 1.35 * boss_mod;
                 EndRes += 1.1 * boss_mod;
                 LigRes += 0.8 * boss_mod;
                 EldRes += 1.2 * boss_mod;
@@ -53,7 +53,7 @@ public class Maledictus {
                 FireRes = ServerConfigs.MALEDICTUS_FIRE_RESIST.get();
                 NatRes = ServerConfigs.MALEDICTUS_NATURE_RESIST.get();
                 EndRes = ServerConfigs.MALEDICTUS_ENDER_RESIST.get();
-                BldRes = ServerConfigs.MALEDICTUS_BLOOD_RESIST.get();
+                BloodRes = ServerConfigs.MALEDICTUS_BLOOD_RESIST.get();
                 IceRes = ServerConfigs.MALEDICTUS_ICE_RESIST.get();
                 LigRes = ServerConfigs.MALEDICTUS_LIGHTNING_RESIST.get();
                 EldRes = ServerConfigs.MALEDICTUS_ELDRITCH_RESIST.get();
@@ -73,7 +73,7 @@ public class Maledictus {
                 setIfNonNull((LivingEntity) mob, AttributeRegistry.FIRE_MAGIC_RESIST, FireRes);
                 setIfNonNull((LivingEntity) mob, AttributeRegistry.NATURE_MAGIC_RESIST, NatRes);
                 setIfNonNull((LivingEntity) mob, AttributeRegistry.ENDER_MAGIC_RESIST, EndRes);
-                setIfNonNull((LivingEntity) mob, AttributeRegistry.BLOOD_MAGIC_RESIST, BldRes);
+                setIfNonNull((LivingEntity) mob, AttributeRegistry.BLOOD_MAGIC_RESIST, BloodRes);
                 setIfNonNull((LivingEntity) mob, AttributeRegistry.ICE_MAGIC_RESIST, IceRes);
                 setIfNonNull((LivingEntity) mob, AttributeRegistry.LIGHTNING_MAGIC_RESIST, LigRes);
                 setIfNonNull((LivingEntity) mob, AttributeRegistry.ELDRITCH_MAGIC_RESIST, EldRes);
@@ -107,7 +107,7 @@ public class Maledictus {
                 IceRes = 0;
                 HolyRes = 0;
                 NatRes = 0;
-                BldRes = 0;
+                BloodRes = 0;
                 EndRes = 0;
                 LigRes = 0;
                 EldRes = 0;

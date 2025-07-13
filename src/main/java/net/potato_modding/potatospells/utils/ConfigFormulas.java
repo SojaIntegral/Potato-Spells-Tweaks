@@ -34,7 +34,7 @@ public class ConfigFormulas {
     public static double IceRes = 0;
     public static double HolyRes = 0;
     public static double NatRes = 0;
-    public static double BldRes = 0;
+    public static double BloodRes = 0;
     public static double EndRes = 0;
     public static double LigRes = 0;
     public static double EldRes = 0;

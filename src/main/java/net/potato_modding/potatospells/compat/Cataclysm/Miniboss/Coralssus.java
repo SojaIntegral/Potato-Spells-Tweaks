@@ -30,7 +30,7 @@ public class Coralssus {
             IceRes += 0.8 * mini_mod;
             HolyRes += 1.05 * mini_mod;
             NatRes += 1.25 * mini_mod;
-            BldRes += 0.95 * mini_mod;
+            BloodRes += 0.95 * mini_mod;
             EndRes += 1.1 * mini_mod;
             LigRes += 0.35 * mini_mod;
             EldRes += 1.3 * mini_mod;
@@ -51,7 +51,7 @@ public class Coralssus {
                 setIfNonNull((LivingEntity) mob, AttributeRegistry.FIRE_MAGIC_RESIST, FireRes);
                 setIfNonNull((LivingEntity) mob, AttributeRegistry.NATURE_MAGIC_RESIST, NatRes);
                 setIfNonNull((LivingEntity) mob, AttributeRegistry.ENDER_MAGIC_RESIST, EndRes);
-                setIfNonNull((LivingEntity) mob, AttributeRegistry.BLOOD_MAGIC_RESIST, BldRes);
+                setIfNonNull((LivingEntity) mob, AttributeRegistry.BLOOD_MAGIC_RESIST, BloodRes);
                 setIfNonNull((LivingEntity) mob, AttributeRegistry.ICE_MAGIC_RESIST, IceRes);
                 setIfNonNull((LivingEntity) mob, AttributeRegistry.LIGHTNING_MAGIC_RESIST, LigRes);
                 setIfNonNull((LivingEntity) mob, AttributeRegistry.ELDRITCH_MAGIC_RESIST, EldRes);
@@ -85,7 +85,7 @@ public class Coralssus {
                 IceRes = 0;
                 HolyRes = 0;
                 NatRes = 0;
-                BldRes = 0;
+                BloodRes = 0;
                 EndRes = 0;
                 LigRes = 0;
                 EldRes = 0;

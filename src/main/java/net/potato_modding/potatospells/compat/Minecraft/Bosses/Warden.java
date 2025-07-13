@@ -32,7 +32,7 @@ public class Warden {
                 IceRes -= 0.85 * boss_mod;
                 HolyRes += 1.35 * boss_mod;
                 NatRes += 1.85 * boss_mod;
-                BldRes += 1.65 * boss_mod;
+                BloodRes += 1.65 * boss_mod;
                 EndRes += 0.85 * boss_mod;
                 LigRes += 0.9 * boss_mod;
                 EldRes += 1.25 * boss_mod;
@@ -53,7 +53,7 @@ public class Warden {
                 FireRes = ServerConfigs.NETMONST_FIRE_RESIST.get();
                 NatRes = ServerConfigs.NETMONST_NATURE_RESIST.get();
                 EndRes = ServerConfigs.NETMONST_ENDER_RESIST.get();
-                BldRes = ServerConfigs.NETMONST_BLOOD_RESIST.get();
+                BloodRes = ServerConfigs.NETMONST_BLOOD_RESIST.get();
                 IceRes = ServerConfigs.NETMONST_ICE_RESIST.get();
                 LigRes = ServerConfigs.NETMONST_LIGHTNING_RESIST.get();
                 EldRes = ServerConfigs.NETMONST_ELDRITCH_RESIST.get();
@@ -72,7 +72,7 @@ public class Warden {
                 setIfNonNull((LivingEntity) mob, AttributeRegistry.FIRE_MAGIC_RESIST, FireRes);
                 setIfNonNull((LivingEntity) mob, AttributeRegistry.NATURE_MAGIC_RESIST, NatRes);
                 setIfNonNull((LivingEntity) mob, AttributeRegistry.ENDER_MAGIC_RESIST, EndRes);
-                setIfNonNull((LivingEntity) mob, AttributeRegistry.BLOOD_MAGIC_RESIST, BldRes);
+                setIfNonNull((LivingEntity) mob, AttributeRegistry.BLOOD_MAGIC_RESIST, BloodRes);
                 setIfNonNull((LivingEntity) mob, AttributeRegistry.ICE_MAGIC_RESIST, IceRes);
                 setIfNonNull((LivingEntity) mob, AttributeRegistry.LIGHTNING_MAGIC_RESIST, LigRes);
                 setIfNonNull((LivingEntity) mob, AttributeRegistry.ELDRITCH_MAGIC_RESIST, EldRes);
@@ -106,7 +106,7 @@ public class Warden {
                 IceRes = 0;
                 HolyRes = 0;
                 NatRes = 0;
-                BldRes = 0;
+                BloodRes = 0;
                 EndRes = 0;
                 LigRes = 0;
                 EldRes = 0;

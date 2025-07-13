@@ -33,7 +33,7 @@ public class Tyros {
                 FireRes += 2.0 * boss_mod;
                 NatRes += 1.5 * boss_mod;
                 EndRes += 0.8 * boss_mod;
-                BldRes += 1.35 * boss_mod;
+                BloodRes += 1.35 * boss_mod;
                 IceRes += 0.3 * boss_mod;
                 LigRes += 1.2 * boss_mod;
                 EldRes += 1.05 * boss_mod;
@@ -56,7 +56,7 @@ public class Tyros {
                 FireRes = ServerConfigs.TYROS_FIRE_RESIST.get();
                 NatRes = ServerConfigs.TYROS_NATURE_RESIST.get();
                 EndRes = ServerConfigs.TYROS_ENDER_RESIST.get();
-                BldRes = ServerConfigs.TYROS_BLOOD_RESIST.get();
+                BloodRes = ServerConfigs.TYROS_BLOOD_RESIST.get();
                 IceRes = ServerConfigs.TYROS_ICE_RESIST.get();
                 LigRes = ServerConfigs.TYROS_LIGHTNING_RESIST.get();
                 EldRes = ServerConfigs.TYROS_ELDRITCH_RESIST.get();
@@ -78,7 +78,7 @@ public class Tyros {
                 setIfNonNull((LivingEntity) mob, AttributeRegistry.FIRE_MAGIC_RESIST, FireRes);
                 setIfNonNull((LivingEntity) mob, AttributeRegistry.NATURE_MAGIC_RESIST, NatRes);
                 setIfNonNull((LivingEntity) mob, AttributeRegistry.ENDER_MAGIC_RESIST, EndRes);
-                setIfNonNull((LivingEntity) mob, AttributeRegistry.BLOOD_MAGIC_RESIST, BldRes);
+                setIfNonNull((LivingEntity) mob, AttributeRegistry.BLOOD_MAGIC_RESIST, BloodRes);
                 setIfNonNull((LivingEntity) mob, AttributeRegistry.ICE_MAGIC_RESIST, IceRes);
                 setIfNonNull((LivingEntity) mob, AttributeRegistry.LIGHTNING_MAGIC_RESIST, LigRes);
                 setIfNonNull((LivingEntity) mob, AttributeRegistry.ELDRITCH_MAGIC_RESIST, EldRes);
@@ -112,7 +112,7 @@ public class Tyros {
                 IceRes = 0;
                 HolyRes = 0;
                 NatRes = 0;
-                BldRes = 0;
+                BloodRes = 0;
                 EndRes = 0;
                 LigRes = 0;
                 EldRes = 0;
