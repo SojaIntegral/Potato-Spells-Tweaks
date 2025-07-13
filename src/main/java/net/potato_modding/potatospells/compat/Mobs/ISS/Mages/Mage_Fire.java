@@ -1,4 +1,4 @@
-package net.potato_modding.potatospells.compat.Mobs.ISS;
+package net.potato_modding.potatospells.compat.Mobs.ISS.Mages;
 
 import io.redspace.ironsspellbooks.api.registry.AttributeRegistry;
 import net.minecraft.core.Holder;
@@ -15,38 +15,38 @@ import static net.potato_modding.potatospells.utils.ConfigFormulas.*;
 
 @SuppressWarnings("unused")
 @EventBusSubscriber
-public class Mage_Evoke {
+public class Mage_Fire {
 
     @SubscribeEvent(priority = net.neoforged.bus.api.EventPriority.LOWEST)
     private static void handleResistanceAttributePreset(EntityJoinLevelEvent event) {
         var mob = event.getEntity();
 
-        // Amethyst  attributes
-        Armor += 5 * (1 + m / 3.25);
-        Tough += 3 * (1 + m / 3.25);
-        Attack += 5.5 * (1 + m / 3.25);
-        SpellPower += 1.5 * m;
-        SchoolPower += 1.5 * m;
-        Resist += 1.55 * m;
-        FireRes += 1.25 * m;
-        NatRes += 1.25 * m;
-        EndRes += 1.25 * m;
-        BldRes += 1.25 * m;
-        IceRes += 1.25 * m;
-        LigRes += 1.25 * m;
-        EldRes += 1.25 * m;
-        HolyRes += 1.25 * m;
-        BladeRes += 1.25 * m;
-        AbyssRes += 1.25 * m;
-        SoundRes += 1.25 * m;
-        WindRes += 1.25 * m;
+            // Amethyst  attributes
+            Armor += 6 * (1 + m/3.25);
+            Tough += 6 * (1 + m/3.25);
+            Attack += 6.0 * (1 + m/3.25);
+            SpellPower += 1.15 * m;
+            SchoolPower += 1.85 * m;
+            Resist += 1.05 * m;
+            FireRes += 2.05 * m;
+            NatRes += 1.85 * m;
+            EndRes += 1.1 * m;
+            BldRes += 1.25 * m;
+            IceRes += 1.75 * m;
+            LigRes += 1.2 * m;
+            EldRes += 1.4 * m;
+            HolyRes += 1.25 * m;
+            BladeRes += 0.85 * m;
+            AbyssRes -= 0.2 * m;
+            SoundRes += 0.9 * m;
+            WindRes += 0.75 * m;
 
-        if (mob.getType().is(PotatoTags.MAGE_EVOKE)) {
+        if (mob.getType().is(PotatoTags.MAGE_FIRE)) {
             setIfNonNull((LivingEntity) mob, Attributes.ARMOR, Armor);
             setIfNonNull((LivingEntity) mob, Attributes.ARMOR_TOUGHNESS, Tough);
             setIfNonNull((LivingEntity) mob, Attributes.ATTACK_DAMAGE, Attack);
             setIfNonNull((LivingEntity) mob, AttributeRegistry.SPELL_POWER, SpellPower);
-            setIfNonNull((LivingEntity) mob, AttributeRegistry.EVOCATION_SPELL_POWER, SchoolPower);
+            setIfNonNull((LivingEntity) mob, AttributeRegistry.NATURE_SPELL_POWER, SchoolPower);
             setIfNonNull((LivingEntity) mob, AttributeRegistry.SPELL_RESIST, Resist);
             setIfNonNull((LivingEntity) mob, AttributeRegistry.FIRE_MAGIC_RESIST, FireRes);
             setIfNonNull((LivingEntity) mob, AttributeRegistry.NATURE_MAGIC_RESIST, NatRes);
@@ -56,7 +56,6 @@ public class Mage_Evoke {
             setIfNonNull((LivingEntity) mob, AttributeRegistry.LIGHTNING_MAGIC_RESIST, LigRes);
             setIfNonNull((LivingEntity) mob, AttributeRegistry.ELDRITCH_MAGIC_RESIST, EldRes);
             setIfNonNull((LivingEntity) mob, AttributeRegistry.HOLY_MAGIC_RESIST, HolyRes);
-            setIfNonNull((LivingEntity) mob, AttributeRegistry.EVOCATION_MAGIC_RESIST, 1.5 * m);
             // This needs to be conditional or the game shits itself if the mod is not present
             if (ModList.get().isLoaded("endersequipment")) {
                 setIfNonNull((LivingEntity) mob, net.ender.endersequipment.registries.EEAttributeRegistry.BLADE_MAGIC_RESIST, BladeRes);
@@ -95,13 +94,13 @@ public class Mage_Evoke {
         }
     }
 
-    private static void setIfNonNull(LivingEntity entity, Holder<Attribute> attribute, double value) {
+    // Actually sets the attributes
+    private static void setIfNonNull(LivingEntity entity, Holder<Attribute> attribute, double value)
+    {
+        var instance = entity.getAttributes().getInstance(attribute);
+        if (instance != null)
         {
-            var instance = entity.getAttributes().getInstance(attribute);
-            if (instance != null) {
-                instance.setBaseValue(value);
-            }
+            instance.setBaseValue(value);
         }
     }
 }
-

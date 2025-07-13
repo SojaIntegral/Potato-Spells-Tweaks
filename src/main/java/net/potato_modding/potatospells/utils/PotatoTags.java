@@ -25,8 +25,16 @@ public class PotatoTags {
 
 
     // Mages pre-sets
+    public static final TagKey<EntityType<?>> MAGE_ABYSS =
+            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "mobs/iss/mage_abyss"));
+    public static final TagKey<EntityType<?>> MAGE_BLADE =
+            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "mobs/iss/mage_blade"));
     public static final TagKey<EntityType<?>> MAGE_BLOOD =
             TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "mobs/iss/mage_blood"));
+    public static final TagKey<EntityType<?>> MAGE_ELDRITCH =
+            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "mobs/iss/mage_eldritch"));
+    public static final TagKey<EntityType<?>> MAGE_ENDER =
+            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "mobs/iss/mage_ender"));
     public static final TagKey<EntityType<?>> MAGE_EVOKE =
             TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "mobs/iss/mage_evoke"));
     public static final TagKey<EntityType<?>> MAGE_FIRE =
@@ -37,6 +45,10 @@ public class PotatoTags {
             TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "mobs/iss/mage_ice"));
     public static final TagKey<EntityType<?>> MAGE_NATURE =
             TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "mobs/iss/mage_nature"));
+    public static final TagKey<EntityType<?>> MAGE_SOUND =
+            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "mobs/iss/mage_sound"));
+    public static final TagKey<EntityType<?>> MAGE_WIND =
+            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "mobs/iss/mage_wind"));
 
 
     // Cataclysm Entities

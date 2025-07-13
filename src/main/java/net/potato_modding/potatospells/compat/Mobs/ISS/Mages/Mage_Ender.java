@@ -1,4 +1,4 @@
-package net.potato_modding.potatospells.compat.Mobs.ISS;
+package net.potato_modding.potatospells.compat.Mobs.ISS.Mages;
 
 import io.redspace.ironsspellbooks.api.registry.AttributeRegistry;
 import net.minecraft.core.Holder;
@@ -15,33 +15,33 @@ import static net.potato_modding.potatospells.utils.ConfigFormulas.*;
 
 @SuppressWarnings("unused")
 @EventBusSubscriber
-public class Mage_Holy {
+public class Mage_Ender {
 
     @SubscribeEvent(priority = net.neoforged.bus.api.EventPriority.LOWEST)
     private static void handleResistanceAttributePreset(EntityJoinLevelEvent event) {
         var mob = event.getEntity();
 
             // Amethyst  attributes
-            Armor += 20 * (1 + m/3.25);
-            Tough += 10 * (1 + m/3.25);
-            Attack += 5.0 * (1 + m/3.25);
-            SpellPower += 1.25 * m;
+            Armor += 12 * (1 + m/3.25);
+            Tough += 6 * (1 + m/3.25);
+            Attack += 7.5 * (1 + m/3.25);
+            SpellPower += 1.35 * m;
             SchoolPower += 1.65 * m;
             Resist += 1.25 * m;
             FireRes += 1.25 * m;
             NatRes += 1.25 * m;
-            EndRes += 0.55 * m;
-            BldRes += 0.25 * m;
+            EndRes += 1.65 * m;
+            BldRes += 1.25 * m;
             IceRes += 1.25 * m;
             LigRes += 1.25 * m;
-            EldRes -= 0.95 * m;
-            HolyRes += 1.95 * m;
-            BladeRes += 1.55 * m;
-            AbyssRes += 0.75 * m;
-            SoundRes += 1.7 * m;
-            WindRes += 1.35 * m;
+            EldRes += 1.45 * m;
+            HolyRes += 1.05 * m;
+            BladeRes += 1.25 * m;
+            AbyssRes += 1.35 * m;
+            SoundRes += 1.1 * m;
+            WindRes += 1.25 * m;
 
-        if (mob.getType().is(PotatoTags.MAGE_HOLY)) {
+        if (mob.getType().is(PotatoTags.MAGE_NATURE)) {
             setIfNonNull((LivingEntity) mob, Attributes.ARMOR, Armor);
             setIfNonNull((LivingEntity) mob, Attributes.ARMOR_TOUGHNESS, Tough);
             setIfNonNull((LivingEntity) mob, Attributes.ATTACK_DAMAGE, Attack);

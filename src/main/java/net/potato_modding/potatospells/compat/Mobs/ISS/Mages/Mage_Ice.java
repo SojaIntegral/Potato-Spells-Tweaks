@@ -1,4 +1,4 @@
-package net.potato_modding.potatospells.compat.Mobs.ISS;
+package net.potato_modding.potatospells.compat.Mobs.ISS.Mages;
 
 import io.redspace.ironsspellbooks.api.registry.AttributeRegistry;
 import net.minecraft.core.Holder;
@@ -15,33 +15,33 @@ import static net.potato_modding.potatospells.utils.ConfigFormulas.*;
 
 @SuppressWarnings("unused")
 @EventBusSubscriber
-public class Mage_Fire {
+public class Mage_Ice {
 
     @SubscribeEvent(priority = net.neoforged.bus.api.EventPriority.LOWEST)
     private static void handleResistanceAttributePreset(EntityJoinLevelEvent event) {
         var mob = event.getEntity();
 
             // Amethyst  attributes
-            Armor += 6 * (1 + m/3.25);
-            Tough += 6 * (1 + m/3.25);
-            Attack += 6.0 * (1 + m/3.25);
-            SpellPower += 1.15 * m;
-            SchoolPower += 1.85 * m;
-            Resist += 1.05 * m;
-            FireRes += 2.05 * m;
-            NatRes += 1.85 * m;
-            EndRes += 1.1 * m;
-            BldRes += 1.25 * m;
-            IceRes += 1.75 * m;
-            LigRes += 1.2 * m;
-            EldRes += 1.4 * m;
-            HolyRes += 1.25 * m;
-            BladeRes += 0.85 * m;
-            AbyssRes -= 0.2 * m;
-            SoundRes += 0.9 * m;
-            WindRes += 0.75 * m;
+            Armor += 18 * (1 + m/3.25);
+            Tough += 9 * (1 + m/3.25);
+            Attack += 8.0 * (1 + m/3.25);
+            SpellPower += 0.9 * m;
+            SchoolPower += 2.15 * m;
+            Resist += 0.75 * m;
+            FireRes += 0.15 * m;
+            NatRes += 1.5 * m;
+            EndRes += 1.5 * m;
+            BldRes += 1.5 * m;
+            IceRes += 2.0 * m;
+            LigRes += 1.05 * m;
+            EldRes += 0.85 * m;
+            HolyRes += 1.65 * m;
+            BladeRes += 1.85 * m;
+            AbyssRes += 1.75 * m;
+            SoundRes += 1.2 * m;
+            WindRes += 1.35 * m;
 
-        if (mob.getType().is(PotatoTags.MAGE_FIRE)) {
+        if (mob.getType().is(PotatoTags.MAGE_ICE)) {
             setIfNonNull((LivingEntity) mob, Attributes.ARMOR, Armor);
             setIfNonNull((LivingEntity) mob, Attributes.ARMOR_TOUGHNESS, Tough);
             setIfNonNull((LivingEntity) mob, Attributes.ATTACK_DAMAGE, Attack);
