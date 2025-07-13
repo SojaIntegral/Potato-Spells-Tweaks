@@ -10,6 +10,15 @@ import net.potato_modding.potatospells.PotatoSpells;
 @SuppressWarnings("unused")
 public class PotatoTags {
 
+    // Minecraft Bosses
+    public static final TagKey<EntityType<?>> ENDER_DRAGON =
+            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "bosses/minecraft/ender_dragon"));
+    public static final TagKey<EntityType<?>> WARDEN_BOSS =
+            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "bosses/minecraft/warden"));
+    public static final TagKey<EntityType<?>> WITHER_BOSS =
+            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "bosses/minecraft/wither_boss"));
+
+
     // ISS Bosses
     public static final TagKey<EntityType<?>> TYROS_BOSS =
             TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "bosses/iss/tyros_boss"));
@@ -52,10 +61,47 @@ public class PotatoTags {
 
 
     // Cataclysm Entities
+    // Bosses
+    public static final TagKey<EntityType<?>> ANCIENT_REMNANT =
+            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "bosses/cataclysm/ancient_remnant"));
+    public static final TagKey<EntityType<?>> HARBINGER =
+            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "bosses/cataclysm/the_harbinger"));
+    public static final TagKey<EntityType<?>> IGNIS =
+            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "bosses/cataclysm/ignis"));
+    public static final TagKey<EntityType<?>> LEVIATHAN =
+            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "bosses/cataclysm/leviathan_boss"));
+    public static final TagKey<EntityType<?>> MALEDICTUS =
+            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "bosses/cataclysm/maledictus"));
     public static final TagKey<EntityType<?>> NETHERITE_MONSTROSITY =
             TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "bosses/cataclysm/netherite_monstrosity"));
-   public static final TagKey<EntityType<?>> LEVIATHAN =
-            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "bosses/cataclysm/leviathan_boss"));
+    public static final TagKey<EntityType<?>> SCYLLA =
+            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "bosses/cataclysm/scylla"));
+
+    // Minibosses
+    public static final TagKey<EntityType<?>> AMETHYST_CRAB =
+            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "miniboss/cataclysm/amethyst_crab"));
+    public static final TagKey<EntityType<?>> APTRGANGR =
+            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "miniboss/cataclysm/aptrgangr"));
+    public static final TagKey<EntityType<?>> CLAWDIAN =
+            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "miniboss/cataclysm/clawdian"));
+    public static final TagKey<EntityType<?>> CORAL_GOLEM =
+            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "miniboss/cataclysm/coral_golem"));
+    public static final TagKey<EntityType<?>> CORALSSUS =
+            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "miniboss/cataclysm/coralssus"));
+    public static final TagKey<EntityType<?>> ENDER_GOLEM =
+            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "miniboss/cataclysm/ender_golem"));
+    public static final TagKey<EntityType<?>> ENDER_GUARDIAN =
+            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "miniboss/cataclysm/ender_guardian"));
+    public static final TagKey<EntityType<?>> KOBOLEDIATOR =
+            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "miniboss/cataclysm/kobolediator"));
+    public static final TagKey<EntityType<?>> WADJET =
+            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "miniboss/cataclysm/wadjet"));
+
+    // Normal Mobs
+    public static final TagKey<EntityType<?>> ENDERMAPTERA =
+            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "mobs/cataclysm/endermaptera"));
+    public static final TagKey<EntityType<?>> ENDERMAPTERA =
+            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "mobs/cataclysm/endermaptera"));
 
 
     // Not implemented yet

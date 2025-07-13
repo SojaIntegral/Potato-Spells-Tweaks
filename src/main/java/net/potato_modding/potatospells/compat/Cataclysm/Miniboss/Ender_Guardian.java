@@ -1,4 +1,4 @@
-package net.potato_modding.potatospells.compat.ISS.Mages;
+package net.potato_modding.potatospells.compat.Cataclysm.Miniboss;
 
 import dev.shadowsoffire.apothic_attributes.api.ALObjects;
 import io.redspace.ironsspellbooks.api.registry.AttributeRegistry;
@@ -10,47 +10,44 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModList;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
+import net.potato_modding.potatospells.config.ServerConfigs;
 import net.potato_modding.potatospells.utils.PotatoTags;
 
 import static net.potato_modding.potatospells.utils.ConfigFormulas.*;
 
 @SuppressWarnings("unused")
 @EventBusSubscriber
-public class Mage_Abyss {
+public class Ender_Guardian {
 
     @SubscribeEvent(priority = net.neoforged.bus.api.EventPriority.LOWEST)
-    private static void handleResistanceAttributePreset(EntityJoinLevelEvent event) {
+    private static void handleResistanceAttributeCataclysm(EntityJoinLevelEvent event) {
         var mob = event.getEntity();
 
-        if (mob.getType().is(PotatoTags.MAGE_NATURE)) {
+        if (ModList.get().isLoaded("cataclysm") && mob.getType().is(PotatoTags.ENDER_GUARDIAN)) {
 
             // Amethyst  attributes
-            SpellPower += 1.15 * mob_mod;
-            SchoolPower += 1.55 * mob_mod;
-            Resist += 1.25 * mob_mod;
-            FireRes += 1.85 * mob_mod;
-            NatRes += 1.45 * mob_mod;
-            EndRes += 1.75 * mob_mod;
-            BldRes += 1.35 * mob_mod;
-            IceRes += 1.5 * mob_mod;
-            LigRes -= 0.45 * mob_mod;
-            EldRes += 1.8 * mob_mod;
-            HolyRes += 0.65 * mob_mod;
-            BladeRes += 1.05 * mob_mod;
-            AbyssRes += 2.0 * mob_mod;
-            SoundRes += 0.85 * mob_mod;
-            WindRes += 1.15 * mob_mod;
-            Armor += 6 * spec_mod;
-            Tough += 5 * spec_mod;
-            Attack += 10.0 * spec_mod;
+            Resist += 1.15 * mini_mod;
+            FireRes += 1.25 * mini_mod;
+            IceRes += 1.25 * mini_mod;
+            HolyRes += 1.1 * mini_mod;
+            NatRes += 1.25 * mini_mod;
+            BldRes += 1.3 * mini_mod;
+            EndRes += 1.6 * mini_mod;
+            LigRes += 1.3 * mini_mod;
+            EldRes += 0.85 * mini_mod;
+            AbyssRes += 1.45 * mini_mod;
+            BladeRes += 1.2 * mini_mod;
+            SoundRes += 0.9 * mini_mod;
+            WindRes += 1.4 * mini_mod;
+            Armor += 18 * spec_mod;
+            Tough += 12 * spec_mod;
+            Attack += 10.5 * spec_mod;
 
             // Updates mob attributes
             {
                 setIfNonNull((LivingEntity) mob, Attributes.ARMOR, Armor);
                 setIfNonNull((LivingEntity) mob, Attributes.ARMOR_TOUGHNESS, Tough);
                 setIfNonNull((LivingEntity) mob, Attributes.ATTACK_DAMAGE, Attack);
-                setIfNonNull((LivingEntity) mob, AttributeRegistry.SPELL_POWER, SpellPower);
-                setIfNonNull((LivingEntity) mob, AttributeRegistry.NATURE_SPELL_POWER, SchoolPower);
                 setIfNonNull((LivingEntity) mob, AttributeRegistry.SPELL_RESIST, Resist);
                 setIfNonNull((LivingEntity) mob, AttributeRegistry.FIRE_MAGIC_RESIST, FireRes);
                 setIfNonNull((LivingEntity) mob, AttributeRegistry.NATURE_MAGIC_RESIST, NatRes);
@@ -74,10 +71,10 @@ public class Mage_Abyss {
                     setIfNonNull((LivingEntity) mob, com.snackpirate.aeromancy.spells.AASpells.Attributes.WIND_MAGIC_RESIST, WindRes);
                 }
                 // Fixed Attributes
-                setIfNonNull((LivingEntity) mob, ALObjects.Attributes.ARMOR_PIERCE, mob_armor_pen);
-                setIfNonNull((LivingEntity) mob, ALObjects.Attributes.ARMOR_SHRED, mob_armor_shred);
-                setIfNonNull((LivingEntity) mob, ALObjects.Attributes.PROT_PIERCE, mob_prot_pen);
-                setIfNonNull((LivingEntity) mob, ALObjects.Attributes.PROT_SHRED, mob_prot_shred);
+                setIfNonNull((LivingEntity) mob, ALObjects.Attributes.ARMOR_PIERCE, mini_armor_pen);
+                setIfNonNull((LivingEntity) mob, ALObjects.Attributes.ARMOR_SHRED, mini_armor_shred);
+                setIfNonNull((LivingEntity) mob, ALObjects.Attributes.PROT_PIERCE, mini_prot_pen);
+                setIfNonNull((LivingEntity) mob, ALObjects.Attributes.PROT_SHRED, mini_prot_shred);
             }
 
             // We reset this stuff so it doesn't make other mobs go crazy
@@ -103,6 +100,7 @@ public class Mage_Abyss {
             }
         }
     }
+
 
     // Actually sets the attributes
     private static void setIfNonNull(LivingEntity entity, Holder<Attribute> attribute, double value)

@@ -7,9 +7,7 @@ import java.util.List;
 
 public class ConfigFormulas {
 
-    // Defining variables that hod the values that were input in the configs
-    public static int a;
-    public static double m;
+    public static double modifier;
 
     static {
         // List of possible valid configs
@@ -19,16 +17,16 @@ public class ConfigFormulas {
         safetyCheck.add(3);
         safetyCheck.add(4);
 
-        a = ServerConfigs.FORMULA_REBALANCE.get();
+        // Defining variables that hod the values that were input in the configs
+        int config_check = ServerConfigs.FORMULA_REBALANCE.get();
         // Making sure we aren't trying to math out nonsense for a
-        if(!safetyCheck.contains(ServerConfigs.FORMULA_REBALANCE.get())) a = 4;
-        if(a == 2) m = 1.326;
-        else if(a == 3) m = 2.209;
-        else m = 1;
-
+        if(!safetyCheck.contains(ServerConfigs.FORMULA_REBALANCE.get())) config_check = 4;
+        if(config_check == 2) modifier = 1.326;
+        else if(config_check == 3) modifier = 2.209;
+        else modifier = 1;
     }
 
-    // Attributes for mobs
+    // Variable attributes for mobs
     public static double SpellPower = 0;
     public static double SchoolPower = 0;
     public static double Resist = 0;
@@ -47,4 +45,25 @@ public class ConfigFormulas {
     public static double Armor = 0;
     public static double Tough = 0;
     public static double Attack = 0;
+    public static double boss_mod = modifier * ServerConfigs.BOSS_RESIST.get() / 100;
+    public static double mini_mod = modifier * ServerConfigs.MINIBOSS_RESIST.get() / 100;
+    public static double mob_mod = modifier * ServerConfigs.MOB_RESIST.get() / 100;
+    public static double spec_mod = 1 + (modifier / 3.25);
+
+    // Fixed stuff, won't change from mob to mob
+    // Boss stuff
+    public static double boss_armor_pen = 3;
+    public static double boss_armor_shred = 0.2;
+    public static double boss_prot_pen = 2;
+    public static double boss_prot_shred = 0.2;
+    // Miniboss stuff
+    public static double mini_armor_pen = 2;
+    public static double mini_armor_shred = 0.15;
+    public static double mini_prot_pen = 1;
+    public static double mini_prot_shred = 0.15;
+    // Normal mob stuff
+    public static double mob_armor_pen = 2;
+    public static double mob_armor_shred = 0.1;
+    public static double mob_prot_pen = 1.5;
+    public static double mob_prot_shred = 0.1;
 }
