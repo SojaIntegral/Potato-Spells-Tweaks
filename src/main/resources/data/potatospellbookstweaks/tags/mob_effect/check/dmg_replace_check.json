@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "irons_spellbooks:charged",
+    "endersequipment:ebony_armor",
+    "cataclysm_spellbooks:abyssal_predator_effect",
+    "irons_spellbooks:echoing_strikes"
+  ]
+}

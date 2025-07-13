@@ -29,14 +29,14 @@ public class DeadKing {
                 // Amethyst  attributes
                 SpellPower += 1.25 * boss_mod;
                 SchoolPower += 1.35 * boss_mod;
-                Resist += 1.6 * boss_mod;
+                Resist += 1.25 * boss_mod;
                 FireRes += 0.55 * boss_mod;
                 NatRes += 0.8 * boss_mod;
-                EndRes += 1.55 * boss_mod;
-                BloodRes += 1.9 * boss_mod;
+                EndRes += 1.3 * boss_mod;
+                BloodRes += 1.8 * boss_mod;
                 IceRes += 1.35 * boss_mod;
                 LigRes += 0.75 * boss_mod;
-                EldRes += 2.0 * boss_mod;
+                EldRes += 1.7 * boss_mod;
                 HolyRes -= 0.95 * boss_mod;
                 BladeRes += 0.75 * boss_mod;
                 AbyssRes += 1.45 * boss_mod;

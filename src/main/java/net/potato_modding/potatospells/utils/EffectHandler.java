@@ -34,7 +34,7 @@ public class EffectHandler {
 
         boolean hasBlockingEffect = entity.getActiveEffects()
                 .stream()
-                .anyMatch(e -> e.getEffect().is(PotatoTags.POSITIVE_BUFFS2));
+                .anyMatch(e -> e.getEffect().is(PotatoTags.POSITIVE_BUFFS));
 
         if (hasBlockingEffect && applyingEffect.is(PotatoTags.POSITIVE_BUFFS2)) {
             event.setResult(MobEffectEvent.Applicable.Result.DO_NOT_APPLY);
@@ -59,17 +59,16 @@ public class EffectHandler {
 
     // This one prevents buffs from applying instead of replacing
     @SubscribeEvent
-    public static void damageBuff2(MobEffectEvent.Added event) {
-        MobEffectInstance addedEffect = event.getEffectInstance();
+    public static void damageBuff2(MobEffectEvent.Applicable event) {
         LivingEntity entity = event.getEntity();
-        var effect = addedEffect.getEffect();
+        var applyingEffect = event.getEffectInstance().getEffect();
 
-        if (effect.is(PotatoTags.DAMAGE_BUFFS2)) {
-            for (MobEffectInstance current : entity.getActiveEffects()) {
-                if (!current.getEffect().equals(effect) && current.getEffect().is(PotatoTags.DAMAGE_BUFFS2)) {
-                    entity.removeEffect(current.getEffect());
-                }
-            }
+        boolean hasBlockingEffect = entity.getActiveEffects()
+                .stream()
+                .anyMatch(e -> e.getEffect().is(PotatoTags.DAMAGE_BUFFS));
+
+        if (hasBlockingEffect && applyingEffect.is(PotatoTags.DAMAGE_BUFFS2)) {
+            event.setResult(MobEffectEvent.Applicable.Result.DO_NOT_APPLY);
         }
     }
 
@@ -91,17 +90,16 @@ public class EffectHandler {
 
     // This one prevents buffs from applying instead of replacing
     @SubscribeEvent
-    public static void defensiveBuff2(MobEffectEvent.Added event) {
-        MobEffectInstance addedEffect = event.getEffectInstance();
+    public static void defensiveBuff2(MobEffectEvent.Applicable event) {
         LivingEntity entity = event.getEntity();
-        var effect = addedEffect.getEffect();
+        var applyingEffect = event.getEffectInstance().getEffect();
 
-        if (effect.is(PotatoTags.DEFENSIVE_BUFFS2)) {
-            for (MobEffectInstance current : entity.getActiveEffects()) {
-                if (!current.getEffect().equals(effect) && current.getEffect().is(PotatoTags.DEFENSIVE_BUFFS2)) {
-                    entity.removeEffect(current.getEffect());
-                }
-            }
+        boolean hasBlockingEffect = entity.getActiveEffects()
+                .stream()
+                .anyMatch(e -> e.getEffect().is(PotatoTags.DEFENSIVE_BUFFS));
+
+        if (hasBlockingEffect && applyingEffect.is(PotatoTags.DEFENSIVE_BUFFS2)) {
+            event.setResult(MobEffectEvent.Applicable.Result.DO_NOT_APPLY);
         }
     }
 
@@ -139,17 +137,17 @@ public class EffectHandler {
 
     // This one prevents buffs from applying instead of replacing
     @SubscribeEvent
-    public static void debuffBlock3(MobEffectEvent.Added event) {
-        MobEffectInstance addedEffect = event.getEffectInstance();
+    public static void debuffBlock3(MobEffectEvent.Applicable event) {
         LivingEntity entity = event.getEntity();
-        var effect = addedEffect.getEffect();
+        var applyingEffect = event.getEffectInstance().getEffect();
 
-        if (effect.is(PotatoTags.DEBUFF_BLOCK3)) {
-            for (MobEffectInstance current : entity.getActiveEffects()) {
-                if (!current.getEffect().equals(effect) && current.getEffect().is(PotatoTags.DEBUFF_BLOCK3)) {
-                    entity.removeEffect(current.getEffect());
-                }
-            }
+        boolean hasBlockingEffect = entity.getActiveEffects()
+                .stream()
+                .anyMatch(e ->
+                        e.getEffect().is(PotatoTags.DEBUFF_BLOCK) || e.getEffect().is(PotatoTags.DEBUFF_BLOCK2));
+
+        if (hasBlockingEffect && applyingEffect.is(PotatoTags.DEBUFF_BLOCK3)) {
+            event.setResult(MobEffectEvent.Applicable.Result.DO_NOT_APPLY);
         }
     }
 }
