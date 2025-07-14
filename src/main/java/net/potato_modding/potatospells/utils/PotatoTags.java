@@ -123,23 +123,22 @@ public class PotatoTags {
             TagKey.create(Registries.MOB_EFFECT, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "blacklist/debuff_replace_2"));
     public static final TagKey<MobEffect> DEBUFF_BLOCK3 =
             TagKey.create(Registries.MOB_EFFECT, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "blacklist/debuff_not_apply"));
-
     public static final TagKey<MobEffect> POSITIVE_BUFFS_CHECK =
-            TagKey.create(Registries.MOB_EFFECT, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "check/buff_replace_check"));
+            TagKey.create(Registries.MOB_EFFECT, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "check/buff_replace_when"));
     public static final TagKey<MobEffect> POSITIVE_BUFFS2_CHECK =
-            TagKey.create(Registries.MOB_EFFECT, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "check/buff_not_apply_check"));
+            TagKey.create(Registries.MOB_EFFECT, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "check/buff_not_apply_when"));
     public static final TagKey<MobEffect> DEFENSIVE_BUFFS_CHECK =
-            TagKey.create(Registries.MOB_EFFECT, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "check/def_replace_check"));
+            TagKey.create(Registries.MOB_EFFECT, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "check/def_replace_when"));
     public static final TagKey<MobEffect> DEFENSIVE_BUFFS2_CHECK =
-            TagKey.create(Registries.MOB_EFFECT, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "check/def_not_apply_check"));
+            TagKey.create(Registries.MOB_EFFECT, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "check/def_not_apply_when"));
     public static final TagKey<MobEffect> DAMAGE_BUFFS_CHECK =
-            TagKey.create(Registries.MOB_EFFECT, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "check/dmg_replace_check"));
+            TagKey.create(Registries.MOB_EFFECT, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "check/dmg_replace_when"));
     public static final TagKey<MobEffect> DAMAGE_BUFFS2_CHECK =
-            TagKey.create(Registries.MOB_EFFECT, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "check/dmg_not_apply_check"));
+            TagKey.create(Registries.MOB_EFFECT, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "check/dmg_not_apply_when"));
     public static final TagKey<MobEffect> DEBUFF_BLOCK_CHECK =
-            TagKey.create(Registries.MOB_EFFECT, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "check/debuff_replace_check"));
+            TagKey.create(Registries.MOB_EFFECT, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "check/debuff_replace_when"));
     public static final TagKey<MobEffect> DEBUFF_BLOCK2_CHECK =
-            TagKey.create(Registries.MOB_EFFECT, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "check/debuff_replace_2_check"));
+            TagKey.create(Registries.MOB_EFFECT, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "check/debuff_replace_2_when"));
     public static final TagKey<MobEffect> DEBUFF_BLOCK3_CHECK =
-            TagKey.create(Registries.MOB_EFFECT, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "check/debuff_not_apply_check"));
+            TagKey.create(Registries.MOB_EFFECT, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "check/debuff_not_apply_when"));
 }

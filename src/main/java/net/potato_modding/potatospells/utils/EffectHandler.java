@@ -19,7 +19,7 @@ public class EffectHandler {
 
         if (effect.is(PotatoTags.POSITIVE_BUFFS)) {
             for (MobEffectInstance current : entity.getActiveEffects()) {
-                if (!current.getEffect().equals(effect) && current.getEffect().is(PotatoTags.POSITIVE_BUFFS)) {
+                if (!current.getEffect().equals(effect) && current.getEffect().is(PotatoTags.POSITIVE_BUFFS_CHECK)) {
                     entity.removeEffect(current.getEffect());
                 }
             }
@@ -34,7 +34,7 @@ public class EffectHandler {
 
         boolean hasBlockingEffect = entity.getActiveEffects()
                 .stream()
-                .anyMatch(e -> e.getEffect().is(PotatoTags.POSITIVE_BUFFS));
+                .anyMatch(e -> e.getEffect().is(PotatoTags.POSITIVE_BUFFS2_CHECK));
 
         if (hasBlockingEffect && applyingEffect.is(PotatoTags.POSITIVE_BUFFS2)) {
             event.setResult(MobEffectEvent.Applicable.Result.DO_NOT_APPLY);
@@ -50,7 +50,7 @@ public class EffectHandler {
 
         if (effect.is(PotatoTags.DAMAGE_BUFFS)) {
             for (MobEffectInstance current : entity.getActiveEffects()) {
-                if (!current.getEffect().equals(effect) && current.getEffect().is(PotatoTags.DAMAGE_BUFFS)) {
+                if (!current.getEffect().equals(effect) && current.getEffect().is(PotatoTags.DAMAGE_BUFFS_CHECK)) {
                     entity.removeEffect(current.getEffect());
                 }
             }
@@ -65,7 +65,7 @@ public class EffectHandler {
 
         boolean hasBlockingEffect = entity.getActiveEffects()
                 .stream()
-                .anyMatch(e -> e.getEffect().is(PotatoTags.DAMAGE_BUFFS));
+                .anyMatch(e -> e.getEffect().is(PotatoTags.DAMAGE_BUFFS2_CHECK));
 
         if (hasBlockingEffect && applyingEffect.is(PotatoTags.DAMAGE_BUFFS2)) {
             event.setResult(MobEffectEvent.Applicable.Result.DO_NOT_APPLY);
@@ -81,7 +81,7 @@ public class EffectHandler {
 
         if (effect.is(PotatoTags.DEFENSIVE_BUFFS)) {
             for (MobEffectInstance current : entity.getActiveEffects()) {
-                if (!current.getEffect().equals(effect) && current.getEffect().is(PotatoTags.DEFENSIVE_BUFFS)) {
+                if (!current.getEffect().equals(effect) && current.getEffect().is(PotatoTags.DEFENSIVE_BUFFS_CHECK)) {
                     entity.removeEffect(current.getEffect());
                 }
             }
@@ -96,7 +96,7 @@ public class EffectHandler {
 
         boolean hasBlockingEffect = entity.getActiveEffects()
                 .stream()
-                .anyMatch(e -> e.getEffect().is(PotatoTags.DEFENSIVE_BUFFS));
+                .anyMatch(e -> e.getEffect().is(PotatoTags.DEFENSIVE_BUFFS2_CHECK));
 
         if (hasBlockingEffect && applyingEffect.is(PotatoTags.DEFENSIVE_BUFFS2)) {
             event.setResult(MobEffectEvent.Applicable.Result.DO_NOT_APPLY);
@@ -112,7 +112,7 @@ public class EffectHandler {
 
         if (effect.is(PotatoTags.DEBUFF_BLOCK)) {
             for (MobEffectInstance current : entity.getActiveEffects()) {
-                if (!current.getEffect().equals(effect) && current.getEffect().is(PotatoTags.DEBUFF_BLOCK)) {
+                if (!current.getEffect().equals(effect) && current.getEffect().is(PotatoTags.DEBUFF_BLOCK_CHECK)) {
                     entity.removeEffect(current.getEffect());
                 }
             }
@@ -128,7 +128,7 @@ public class EffectHandler {
 
         if (effect.is(PotatoTags.DEBUFF_BLOCK2)) {
             for (MobEffectInstance current : entity.getActiveEffects()) {
-                if (!current.getEffect().equals(effect) && current.getEffect().is(PotatoTags.DEBUFF_BLOCK2)) {
+                if (!current.getEffect().equals(effect) && current.getEffect().is(PotatoTags.DEBUFF_BLOCK2_CHECK)) {
                     entity.removeEffect(current.getEffect());
                 }
             }
@@ -143,8 +143,7 @@ public class EffectHandler {
 
         boolean hasBlockingEffect = entity.getActiveEffects()
                 .stream()
-                .anyMatch(e ->
-                        e.getEffect().is(PotatoTags.DEBUFF_BLOCK) || e.getEffect().is(PotatoTags.DEBUFF_BLOCK2));
+                .anyMatch(e -> e.getEffect().is(PotatoTags.DEBUFF_BLOCK3_CHECK));
 
         if (hasBlockingEffect && applyingEffect.is(PotatoTags.DEBUFF_BLOCK3)) {
             event.setResult(MobEffectEvent.Applicable.Result.DO_NOT_APPLY);
