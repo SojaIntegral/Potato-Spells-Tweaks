@@ -30,18 +30,18 @@ public class Leviathan {
                 Resist += 1.3 * boss_mod;
                 FireRes += 2.5 * boss_mod;
                 NatRes += 0.75 * boss_mod;
-                EndRes += 1.75 * boss_mod;
+                EndRes += 1.3 * boss_mod;
                 BloodRes += 0.8 * boss_mod;
                 IceRes += 1.9 * boss_mod;
-                LigRes -= 0.15 * boss_mod;
+                LigRes += 0.35 * boss_mod;
                 EldRes += 2.0 * boss_mod;
                 HolyRes += 0.85 * boss_mod;
                 BladeRes += 0.65 * boss_mod;
                 AbyssRes += 4.0 * boss_mod;
                 SoundRes += 0.95 * boss_mod;
-                WindRes += 1.2 * boss_mod;
-                Armor += 15 * spec_mod;
-                Tough += 15 * spec_mod;
+                WindRes += 1.15 * boss_mod;
+                Armor += 19 * spec_mod;
+                Tough += 14 * spec_mod;
                 Attack += 10 * spec_mod;
             }
 

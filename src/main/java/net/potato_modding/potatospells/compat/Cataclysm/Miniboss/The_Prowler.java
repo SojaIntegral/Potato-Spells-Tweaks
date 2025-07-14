@@ -1,4 +1,4 @@
-package net.potato_modding.potatospells.compat.ISS.Defaults;
+package net.potato_modding.potatospells.compat.Cataclysm.Miniboss;
 
 import dev.shadowsoffire.apothic_attributes.api.ALObjects;
 import io.redspace.ironsspellbooks.api.registry.AttributeRegistry;
@@ -16,40 +16,37 @@ import static net.potato_modding.potatospells.utils.ConfigFormulas.*;
 
 @SuppressWarnings("unused")
 @EventBusSubscriber
-public class Ice_Spider {
+public class The_Prowler {
 
     @SubscribeEvent(priority = net.neoforged.bus.api.EventPriority.LOWEST)
-    private static void handleResistanceAttributeMob(EntityJoinLevelEvent event) {
+    private static void handleResistanceAttributeCataclysm(EntityJoinLevelEvent event) {
         var mob = event.getEntity();
 
-        if (mob.getType().is(PotatoTags.ICE_SPIDER)) {
+        if (ModList.get().isLoaded("cataclysm") && mob.getType().is(PotatoTags.APTRGANGR)) {
 
             // Amethyst  attributes
-            SpellPower += 1.15 * mob_mod;
-            SchoolPower += 1.55 * mob_mod;
-            Resist += 0.8 * mob_mod;
-            FireRes -= 0.45 * mob_mod;
-            NatRes += 1.25 * mob_mod;
-            EndRes += 1.45 * mob_mod;
-            BloodRes += 0.75 * mob_mod;
-            IceRes += 1.85 * mob_mod;
-            LigRes += 1.3 * mob_mod;
-            EldRes += 1.4 * mob_mod;
-            HolyRes += 1.15 * mob_mod;
-            BladeRes += 0.9 * mob_mod;
-            AbyssRes += 1.55 * mob_mod;
-            SoundRes += 1.1 * mob_mod;
-            WindRes += 1.6 * mob_mod;
-            Armor += 12 * spec_mod;
-            Tough += 5 * spec_mod;
-            Attack += 6.5 * spec_mod;
+            Resist += 1.05 * mini_mod;
+            FireRes += 0.45 * mini_mod;
+            IceRes += 1.4 * mini_mod;
+            HolyRes += 1.2 * mini_mod;
+            NatRes += 1.45 * mini_mod;
+            BloodRes += 1.6 * mini_mod;
+            EndRes += 1.05 * mini_mod;
+            LigRes += 0.1 * mini_mod;
+            EldRes += 1.25 * mini_mod;
+            AbyssRes += 0.75 * mini_mod;
+            BladeRes += 1.35 * mini_mod;
+            SoundRes += 0.65 * mini_mod;
+            WindRes += 0.9 * mini_mod;
+            Armor += 8 * spec_mod;
+            Tough += 8 * spec_mod;
+            Attack += 7 * spec_mod;
 
+            // Updates mob attributes
             {
                 setIfNonNull((LivingEntity) mob, Attributes.ARMOR, Armor);
                 setIfNonNull((LivingEntity) mob, Attributes.ARMOR_TOUGHNESS, Tough);
                 setIfNonNull((LivingEntity) mob, Attributes.ATTACK_DAMAGE, Attack);
-                setIfNonNull((LivingEntity) mob, AttributeRegistry.SPELL_POWER, SpellPower);
-                setIfNonNull((LivingEntity) mob, AttributeRegistry.ICE_SPELL_POWER, SchoolPower);
                 setIfNonNull((LivingEntity) mob, AttributeRegistry.SPELL_RESIST, Resist);
                 setIfNonNull((LivingEntity) mob, AttributeRegistry.FIRE_MAGIC_RESIST, FireRes);
                 setIfNonNull((LivingEntity) mob, AttributeRegistry.NATURE_MAGIC_RESIST, NatRes);
@@ -73,10 +70,10 @@ public class Ice_Spider {
                     setIfNonNull((LivingEntity) mob, com.snackpirate.aeromancy.spells.AASpells.Attributes.WIND_MAGIC_RESIST, WindRes);
                 }
                 // Fixed Attributes
-                setIfNonNull((LivingEntity) mob, ALObjects.Attributes.ARMOR_PIERCE, mob_armor_pen);
-                setIfNonNull((LivingEntity) mob, ALObjects.Attributes.ARMOR_SHRED, mob_armor_shred);
-                setIfNonNull((LivingEntity) mob, ALObjects.Attributes.PROT_PIERCE, mob_prot_pen);
-                setIfNonNull((LivingEntity) mob, ALObjects.Attributes.PROT_SHRED, mob_prot_shred);
+                setIfNonNull((LivingEntity) mob, ALObjects.Attributes.ARMOR_PIERCE, mini_armor_pen);
+                setIfNonNull((LivingEntity) mob, ALObjects.Attributes.ARMOR_SHRED, mini_armor_shred);
+                setIfNonNull((LivingEntity) mob, ALObjects.Attributes.PROT_PIERCE, mini_prot_pen);
+                setIfNonNull((LivingEntity) mob, ALObjects.Attributes.PROT_SHRED, mini_prot_shred);
             }
 
             // We reset this stuff so it doesn't make other mobs go crazy
@@ -102,6 +99,7 @@ public class Ice_Spider {
             }
         }
     }
+
 
     // Actually sets the attributes
     private static void setIfNonNull(LivingEntity entity, Holder<Attribute> attribute, double value)

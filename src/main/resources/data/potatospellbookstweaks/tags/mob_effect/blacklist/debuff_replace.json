@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "irons_spellbooks:rend"
+    "irons_spellbooks:rend",
+    "gametechbcs_spellbooks:corroded"
   ]
 }

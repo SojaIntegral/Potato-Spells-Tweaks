@@ -6,6 +6,8 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.living.MobEffectEvent;
 import net.neoforged.bus.api.SubscribeEvent;
 
+import java.util.List;
+
 @SuppressWarnings("unused")
 @EventBusSubscriber
 public class EffectHandler {
@@ -18,7 +20,9 @@ public class EffectHandler {
         var effect = addedEffect.getEffect();
 
         if (effect.is(PotatoTags.POSITIVE_BUFFS)) {
-            for (MobEffectInstance current : entity.getActiveEffects()) {
+            var effects = List.copyOf(entity.getActiveEffects());
+
+            for (MobEffectInstance current : effects) {
                 if (!current.getEffect().equals(effect) && current.getEffect().is(PotatoTags.POSITIVE_BUFFS_CHECK)) {
                     entity.removeEffect(current.getEffect());
                 }
@@ -49,7 +53,9 @@ public class EffectHandler {
         var effect = addedEffect.getEffect();
 
         if (effect.is(PotatoTags.DAMAGE_BUFFS)) {
-            for (MobEffectInstance current : entity.getActiveEffects()) {
+            var effects = List.copyOf(entity.getActiveEffects());
+
+            for (MobEffectInstance current : effects) {
                 if (!current.getEffect().equals(effect) && current.getEffect().is(PotatoTags.DAMAGE_BUFFS_CHECK)) {
                     entity.removeEffect(current.getEffect());
                 }
@@ -80,7 +86,9 @@ public class EffectHandler {
         var effect = addedEffect.getEffect();
 
         if (effect.is(PotatoTags.DEFENSIVE_BUFFS)) {
-            for (MobEffectInstance current : entity.getActiveEffects()) {
+            var effects = List.copyOf(entity.getActiveEffects());
+
+            for (MobEffectInstance current : effects) {
                 if (!current.getEffect().equals(effect) && current.getEffect().is(PotatoTags.DEFENSIVE_BUFFS_CHECK)) {
                     entity.removeEffect(current.getEffect());
                 }
@@ -111,7 +119,9 @@ public class EffectHandler {
         var effect = addedEffect.getEffect();
 
         if (effect.is(PotatoTags.DEBUFF_BLOCK)) {
-            for (MobEffectInstance current : entity.getActiveEffects()) {
+            var effects = List.copyOf(entity.getActiveEffects());
+
+            for (MobEffectInstance current : effects) {
                 if (!current.getEffect().equals(effect) && current.getEffect().is(PotatoTags.DEBUFF_BLOCK_CHECK)) {
                     entity.removeEffect(current.getEffect());
                 }
@@ -127,7 +137,9 @@ public class EffectHandler {
         var effect = addedEffect.getEffect();
 
         if (effect.is(PotatoTags.DEBUFF_BLOCK2)) {
-            for (MobEffectInstance current : entity.getActiveEffects()) {
+            var effects = List.copyOf(entity.getActiveEffects());
+
+            for (MobEffectInstance current : effects) {
                 if (!current.getEffect().equals(effect) && current.getEffect().is(PotatoTags.DEBUFF_BLOCK2_CHECK)) {
                     entity.removeEffect(current.getEffect());
                 }

@@ -1,4 +1,4 @@
-package net.potato_modding.potatospells.compat.Minecraft.Bosses;
+package net.potato_modding.potatospells.compat.Cataclysm.Bosses;
 
 import dev.shadowsoffire.apothic_attributes.api.ALObjects;
 import io.redspace.ironsspellbooks.api.registry.AttributeRegistry;
@@ -17,53 +17,54 @@ import static net.potato_modding.potatospells.utils.ConfigFormulas.*;
 
 @SuppressWarnings("unused")
 @EventBusSubscriber
-public class Ender_Dragon {
+public class AncientRemnant {
 
     @SubscribeEvent(priority = net.neoforged.bus.api.EventPriority.LOWEST)
     private static void handleResistanceAttributeCataclysm(EntityJoinLevelEvent event) {
         var mob = event.getEntity();
 
-        if (mob.getType().is(PotatoTags.ENDER_DRAGON)) {
+        if (ModList.get().isLoaded("cataclysm") && mob.getType().is(PotatoTags.ANCIENT_REMNANT)) {
 
-            if (!ServerConfigs.ENDER_DRAGON_SWITCH.get()) {
+            if (!ServerConfigs.ANCIENT_REM_SWITCH.get()) {
                 // Amethyst  attributes
-                Resist += 1.4 * boss_mod;
+                Resist += 1.5 * boss_mod;
                 FireRes += 1.25 * boss_mod;
                 IceRes += 0.95 * boss_mod;
-                HolyRes += 0.8 * boss_mod;
+                HolyRes += 1.35 * boss_mod;
                 NatRes += 1.25 * boss_mod;
-                BloodRes += 1.4 * boss_mod;
-                EndRes += 1.5 * boss_mod;
-                LigRes += 0.75 * boss_mod;
-                EldRes += 1.45 * boss_mod;
-                AbyssRes += 1.35 * boss_mod;
-                BladeRes += 1.05 * boss_mod;
-                SoundRes += 0.85 * boss_mod;
-                WindRes += 1.6 * boss_mod;
+                BloodRes += 1.6 * boss_mod;
+                EndRes += 0.9 * boss_mod;
+                LigRes += 1.05 * boss_mod;
+                EldRes += 0.85 * boss_mod;
+                AbyssRes += 1.2 * boss_mod;
+                BladeRes += 0.9 * boss_mod;
+                SoundRes += 1.05 * boss_mod;
+                WindRes += 1.15 * boss_mod;
                 Armor += 15 * spec_mod;
-                Tough += 10 * spec_mod;
-                Attack += 7 * spec_mod;
+                Tough += 15 * spec_mod;
+                Attack += 11 * spec_mod;
             }
 
             else {
-                Armor = ServerConfigs.ENDER_DRAGON_ARMOR.get();
-                Tough = ServerConfigs.ENDER_DRAGON_TOUGHNESS.get();
-                Attack = ServerConfigs.ENDER_DRAGON_ATTACK.get();
-                Resist = ServerConfigs.ENDER_DRAGON_RESIST.get();
-                FireRes = ServerConfigs.ENDER_DRAGON_FIRE_RESIST.get();
-                NatRes = ServerConfigs.ENDER_DRAGON_NATURE_RESIST.get();
-                EndRes = ServerConfigs.ENDER_DRAGON_ENDER_RESIST.get();
-                BloodRes = ServerConfigs.ENDER_DRAGON_BLOOD_RESIST.get();
-                IceRes = ServerConfigs.ENDER_DRAGON_ICE_RESIST.get();
-                LigRes = ServerConfigs.ENDER_DRAGON_LIGHTNING_RESIST.get();
-                EldRes = ServerConfigs.ENDER_DRAGON_ELDRITCH_RESIST.get();
-                HolyRes = ServerConfigs.ENDER_DRAGON_HOLY_RESIST.get();
-                BladeRes = ServerConfigs.ENDER_DRAGON_BLADE_RESIST.get();
-                AbyssRes = ServerConfigs.ENDER_DRAGON_ABYSSAL_RESIST.get();
-                SoundRes = ServerConfigs.ENDER_DRAGON_MUSIC_RESIST.get();
-                WindRes = ServerConfigs.ENDER_DRAGON_WIND_RESIST.get();
+                Armor = ServerConfigs.ANCIENT_REM_ARMOR.get();
+                Tough = ServerConfigs.ANCIENT_REM_TOUGHNESS.get();
+                Attack = ServerConfigs.ANCIENT_REM_ATTACK.get();
+                Resist = ServerConfigs.ANCIENT_REM_RESIST.get();
+                FireRes = ServerConfigs.ANCIENT_REM_FIRE_RESIST.get();
+                NatRes = ServerConfigs.ANCIENT_REM_NATURE_RESIST.get();
+                EndRes = ServerConfigs.ANCIENT_REM_ENDER_RESIST.get();
+                BloodRes = ServerConfigs.ANCIENT_REM_BLOOD_RESIST.get();
+                IceRes = ServerConfigs.ANCIENT_REM_ICE_RESIST.get();
+                LigRes = ServerConfigs.ANCIENT_REM_LIGHTNING_RESIST.get();
+                EldRes = ServerConfigs.ANCIENT_REM_ELDRITCH_RESIST.get();
+                HolyRes = ServerConfigs.ANCIENT_REM_HOLY_RESIST.get();
+                BladeRes = ServerConfigs.ANCIENT_REM_BLADE_RESIST.get();
+                AbyssRes = ServerConfigs.ANCIENT_REM_ABYSSAL_RESIST.get();
+                SoundRes = ServerConfigs.ANCIENT_REM_MUSIC_RESIST.get();
+                WindRes = ServerConfigs.ANCIENT_REM_WIND_RESIST.get();
             }
 
+            // Updates mob attributes
             {
                 setIfNonNull((LivingEntity) mob, Attributes.ARMOR, Armor);
                 setIfNonNull((LivingEntity) mob, Attributes.ARMOR_TOUGHNESS, Tough);

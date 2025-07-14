@@ -27,41 +27,41 @@ public class Warden {
 
             if (!ServerConfigs.WARDEN_SWITCH.get()) {
                 // Amethyst  attributes
-                Resist += 1.15 * boss_mod;
-                FireRes += 2.15 * boss_mod;
-                IceRes -= 0.85 * boss_mod;
-                HolyRes += 1.35 * boss_mod;
-                NatRes += 1.85 * boss_mod;
-                BloodRes += 1.65 * boss_mod;
-                EndRes += 0.85 * boss_mod;
+                Resist += 1.25 * boss_mod;
+                FireRes += 1.15 * boss_mod;
+                IceRes += 1.25 * boss_mod;
+                HolyRes += 0.45 * boss_mod;
+                NatRes += 1.5 * boss_mod;
+                BloodRes += 1.3 * boss_mod;
+                EndRes += 1.05 * boss_mod;
                 LigRes += 0.9 * boss_mod;
-                EldRes += 1.25 * boss_mod;
-                AbyssRes -= 0.7 * boss_mod;
-                BladeRes += 2.0 * boss_mod;
-                SoundRes += 1.35 * boss_mod;
-                WindRes += 1.65 * boss_mod;
-                Armor += 40 * spec_mod;
-                Tough += 30 * spec_mod;
-                Attack += 9 * spec_mod;
+                EldRes += 1.85 * boss_mod;
+                AbyssRes += 1.4 * boss_mod;
+                BladeRes += 0.85 * boss_mod;
+                SoundRes -= 1.05 * boss_mod;
+                WindRes += 0.65 * boss_mod;
+                Armor += 15 * spec_mod;
+                Tough += 20 * spec_mod;
+                Attack += 11.5 * spec_mod;
             }
 
             else {
-                Armor = ServerConfigs.NETMONST_ARMOR.get();
-                Tough = ServerConfigs.NETMONST_TOUGHNESS.get();
-                Attack = ServerConfigs.NETMONST_ATTACK.get();
-                Resist = ServerConfigs.NETMONST_RESIST.get();
-                FireRes = ServerConfigs.NETMONST_FIRE_RESIST.get();
-                NatRes = ServerConfigs.NETMONST_NATURE_RESIST.get();
-                EndRes = ServerConfigs.NETMONST_ENDER_RESIST.get();
-                BloodRes = ServerConfigs.NETMONST_BLOOD_RESIST.get();
-                IceRes = ServerConfigs.NETMONST_ICE_RESIST.get();
-                LigRes = ServerConfigs.NETMONST_LIGHTNING_RESIST.get();
-                EldRes = ServerConfigs.NETMONST_ELDRITCH_RESIST.get();
-                HolyRes = ServerConfigs.NETMONST_HOLY_RESIST.get();
-                BladeRes = ServerConfigs.NETMONST_BLADE_RESIST.get();
-                AbyssRes = ServerConfigs.NETMONST_ABYSSAL_RESIST.get();
-                SoundRes = ServerConfigs.NETMONST_MUSIC_RESIST.get();
-                WindRes = ServerConfigs.NETMONST_WIND_RESIST.get();
+                Armor = ServerConfigs.WARDEN_ARMOR.get();
+                Tough = ServerConfigs.WARDEN_TOUGHNESS.get();
+                Attack = ServerConfigs.WARDEN_ATTACK.get();
+                Resist = ServerConfigs.WARDEN_RESIST.get();
+                FireRes = ServerConfigs.WARDEN_FIRE_RESIST.get();
+                NatRes = ServerConfigs.WARDEN_NATURE_RESIST.get();
+                EndRes = ServerConfigs.WARDEN_ENDER_RESIST.get();
+                BloodRes = ServerConfigs.WARDEN_BLOOD_RESIST.get();
+                IceRes = ServerConfigs.WARDEN_ICE_RESIST.get();
+                LigRes = ServerConfigs.WARDEN_LIGHTNING_RESIST.get();
+                EldRes = ServerConfigs.WARDEN_ELDRITCH_RESIST.get();
+                HolyRes = ServerConfigs.WARDEN_HOLY_RESIST.get();
+                BladeRes = ServerConfigs.WARDEN_BLADE_RESIST.get();
+                AbyssRes = ServerConfigs.WARDEN_ABYSSAL_RESIST.get();
+                SoundRes = ServerConfigs.WARDEN_MUSIC_RESIST.get();
+                WindRes = ServerConfigs.WARDEN_WIND_RESIST.get();
             }
 
             {

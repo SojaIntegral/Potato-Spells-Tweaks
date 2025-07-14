@@ -16,33 +16,33 @@ import static net.potato_modding.potatospells.utils.ConfigFormulas.*;
 
 @SuppressWarnings("unused")
 @EventBusSubscriber
-public class Mage_Eldritch {
+public class MageIce {
 
     @SubscribeEvent(priority = net.neoforged.bus.api.EventPriority.LOWEST)
     private static void handleResistanceAttributePreset(EntityJoinLevelEvent event) {
         var mob = event.getEntity();
 
-        if (mob.getType().is(PotatoTags.MAGE_NATURE)) {
+        if (mob.getType().is(PotatoTags.MAGE_ICE)) {
 
             // Amethyst  attributes
-            SpellPower += 0.25 * mob_mod;
-            SchoolPower += 6.66 * mob_mod;
-            Resist += 2.0 * mob_mod;
-            FireRes += 0.65 * mob_mod;
-            NatRes += 1.25 * mob_mod;
-            EndRes += 1.4 * mob_mod;
-            BloodRes += 1.35 * mob_mod;
-            IceRes += 1.2 * mob_mod;
-            LigRes += 1.1 * mob_mod;
-            EldRes += 1.5 * mob_mod;
-            HolyRes -= 1.25 * mob_mod;
-            BladeRes += 0.55 * mob_mod;
-            AbyssRes += 1.4 * mob_mod;
-            SoundRes += 0.1 * mob_mod;
-            WindRes += 0.8 * mob_mod;
+            SpellPower += 0.7 * mob_mod;
+            SchoolPower += 2.15 * mob_mod;
+            Resist += 0.75 * mob_mod;
+            FireRes += 0.15 * mob_mod;
+            NatRes += 1.5 * mob_mod;
+            EndRes += 1.5 * mob_mod;
+            BloodRes += 1.5 * mob_mod;
+            IceRes += 2.0 * mob_mod;
+            LigRes += 1.05 * mob_mod;
+            EldRes += 0.85 * mob_mod;
+            HolyRes += 1.65 * mob_mod;
+            BladeRes += 1.85 * mob_mod;
+            AbyssRes += 1.75 * mob_mod;
+            SoundRes += 1.2 * mob_mod;
+            WindRes += 1.35 * mob_mod;
             Armor += 6 * spec_mod;
-            Tough += 9 * spec_mod;
-            Attack += 9.0 * spec_mod;
+            Tough += 8 * spec_mod;
+            Attack += 8.0 * spec_mod;
 
             // Updates mob attributes
             {
@@ -50,7 +50,7 @@ public class Mage_Eldritch {
                 setIfNonNull((LivingEntity) mob, Attributes.ARMOR_TOUGHNESS, Tough);
                 setIfNonNull((LivingEntity) mob, Attributes.ATTACK_DAMAGE, Attack);
                 setIfNonNull((LivingEntity) mob, AttributeRegistry.SPELL_POWER, SpellPower);
-                setIfNonNull((LivingEntity) mob, AttributeRegistry.NATURE_SPELL_POWER, SchoolPower);
+                setIfNonNull((LivingEntity) mob, AttributeRegistry.ICE_SPELL_POWER, SchoolPower);
                 setIfNonNull((LivingEntity) mob, AttributeRegistry.SPELL_RESIST, Resist);
                 setIfNonNull((LivingEntity) mob, AttributeRegistry.FIRE_MAGIC_RESIST, FireRes);
                 setIfNonNull((LivingEntity) mob, AttributeRegistry.NATURE_MAGIC_RESIST, NatRes);

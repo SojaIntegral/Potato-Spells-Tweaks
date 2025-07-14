@@ -33,7 +33,7 @@ public class Harbinger {
                 HolyRes += 1.4 * boss_mod;
                 NatRes += 1.6 * boss_mod;
                 BloodRes += 1.9 * boss_mod;
-                EndRes += 1.3 * boss_mod;
+                EndRes += 1.05 * boss_mod;
                 LigRes -= 0.2 * boss_mod;
                 EldRes += 1.45 * boss_mod;
                 AbyssRes += 0.45 * boss_mod;

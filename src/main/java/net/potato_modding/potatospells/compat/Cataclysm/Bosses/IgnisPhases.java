@@ -9,7 +9,7 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModList;
 import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
+import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
 import net.potato_modding.potatospells.config.ServerConfigs;
 import net.potato_modding.potatospells.utils.PotatoTags;
 
@@ -17,16 +17,17 @@ import static net.potato_modding.potatospells.utils.ConfigFormulas.*;
 
 @SuppressWarnings("unused")
 @EventBusSubscriber
-public class Ignis {
+public class IgnisPhases {
 
     @SubscribeEvent(priority = net.neoforged.bus.api.EventPriority.LOWEST)
-    private static void handleResistanceAttributeCataclysm(EntityJoinLevelEvent event) {
+    private static void handleResistanceAttributeCataclysm(LivingDamageEvent.Post event) {
         var mob = event.getEntity();
 
-        if (ModList.get().isLoaded("cataclysm") && mob.getType().is(PotatoTags.IGNIS)) {
+        if (ModList.get().isLoaded("cataclysm") && mob.getType().is(PotatoTags.IGNIS)
+        && ServerConfigs.BOSS_SWITCH.get()) {
 
             if(!ServerConfigs.IGNIS_SWITCH.get()) {
-                if ((mob instanceof LivingEntity living) && living.getHealth() > 900){
+                if (mob.getHealth() > 900) {
                     Resist += 1.2 * boss_mod;
                     FireRes += 1.6 * boss_mod;
                     IceRes += 1.15 * boss_mod;
@@ -44,8 +45,7 @@ public class Ignis {
                     Tough += 10 * spec_mod;
                     Attack += 10 * spec_mod;
                 }
-            else if ((mob instanceof LivingEntity living) &&
-                        (living.getHealth() > 450) && (living.getHealth() < 901)){
+                else if (mob.getHealth() > 450 && mob.getHealth() < 901) {
                     Resist = 1.05 * boss_mod;
                     FireRes = 1.55 * boss_mod;
                     IceRes = 1.1 * boss_mod;
@@ -63,7 +63,7 @@ public class Ignis {
                     Tough = 9 * spec_mod;
                     Attack = 10.5 * spec_mod;
                 }
-            else if ((mob instanceof LivingEntity living) && living.getHealth() < 451) {
+                else if (mob.getHealth() < 451) {
                     Resist = 0.8 * boss_mod;
                     FireRes = 1.5 * boss_mod;
                     IceRes = 1.25 * boss_mod;
@@ -82,57 +82,39 @@ public class Ignis {
                     Attack = 11 * spec_mod;
                 }
             }
-            else {
-                Armor = ServerConfigs.IGNIS_ARMOR.get();
-                Tough = ServerConfigs.IGNIS_TOUGHNESS.get();
-                Attack = ServerConfigs.IGNIS_ATTACK.get();
-                Resist = ServerConfigs.IGNIS_RESIST.get();
-                FireRes = ServerConfigs.IGNIS_FIRE_RESIST.get();
-                NatRes = ServerConfigs.IGNIS_NATURE_RESIST.get();
-                EndRes = ServerConfigs.IGNIS_ENDER_RESIST.get();
-                BloodRes = ServerConfigs.IGNIS_BLOOD_RESIST.get();
-                IceRes = ServerConfigs.IGNIS_ICE_RESIST.get();
-                LigRes = ServerConfigs.IGNIS_LIGHTNING_RESIST.get();
-                EldRes = ServerConfigs.IGNIS_ELDRITCH_RESIST.get();
-                HolyRes = ServerConfigs.IGNIS_HOLY_RESIST.get();
-                BladeRes = ServerConfigs.IGNIS_BLADE_RESIST.get();
-                AbyssRes = ServerConfigs.IGNIS_ABYSSAL_RESIST.get();
-                SoundRes = ServerConfigs.IGNIS_MUSIC_RESIST.get();
-                WindRes = ServerConfigs.IGNIS_WIND_RESIST.get();
-            }
 
             // Updates mob attributes
             {
-                setIfNonNull((LivingEntity) mob, Attributes.ARMOR, Armor);
-                setIfNonNull((LivingEntity) mob, Attributes.ARMOR_TOUGHNESS, Tough);
-                setIfNonNull((LivingEntity) mob, Attributes.ATTACK_DAMAGE, Attack);
-                setIfNonNull((LivingEntity) mob, AttributeRegistry.SPELL_RESIST, Resist);
-                setIfNonNull((LivingEntity) mob, AttributeRegistry.FIRE_MAGIC_RESIST, FireRes);
-                setIfNonNull((LivingEntity) mob, AttributeRegistry.NATURE_MAGIC_RESIST, NatRes);
-                setIfNonNull((LivingEntity) mob, AttributeRegistry.ENDER_MAGIC_RESIST, EndRes);
-                setIfNonNull((LivingEntity) mob, AttributeRegistry.BLOOD_MAGIC_RESIST, BloodRes);
-                setIfNonNull((LivingEntity) mob, AttributeRegistry.ICE_MAGIC_RESIST, IceRes);
-                setIfNonNull((LivingEntity) mob, AttributeRegistry.LIGHTNING_MAGIC_RESIST, LigRes);
-                setIfNonNull((LivingEntity) mob, AttributeRegistry.ELDRITCH_MAGIC_RESIST, EldRes);
-                setIfNonNull((LivingEntity) mob, AttributeRegistry.HOLY_MAGIC_RESIST, HolyRes);
+                setIfNonNull(mob, Attributes.ARMOR, Armor);
+                setIfNonNull(mob, Attributes.ARMOR_TOUGHNESS, Tough);
+                setIfNonNull(mob, Attributes.ATTACK_DAMAGE, Attack);
+                setIfNonNull(mob, AttributeRegistry.SPELL_RESIST, Resist);
+                setIfNonNull(mob, AttributeRegistry.FIRE_MAGIC_RESIST, FireRes);
+                setIfNonNull(mob, AttributeRegistry.NATURE_MAGIC_RESIST, NatRes);
+                setIfNonNull(mob, AttributeRegistry.ENDER_MAGIC_RESIST, EndRes);
+                setIfNonNull(mob, AttributeRegistry.BLOOD_MAGIC_RESIST, BloodRes);
+                setIfNonNull(mob, AttributeRegistry.ICE_MAGIC_RESIST, IceRes);
+                setIfNonNull(mob, AttributeRegistry.LIGHTNING_MAGIC_RESIST, LigRes);
+                setIfNonNull(mob, AttributeRegistry.ELDRITCH_MAGIC_RESIST, EldRes);
+                setIfNonNull(mob, AttributeRegistry.HOLY_MAGIC_RESIST, HolyRes);
                 // This needs to be conditional or the game shits itself if the mod is not present
                 if (ModList.get().isLoaded("endersequipment")) {
-                    setIfNonNull((LivingEntity) mob, net.ender.endersequipment.registries.EEAttributeRegistry.BLADE_MAGIC_RESIST, BladeRes);
+                    setIfNonNull(mob, net.ender.endersequipment.registries.EEAttributeRegistry.BLADE_MAGIC_RESIST, BladeRes);
                 }
                 if (ModList.get().isLoaded("cataclysm_spellbooks")) {
-                    setIfNonNull((LivingEntity) mob, net.acetheeldritchking.cataclysm_spellbooks.registries.CSAttributeRegistry.ABYSSAL_MAGIC_RESIST, AbyssRes);
+                    setIfNonNull(mob, net.acetheeldritchking.cataclysm_spellbooks.registries.CSAttributeRegistry.ABYSSAL_MAGIC_RESIST, AbyssRes);
                 }
                 if (ModList.get().isLoaded("alshanex_familiars")) {
-                    setIfNonNull((LivingEntity) mob, net.alshanex.alshanex_familiars.registry.AttributeRegistry.SOUND_MAGIC_RESIST, SoundRes);
+                    setIfNonNull(mob, net.alshanex.alshanex_familiars.registry.AttributeRegistry.SOUND_MAGIC_RESIST, SoundRes);
                 }
                 if (ModList.get().isLoaded("aero_additions")) {
-                    setIfNonNull((LivingEntity) mob, com.snackpirate.aeromancy.spells.AASpells.Attributes.WIND_MAGIC_RESIST, WindRes);
+                    setIfNonNull(mob, com.snackpirate.aeromancy.spells.AASpells.Attributes.WIND_MAGIC_RESIST, WindRes);
                 }
                 // Fixed Attributes
-                setIfNonNull((LivingEntity) mob, ALObjects.Attributes.ARMOR_PIERCE, boss_armor_pen);
-                setIfNonNull((LivingEntity) mob, ALObjects.Attributes.ARMOR_SHRED, boss_armor_shred);
-                setIfNonNull((LivingEntity) mob, ALObjects.Attributes.PROT_PIERCE, boss_prot_pen);
-                setIfNonNull((LivingEntity) mob, ALObjects.Attributes.PROT_SHRED, boss_prot_shred);
+                setIfNonNull(mob, ALObjects.Attributes.ARMOR_PIERCE, boss_armor_pen);
+                setIfNonNull(mob, ALObjects.Attributes.ARMOR_SHRED, boss_armor_shred);
+                setIfNonNull(mob, ALObjects.Attributes.PROT_PIERCE, boss_prot_pen);
+                setIfNonNull(mob, ALObjects.Attributes.PROT_SHRED, boss_prot_shred);
             }
 
             // We reset this stuff so it doesn't make other mobs go crazy

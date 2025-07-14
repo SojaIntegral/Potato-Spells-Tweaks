@@ -16,7 +16,7 @@ import static net.potato_modding.potatospells.utils.ConfigFormulas.*;
 
 @SuppressWarnings("unused")
 @EventBusSubscriber
-public class Mage_Fire {
+public class MageFire {
 
     @SubscribeEvent(priority = net.neoforged.bus.api.EventPriority.LOWEST)
     private static void handleResistanceAttributePreset(EntityJoinLevelEvent event) {
@@ -50,7 +50,7 @@ public class Mage_Fire {
                 setIfNonNull((LivingEntity) mob, Attributes.ARMOR_TOUGHNESS, Tough);
                 setIfNonNull((LivingEntity) mob, Attributes.ATTACK_DAMAGE, Attack);
                 setIfNonNull((LivingEntity) mob, AttributeRegistry.SPELL_POWER, SpellPower);
-                setIfNonNull((LivingEntity) mob, AttributeRegistry.NATURE_SPELL_POWER, SchoolPower);
+                setIfNonNull((LivingEntity) mob, AttributeRegistry.FIRE_SPELL_POWER, SchoolPower);
                 setIfNonNull((LivingEntity) mob, AttributeRegistry.SPELL_RESIST, Resist);
                 setIfNonNull((LivingEntity) mob, AttributeRegistry.FIRE_MAGIC_RESIST, FireRes);
                 setIfNonNull((LivingEntity) mob, AttributeRegistry.NATURE_MAGIC_RESIST, NatRes);

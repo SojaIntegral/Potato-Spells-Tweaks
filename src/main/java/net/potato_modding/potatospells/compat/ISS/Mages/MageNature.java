@@ -16,7 +16,7 @@ import static net.potato_modding.potatospells.utils.ConfigFormulas.*;
 
 @SuppressWarnings("unused")
 @EventBusSubscriber
-public class Mage_Blade {
+public class MageNature {
 
     @SubscribeEvent(priority = net.neoforged.bus.api.EventPriority.LOWEST)
     private static void handleResistanceAttributePreset(EntityJoinLevelEvent event) {
@@ -26,23 +26,23 @@ public class Mage_Blade {
 
             // Amethyst  attributes
             SpellPower += 1.1 * mob_mod;
-            SchoolPower += 1.45 * mob_mod;
-            Resist += 1.5 * mob_mod;
-            FireRes += 1.15 * mob_mod;
-            NatRes += 1.35 * mob_mod;
-            EndRes += 1.05 * mob_mod;
-            BloodRes += 0.65 * mob_mod;
-            IceRes += 0.85 * mob_mod;
+            SchoolPower += 1.6 * mob_mod;
+            Resist += 1.2 * mob_mod;
+            FireRes -= 0.65 * mob_mod;
+            NatRes += 1.95 * mob_mod;
+            EndRes += 0.35 * mob_mod;
+            BloodRes += 1.5 * mob_mod;
+            IceRes += 0.5 * mob_mod;
             LigRes += 1.45 * mob_mod;
-            EldRes += 0.4 * mob_mod;
-            HolyRes += 1.5 * mob_mod;
-            BladeRes += 1.85 * mob_mod;
-            AbyssRes += 0.25 * mob_mod;
-            SoundRes += 1.2 * mob_mod;
-            WindRes += 1.55 * mob_mod;
-            Armor += 9 * spec_mod;
-            Tough += 8 * spec_mod;
-            Attack += 11.0 * spec_mod;
+            EldRes -= 0.4 * mob_mod;
+            HolyRes -= 0.5 * mob_mod;
+            BladeRes += 0.55 * mob_mod;
+            AbyssRes += 1.4 * mob_mod;
+            SoundRes += 1.6 * mob_mod;
+            WindRes += 1.75 * mob_mod;
+            Armor += 7 * spec_mod;
+            Tough += 9 * spec_mod;
+            Attack += 6.5 * spec_mod;
 
             // Updates mob attributes
             {

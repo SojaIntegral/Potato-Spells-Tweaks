@@ -16,33 +16,34 @@ import static net.potato_modding.potatospells.utils.ConfigFormulas.*;
 
 @SuppressWarnings("unused")
 @EventBusSubscriber
-public class Mage_Ice {
+public class MageBlade {
 
     @SubscribeEvent(priority = net.neoforged.bus.api.EventPriority.LOWEST)
     private static void handleResistanceAttributePreset(EntityJoinLevelEvent event) {
         var mob = event.getEntity();
 
-        if (mob.getType().is(PotatoTags.MAGE_ICE)) {
+        if (ModList.get().isLoaded("endersequipment")
+                && mob.getType().is(PotatoTags.MAGE_BLADE)) {
 
             // Amethyst  attributes
-            SpellPower += 0.7 * mob_mod;
-            SchoolPower += 2.15 * mob_mod;
-            Resist += 0.75 * mob_mod;
-            FireRes += 0.15 * mob_mod;
-            NatRes += 1.5 * mob_mod;
-            EndRes += 1.5 * mob_mod;
-            BloodRes += 1.5 * mob_mod;
-            IceRes += 2.0 * mob_mod;
-            LigRes += 1.05 * mob_mod;
-            EldRes += 0.85 * mob_mod;
-            HolyRes += 1.65 * mob_mod;
+            SpellPower += 1.1 * mob_mod;
+            SchoolPower += 1.45 * mob_mod;
+            Resist += 1.5 * mob_mod;
+            FireRes += 1.15 * mob_mod;
+            NatRes += 1.35 * mob_mod;
+            EndRes += 1.05 * mob_mod;
+            BloodRes += 0.65 * mob_mod;
+            IceRes += 0.85 * mob_mod;
+            LigRes += 1.45 * mob_mod;
+            EldRes += 0.4 * mob_mod;
+            HolyRes += 1.5 * mob_mod;
             BladeRes += 1.85 * mob_mod;
-            AbyssRes += 1.75 * mob_mod;
+            AbyssRes += 0.25 * mob_mod;
             SoundRes += 1.2 * mob_mod;
-            WindRes += 1.35 * mob_mod;
-            Armor += 6 * spec_mod;
+            WindRes += 1.55 * mob_mod;
+            Armor += 9 * spec_mod;
             Tough += 8 * spec_mod;
-            Attack += 8.0 * spec_mod;
+            Attack += 11.0 * spec_mod;
 
             // Updates mob attributes
             {
@@ -50,7 +51,7 @@ public class Mage_Ice {
                 setIfNonNull((LivingEntity) mob, Attributes.ARMOR_TOUGHNESS, Tough);
                 setIfNonNull((LivingEntity) mob, Attributes.ATTACK_DAMAGE, Attack);
                 setIfNonNull((LivingEntity) mob, AttributeRegistry.SPELL_POWER, SpellPower);
-                setIfNonNull((LivingEntity) mob, AttributeRegistry.NATURE_SPELL_POWER, SchoolPower);
+                setIfNonNull((LivingEntity) mob, net.ender.endersequipment.registries.EEAttributeRegistry.BLADE_SPELL_POWER, SchoolPower);
                 setIfNonNull((LivingEntity) mob, AttributeRegistry.SPELL_RESIST, Resist);
                 setIfNonNull((LivingEntity) mob, AttributeRegistry.FIRE_MAGIC_RESIST, FireRes);
                 setIfNonNull((LivingEntity) mob, AttributeRegistry.NATURE_MAGIC_RESIST, NatRes);
@@ -61,9 +62,7 @@ public class Mage_Ice {
                 setIfNonNull((LivingEntity) mob, AttributeRegistry.ELDRITCH_MAGIC_RESIST, EldRes);
                 setIfNonNull((LivingEntity) mob, AttributeRegistry.HOLY_MAGIC_RESIST, HolyRes);
                 // This needs to be conditional or the game shits itself if the mod is not present
-                if (ModList.get().isLoaded("endersequipment")) {
-                    setIfNonNull((LivingEntity) mob, net.ender.endersequipment.registries.EEAttributeRegistry.BLADE_MAGIC_RESIST, BladeRes);
-                }
+                setIfNonNull((LivingEntity) mob, net.ender.endersequipment.registries.EEAttributeRegistry.BLADE_MAGIC_RESIST, BladeRes);
                 if (ModList.get().isLoaded("cataclysm_spellbooks")) {
                     setIfNonNull((LivingEntity) mob, net.acetheeldritchking.cataclysm_spellbooks.registries.CSAttributeRegistry.ABYSSAL_MAGIC_RESIST, AbyssRes);
                 }

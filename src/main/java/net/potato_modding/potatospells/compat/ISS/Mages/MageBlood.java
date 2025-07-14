@@ -1,4 +1,4 @@
-package net.potato_modding.potatospells.compat.Cataclysm.Bosses;
+package net.potato_modding.potatospells.compat.ISS.Mages;
 
 import dev.shadowsoffire.apothic_attributes.api.ALObjects;
 import io.redspace.ironsspellbooks.api.registry.AttributeRegistry;
@@ -10,65 +10,47 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModList;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
-import net.potato_modding.potatospells.config.ServerConfigs;
 import net.potato_modding.potatospells.utils.PotatoTags;
 
 import static net.potato_modding.potatospells.utils.ConfigFormulas.*;
 
 @SuppressWarnings("unused")
 @EventBusSubscriber
-public class Maledictus {
+public class MageBlood {
 
     @SubscribeEvent(priority = net.neoforged.bus.api.EventPriority.LOWEST)
-    private static void handleResistanceAttributeCataclysm(EntityJoinLevelEvent event) {
+    private static void handleResistanceAttributePreset(EntityJoinLevelEvent event) {
         var mob = event.getEntity();
 
-        if (ModList.get().isLoaded("cataclysm") && mob.getType().is(PotatoTags.MALEDICTUS)) {
+        if (mob.getType().is(PotatoTags.MAGE_BLOOD)) {
 
-            if (!ServerConfigs.MALEDICTUS_SWITCH.get()) {
-                // Amethyst  attributes
-                Resist += 1.3 * boss_mod;
-                FireRes += 0.65 * boss_mod;
-                IceRes += 1.5 * boss_mod;
-                HolyRes += 0.9 * boss_mod;
-                NatRes += 1.25 * boss_mod;
-                BloodRes += 1.35 * boss_mod;
-                EndRes += 1.1 * boss_mod;
-                LigRes += 0.8 * boss_mod;
-                EldRes += 1.2 * boss_mod;
-                AbyssRes += 1.35 * boss_mod;
-                BladeRes += 0.95 * boss_mod;
-                SoundRes += 1.1 * boss_mod;
-                WindRes += 1.3 * boss_mod;
-                Armor += 16 * spec_mod;
-                Tough += 13 * spec_mod;
-                Attack += 11 * spec_mod;
-            }
-
-            else {
-                Armor = ServerConfigs.MALEDICTUS_ARMOR.get();
-                Tough = ServerConfigs.MALEDICTUS_TOUGHNESS.get();
-                Attack = ServerConfigs.MALEDICTUS_ATTACK.get();
-                Resist = ServerConfigs.MALEDICTUS_RESIST.get();
-                FireRes = ServerConfigs.MALEDICTUS_FIRE_RESIST.get();
-                NatRes = ServerConfigs.MALEDICTUS_NATURE_RESIST.get();
-                EndRes = ServerConfigs.MALEDICTUS_ENDER_RESIST.get();
-                BloodRes = ServerConfigs.MALEDICTUS_BLOOD_RESIST.get();
-                IceRes = ServerConfigs.MALEDICTUS_ICE_RESIST.get();
-                LigRes = ServerConfigs.MALEDICTUS_LIGHTNING_RESIST.get();
-                EldRes = ServerConfigs.MALEDICTUS_ELDRITCH_RESIST.get();
-                HolyRes = ServerConfigs.MALEDICTUS_HOLY_RESIST.get();
-                BladeRes = ServerConfigs.MALEDICTUS_BLADE_RESIST.get();
-                AbyssRes = ServerConfigs.MALEDICTUS_ABYSSAL_RESIST.get();
-                SoundRes = ServerConfigs.MALEDICTUS_MUSIC_RESIST.get();
-                WindRes = ServerConfigs.MALEDICTUS_WIND_RESIST.get();
-            }
+            // Amethyst  attributes
+            SpellPower += 0.75 * mob_mod;
+            SchoolPower += 2.15 * mob_mod;
+            Resist += 0.5 * mob_mod;
+            FireRes += 0.8 * mob_mod;
+            NatRes += 1.85 * mob_mod;
+            EndRes += 2.0 * mob_mod;
+            BloodRes += 2.55 * mob_mod;
+            IceRes += 0.6 * mob_mod;
+            LigRes += 0.75 * mob_mod;
+            EldRes += 2.25 * mob_mod;
+            HolyRes -= 0.35 * mob_mod;
+            BladeRes += 0.65 * mob_mod;
+            AbyssRes += 1.35 * mob_mod;
+            SoundRes += 0.15 * mob_mod;
+            WindRes += 1.05 * mob_mod;
+            Armor += 4 * spec_mod;
+            Tough += 2 * spec_mod;
+            Attack += 9.5 * spec_mod;
 
             // Updates mob attributes
             {
                 setIfNonNull((LivingEntity) mob, Attributes.ARMOR, Armor);
                 setIfNonNull((LivingEntity) mob, Attributes.ARMOR_TOUGHNESS, Tough);
                 setIfNonNull((LivingEntity) mob, Attributes.ATTACK_DAMAGE, Attack);
+                setIfNonNull((LivingEntity) mob, AttributeRegistry.SPELL_POWER, SpellPower);
+                setIfNonNull((LivingEntity) mob, AttributeRegistry.BLOOD_SPELL_POWER, SchoolPower);
                 setIfNonNull((LivingEntity) mob, AttributeRegistry.SPELL_RESIST, Resist);
                 setIfNonNull((LivingEntity) mob, AttributeRegistry.FIRE_MAGIC_RESIST, FireRes);
                 setIfNonNull((LivingEntity) mob, AttributeRegistry.NATURE_MAGIC_RESIST, NatRes);
@@ -92,10 +74,10 @@ public class Maledictus {
                     setIfNonNull((LivingEntity) mob, com.snackpirate.aeromancy.spells.AASpells.Attributes.WIND_MAGIC_RESIST, WindRes);
                 }
                 // Fixed Attributes
-                setIfNonNull((LivingEntity) mob, ALObjects.Attributes.ARMOR_PIERCE, boss_armor_pen);
-                setIfNonNull((LivingEntity) mob, ALObjects.Attributes.ARMOR_SHRED, boss_armor_shred);
-                setIfNonNull((LivingEntity) mob, ALObjects.Attributes.PROT_PIERCE, boss_prot_pen);
-                setIfNonNull((LivingEntity) mob, ALObjects.Attributes.PROT_SHRED, boss_prot_shred);
+                setIfNonNull((LivingEntity) mob, ALObjects.Attributes.ARMOR_PIERCE, mob_armor_pen);
+                setIfNonNull((LivingEntity) mob, ALObjects.Attributes.ARMOR_SHRED, mob_armor_shred);
+                setIfNonNull((LivingEntity) mob, ALObjects.Attributes.PROT_PIERCE, mob_prot_pen);
+                setIfNonNull((LivingEntity) mob, ALObjects.Attributes.PROT_SHRED, mob_prot_shred);
             }
 
             // We reset this stuff so it doesn't make other mobs go crazy

@@ -1,4 +1,4 @@
-package net.potato_modding.potatospells.compat.ISS.Mages;
+package net.potato_modding.potatospells.compat.ISS.Defaults;
 
 import dev.shadowsoffire.apothic_attributes.api.ALObjects;
 import io.redspace.ironsspellbooks.api.registry.AttributeRegistry;
@@ -16,41 +16,36 @@ import static net.potato_modding.potatospells.utils.ConfigFormulas.*;
 
 @SuppressWarnings("unused")
 @EventBusSubscriber
-public class Mage_Ender {
+public class CitadelKeeper {
 
     @SubscribeEvent(priority = net.neoforged.bus.api.EventPriority.LOWEST)
-    private static void handleResistanceAttributePreset(EntityJoinLevelEvent event) {
+    private static void handleResistanceAttributeMob(EntityJoinLevelEvent event) {
         var mob = event.getEntity();
 
-        if (mob.getType().is(PotatoTags.MAGE_NATURE)) {
+        if (mob.getType().is(PotatoTags.KEEPER_MOB)) {
 
             // Amethyst  attributes
-            SpellPower += 1.4 * mob_mod;
-            SchoolPower += 1.35 * mob_mod;
-            Resist += 1.25 * mob_mod;
-            FireRes += 1.25 * mob_mod;
-            NatRes += 1.25 * mob_mod;
-            EndRes += 1.65 * mob_mod;
-            BloodRes += 1.25 * mob_mod;
-            IceRes += 1.25 * mob_mod;
-            LigRes += 1.25 * mob_mod;
-            EldRes += 1.45 * mob_mod;
-            HolyRes += 1.05 * mob_mod;
-            BladeRes += 1.25 * mob_mod;
-            AbyssRes += 1.35 * mob_mod;
-            SoundRes += 1.1 * mob_mod;
-            WindRes += 1.25 * mob_mod;
-            Armor += 5 * spec_mod;
-            Tough += 6 * spec_mod;
-            Attack += 7.5 * spec_mod;
+            Resist += 0.9 * mob_mod;
+            FireRes += 1.75 * mob_mod;
+            NatRes += 1.5 * mob_mod;
+            EndRes += 1.2 * mob_mod;
+            BloodRes += 1.5 * mob_mod;
+            IceRes += 0.3 * mob_mod;
+            LigRes += 1.65 * mob_mod;
+            EldRes += 1.7 * mob_mod;
+            HolyRes -= 0.5 * mob_mod;
+            BladeRes += 1.65 * mob_mod;
+            AbyssRes += 1.15 * mob_mod;
+            SoundRes += 1.4 * mob_mod;
+            WindRes += 1.35 * mob_mod;
+            Armor += 15 * spec_mod;
+            Tough += 10 * spec_mod;
+            Attack += 9.0 * spec_mod;
 
-            // Updates mob attributes
             {
                 setIfNonNull((LivingEntity) mob, Attributes.ARMOR, Armor);
                 setIfNonNull((LivingEntity) mob, Attributes.ARMOR_TOUGHNESS, Tough);
                 setIfNonNull((LivingEntity) mob, Attributes.ATTACK_DAMAGE, Attack);
-                setIfNonNull((LivingEntity) mob, AttributeRegistry.SPELL_POWER, SpellPower);
-                setIfNonNull((LivingEntity) mob, AttributeRegistry.NATURE_SPELL_POWER, SchoolPower);
                 setIfNonNull((LivingEntity) mob, AttributeRegistry.SPELL_RESIST, Resist);
                 setIfNonNull((LivingEntity) mob, AttributeRegistry.FIRE_MAGIC_RESIST, FireRes);
                 setIfNonNull((LivingEntity) mob, AttributeRegistry.NATURE_MAGIC_RESIST, NatRes);

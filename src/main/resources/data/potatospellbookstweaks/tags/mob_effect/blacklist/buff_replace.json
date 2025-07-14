@@ -1,7 +1,7 @@
 {
   "replace": false,
   "values": [
-    "irons_spellbooks:charged",
-    "irons_spellbooks:hastened"
+    "irons_spellbooks:heartstop",
+    "gametechbcs_spellbooks:lingering_strain"
   ]
 }

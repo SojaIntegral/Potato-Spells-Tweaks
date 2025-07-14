@@ -16,33 +16,33 @@ import static net.potato_modding.potatospells.utils.ConfigFormulas.*;
 
 @SuppressWarnings("unused")
 @EventBusSubscriber
-public class Mage_Evoke {
+public class MageHoly {
 
     @SubscribeEvent(priority = net.neoforged.bus.api.EventPriority.LOWEST)
     private static void handleResistanceAttributePreset(EntityJoinLevelEvent event) {
         var mob = event.getEntity();
 
-        if (mob.getType().is(PotatoTags.MAGE_EVOKE)) {
+        if (mob.getType().is(PotatoTags.MAGE_HOLY)) {
 
             // Amethyst  attributes
-            SpellPower += 1.4 * mob_mod;
-            SchoolPower += 1.4 * mob_mod;
-            Resist += 1.55 * mob_mod;
+            SpellPower += 1.25 * mob_mod;
+            SchoolPower += 1.65 * mob_mod;
+            Resist += 1.25 * mob_mod;
             FireRes += 1.25 * mob_mod;
             NatRes += 1.25 * mob_mod;
-            EndRes += 1.25 * mob_mod;
-            BloodRes += 1.25 * mob_mod;
+            EndRes += 0.55 * mob_mod;
+            BloodRes += 0.25 * mob_mod;
             IceRes += 1.25 * mob_mod;
             LigRes += 1.25 * mob_mod;
-            EldRes += 1.25 * mob_mod;
-            HolyRes += 1.25 * mob_mod;
-            BladeRes += 1.25 * mob_mod;
-            AbyssRes += 1.25 * mob_mod;
-            SoundRes += 1.25 * mob_mod;
-            WindRes += 1.25 * mob_mod;
-            Armor += 5 * spec_mod;
-            Tough += 3 * spec_mod;
-            Attack += 5.5 * spec_mod;
+            EldRes -= 0.95 * mob_mod;
+            HolyRes += 1.95 * mob_mod;
+            BladeRes += 1.55 * mob_mod;
+            AbyssRes += 0.75 * mob_mod;
+            SoundRes += 1.7 * mob_mod;
+            WindRes += 1.35 * mob_mod;
+            Armor += 8.5 * spec_mod;
+            Tough += 8 * spec_mod;
+            Attack += 5.0 * spec_mod;
 
             // Updates mob attributes
             {
@@ -50,7 +50,7 @@ public class Mage_Evoke {
                 setIfNonNull((LivingEntity) mob, Attributes.ARMOR_TOUGHNESS, Tough);
                 setIfNonNull((LivingEntity) mob, Attributes.ATTACK_DAMAGE, Attack);
                 setIfNonNull((LivingEntity) mob, AttributeRegistry.SPELL_POWER, SpellPower);
-                setIfNonNull((LivingEntity) mob, AttributeRegistry.NATURE_SPELL_POWER, SchoolPower);
+                setIfNonNull((LivingEntity) mob, AttributeRegistry.HOLY_SPELL_POWER, SchoolPower);
                 setIfNonNull((LivingEntity) mob, AttributeRegistry.SPELL_RESIST, Resist);
                 setIfNonNull((LivingEntity) mob, AttributeRegistry.FIRE_MAGIC_RESIST, FireRes);
                 setIfNonNull((LivingEntity) mob, AttributeRegistry.NATURE_MAGIC_RESIST, NatRes);
@@ -104,13 +104,13 @@ public class Mage_Evoke {
         }
     }
 
-    private static void setIfNonNull(LivingEntity entity, Holder<Attribute> attribute, double value) {
+    // Actually sets the attributes
+    private static void setIfNonNull(LivingEntity entity, Holder<Attribute> attribute, double value)
+    {
+        var instance = entity.getAttributes().getInstance(attribute);
+        if (instance != null)
         {
-            var instance = entity.getAttributes().getInstance(attribute);
-            if (instance != null) {
-                instance.setBaseValue(value);
-            }
+            instance.setBaseValue(value);
         }
     }
 }
-

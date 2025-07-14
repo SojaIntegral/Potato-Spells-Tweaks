@@ -1,4 +1,4 @@
-package net.potato_modding.potatospells.compat.Cataclysm.Bosses;
+package net.potato_modding.potatospells.compat.ISS.Mages;
 
 import dev.shadowsoffire.apothic_attributes.api.ALObjects;
 import io.redspace.ironsspellbooks.api.registry.AttributeRegistry;
@@ -10,65 +10,47 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModList;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
-import net.potato_modding.potatospells.config.ServerConfigs;
 import net.potato_modding.potatospells.utils.PotatoTags;
 
 import static net.potato_modding.potatospells.utils.ConfigFormulas.*;
 
 @SuppressWarnings("unused")
 @EventBusSubscriber
-public class Netherite_Monstrosity {
+public class MageEldritch {
 
     @SubscribeEvent(priority = net.neoforged.bus.api.EventPriority.LOWEST)
-    private static void handleResistanceAttributeCataclysm(EntityJoinLevelEvent event) {
+    private static void handleResistanceAttributePreset(EntityJoinLevelEvent event) {
         var mob = event.getEntity();
 
-        if (ModList.get().isLoaded("cataclysm") && mob.getType().is(PotatoTags.NETHERITE_MONSTROSITY)) {
+        if (mob.getType().is(PotatoTags.MAGE_ELDRITCH)) {
 
-            if (!ServerConfigs.NETMONST_SWITCH.get()) {
-                // Amethyst  attributes
-                Resist += 1.15 * boss_mod;
-                FireRes += 2.15 * boss_mod;
-                IceRes -= 0.85 * boss_mod;
-                HolyRes += 1.35 * boss_mod;
-                NatRes += 1.85 * boss_mod;
-                BloodRes += 1.65 * boss_mod;
-                EndRes += 0.85 * boss_mod;
-                LigRes += 0.9 * boss_mod;
-                EldRes += 1.25 * boss_mod;
-                AbyssRes -= 0.7 * boss_mod;
-                BladeRes += 2.0 * boss_mod;
-                SoundRes += 1.35 * boss_mod;
-                WindRes += 1.65 * boss_mod;
-                Armor += 30 * spec_mod;
-                Tough += 20 * spec_mod;
-                Attack += 9 * spec_mod;
-            }
-
-            else {
-                Armor = ServerConfigs.NETMONST_ARMOR.get();
-                Tough = ServerConfigs.NETMONST_TOUGHNESS.get();
-                Attack = ServerConfigs.NETMONST_ATTACK.get();
-                Resist = ServerConfigs.NETMONST_RESIST.get();
-                FireRes = ServerConfigs.NETMONST_FIRE_RESIST.get();
-                NatRes = ServerConfigs.NETMONST_NATURE_RESIST.get();
-                EndRes = ServerConfigs.NETMONST_ENDER_RESIST.get();
-                BloodRes = ServerConfigs.NETMONST_BLOOD_RESIST.get();
-                IceRes = ServerConfigs.NETMONST_ICE_RESIST.get();
-                LigRes = ServerConfigs.NETMONST_LIGHTNING_RESIST.get();
-                EldRes = ServerConfigs.NETMONST_ELDRITCH_RESIST.get();
-                HolyRes = ServerConfigs.NETMONST_HOLY_RESIST.get();
-                BladeRes = ServerConfigs.NETMONST_BLADE_RESIST.get();
-                AbyssRes = ServerConfigs.NETMONST_ABYSSAL_RESIST.get();
-                SoundRes = ServerConfigs.NETMONST_MUSIC_RESIST.get();
-                WindRes = ServerConfigs.NETMONST_WIND_RESIST.get();
-            }
+            // Amethyst  attributes
+            SpellPower += 0.25 * mob_mod;
+            SchoolPower += 6.66 * mob_mod;
+            Resist += 2.0 * mob_mod;
+            FireRes += 0.65 * mob_mod;
+            NatRes += 1.25 * mob_mod;
+            EndRes += 1.4 * mob_mod;
+            BloodRes += 1.35 * mob_mod;
+            IceRes += 1.2 * mob_mod;
+            LigRes += 1.1 * mob_mod;
+            EldRes += 1.5 * mob_mod;
+            HolyRes -= 1.25 * mob_mod;
+            BladeRes += 0.55 * mob_mod;
+            AbyssRes += 1.4 * mob_mod;
+            SoundRes += 0.1 * mob_mod;
+            WindRes += 0.8 * mob_mod;
+            Armor += 6 * spec_mod;
+            Tough += 9 * spec_mod;
+            Attack += 9.0 * spec_mod;
 
             // Updates mob attributes
             {
                 setIfNonNull((LivingEntity) mob, Attributes.ARMOR, Armor);
                 setIfNonNull((LivingEntity) mob, Attributes.ARMOR_TOUGHNESS, Tough);
                 setIfNonNull((LivingEntity) mob, Attributes.ATTACK_DAMAGE, Attack);
+                setIfNonNull((LivingEntity) mob, AttributeRegistry.SPELL_POWER, SpellPower);
+                setIfNonNull((LivingEntity) mob, AttributeRegistry.ELDRITCH_SPELL_POWER, SchoolPower);
                 setIfNonNull((LivingEntity) mob, AttributeRegistry.SPELL_RESIST, Resist);
                 setIfNonNull((LivingEntity) mob, AttributeRegistry.FIRE_MAGIC_RESIST, FireRes);
                 setIfNonNull((LivingEntity) mob, AttributeRegistry.NATURE_MAGIC_RESIST, NatRes);
@@ -92,10 +74,10 @@ public class Netherite_Monstrosity {
                     setIfNonNull((LivingEntity) mob, com.snackpirate.aeromancy.spells.AASpells.Attributes.WIND_MAGIC_RESIST, WindRes);
                 }
                 // Fixed Attributes
-                setIfNonNull((LivingEntity) mob, ALObjects.Attributes.ARMOR_PIERCE, boss_armor_pen);
-                setIfNonNull((LivingEntity) mob, ALObjects.Attributes.ARMOR_SHRED, boss_armor_shred);
-                setIfNonNull((LivingEntity) mob, ALObjects.Attributes.PROT_PIERCE, boss_prot_pen);
-                setIfNonNull((LivingEntity) mob, ALObjects.Attributes.PROT_SHRED, boss_prot_shred);
+                setIfNonNull((LivingEntity) mob, ALObjects.Attributes.ARMOR_PIERCE, mob_armor_pen);
+                setIfNonNull((LivingEntity) mob, ALObjects.Attributes.ARMOR_SHRED, mob_armor_shred);
+                setIfNonNull((LivingEntity) mob, ALObjects.Attributes.PROT_PIERCE, mob_prot_pen);
+                setIfNonNull((LivingEntity) mob, ALObjects.Attributes.PROT_SHRED, mob_prot_shred);
             }
 
             // We reset this stuff so it doesn't make other mobs go crazy

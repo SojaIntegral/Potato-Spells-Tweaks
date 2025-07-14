@@ -94,6 +94,8 @@ public class PotatoTags {
             TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "miniboss/cataclysm/ender_guardian"));
     public static final TagKey<EntityType<?>> KOBOLEDIATOR =
             TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "miniboss/cataclysm/kobolediator"));
+    public static final TagKey<EntityType<?>> THE_PROWLER =
+            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "miniboss/cataclysm/the_prowler"));
     public static final TagKey<EntityType<?>> WADJET =
             TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "miniboss/cataclysm/wadjet"));
 
