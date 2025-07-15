@@ -2,13 +2,14 @@ package net.potato_modding.potatospells.mixin;
 
 import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import io.redspace.ironsspellbooks.api.spells.AbstractSpell;
 import io.redspace.ironsspellbooks.api.spells.CastSource;
 import io.redspace.ironsspellbooks.capabilities.magic.MagicManager;
 import io.redspace.ironsspellbooks.config.ServerConfigs;
+import net.minecraft.world.entity.player.Player;
 import net.potato_modding.potatospells.utils.MixinFixes;
 import org.spongepowered.asm.mixin.Mixin;
-import io.redspace.ironsspellbooks.api.spells.AbstractSpell;
-import net.minecraft.world.entity.player.Player;
+
 import static io.redspace.ironsspellbooks.api.registry.AttributeRegistry.COOLDOWN_REDUCTION;
 
 @SuppressWarnings("unused")

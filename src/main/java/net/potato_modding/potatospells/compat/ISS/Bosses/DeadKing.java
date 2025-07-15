@@ -3,6 +3,7 @@ package net.potato_modding.potatospells.compat.ISS.Bosses;
 import dev.shadowsoffire.apothic_attributes.api.ALObjects;
 import io.redspace.ironsspellbooks.api.registry.AttributeRegistry;
 import net.minecraft.core.Holder;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -11,7 +12,6 @@ import net.neoforged.fml.ModList;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
 import net.potato_modding.potatospells.config.ServerConfigs;
-import net.potato_modding.potatospells.utils.PotatoTags;
 
 import static net.potato_modding.potatospells.utils.ConfigFormulas.*;
 
@@ -22,52 +22,30 @@ public class DeadKing {
     @SubscribeEvent(priority = net.neoforged.bus.api.EventPriority.LOWEST)
     private static void handleResistanceAttributeCataclysm(EntityJoinLevelEvent event) {
         var mob = event.getEntity();
+        var typeKey = BuiltInRegistries.ENTITY_TYPE.getKey(mob.getType());
 
-        if (mob.getType().is(PotatoTags.DEADKING_BOSS)) {
+        if (typeKey.getNamespace().equals("irons_spellbooks") && typeKey.getPath().equals("dead_king")) {
 
             if (!ServerConfigs.DEAD_SWITCH.get()) {
                 // Amethyst  attributes
-                if ((mob instanceof LivingEntity living) && living.getHealth() > 250) {
-                    SpellPower += 1.1 * boss_mod;
-                    SchoolPower += 1.3 * boss_mod;
-                    Resist += 1.15 * boss_mod;
-                    FireRes += 0.85 * boss_mod;
-                    NatRes += 0.8 * boss_mod;
-                    EndRes += 1.15 * boss_mod;
-                    BloodRes += 1.65 * boss_mod;
-                    IceRes += 1.35 * boss_mod;
-                    LigRes += 0.75 * boss_mod;
-                    EldRes += 1.7 * boss_mod;
-                    HolyRes -= 0.45 * boss_mod;
-                    BladeRes += 0.75 * boss_mod;
-                    AbyssRes += 1.25 * boss_mod;
-                    SoundRes -= 0.3 * boss_mod;
-                    WindRes += 1.1 * boss_mod;
-                    Armor += 13 * spec_mod;
-                    Tough += 7 * spec_mod;
-                    Attack += 7.5 * spec_mod;
-                }
-
-                else {
-                    SpellPower = 1.35 * boss_mod;
-                    SchoolPower = 1.35 * boss_mod;
-                    Resist = 0.9 * boss_mod;
-                    FireRes = 1.3 * boss_mod;
-                    NatRes = 0.75 * boss_mod;
-                    EndRes = 1.1 * boss_mod;
-                    BloodRes = 1.6 * boss_mod;
-                    IceRes = 1.3 * boss_mod;
-                    LigRes = 0.8 * boss_mod;
-                    EldRes = 1.6 * boss_mod;
-                    HolyRes = 0.5 * boss_mod;
-                    BladeRes = 0.7 * boss_mod;
-                    AbyssRes = 1.2 * boss_mod;
-                    SoundRes = 0.55 * boss_mod;
-                    WindRes = 1.05 * boss_mod;
-                    Armor = 9 * spec_mod;
-                    Tough = 5 * spec_mod;
-                    Attack = 9.5 * spec_mod;
-                }
+                SpellPower += 1.1 * boss_mod;
+                SchoolPower += 1.3 * boss_mod;
+                Resist += 1.15 * boss_mod;
+                FireRes += 0.85 * boss_mod;
+                NatRes += 0.8 * boss_mod;
+                EndRes += 1.15 * boss_mod;
+                BloodRes += 1.65 * boss_mod;
+                IceRes += 1.35 * boss_mod;
+                LigRes += 0.75 * boss_mod;
+                EldRes += 1.7 * boss_mod;
+                HolyRes -= 0.45 * boss_mod;
+                BladeRes += 0.75 * boss_mod;
+                AbyssRes += 1.25 * boss_mod;
+                SoundRes -= 0.3 * boss_mod;
+                WindRes += 1.1 * boss_mod;
+                Armor += 13 * spec_mod;
+                Tough += 7 * spec_mod;
+                Attack += 7.5 * spec_mod;
             }
 
             else {
@@ -152,11 +130,9 @@ public class DeadKing {
     }
 
     // Actually sets the attributes
-    private static void setIfNonNull(LivingEntity entity, Holder<Attribute> attribute, double value)
-    {
+    private static void setIfNonNull(LivingEntity entity, Holder<Attribute> attribute, double value) {
         var instance = entity.getAttributes().getInstance(attribute);
-        if (instance != null)
-        {
+        if (instance != null) {
             instance.setBaseValue(value);
         }
     }

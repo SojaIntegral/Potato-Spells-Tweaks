@@ -3,6 +3,7 @@ package net.potato_modding.potatospells.compat.ISS.Defaults;
 import dev.shadowsoffire.apothic_attributes.api.ALObjects;
 import io.redspace.ironsspellbooks.api.registry.AttributeRegistry;
 import net.minecraft.core.Holder;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -10,7 +11,6 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModList;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
-import net.potato_modding.potatospells.utils.PotatoTags;
 
 import static net.potato_modding.potatospells.utils.ConfigFormulas.*;
 
@@ -21,8 +21,9 @@ public class CitadelKeeper {
     @SubscribeEvent(priority = net.neoforged.bus.api.EventPriority.LOWEST)
     private static void handleResistanceAttributeMob(EntityJoinLevelEvent event) {
         var mob = event.getEntity();
+        var typeKey = BuiltInRegistries.ENTITY_TYPE.getKey(mob.getType());
 
-        if (mob.getType().is(PotatoTags.KEEPER_MOB)) {
+        if (typeKey.getNamespace().equals("irons_spellbooks") && typeKey.getPath().equals("citadel_keeper")) {
 
             // Amethyst  attributes
             Resist += 0.9 * mob_mod;

@@ -1,9 +1,0 @@
-{
-  "replace": false,
-  "values": [
-    "irons_spellbooks:evasion",
-    "irons_spellbooks:abyssal_shroud",
-    "minecraft:resistance",
-    "minecraft:absorption"
-  ]
-}

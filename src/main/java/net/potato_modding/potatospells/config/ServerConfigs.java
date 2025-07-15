@@ -7,6 +7,7 @@ public class ServerConfigs {
     private static final ModConfigSpec.Builder BUILDER = new ModConfigSpec.Builder();
     public static final ModConfigSpec BUILDING;
     public static ModConfigSpec.ConfigValue<Integer> FORMULA_REBALANCE;
+    public static ModConfigSpec.ConfigValue<Boolean> PLAYER_TOGGLE;
 
     public static ModConfigSpec.ConfigValue<Boolean> BOSS_SWITCH;
     public static ModConfigSpec.ConfigValue<Integer> BOSS_RESIST;
@@ -245,6 +246,7 @@ public class ServerConfigs {
             BUILDER.comment("4 = 'Alternative': Uncapped (Heavily nerfs scaling)");
             BUILDER.comment("WARNING: This affects [Spell Resistance], [Cast Speed] AND [Cooldown Reduction]!");
             FORMULA_REBALANCE = BUILDER.worldRestart().define("Rebalanced Formula", 1);
+            PLAYER_TOGGLE = BUILDER.worldRestart().define("Buffs Players", false);
             BUILDER.pop();
         }
 

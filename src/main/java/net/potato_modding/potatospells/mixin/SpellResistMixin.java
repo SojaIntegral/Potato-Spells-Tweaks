@@ -1,12 +1,12 @@
 package net.potato_modding.potatospells.mixin;
 
-import net.potato_modding.potatospells.utils.MixinFixes;
 import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import io.redspace.ironsspellbooks.api.registry.AttributeRegistry;
 import io.redspace.ironsspellbooks.api.spells.SchoolType;
 import io.redspace.ironsspellbooks.damage.DamageSources;
 import net.minecraft.world.entity.LivingEntity;
+import net.potato_modding.potatospells.utils.MixinFixes;
 import org.spongepowered.asm.mixin.Mixin;
 
 @SuppressWarnings("unused")

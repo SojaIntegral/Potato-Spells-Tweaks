@@ -1,10 +1,14 @@
 package net.potato_modding.potatospells.utils;
 
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
+import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.living.MobEffectEvent;
-import net.neoforged.bus.api.SubscribeEvent;
 
 import java.util.List;
 
@@ -12,153 +16,69 @@ import java.util.List;
 @EventBusSubscriber
 public class EffectHandler {
 
-    // This one replaces buffs
+    // Replaces X effect (currently active) for Y
     @SubscribeEvent
-    public static void positiveBuff(MobEffectEvent.Added event) {
-        MobEffectInstance addedEffect = event.getEffectInstance();
-        LivingEntity entity = event.getEntity();
+    public static void effectStackingHandler(MobEffectEvent.Added event) {
+        var addedEffect = event.getEffectInstance();
+        var entity = event.getEntity();
         var effect = addedEffect.getEffect();
 
-        if (effect.is(PotatoTags.POSITIVE_BUFFS)) {
-            var effects = List.copyOf(entity.getActiveEffects());
+        BuiltInRegistries.MOB_EFFECT.getTags().forEach(tagPair -> {
+            var tagKey = tagPair.getFirst();
+            var tagPath = tagKey.location().getPath();
 
-            for (MobEffectInstance current : effects) {
-                if (!current.getEffect().equals(effect) && current.getEffect().is(PotatoTags.POSITIVE_BUFFS_CHECK)) {
-                    entity.removeEffect(current.getEffect());
+            // Only handle tags in replaced_effects/
+            if (!tagPath.startsWith("effect_replacing/replaced_effects/")) return;
+
+            String tagName = tagPath.substring("effect_replacing/replaced_effects/".length());
+
+            // Registers any new tags in the target folders
+            var checkTag = TagKey.create(Registries.MOB_EFFECT,
+                    ResourceLocation.fromNamespaceAndPath("potatospellbookstweaks", "effect_replacing/replace_with/" + tagName));
+            var blacklistTag = TagKey.create(Registries.MOB_EFFECT,
+                    ResourceLocation.fromNamespaceAndPath("potatospellbookstweaks", "effect_replacing/replaced_effects/" + tagName));
+
+            // Retrieving and removing conflicting effects
+            if (effect.is(checkTag)) {
+                List<MobEffectInstance> effects = List.copyOf(entity.getActiveEffects());
+                for (MobEffectInstance current : effects) {
+                    if (!current.getEffect().equals(effect) && current.getEffect().is(blacklistTag)) {
+                        entity.removeEffect(current.getEffect());
+                    }
                 }
             }
-        }
+        });
     }
 
-    // This one prevents buffs from applying instead of replacing
+    // Doesn't apply X effect when Y effect is active
     @SubscribeEvent
-    public static void positiveBuff2(MobEffectEvent.Applicable event) {
+    public static void effectNotApply(MobEffectEvent.Applicable event) {
         LivingEntity entity = event.getEntity();
         var applyingEffect = event.getEffectInstance().getEffect();
 
-        boolean hasBlockingEffect = entity.getActiveEffects()
-                .stream()
-                .anyMatch(e -> e.getEffect().is(PotatoTags.POSITIVE_BUFFS2_CHECK));
+        BuiltInRegistries.MOB_EFFECT.getTags().forEach(tagPair -> {
+            var tagKey = tagPair.getFirst();
+            var tagPath = tagKey.location().getPath();
 
-        if (hasBlockingEffect && applyingEffect.is(PotatoTags.POSITIVE_BUFFS2)) {
-            event.setResult(MobEffectEvent.Applicable.Result.DO_NOT_APPLY);
-        }
-    }
+            // Only handle tags in replaced_effects/
+            if (!tagPath.startsWith("effect_not_applying/active_effects/")) return;
 
-    // This one replaces buffs
-    @SubscribeEvent
-    public static void damageBuff(MobEffectEvent.Added event) {
-        MobEffectInstance addedEffect = event.getEffectInstance();
-        LivingEntity entity = event.getEntity();
-        var effect = addedEffect.getEffect();
+            String tagName = tagPath.substring("effect_not_applying/active_effects/".length());
 
-        if (effect.is(PotatoTags.DAMAGE_BUFFS)) {
-            var effects = List.copyOf(entity.getActiveEffects());
+            var checkTag = TagKey.create(Registries.MOB_EFFECT,
+                    ResourceLocation.fromNamespaceAndPath("potatospellbookstweaks",
+                            "effect_not_applying/active_effects/" + tagName));
+            var blockTag = TagKey.create(Registries.MOB_EFFECT,
+                    ResourceLocation.fromNamespaceAndPath("potatospellbookstweaks",
+                            "effect_not_applying/cannot_apply/" + tagName));
 
-            for (MobEffectInstance current : effects) {
-                if (!current.getEffect().equals(effect) && current.getEffect().is(PotatoTags.DAMAGE_BUFFS_CHECK)) {
-                    entity.removeEffect(current.getEffect());
-                }
+            boolean hasBlockingEffect = entity.getActiveEffects()
+                    .stream()
+                    .anyMatch(e -> e.getEffect().is(blockTag));
+
+            if (hasBlockingEffect && applyingEffect.is(checkTag)) {
+                event.setResult(MobEffectEvent.Applicable.Result.DO_NOT_APPLY);
             }
-        }
-    }
-
-    // This one prevents buffs from applying instead of replacing
-    @SubscribeEvent
-    public static void damageBuff2(MobEffectEvent.Applicable event) {
-        LivingEntity entity = event.getEntity();
-        var applyingEffect = event.getEffectInstance().getEffect();
-
-        boolean hasBlockingEffect = entity.getActiveEffects()
-                .stream()
-                .anyMatch(e -> e.getEffect().is(PotatoTags.DAMAGE_BUFFS2_CHECK));
-
-        if (hasBlockingEffect && applyingEffect.is(PotatoTags.DAMAGE_BUFFS2)) {
-            event.setResult(MobEffectEvent.Applicable.Result.DO_NOT_APPLY);
-        }
-    }
-
-    // This one replaces buffs
-    @SubscribeEvent
-    public static void defensiveBuff(MobEffectEvent.Added event) {
-        MobEffectInstance addedEffect = event.getEffectInstance();
-        LivingEntity entity = event.getEntity();
-        var effect = addedEffect.getEffect();
-
-        if (effect.is(PotatoTags.DEFENSIVE_BUFFS)) {
-            var effects = List.copyOf(entity.getActiveEffects());
-
-            for (MobEffectInstance current : effects) {
-                if (!current.getEffect().equals(effect) && current.getEffect().is(PotatoTags.DEFENSIVE_BUFFS_CHECK)) {
-                    entity.removeEffect(current.getEffect());
-                }
-            }
-        }
-    }
-
-    // This one prevents buffs from applying instead of replacing
-    @SubscribeEvent
-    public static void defensiveBuff2(MobEffectEvent.Applicable event) {
-        LivingEntity entity = event.getEntity();
-        var applyingEffect = event.getEffectInstance().getEffect();
-
-        boolean hasBlockingEffect = entity.getActiveEffects()
-                .stream()
-                .anyMatch(e -> e.getEffect().is(PotatoTags.DEFENSIVE_BUFFS2_CHECK));
-
-        if (hasBlockingEffect && applyingEffect.is(PotatoTags.DEFENSIVE_BUFFS2)) {
-            event.setResult(MobEffectEvent.Applicable.Result.DO_NOT_APPLY);
-        }
-    }
-
-    // This one replaces buffs
-    @SubscribeEvent
-    public static void debuffBlock(MobEffectEvent.Added event) {
-        MobEffectInstance addedEffect = event.getEffectInstance();
-        LivingEntity entity = event.getEntity();
-        var effect = addedEffect.getEffect();
-
-        if (effect.is(PotatoTags.DEBUFF_BLOCK)) {
-            var effects = List.copyOf(entity.getActiveEffects());
-
-            for (MobEffectInstance current : effects) {
-                if (!current.getEffect().equals(effect) && current.getEffect().is(PotatoTags.DEBUFF_BLOCK_CHECK)) {
-                    entity.removeEffect(current.getEffect());
-                }
-            }
-        }
-    }
-
-    // This one replaces buffs
-    @SubscribeEvent
-    public static void debuffBlock2(MobEffectEvent.Added event) {
-        MobEffectInstance addedEffect = event.getEffectInstance();
-        LivingEntity entity = event.getEntity();
-        var effect = addedEffect.getEffect();
-
-        if (effect.is(PotatoTags.DEBUFF_BLOCK2)) {
-            var effects = List.copyOf(entity.getActiveEffects());
-
-            for (MobEffectInstance current : effects) {
-                if (!current.getEffect().equals(effect) && current.getEffect().is(PotatoTags.DEBUFF_BLOCK2_CHECK)) {
-                    entity.removeEffect(current.getEffect());
-                }
-            }
-        }
-    }
-
-    // This one prevents buffs from applying instead of replacing
-    @SubscribeEvent
-    public static void debuffBlock3(MobEffectEvent.Applicable event) {
-        LivingEntity entity = event.getEntity();
-        var applyingEffect = event.getEffectInstance().getEffect();
-
-        boolean hasBlockingEffect = entity.getActiveEffects()
-                .stream()
-                .anyMatch(e -> e.getEffect().is(PotatoTags.DEBUFF_BLOCK3_CHECK));
-
-        if (hasBlockingEffect && applyingEffect.is(PotatoTags.DEBUFF_BLOCK3)) {
-            event.setResult(MobEffectEvent.Applicable.Result.DO_NOT_APPLY);
-        }
+        });
     }
 }

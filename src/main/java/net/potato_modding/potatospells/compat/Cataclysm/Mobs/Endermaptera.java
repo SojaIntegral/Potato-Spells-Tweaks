@@ -3,6 +3,7 @@ package net.potato_modding.potatospells.compat.Cataclysm.Mobs;
 import dev.shadowsoffire.apothic_attributes.api.ALObjects;
 import io.redspace.ironsspellbooks.api.registry.AttributeRegistry;
 import net.minecraft.core.Holder;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -10,7 +11,6 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModList;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
-import net.potato_modding.potatospells.utils.PotatoTags;
 
 import static net.potato_modding.potatospells.utils.ConfigFormulas.*;
 
@@ -21,23 +21,24 @@ public class Endermaptera {
     @SubscribeEvent(priority = net.neoforged.bus.api.EventPriority.LOWEST)
     private static void handleResistanceAttributeCataclysm(EntityJoinLevelEvent event) {
         var mob = event.getEntity();
+        var typeKey = BuiltInRegistries.ENTITY_TYPE.getKey(mob.getType());
 
-        if (ModList.get().isLoaded("cataclysm") && mob.getType().is(PotatoTags.ENDERMAPTERA)) {
+        if (typeKey.getNamespace().equals("cataclysm") && typeKey.getPath().equals("endermaptera")) {
 
             // Amethyst  attributes
-            Resist += 1.05 * mini_mod;
-            FireRes += 0.9 * mini_mod;
-            IceRes += 0.95 * mini_mod;
-            HolyRes += 1.05 * mini_mod;
-            NatRes += 1.2 * mini_mod;
-            BloodRes += 1.15 * mini_mod;
-            EndRes += 1.35 * mini_mod;
-            LigRes += 0.85 * mini_mod;
-            EldRes += 0.95 * mini_mod;
-            AbyssRes += 1.3 * mini_mod;
-            BladeRes += 0.75 * mini_mod;
-            SoundRes += 1.15 * mini_mod;
-            WindRes += 1.3 * mini_mod;
+            Resist += 1.05 * mob_mod;
+            FireRes += 0.9 * mob_mod;
+            IceRes += 0.95 * mob_mod;
+            HolyRes += 1.05 * mob_mod;
+            NatRes += 1.2 * mob_mod;
+            BloodRes += 1.15 * mob_mod;
+            EndRes += 1.35 * mob_mod;
+            LigRes += 0.85 * mob_mod;
+            EldRes += 0.95 * mob_mod;
+            AbyssRes += 1.3 * mob_mod;
+            BladeRes += 0.75 * mob_mod;
+            SoundRes += 1.15 * mob_mod;
+            WindRes += 1.3 * mob_mod;
             Armor += 3 * spec_mod;
             Tough += 3 * spec_mod;
             Attack += 6 * spec_mod;

@@ -10,7 +10,7 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModList;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
-import net.potato_modding.potatospells.utils.PotatoTags;
+import net.potato_modding.potatospells.registries.PotatoTags;
 
 import static net.potato_modding.potatospells.utils.ConfigFormulas.*;
 

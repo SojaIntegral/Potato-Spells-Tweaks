@@ -3,6 +3,7 @@ package net.potato_modding.potatospells.compat.Minecraft.Bosses;
 import dev.shadowsoffire.apothic_attributes.api.ALObjects;
 import io.redspace.ironsspellbooks.api.registry.AttributeRegistry;
 import net.minecraft.core.Holder;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -11,7 +12,6 @@ import net.neoforged.fml.ModList;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
 import net.potato_modding.potatospells.config.ServerConfigs;
-import net.potato_modding.potatospells.utils.PotatoTags;
 
 import static net.potato_modding.potatospells.utils.ConfigFormulas.*;
 
@@ -22,9 +22,9 @@ public class Wither {
     @SubscribeEvent(priority = net.neoforged.bus.api.EventPriority.LOWEST)
     private static void handleResistanceAttributeCataclysm(EntityJoinLevelEvent event) {
         var mob = event.getEntity();
+        var typeKey = BuiltInRegistries.ENTITY_TYPE.getKey(mob.getType());
 
-        if (mob.getType().is(PotatoTags.WITHER_BOSS)) {
-
+        if (typeKey.getNamespace().equals("minecraft") && typeKey.getPath().equals("wither")) {
 
             if (!ServerConfigs.WITHER_BOSS_SWITCH.get()) {
                 // Amethyst  attributes

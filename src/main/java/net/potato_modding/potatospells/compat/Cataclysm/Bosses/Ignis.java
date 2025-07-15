@@ -3,6 +3,7 @@ package net.potato_modding.potatospells.compat.Cataclysm.Bosses;
 import dev.shadowsoffire.apothic_attributes.api.ALObjects;
 import io.redspace.ironsspellbooks.api.registry.AttributeRegistry;
 import net.minecraft.core.Holder;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -11,7 +12,6 @@ import net.neoforged.fml.ModList;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
 import net.potato_modding.potatospells.config.ServerConfigs;
-import net.potato_modding.potatospells.utils.PotatoTags;
 
 import static net.potato_modding.potatospells.utils.ConfigFormulas.*;
 
@@ -22,67 +22,28 @@ public class Ignis {
     @SubscribeEvent(priority = net.neoforged.bus.api.EventPriority.LOWEST)
     private static void handleResistanceAttributeCataclysm(EntityJoinLevelEvent event) {
         var mob = event.getEntity();
+        var typeKey = BuiltInRegistries.ENTITY_TYPE.getKey(mob.getType());
 
-        if (ModList.get().isLoaded("cataclysm") && mob.getType().is(PotatoTags.IGNIS)) {
+        if (typeKey.getNamespace().equals("cataclysm") && typeKey.getPath().equals("ignis")) {
 
-            if(!ServerConfigs.IGNIS_SWITCH.get()) {
-                if ((mob instanceof LivingEntity living) && living.getHealth() > 900){
-                    Resist += 1.2 * boss_mod;
-                    FireRes += 1.6 * boss_mod;
-                    IceRes += 1.15 * boss_mod;
-                    HolyRes += 1.35 * boss_mod;
-                    NatRes += 1.4 * boss_mod;
-                    BloodRes += 1.3 * boss_mod;
-                    EndRes += 1.1 * boss_mod;
-                    LigRes += 1.2 * boss_mod;
-                    EldRes += 0.75 * boss_mod;
-                    AbyssRes -= 0.15 * boss_mod;
-                    BladeRes += 1.5 * boss_mod;
-                    SoundRes += 1.05 * boss_mod;
-                    WindRes += 1.2 * boss_mod;
-                    Armor += 21 * spec_mod;
-                    Tough += 10 * spec_mod;
-                    Attack += 10 * spec_mod;
-                }
-            else if ((mob instanceof LivingEntity living) &&
-                        (living.getHealth() > 450) && (living.getHealth() < 901)){
-                    Resist = 1.05 * boss_mod;
-                    FireRes = 1.55 * boss_mod;
-                    IceRes = 1.1 * boss_mod;
-                    HolyRes = 1.3 * boss_mod;
-                    NatRes = 1.35 * boss_mod;
-                    BloodRes = 1.25 * boss_mod;
-                    EndRes = 1.05 * boss_mod;
-                    LigRes = 1.15 * boss_mod;
-                    EldRes = 0.8 * boss_mod;
-                    AbyssRes = 0.05 * boss_mod;
-                    BladeRes = 1.35 * boss_mod;
-                    SoundRes = 1.05 * boss_mod;
-                    WindRes = 1.1 * boss_mod;
-                    Armor = 18 * spec_mod;
-                    Tough = 9 * spec_mod;
-                    Attack = 10.5 * spec_mod;
-                }
-            else if ((mob instanceof LivingEntity living) && living.getHealth() < 451) {
-                    Resist = 0.8 * boss_mod;
-                    FireRes = 1.5 * boss_mod;
-                    IceRes = 1.25 * boss_mod;
-                    HolyRes = 1.15 * boss_mod;
-                    NatRes = 1.3 * boss_mod;
-                    BloodRes = 1.4 * boss_mod;
-                    EndRes = 1.05 * boss_mod;
-                    LigRes = 1.15 * boss_mod;
-                    EldRes = 0.9 * boss_mod;
-                    AbyssRes = 0.6 * boss_mod;
-                    BladeRes = 1.3 * boss_mod;
-                    SoundRes = 1.05 * boss_mod;
-                    WindRes = 1.15 * boss_mod;
-                    Armor = 16 * spec_mod;
-                    Tough = 7 * spec_mod;
-                    Attack = 11 * spec_mod;
-                }
-            }
-            else {
+            if (!ServerConfigs.IGNIS_SWITCH.get()) {
+                Resist += 1.2 * boss_mod;
+                FireRes += 1.6 * boss_mod;
+                IceRes += 1.15 * boss_mod;
+                HolyRes += 1.35 * boss_mod;
+                NatRes += 1.4 * boss_mod;
+                BloodRes += 1.3 * boss_mod;
+                EndRes += 1.1 * boss_mod;
+                LigRes += 1.2 * boss_mod;
+                EldRes += 0.75 * boss_mod;
+                AbyssRes -= 0.15 * boss_mod;
+                BladeRes += 1.5 * boss_mod;
+                SoundRes += 1.05 * boss_mod;
+                WindRes += 1.2 * boss_mod;
+                Armor += 21 * spec_mod;
+                Tough += 10 * spec_mod;
+                Attack += 10 * spec_mod;
+            } else {
                 Armor = ServerConfigs.IGNIS_ARMOR.get();
                 Tough = ServerConfigs.IGNIS_TOUGHNESS.get();
                 Attack = ServerConfigs.IGNIS_ATTACK.get();
