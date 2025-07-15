@@ -19,7 +19,7 @@ import static net.potato_modding.potatospells.utils.ConfigFormulas.*;
 public class CitadelKeeper {
 
     @SubscribeEvent(priority = net.neoforged.bus.api.EventPriority.LOWEST)
-    private static void handleResistanceAttributeMob(EntityJoinLevelEvent event) {
+    private static void handleResistanceAttribute(EntityJoinLevelEvent event) {
         var mob = event.getEntity();
         var typeKey = BuiltInRegistries.ENTITY_TYPE.getKey(mob.getType());
 

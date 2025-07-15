@@ -20,9 +20,9 @@ public class ConfigFormulas {
         // Defining variables that hod the values that were input in the configs
         int config_check = ServerConfigs.FORMULA_REBALANCE.get();
         // Making sure we aren't trying to math out nonsense for a
-        if(!safetyCheck.contains(ServerConfigs.FORMULA_REBALANCE.get())) config_check = 4;
-        if(config_check == 2) modifier = 1.326;
-        else if(config_check == 3) modifier = 2.209;
+        if (!safetyCheck.contains(ServerConfigs.FORMULA_REBALANCE.get())) config_check = 4;
+        if (config_check == 2) modifier = 1.326;
+        else if (config_check == 3) modifier = 2.209;
         else modifier = 1;
     }
 
@@ -66,4 +66,9 @@ public class ConfigFormulas {
     public static double mob_armor_shred = 0.1;
     public static double mob_prot_pen = 1.5;
     public static double mob_prot_shred = 0.1;
+
+    // Familiars random attr value
+    public static double mathRand = (double) Math.clamp(ServerConfigs.FAMILIAR_RAND.get(), 0, 99) / 100;
+    public static double randMax = mathRand * 2;
+    public static double randMin = 1 - mathRand;
 }

@@ -11,6 +11,8 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModList;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
+import net.neoforged.neoforge.event.entity.living.FinalizeSpawnEvent;
+import net.neoforged.neoforge.event.entity.living.MobSpawnEvent;
 
 import static net.potato_modding.potatospells.utils.ConfigFormulas.*;
 
@@ -19,30 +21,36 @@ import static net.potato_modding.potatospells.utils.ConfigFormulas.*;
 public class DruidPet {
 
     @SubscribeEvent(priority = net.neoforged.bus.api.EventPriority.LOWEST)
-    private static void handleResistanceAttributeCataclysm(EntityJoinLevelEvent event) {
+    private static void handleResistanceAttribute(FinalizeSpawnEvent event) {
         var mob = event.getEntity();
         var typeKey = BuiltInRegistries.ENTITY_TYPE.getKey(mob.getType());
 
         if (typeKey.getNamespace().equals("alshanex_familiars") && typeKey.getPath().equals("druid_pet")) {
 
+            // Adds +- 30% to Familiars' attributes
+            double[] attrVar = new double[10];
+            for (int i = 0; i < attrVar.length; i++) {
+                attrVar[i] = randMin + Math.random() * randMax;
+            }
+
             // Amethyst  attributes
-            SpellPower += 1.5 * mob_mod;
-            Resist += 1.35 * mini_mod;
-            FireRes += 0.5 * mini_mod;
-            IceRes += 0.8 * mini_mod;
-            HolyRes += 1.2 * mini_mod;
-            NatRes += 1.5 * mini_mod;
-            BloodRes += 1.1 * mini_mod;
-            EndRes += 1.05 * mini_mod;
-            LigRes += 1.1 * mini_mod;
-            EldRes += 0.7 * mini_mod;
-            AbyssRes += 1.2 * mini_mod;
-            BladeRes += 1.25 * mini_mod;
-            SoundRes += 1.35 * mini_mod;
-            WindRes += 1.1 * mini_mod;
-            Armor += 5 * spec_mod;
-            Tough += 5 * spec_mod;
-            Attack += 6.5 * spec_mod;
+            SpellPower += 1.35 * mob_mod * attrVar[0];
+            Resist += 1.15 * mob_mod * attrVar[1];
+            FireRes += 1.1 * mob_mod * attrVar[2];
+            IceRes += 1.1 * mob_mod * attrVar[2];
+            HolyRes += 1.1 * mob_mod * attrVar[2];
+            NatRes += 1.1 * mob_mod * attrVar[2];
+            BloodRes += 1.1 * mob_mod * attrVar[2];
+            EndRes += 1.1 * mob_mod * attrVar[2];
+            LigRes += 1.1 * mob_mod * attrVar[2];
+            EldRes += 1.1 * mob_mod * attrVar[2];
+            AbyssRes += 1.1 * mob_mod * attrVar[2];
+            BladeRes += 1.1 * mob_mod * attrVar[2];
+            SoundRes += 1.1 * mob_mod * attrVar[2];
+            WindRes += 1.1 * mob_mod * attrVar[2];
+            Armor += 9 * spec_mod * attrVar[3];
+            Tough += 9 * spec_mod * attrVar[4];
+            Attack += 8.0 * spec_mod * attrVar[5];
 
             // Updates mob attributes
             {
@@ -71,10 +79,12 @@ public class DruidPet {
                     setIfNonNull((LivingEntity) mob, com.snackpirate.aeromancy.spells.AASpells.Attributes.WIND_MAGIC_RESIST, WindRes);
                 }
                 // Fixed Attributes
-                setIfNonNull((LivingEntity) mob, ALObjects.Attributes.ARMOR_PIERCE, mob_armor_pen);
-                setIfNonNull((LivingEntity) mob, ALObjects.Attributes.ARMOR_SHRED, mob_armor_shred);
-                setIfNonNull((LivingEntity) mob, ALObjects.Attributes.PROT_PIERCE, mob_prot_pen);
-                setIfNonNull((LivingEntity) mob, ALObjects.Attributes.PROT_SHRED, mob_prot_shred);
+                setIfNonNull((LivingEntity) mob, ALObjects.Attributes.ARMOR_PIERCE, mob_armor_pen * attrVar[6]);
+                setIfNonNull((LivingEntity) mob, ALObjects.Attributes.ARMOR_SHRED, mob_armor_shred * attrVar[6]);
+                setIfNonNull((LivingEntity) mob, ALObjects.Attributes.PROT_PIERCE, mob_prot_pen * attrVar[7]);
+                setIfNonNull((LivingEntity) mob, ALObjects.Attributes.PROT_SHRED, mob_prot_shred * attrVar[7]);
+                setIfNonNull((LivingEntity) mob, ALObjects.Attributes.CRIT_CHANCE, 25 * attrVar[8]);
+                setIfNonNull((LivingEntity) mob, ALObjects.Attributes.CRIT_DAMAGE, 150 * attrVar[9]);
             }
 
             // We reset this stuff so it doesn't make other mobs go crazy

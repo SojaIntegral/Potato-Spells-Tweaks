@@ -51,7 +51,6 @@ public class PotatoSpells {
 
     // Add the example block item to the building blocks tab
     private void addCreative(BuildCreativeModeTabContentsEvent event) {
-
     }
 
     // You can use SubscribeEvent and let the Event Bus discover methods to call
@@ -64,7 +63,6 @@ public class PotatoSpells {
     public static class ClientModEvents {
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event) {
-
         }
     }
 }
