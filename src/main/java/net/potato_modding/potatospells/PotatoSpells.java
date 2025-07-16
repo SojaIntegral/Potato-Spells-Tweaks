@@ -41,7 +41,7 @@ public class PotatoSpells {
         // Do not add this line if there are no @SubscribeEvent-annotated functions in this class, like onServerStarting() below.
         NeoForge.EVENT_BUS.register(this);
 
-        // Register the item to a creative tab
+        // Register the item to spawn_armor.json creative tab
         modEventBus.addListener(this::addCreative);
         modContainer.registerConfig(ModConfig.Type.SERVER, ServerConfigs.BUILDING, String.format("%s-server.toml", PotatoSpells.MOD_ID));
     }

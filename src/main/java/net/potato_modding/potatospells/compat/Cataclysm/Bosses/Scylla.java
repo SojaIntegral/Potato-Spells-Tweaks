@@ -39,7 +39,7 @@ public class Scylla {
                 EldRes += 0.8 * boss_mod;
                 AbyssRes += 1.75 * boss_mod;
                 BladeRes += 1.4 * boss_mod;
-                SoundRes += 0.85 * boss_mod;
+                SoundRes += 1.25 * boss_mod;
                 WindRes += 1.25 * boss_mod;
                 Armor += 25 * spec_mod;
                 Tough += 15 * spec_mod;

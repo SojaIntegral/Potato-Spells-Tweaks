@@ -13,6 +13,8 @@ public class ServerConfigs {
     public static ModConfigSpec.ConfigValue<Integer> MINIBOSS_RESIST;
     public static ModConfigSpec.ConfigValue<Integer> MOB_RESIST;
     public static ModConfigSpec.ConfigValue<Integer> FAMILIAR_RAND;
+    public static ModConfigSpec.ConfigValue<Boolean> FAMILIAR_TOGGLE;
+    public static ModConfigSpec.ConfigValue<Boolean> FAMILIAR_NATURE;
 
     public static ModConfigSpec.ConfigValue<Boolean> TYROS_SWITCH;
     public static ModConfigSpec.ConfigValue<Double> TYROS_RESIST;
@@ -246,14 +248,33 @@ public class ServerConfigs {
             BUILDER.comment("4 = 'Alternative': Uncapped (Heavily nerfs scaling)");
             BUILDER.comment("WARNING: This affects [Spell Resistance], [Cast Speed] AND [Cooldown Reduction]!");
             FORMULA_REBALANCE = BUILDER.worldRestart().define("Rebalanced Formula", 1);
-            BUILDER.comment("Maximum: 99% | Minimum: 0% | Default: 0%");
-            FAMILIAR_RAND = BUILDER.worldRestart().define("Familiar Attributes variance", 0);
+            BUILDER.pop();
+        }
+
+        {
+            BUILDER.push("Familiars");
+            BUILDER.comment("Adds additional attributes to Familiars");
+            BUILDER.comment("This will add strengths and weaknesses to Familiars");
+            BUILDER.comment("As well as give them a bit more power");
+            BUILDER.comment("WARNING: The other Familiars configs need this to be [true]");
+            FAMILIAR_TOGGLE = BUILDER.worldRestart().define("Familiar Bonus Attributes", false);
+            {
+                BUILDER.push("Attributes");
+                BUILDER.comment("Random variance to Familiars");
+                BUILDER.comment("This will give them a bonus from 0 to whatever number you put here");
+                BUILDER.comment("Maximum: 100% | Minimum: 0% | Default: 15%");
+                FAMILIAR_RAND = BUILDER.worldRestart().define("Familiar Attributes variance", 15);
+                BUILDER.comment("Natures increase one attribute by 10% and reduce another by the same amount");
+                BUILDER.comment("This bonus multiplies everything else, so is quite powerful");
+                FAMILIAR_NATURE = BUILDER.worldRestart().define("Familiar Natures", false);
+                BUILDER.pop();
+            }
             BUILDER.pop();
         }
 
         // BOSSES CONFIGS
         {
-            BUILDER.push("Attributes");
+            BUILDER.push("Bosses");
             BUILDER.comment("Turns ON/OFF difficulty scaling for ALL mobs | Default: true [ON]");
             BUILDER.comment("Automatic Rebalance does not affect manual bosses attributes");
             BOSS_SWITCH = BUILDER.worldRestart().define("Automatic Rebalance", true);

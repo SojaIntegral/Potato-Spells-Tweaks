@@ -1,6 +1,5 @@
 package net.potato_modding.potatospells.utils;
 
-import net.minecraft.world.entity.LivingEntity;
 import net.potato_modding.potatospells.config.ServerConfigs;
 
 public class PotatoUtils {
