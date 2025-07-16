@@ -29,10 +29,10 @@ public class Aptrgangr {
             // Amethyst  attributes
             Resist += 1.35 * mini_mod;
             FireRes -= 0.45 * mini_mod;
-            IceRes += 1.4 * mini_mod;
+            IceRes += 1.9 * mini_mod;
             HolyRes -= 0.2 * mini_mod;
             NatRes += 1.2 * mini_mod;
-            BloodRes += 1.4 * mini_mod;
+            BloodRes += 1.6 * mini_mod;
             EndRes += 1.15 * mini_mod;
             LigRes += 1.1 * mini_mod;
             EldRes += 1.25 * mini_mod;

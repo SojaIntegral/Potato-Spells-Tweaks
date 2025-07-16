@@ -19,7 +19,7 @@ public class ConfigFormulas {
 
         // Defining variables that hod the values that were input in the configs
         int config_check = ServerConfigs.FORMULA_REBALANCE.get();
-        // Making sure we aren't trying to math out nonsense for a
+        // Making sure we aren't trying to math out nonsense for spawn_armor.json
         if (!safetyCheck.contains(ServerConfigs.FORMULA_REBALANCE.get())) config_check = 4;
         if (config_check == 2) modifier = 1.326;
         else if (config_check == 3) modifier = 2.209;
@@ -34,6 +34,7 @@ public class ConfigFormulas {
     public static double IceRes = 0;
     public static double HolyRes = 0;
     public static double NatRes = 0;
+    public static double EvokeRes = 0;
     public static double BloodRes = 0;
     public static double EndRes = 0;
     public static double LigRes = 0;
@@ -68,7 +69,5 @@ public class ConfigFormulas {
     public static double mob_prot_shred = 0.1;
 
     // Familiars random attr value
-    public static double mathRand = (double) Math.clamp(ServerConfigs.FAMILIAR_RAND.get(), 0, 99) / 100;
-    public static double randMax = mathRand * 2;
-    public static double randMin = 1 - mathRand;
+    public static double randMax = (double) Math.clamp(ServerConfigs.FAMILIAR_RAND.get(), 0, 100) / 100;
 }

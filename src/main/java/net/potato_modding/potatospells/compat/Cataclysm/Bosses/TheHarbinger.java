@@ -38,7 +38,7 @@ public class TheHarbinger {
                 LigRes -= 0.2 * boss_mod;
                 EldRes += 1.45 * boss_mod;
                 AbyssRes += 0.45 * boss_mod;
-                BladeRes += 1.15 * boss_mod;
+                BladeRes += 1.55 * boss_mod;
                 SoundRes += 1.25 * boss_mod;
                 WindRes += 1.05 * boss_mod;
                 Armor += 13 * spec_mod;

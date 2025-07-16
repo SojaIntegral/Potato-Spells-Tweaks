@@ -37,7 +37,7 @@ public class AmethystCrab {
             LigRes += 1.25 * mini_mod;
             EldRes += 0.5 * mini_mod;
             AbyssRes += 1.4 * mini_mod;
-            BladeRes += 1.5 * mini_mod;
+            BladeRes += 1.65 * mini_mod;
             SoundRes += 0.9 * mini_mod;
             WindRes += 1.05 * mini_mod;
             Armor += 15 * spec_mod;
