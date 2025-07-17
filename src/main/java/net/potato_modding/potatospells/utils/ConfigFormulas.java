@@ -36,12 +36,7 @@ public class ConfigFormulas {
     public static double mini_mod = 1.1 * modifier * ServerConfigs.MINIBOSS_RESIST.get() / 100;
     public static double mob_mod = 0.9 * modifier * ServerConfigs.MOB_RESIST.get() / 100;
     public static double summon_mod = 0.8 * modifier * ServerConfigs.MOB_RESIST.get() / 100;
-    public static double spec_mod = 1 + (modifier / 3.25);
 
     // Familiars random attr value
     public static double randMax = (double) Math.clamp(ServerConfigs.FAMILIAR_RAND.get(), 0, 100) / 100;
-
-
-    // REMOVE
-    public static double SchoolPower = 0;
 }
