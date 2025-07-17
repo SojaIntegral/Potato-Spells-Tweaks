@@ -19,7 +19,7 @@ public class EffectHandler {
 
     // Replaces X effect (currently active) for Y
     @SubscribeEvent
-    public static void effectStackingHandler(MobEffectEvent.Added event) {
+    public static void effectStackingEvent(MobEffectEvent.Added event) {
         var addedEffect = event.getEffectInstance();
         var entity = event.getEntity();
         var effect = addedEffect.getEffect();

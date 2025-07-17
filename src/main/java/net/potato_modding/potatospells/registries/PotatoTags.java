@@ -12,6 +12,8 @@ public class PotatoTags {
     // For familiars' natures
     public static final TagKey<EntityType<?>> HAS_NATURE =
             TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath("potatospellbookstweaks", "mobs/natures/mobs_with_natures"));
+    public static final TagKey<EntityType<?>> MOB_ENABLED =
+            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath("potatospellbookstweaks", "mobs/potato_whitelist"));
 
     public static final TagKey<EntityType<?>> BOSS =
             TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "mobs/rank/boss"));
@@ -115,24 +117,24 @@ public class PotatoTags {
 
     // Races
     public static final TagKey<EntityType<?>> RACE_HUMAN =
-            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "mobs/race_system/race_human"));
+            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "mobs/race_system/human"));
     public static final TagKey<EntityType<?>> RACE_UNDEAD =
-            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "mobs/race_system/race_undead"));
+            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "mobs/race_system/undead"));
     public static final TagKey<EntityType<?>> RACE_BRUTE =
-            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "mobs/race_system/race_brute"));
+            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "mobs/race_system/brute"));
     public static final TagKey<EntityType<?>> RACE_INSECT =
-            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "mobs/race_system/race_insect"));
+            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "mobs/race_system/insect"));
     public static final TagKey<EntityType<?>> RACE_FLYING =
-            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "mobs/race_system/race_flying"));
+            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "mobs/race_system/flying"));
     public static final TagKey<EntityType<?>> RACE_GOLEM =
-            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "mobs/race_system/race_golem"));
+            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "mobs/race_system/golem"));
     public static final TagKey<EntityType<?>> RACE_CONSTRUCT =
-            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "mobs/race_system/race_construct"));
+            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "mobs/race_system/construct"));
     public static final TagKey<EntityType<?>> RACE_FISH =
-            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "mobs/race_system/race_fish"));
+            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "mobs/race_system/fish"));
     public static final TagKey<EntityType<?>> RACE_SPIRIT =
-            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "mobs/race_system/race_spirit"));
+            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "mobs/race_system/spirit"));
     public static final TagKey<EntityType<?>> RACE_AMORPH =
-            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "mobs/race_system/race_amorph"));
+            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "mobs/race_system/amorph"));
 
 }

@@ -1,4 +1,4 @@
-package net.potato_modding.potatospells.utils;
+package net.potato_modding.potatospells.resistances.core;
 
 import dev.shadowsoffire.apothic_attributes.api.ALObjects;
 import io.redspace.ironsspellbooks.api.registry.AttributeRegistry;
@@ -15,7 +15,7 @@ import java.util.*;
 import static net.potato_modding.potatospells.registries.PotatoTags.HAS_NATURE;
 
 @SuppressWarnings("unused")
-public class FamiliarsNaturesHandler {
+public class PotatoNaturesHandler {
 
     private static final Map<String, List<AttributeModifierData>> NATURES;
 
