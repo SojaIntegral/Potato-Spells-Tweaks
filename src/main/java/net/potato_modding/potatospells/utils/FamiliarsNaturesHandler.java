@@ -4,10 +4,7 @@ import dev.shadowsoffire.apothic_attributes.api.ALObjects;
 import io.redspace.ironsspellbooks.api.registry.AttributeRegistry;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.TagKey;
-import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
@@ -15,11 +12,10 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 
 import java.util.*;
 
+import static net.potato_modding.potatospells.registries.PotatoTags.HAS_NATURE;
+
 @SuppressWarnings("unused")
 public class FamiliarsNaturesHandler {
-
-    private static final TagKey<EntityType<?>> SHARED_TAG =
-            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath("potatospellbookstweaks", "mobs/familiars/natures/mobs_with_natures"));
 
     private static final Map<String, List<AttributeModifierData>> NATURES;
 
@@ -28,34 +24,34 @@ public class FamiliarsNaturesHandler {
 
         // +ATK natures
         natures.put("hardy", List.of(
-                new AttributeModifierData("hardy", ALObjects.Attributes.CRIT_DAMAGE, 0.1, UUID.fromString("3d45bb0e-e259-43d9-946c-38d15686df22")),
-                new AttributeModifierData("hardy_minus", ALObjects.Attributes.CRIT_DAMAGE, -0.1, UUID.fromString("045427de-2c58-475b-a6f4-a954a445b6e8"))
+                new AttributeModifierData("hardy", ALObjects.Attributes.CRIT_CHANCE, 0.1, UUID.fromString("3d45bb0e-e259-43d9-946c-38d15686df22")),
+                new AttributeModifierData("hardy_minus", ALObjects.Attributes.CRIT_CHANCE, -0.1, UUID.fromString("045427de-2c58-475b-a6f4-a954a445b6e8"))
         ));
 
         natures.put("lonely", List.of(
-                new AttributeModifierData("lonely", ALObjects.Attributes.CRIT_DAMAGE, 0.1, UUID.fromString("897c783d-7db5-49ba-852e-9c11356a96ec")),
+                new AttributeModifierData("lonely", ALObjects.Attributes.CRIT_CHANCE, 0.1, UUID.fromString("897c783d-7db5-49ba-852e-9c11356a96ec")),
                 new AttributeModifierData("lonely_minus", Attributes.ARMOR, -0.1, UUID.fromString("5ae0ce19-c268-4fa1-9e40-b6ee86ffc184"))
         ));
 
         natures.put("adamant", List.of(
-                new AttributeModifierData("adamant", ALObjects.Attributes.CRIT_DAMAGE, 0.1, UUID.fromString("4d942938-0169-43e5-b1fc-f70d2a7d0047")),
+                new AttributeModifierData("adamant", ALObjects.Attributes.CRIT_CHANCE, 0.1, UUID.fromString("4d942938-0169-43e5-b1fc-f70d2a7d0047")),
                 new AttributeModifierData("adamant_minus", AttributeRegistry.SPELL_POWER, -0.1, UUID.fromString("211b39f4-71b4-43a3-a841-adde5b369b08"))
         ));
 
         natures.put("naughty", List.of(
-                new AttributeModifierData("naughty", ALObjects.Attributes.CRIT_DAMAGE, 0.1, UUID.fromString("df4f60e7-d2c1-48c3-97a1-30fe5077382a")),
+                new AttributeModifierData("naughty", ALObjects.Attributes.CRIT_CHANCE, 0.1, UUID.fromString("df4f60e7-d2c1-48c3-97a1-30fe5077382a")),
                 new AttributeModifierData("naughty_minus", AttributeRegistry.SPELL_RESIST, -0.1, UUID.fromString("eb0b941b-7d4a-42c1-93da-a24c24da8872"))
         ));
 
         natures.put("brave", List.of(
-                new AttributeModifierData("brave", ALObjects.Attributes.CRIT_DAMAGE, 0.1, UUID.fromString("6522a764-43b5-40aa-b1f0-58f44f8ad0b2")),
-                new AttributeModifierData("brave_minus", ALObjects.Attributes.CRIT_CHANCE, -0.1, UUID.fromString("1d54a1af-e96f-4185-8f1b-061f92ad48df"))
+                new AttributeModifierData("brave", ALObjects.Attributes.CRIT_CHANCE, 0.1, UUID.fromString("6522a764-43b5-40aa-b1f0-58f44f8ad0b2")),
+                new AttributeModifierData("brave_minus", AttributeRegistry.CAST_TIME_REDUCTION, -0.1, UUID.fromString("1d54a1af-e96f-4185-8f1b-061f92ad48df"))
         ));
 
         // +DEF natures
         natures.put("bold", List.of(
                 new AttributeModifierData("bold", Attributes.ARMOR, 0.1, UUID.fromString("2479de28-b800-4380-b0dc-ab69add39910")),
-                new AttributeModifierData("bold_minus", ALObjects.Attributes.CRIT_DAMAGE, -0.1, UUID.fromString("357bb0b0-716a-45ec-b36c-ac3e42503935"))
+                new AttributeModifierData("bold_minus", ALObjects.Attributes.CRIT_CHANCE, -0.1, UUID.fromString("357bb0b0-716a-45ec-b36c-ac3e42503935"))
         ));
 
         natures.put("docile", List.of(
@@ -75,13 +71,13 @@ public class FamiliarsNaturesHandler {
 
         natures.put("relaxed", List.of(
                 new AttributeModifierData("relaxed", Attributes.ARMOR, 0.1, UUID.fromString("66a77ccd-1543-42f4-b213-4fa1300399fd")),
-                new AttributeModifierData("relaxed_minus", ALObjects.Attributes.CRIT_CHANCE, -0.1, UUID.fromString("1d94cae3-c403-4771-981b-3c30136be14a"))
+                new AttributeModifierData("relaxed_minus", AttributeRegistry.CAST_TIME_REDUCTION, -0.1, UUID.fromString("1d94cae3-c403-4771-981b-3c30136be14a"))
         ));
 
         // +SPATK natures
         natures.put("modest", List.of(
                 new AttributeModifierData("modest", AttributeRegistry.SPELL_POWER, 0.1, UUID.fromString("e94dba66-a789-4c43-8dec-0985ed28b681")),
-                new AttributeModifierData("modest_minus", ALObjects.Attributes.CRIT_DAMAGE, -0.1, UUID.fromString("dd37d0e5-8429-4a90-b5b2-5d0ecfcc9d8c"))
+                new AttributeModifierData("modest_minus", ALObjects.Attributes.CRIT_CHANCE, -0.1, UUID.fromString("dd37d0e5-8429-4a90-b5b2-5d0ecfcc9d8c"))
         ));
 
         natures.put("mild", List.of(
@@ -101,13 +97,13 @@ public class FamiliarsNaturesHandler {
 
         natures.put("quiet", List.of(
                 new AttributeModifierData("quiet", AttributeRegistry.SPELL_POWER, 0.1, UUID.fromString("69cfc968-df49-4456-a8e4-06a69cf90759")),
-                new AttributeModifierData("quiet_minus", ALObjects.Attributes.CRIT_CHANCE, -0.1, UUID.fromString("5c861870-5c86-447f-bef7-945e80f5d07d"))
+                new AttributeModifierData("quiet_minus", AttributeRegistry.CAST_TIME_REDUCTION, -0.1, UUID.fromString("5c861870-5c86-447f-bef7-945e80f5d07d"))
         ));
 
         // +SPDEF natures
         natures.put("calm", List.of(
                 new AttributeModifierData("calm", AttributeRegistry.SPELL_RESIST, 0.1, UUID.fromString("4e1595b8-7d2d-45bd-8ce5-4b0bc31a1ae0")),
-                new AttributeModifierData("calm_minus", ALObjects.Attributes.CRIT_DAMAGE, -0.1, UUID.fromString("40fc1fbc-1656-4ddb-a45d-225fe202ba5e"))
+                new AttributeModifierData("calm_minus", ALObjects.Attributes.CRIT_CHANCE, -0.1, UUID.fromString("40fc1fbc-1656-4ddb-a45d-225fe202ba5e"))
         ));
 
         natures.put("gentle", List.of(
@@ -127,44 +123,43 @@ public class FamiliarsNaturesHandler {
 
         natures.put("sassy", List.of(
                 new AttributeModifierData("sassy", AttributeRegistry.SPELL_RESIST, 0.1, UUID.fromString("f25c3d23-ea0d-4730-b705-3ac536e20e24")),
-                new AttributeModifierData("sassy_minus", ALObjects.Attributes.CRIT_CHANCE, -0.1, UUID.fromString("62ea7f15-0e1a-423c-9d04-8c9804f58597"))
+                new AttributeModifierData("sassy_minus", AttributeRegistry.CAST_TIME_REDUCTION, -0.1, UUID.fromString("62ea7f15-0e1a-423c-9d04-8c9804f58597"))
         ));
 
         // +SPEED natures
         natures.put("timid", List.of(
-                new AttributeModifierData("timid", ALObjects.Attributes.CRIT_CHANCE, 0.1, UUID.fromString("d9fe77b6-90d6-4512-8869-4a2c9ffcc9b6")),
-                new AttributeModifierData("timid_minus", ALObjects.Attributes.CRIT_DAMAGE, -0.1, UUID.fromString("d2cc39c3-c815-4cf2-95c8-3fa5de0eaf05"))
+                new AttributeModifierData("timid", AttributeRegistry.CAST_TIME_REDUCTION, 0.1, UUID.fromString("d9fe77b6-90d6-4512-8869-4a2c9ffcc9b6")),
+                new AttributeModifierData("timid_minus", ALObjects.Attributes.CRIT_CHANCE, -0.1, UUID.fromString("d2cc39c3-c815-4cf2-95c8-3fa5de0eaf05"))
         ));
 
         natures.put("hasty", List.of(
-                new AttributeModifierData("hasty", ALObjects.Attributes.CRIT_CHANCE, 0.1, UUID.fromString("809ec0a5-a99a-4ab7-b142-3c3ccc28dd7f")),
+                new AttributeModifierData("hasty", AttributeRegistry.CAST_TIME_REDUCTION, 0.1, UUID.fromString("809ec0a5-a99a-4ab7-b142-3c3ccc28dd7f")),
                 new AttributeModifierData("hasty_minus", Attributes.ARMOR, -0.1, UUID.fromString("71b70ca9-1718-46d2-9302-435f2115096d"))
         ));
 
         natures.put("jolly", List.of(
-                new AttributeModifierData("jolly", ALObjects.Attributes.CRIT_CHANCE, 0.1, UUID.fromString("c90a1e93-9c79-4cf1-acc0-dc4657e5828d")),
+                new AttributeModifierData("jolly", AttributeRegistry.CAST_TIME_REDUCTION, 0.1, UUID.fromString("c90a1e93-9c79-4cf1-acc0-dc4657e5828d")),
                 new AttributeModifierData("jolly_minus", AttributeRegistry.SPELL_POWER, -0.1, UUID.fromString("1bc076f6-0c19-4b2f-a5ca-4ad2959520bd"))
         ));
 
         natures.put("naive", List.of(
-                new AttributeModifierData("naive", ALObjects.Attributes.CRIT_CHANCE, 0.1, UUID.fromString("8e680e75-19cc-46b9-bdec-64f9fe5abefc")),
+                new AttributeModifierData("naive", AttributeRegistry.CAST_TIME_REDUCTION, 0.1, UUID.fromString("8e680e75-19cc-46b9-bdec-64f9fe5abefc")),
                 new AttributeModifierData("naive_minus", AttributeRegistry.SPELL_RESIST, -0.1, UUID.fromString("4a78ed74-9395-40c0-a4cf-cbcc93d10953"))
         ));
 
         natures.put("serious", List.of(
-                new AttributeModifierData("serious", ALObjects.Attributes.CRIT_CHANCE, 0.1, UUID.fromString("90571154-a525-4699-9b53-5e5fff01edf3")),
-                new AttributeModifierData("serious_minus", ALObjects.Attributes.CRIT_CHANCE, -0.1, UUID.fromString("744b2e72-424b-460d-a126-46185016deb5"))
+                new AttributeModifierData("serious", AttributeRegistry.CAST_TIME_REDUCTION, 0.1, UUID.fromString("90571154-a525-4699-9b53-5e5fff01edf3")),
+                new AttributeModifierData("serious_minus", AttributeRegistry.CAST_TIME_REDUCTION, -0.1, UUID.fromString("744b2e72-424b-460d-a126-46185016deb5"))
         ));
 
         //noinspection Java9CollectionFactory
         NATURES = Collections.unmodifiableMap(natures);
     }
 
-
     private static final Random RANDOM = new Random();
 
     public static void applySpawnModifiers(LivingEntity entity) {
-        if (!entity.getType().is(SHARED_TAG)) return;
+        if (!entity.getType().is(HAS_NATURE)) return;
 
         // Pick one nature randomly
         var natureKeys = NATURES.keySet().toArray(new String[0]);
@@ -180,7 +175,6 @@ public class FamiliarsNaturesHandler {
             applyModifier(entity, modData.attribute, modifierId, modData.amount);
         }
     }
-
 
     private static void applyModifier(LivingEntity entity, Holder<Attribute> attribute, ResourceLocation id, double amount) {
         var instance = entity.getAttribute(attribute);
@@ -237,7 +231,6 @@ public class FamiliarsNaturesHandler {
             for (AttributeModifier modifier : instance.getModifiers()) {
                 ResourceLocation id = modifier.id();
                 if (NATURE_IDS.contains(id)) {
-                    System.out.println("Matched nature: " + id);
                     switch (id.getPath()) {
                         case "hardy" -> triggerHardy(entity);
                         case "lonely" -> triggerLonely(entity);

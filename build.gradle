@@ -155,6 +155,9 @@ dependencies {
     compileOnly "mezz.jei:jei-${jei_mc_version}-neoforge-api:${jei_version}"
     runtimeOnly "mezz.jei:jei-${jei_mc_version}-neoforge:${jei_version}"
 
+    // ADDITIONAL ATTRIBUTES
+    implementation "curse.maven:additional-attributes-986624:6388896"
+
     // CURIOS
     implementation "top.theillusivec4.curios:curios-neoforge:${curios_version}+${minecraft_version}"
 
@@ -164,34 +167,46 @@ dependencies {
 
     // APOTHEOSIS
     compileOnly "curse.maven:apotheosis-313970:6545942"
-    compileOnly "curse.maven:apothic-attributes-898963:6514649"
+    implementation "curse.maven:apothic-attributes-898963:6751650"
+    runtimeOnly "curse.maven:placebo-283644:6751290"
 
     // ISS
     compileOnly "io.redspace:irons_spellbooks:${irons_spells_version}"
     localRuntime "io.redspace:irons_spellbooks:${irons_spells_version}"
 
-    //QOL
-    //localRuntime "curse.maven:tslatentitystatus-tes-830420:6041374"
-    //localRuntime "curse.maven:mouse-tweaks-60089:5637846"
-
     // Alshanex's Familiars
-        implementation "curse.maven:alshanexs-familiars-1171602:6539981"
+    implementation "curse.maven:alshanexs-familiars-1171602:6539981"
 
     // Aeromancy
-        implementation "curse.maven:snackpirates-aeromancy-additions-1160104:6566417"
-        implementation "curse.maven:expandability-465066:5428824"
+    implementation "curse.maven:snackpirates-aeromancy-additions-1160104:6566417"
+    implementation "curse.maven:expandability-465066:5428824"
+
+    // Discerning the Eldritch
+    implementation "curse.maven:discerning-the-eldritch-1143065:6090834"
 
     // CAT:S
-        implementation "curse.maven:cataclysm-spellbooks-1099461:6427259"
-        compileOnly "curse.maven:cataclysm-spellbooks-551586:6709307"
-        localRuntime "curse.maven:cataclysm-spellbooks-551586:6709307"
-        compileOnly "curse.maven:lionfish-api-1001614:6168249"
-        localRuntime "curse.maven:lionfish-api-1001614:6168249"
-        compileOnly "curse.maven:azurelib-817423:6541667"
-        localRuntime "curse.maven:azurelib-817423:6541667"
+    implementation "curse.maven:cataclysm-spellbooks-1099461:6427259"
+    compileOnly "curse.maven:cataclysm-spellbooks-551586:6709307"
+    localRuntime "curse.maven:cataclysm-spellbooks-551586:6709307"
+    compileOnly "curse.maven:lionfish-api-1001614:6168249"
+    localRuntime "curse.maven:lionfish-api-1001614:6168249"
+    compileOnly "curse.maven:azurelib-817423:6541667"
+    localRuntime "curse.maven:azurelib-817423:6541667"
+
+    // Ace Spell Utils
+    implementation "curse.maven:aces-spell-utils-1299492:6772134"
 
     // Ender's Stuff
-        implementation "curse.maven:enders-spellsandstuff-1140215:6427854"
+    implementation "curse.maven:enders-spellsandstuff-1140215:6427854"
+
+    // Fire's Expansion
+    implementation "curse.maven:fires-ender-expansion-1245989:6609211"
+
+    // Magic from the East
+    implementation "curse.maven:magic-from-the-east-1224162:6353396"
+
+    // TO Tweaks
+    implementation "curse.maven:to-tweaks-irons-spells-1046916:6342780"
 
     // JSON
     implementation "com.google.code.gson:gson:${gson_version}"

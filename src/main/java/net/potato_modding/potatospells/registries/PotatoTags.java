@@ -9,15 +9,35 @@ import net.potato_modding.potatospells.PotatoSpells;
 @SuppressWarnings("unused")
 public class PotatoTags {
 
-    // Spellcasting entities tags
-    // These are meant to be used as "default mage profiles"
-    // But are also used for ISS and other mods mages by default
+    // For familiars' natures
+    public static final TagKey<EntityType<?>> HAS_NATURE =
+            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath("potatospellbookstweaks", "mobs/natures/mobs_with_natures"));
+
+    public static final TagKey<EntityType<?>> BOSS =
+            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "mobs/rank/boss"));
+    public static final TagKey<EntityType<?>> MINIBOSS =
+            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "mobs/rank/miniboss"));
+    public static final TagKey<EntityType<?>> NORMAL =
+            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "mobs/rank/normal"));
+    public static final TagKey<EntityType<?>> SUMMON =
+            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "mobs/rank/summon"));
+
+
+
+    /* Spellcasting entities tags - DEPRECATED
+    These are meant to be used as "default mage profiles"
+    But are also used for ISS and other mods mages by default
+
     public static final TagKey<EntityType<?>> MAGE_ABYSS =
             TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "mobs/iss/mage_abyss"));
+    public static final TagKey<EntityType<?>> MAGE_AQUA =
+            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "mobs/iss/mage_aqua"));
     public static final TagKey<EntityType<?>> MAGE_BLADE =
             TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "mobs/iss/mage_blade"));
     public static final TagKey<EntityType<?>> MAGE_BLOOD =
             TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "mobs/iss/mage_blood"));
+    public static final TagKey<EntityType<?>> MAGE_DUNE =
+            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "mobs/iss/mage_dune"));
     public static final TagKey<EntityType<?>> MAGE_ELDRITCH =
             TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "mobs/iss/mage_eldritch"));
     public static final TagKey<EntityType<?>> MAGE_ENDER =
@@ -30,64 +50,89 @@ public class PotatoTags {
             TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "mobs/iss/mage_holy"));
     public static final TagKey<EntityType<?>> MAGE_ICE =
             TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "mobs/iss/mage_ice"));
+    public static final TagKey<EntityType<?>> MAGE_MIND =
+            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "mobs/iss/mage_mind"));
     public static final TagKey<EntityType<?>> MAGE_NATURE =
             TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "mobs/iss/mage_nature"));
+    public static final TagKey<EntityType<?>> MAGE_SOUL =
+            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "mobs/iss/mage_soul"));
     public static final TagKey<EntityType<?>> MAGE_SOUND =
             TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "mobs/iss/mage_sound"));
+    public static final TagKey<EntityType<?>> MAGE_SYM =
+            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "mobs/iss/mage_sym"));
+    public static final TagKey<EntityType<?>> MAGE_TECHNOMANCY =
+            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "mobs/iss/mage_techno"));
     public static final TagKey<EntityType<?>> MAGE_WIND =
             TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "mobs/iss/mage_wind"));
+    */
 
-    // Familiar Natures
-    public static final TagKey<EntityType<?>> NATURE_HARDY =
-            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "mobs/familiars/natures/hardy"));
-    /*
-    public static final TagKey<EntityType<?>> MAGE_WIND =
-            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "mobs/iss/mage_wind"));
-    public static final TagKey<EntityType<?>> MAGE_WIND =
-            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "mobs/iss/mage_wind"));
-    public static final TagKey<EntityType<?>> MAGE_WIND =
-            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "mobs/iss/mage_wind"));
-    public static final TagKey<EntityType<?>> MAGE_WIND =
-            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "mobs/iss/mage_wind"));
-    public static final TagKey<EntityType<?>> MAGE_WIND =
-            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "mobs/iss/mage_wind"));
-    public static final TagKey<EntityType<?>> MAGE_WIND =
-            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "mobs/iss/mage_wind"));
-    public static final TagKey<EntityType<?>> MAGE_WIND =
-            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "mobs/iss/mage_wind"));
-    public static final TagKey<EntityType<?>> MAGE_WIND =
-            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "mobs/iss/mage_wind"));
-    public static final TagKey<EntityType<?>> MAGE_WIND =
-            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "mobs/iss/mage_wind"));
-    public static final TagKey<EntityType<?>> MAGE_WIND =
-            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "mobs/iss/mage_wind"));
-    public static final TagKey<EntityType<?>> MAGE_WIND =
-            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "mobs/iss/mage_wind"));
-    public static final TagKey<EntityType<?>> MAGE_WIND =
-            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "mobs/iss/mage_wind"));
-    public static final TagKey<EntityType<?>> MAGE_WIND =
-            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "mobs/iss/mage_wind"));
-    public static final TagKey<EntityType<?>> MAGE_WIND =
-            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "mobs/iss/mage_wind"));
-    public static final TagKey<EntityType<?>> MAGE_WIND =
-            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "mobs/iss/mage_wind"));
-    public static final TagKey<EntityType<?>> MAGE_WIND =
-            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "mobs/iss/mage_wind"));
-    public static final TagKey<EntityType<?>> MAGE_WIND =
-            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "mobs/iss/mage_wind"));
-    public static final TagKey<EntityType<?>> MAGE_WIND =
-            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "mobs/iss/mage_wind"));
-    public static final TagKey<EntityType<?>> MAGE_WIND =
-            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "mobs/iss/mage_wind"));
-    public static final TagKey<EntityType<?>> MAGE_WIND =
-            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "mobs/iss/mage_wind"));
-    public static final TagKey<EntityType<?>> MAGE_WIND =
-            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "mobs/iss/mage_wind"));
-    public static final TagKey<EntityType<?>> MAGE_WIND =
-            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "mobs/iss/mage_wind"));
-    public static final TagKey<EntityType<?>> MAGE_WIND =
-            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "mobs/iss/mage_wind"));
-    public static final TagKey<EntityType<?>> MAGE_WIND =
-            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "mobs/iss/mage_wind"));
-     */
+    // Mobs elements
+    // Base
+    public static final TagKey<EntityType<?>> TYPE_BLOOD =
+            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "mobs/elemental_system/type_blood"));
+    public static final TagKey<EntityType<?>> TYPE_ELDRITCH =
+            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "mobs/elemental_system/type_eldritch"));
+    public static final TagKey<EntityType<?>> TYPE_ENDER =
+            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "mobs/elemental_system/type_ender"));
+    public static final TagKey<EntityType<?>> TYPE_EVOKATION =
+            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "mobs/elemental_system/type_evokation"));
+    public static final TagKey<EntityType<?>> TYPE_FIRE =
+            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "mobs/elemental_system/type_fire"));
+    public static final TagKey<EntityType<?>> TYPE_HOLY =
+            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "mobs/elemental_system/type_holy"));
+    public static final TagKey<EntityType<?>> TYPE_ICE =
+            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "mobs/elemental_system/type_ice"));
+    public static final TagKey<EntityType<?>> TYPE_LIGHTNING =
+            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "mobs/elemental_system/type_lightning"));
+    public static final TagKey<EntityType<?>> TYPE_NATURE =
+            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "mobs/elemental_system/type_nature"));
+    // Aeromancy
+    public static final TagKey<EntityType<?>> TYPE_WIND =
+            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "mobs/elemental_system/type_wind"));
+    // CAT:S
+    public static final TagKey<EntityType<?>> TYPE_ABYSS =
+            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "mobs/elemental_system/type_abyss"));
+    public static final TagKey<EntityType<?>> TYPE_TECHNOMANCY =
+            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "mobs/elemental_system/type_techno"));
+    // Ender's
+    public static final TagKey<EntityType<?>> TYPE_BLADE =
+            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "mobs/elemental_system/type_blade"));
+    public static final TagKey<EntityType<?>> TYPE_MIND =
+            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "mobs/elemental_system/type_mind"));
+    // Familiars
+    public static final TagKey<EntityType<?>> TYPE_SOUND =
+            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "mobs/elemental_system/type_sound"));
+    // Magic from the East
+    public static final TagKey<EntityType<?>> TYPE_SOUL =
+            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "mobs/elemental_system/type_soul"));
+    public static final TagKey<EntityType<?>> TYPE_SYM =
+            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "mobs/elemental_system/type_sym"));
+    public static final TagKey<EntityType<?>> TYPE_DUNE =
+            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "mobs/elemental_system/type_dune"));
+    // TO Tweaks
+    public static final TagKey<EntityType<?>> TYPE_AQUA =
+            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "mobs/elemental_system/type_aqua"));
+
+    // Races
+    public static final TagKey<EntityType<?>> RACE_HUMAN =
+            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "mobs/race_system/race_human"));
+    public static final TagKey<EntityType<?>> RACE_UNDEAD =
+            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "mobs/race_system/race_undead"));
+    public static final TagKey<EntityType<?>> RACE_BRUTE =
+            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "mobs/race_system/race_brute"));
+    public static final TagKey<EntityType<?>> RACE_INSECT =
+            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "mobs/race_system/race_insect"));
+    public static final TagKey<EntityType<?>> RACE_FLYING =
+            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "mobs/race_system/race_flying"));
+    public static final TagKey<EntityType<?>> RACE_GOLEM =
+            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "mobs/race_system/race_golem"));
+    public static final TagKey<EntityType<?>> RACE_CONSTRUCT =
+            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "mobs/race_system/race_construct"));
+    public static final TagKey<EntityType<?>> RACE_FISH =
+            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "mobs/race_system/race_fish"));
+    public static final TagKey<EntityType<?>> RACE_SPIRIT =
+            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "mobs/race_system/race_spirit"));
+    public static final TagKey<EntityType<?>> RACE_AMORPH =
+            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "mobs/race_system/race_amorph"));
+
 }

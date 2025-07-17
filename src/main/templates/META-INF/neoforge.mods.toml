@@ -76,13 +76,33 @@ ordering="NONE"
 # Side this dependency is applied on - BOTH, CLIENT, or SERVER
 side="BOTH"
 
-# Here's another dependency
 [[dependencies.potatospellbookstweaks]]
 modId="minecraft"
 type="required"
 # This version range declares a minimum of the current minecraft version up to but not including the next major version
 versionRange="${minecraft_version_range}"
 ordering="NONE"
+side="BOTH"
+
+[[dependencies.potatospellbookstweaks]]
+modId="irons_spellbooks"
+type="required"
+versionRange="[1.21.1-3.13.1,)"
+ordering="BEFORE"
+side="BOTH"
+
+[[dependencies.potatospellbookstweaks]]
+modId="apothic_attributes"
+type="required"
+versionRange="[1.21.1-2.9.0,)"
+ordering="BEFORE"
+side="BOTH"
+
+[[dependencies.potatospellbookstweaks]]
+modId="aces_spell_utils"
+type="required"
+versionRange="[1.1.2-1.21.1,)"
+ordering="BEFORE"
 side="BOTH"
 
 # Features are specific properties of the game environment, that you may want to declare you require. This example declares

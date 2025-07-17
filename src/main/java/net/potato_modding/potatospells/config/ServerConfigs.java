@@ -6,16 +6,21 @@ import net.neoforged.neoforge.common.ModConfigSpec;
 public class ServerConfigs {
     private static final ModConfigSpec.Builder BUILDER = new ModConfigSpec.Builder();
     public static final ModConfigSpec BUILDING;
-    public static ModConfigSpec.ConfigValue<Integer> FORMULA_REBALANCE;
 
+    // Main config
+    public static ModConfigSpec.ConfigValue<Integer> FORMULA_REBALANCE;
     public static ModConfigSpec.ConfigValue<Boolean> BOSS_SWITCH;
     public static ModConfigSpec.ConfigValue<Integer> BOSS_RESIST;
     public static ModConfigSpec.ConfigValue<Integer> MINIBOSS_RESIST;
     public static ModConfigSpec.ConfigValue<Integer> MOB_RESIST;
+    public static ModConfigSpec.ConfigValue<Boolean> BUFF_STACKING;
+
+    // Familiars Compat
     public static ModConfigSpec.ConfigValue<Integer> FAMILIAR_RAND;
     public static ModConfigSpec.ConfigValue<Boolean> FAMILIAR_TOGGLE;
     public static ModConfigSpec.ConfigValue<Boolean> FAMILIAR_NATURE;
 
+    // From here on it's all bosses
     public static ModConfigSpec.ConfigValue<Boolean> TYROS_SWITCH;
     public static ModConfigSpec.ConfigValue<Double> TYROS_RESIST;
     public static ModConfigSpec.ConfigValue<Double> TYROS_FIRE_RESIST;
@@ -248,6 +253,7 @@ public class ServerConfigs {
             BUILDER.comment("4 = 'Alternative': Uncapped (Heavily nerfs scaling)");
             BUILDER.comment("WARNING: This affects [Spell Resistance], [Cast Speed] AND [Cooldown Reduction]!");
             FORMULA_REBALANCE = BUILDER.worldRestart().define("Rebalanced Formula", 1);
+            BUFF_STACKING = BUILDER.worldRestart().define("Buff Stacking", false);
             BUILDER.pop();
         }
 
@@ -371,9 +377,9 @@ public class ServerConfigs {
             }
 
             // ANCIENT REMNANT
-            if(ModList.get().isLoaded("cataclysm")) {
+            if (ModList.get().isLoaded("cataclysm")) {
                 {
-                    BUILDER.push("Ancient Remnant");
+                    BUILDER.push("Ancient Remnant Attributes");
                     ANCIENT_REM_SWITCH = BUILDER.worldRestart().define("Edit Ancient Remnant", false);
                     BUILDER.comment("Turning this ON [true] will disable automatic balancing");
                     BUILDER.comment("All attributes will have to be defined below (default 1.0)");
@@ -410,7 +416,7 @@ public class ServerConfigs {
 
                 // HARBINGER
                 {
-                    BUILDER.push("The Harbinger");
+                    BUILDER.push("The Harbinger Attributes");
                     HARBINGER_SWITCH = BUILDER.worldRestart().define("Edit Harbinger", false);
                     BUILDER.comment("Turning this ON [true] will disable automatic balancing");
                     BUILDER.comment("All attributes will have to be defined below (default 1.0)");
@@ -447,7 +453,7 @@ public class ServerConfigs {
 
                 // IGNIS
                 {
-                    BUILDER.push("Ignis Boss");
+                    BUILDER.push("Ignis Attributes");
                     IGNIS_SWITCH = BUILDER.worldRestart().define("Edit Ignis", false);
                     BUILDER.comment("Turning this ON [true] will disable automatic balancing");
                     BUILDER.comment("All attributes will have to be defined below (default 1.0)");
@@ -484,7 +490,7 @@ public class ServerConfigs {
 
                 // LEVIATHAN
                 {
-                    BUILDER.push("Leviathan Boss");
+                    BUILDER.push("Leviathan Attributes");
                     LEVIA_SWITCH = BUILDER.worldRestart().define("Edit Leviathan", false);
                     BUILDER.comment("Turning this ON [true] will disable automatic balancing");
                     BUILDER.comment("All attributes will have to be defined below (default 1.0)");
@@ -521,7 +527,7 @@ public class ServerConfigs {
 
                 // MALEDICTUS
                 {
-                    BUILDER.push("Maledictus Boss");
+                    BUILDER.push("Maledictus Attributes");
                     MALEDICTUS_SWITCH = BUILDER.worldRestart().define("Edit Maledictus", false);
                     BUILDER.comment("Turning this ON [true] will disable automatic balancing");
                     BUILDER.comment("All attributes will have to be defined below (default 1.0)");
@@ -558,7 +564,7 @@ public class ServerConfigs {
 
                 // NETHERITE MONSTROSITY
                 {
-                    BUILDER.push("Netherite Monstrosity");
+                    BUILDER.push("Netherite Monstrosity Attributes");
                     NETMONST_SWITCH = BUILDER.worldRestart().define("Edit Netherite Monstrosity", false);
                     BUILDER.comment("Turning this ON [true] will disable automatic balancing");
                     BUILDER.comment("All attributes will have to be defined below (default 1.0)");
@@ -595,7 +601,7 @@ public class ServerConfigs {
 
                 // SCYLLA
                 {
-                    BUILDER.push("Scylla Boss");
+                    BUILDER.push("Scylla Attributes");
                     SCYLLA_SWITCH = BUILDER.worldRestart().define("Edit Scylla", false);
                     BUILDER.comment("Turning this ON [true] will disable automatic balancing");
                     BUILDER.comment("All attributes will have to be defined below (default 1.0)");
@@ -632,8 +638,9 @@ public class ServerConfigs {
             }
 
             // ENDER DRAGON
+
             {
-                BUILDER.push("Ender Dragon");
+                BUILDER.push("Ender Dragon Attributes");
                 ENDER_DRAGON_SWITCH = BUILDER.worldRestart().define("Edit Ender Dragon", false);
                 BUILDER.comment("Turning this ON [true] will disable automatic balancing");
                 BUILDER.comment("All attributes will have to be defined below (default 1.0)");
@@ -670,7 +677,7 @@ public class ServerConfigs {
 
             // WITHER BOSS
             {
-                BUILDER.push("Wither Boss");
+                BUILDER.push("Wither Attributes");
                 WITHER_BOSS_SWITCH = BUILDER.worldRestart().define("Edit Wither Boss", false);
                 BUILDER.comment("Turning this ON [true] will disable automatic balancing");
                 BUILDER.comment("All attributes will have to be defined below (default 1.0)");
@@ -707,7 +714,7 @@ public class ServerConfigs {
 
             // WARDEN
             {
-                BUILDER.push("Warden Boss");
+                BUILDER.push("Warden Attributes");
                 WARDEN_SWITCH = BUILDER.worldRestart().define("Edit Warden", false);
                 BUILDER.comment("Turning this ON [true] will disable automatic balancing");
                 BUILDER.comment("All attributes will have to be defined below (default 1.0)");
@@ -743,7 +750,6 @@ public class ServerConfigs {
             }
             BUILDER.pop();
         }
-
         BUILDING = BUILDER.build();
     }
 }
