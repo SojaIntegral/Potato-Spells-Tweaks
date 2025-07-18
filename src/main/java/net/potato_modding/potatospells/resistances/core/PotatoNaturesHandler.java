@@ -12,7 +12,7 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 
 import java.util.*;
 
-import static net.potato_modding.potatospells.registries.PotatoTags.HAS_NATURE;
+import static net.potato_modding.potatospells.tags.PotatoTags.HAS_NATURE;
 
 @SuppressWarnings("unused")
 public class PotatoNaturesHandler {

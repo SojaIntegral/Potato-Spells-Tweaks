@@ -1,0 +1,12 @@
+{
+  "replace": false,
+  "values": [
+    "cataclysm:maledictus",
+    "cataclysm:elite_draugr",
+    "cataclysm:royal_draugr",
+    "cataclysm:draugr",
+    "cataclysm:aptrgangr",
+    "irons_spellbooks:cryomancer",
+    "irons_spellbooks:ice_spider"
+  ]
+}

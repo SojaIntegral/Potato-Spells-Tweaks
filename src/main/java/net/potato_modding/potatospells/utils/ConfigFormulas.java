@@ -32,11 +32,11 @@ public class ConfigFormulas {
     public static double ArmorMod = 0;
     public static double ToughMod = 0;
     public static double AttackMod = 0;
-    public static double boss_mod = 1.25 * modifier * ServerConfigs.BOSS_RESIST.get() / 100;
-    public static double mini_mod = 1.1 * modifier * ServerConfigs.MINIBOSS_RESIST.get() / 100;
-    public static double mob_mod = 0.9 * modifier * ServerConfigs.MOB_RESIST.get() / 100;
-    public static double summon_mod = 0.8 * modifier * ServerConfigs.MOB_RESIST.get() / 100;
+    public static double boss_mod = 1.25 * modifier * Math.clamp(ServerConfigs.BOSS_RESIST.get(), 1, 10000) / 100;
+    public static double mini_mod = 1.1 * modifier * Math.clamp(ServerConfigs.MINIBOSS_RESIST.get(), 1, 10000) / 100;
+    public static double mob_mod = 0.9 * modifier * Math.clamp(ServerConfigs.MOB_RESIST.get(), 1, 10000) / 100;
+    public static double summon_mod = 0.8 * modifier * Math.clamp(ServerConfigs.SUMMON_RESIST.get(), 1, 10000) / 100;
 
     // Familiars random attr value
-    public static double randMax = (double) Math.clamp(ServerConfigs.FAMILIAR_RAND.get(), 0, 100) / 100;
+    public static double randMax = (double) Math.clamp(ServerConfigs.FAMILIAR_RAND.get(), 1, 10000) / 100;
 }

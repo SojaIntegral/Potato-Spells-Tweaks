@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "alshanex_familiars:archmage_pet",
+    "minecraft:ender_dragon",
+    "cataclysm:ender_guardian",
+    "cataclysm:ender_golem",
+    "cataclysm:endermaptera"
+  ]
+}

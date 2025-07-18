@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "cataclysm:ignis",
+    "cataclysm:ignited_revenant",
+    "cataclysm:ignited_berserk"
+  ]
+}

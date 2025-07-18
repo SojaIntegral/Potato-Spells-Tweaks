@@ -1,0 +1,22 @@
+{
+  "replace": false,
+  "values": [
+    "alshanex_familiars:necromancer_pet",
+    "minecraft:wither",
+    "cataclysm:symbiocto",
+    "cataclysm:elite_draugr",
+    "cataclysm:royal_draugr",
+    "cataclysm:draugr",
+    "cataclysm:koboleton",
+    "cataclysm:ancient_remnant",
+    "cataclysm:ancient_ancient_remnant",
+    "cataclysm:kobolediator",
+    "cataclysm:wadjet",
+    "cataclysm:aptrgangr",
+    "cataclysm:koboleton",
+    "gametechbcs_spellbooks:hard_dead_king",
+    "irons_spellbooks:dead_king",
+    "irons_spellbooks:dead_king_corpse",
+    "irons_spellbooks:necromancer"
+  ]
+}

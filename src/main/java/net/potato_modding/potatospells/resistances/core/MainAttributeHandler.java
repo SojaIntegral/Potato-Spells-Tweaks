@@ -14,7 +14,7 @@ import net.neoforged.fml.ModList;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
 import net.potato_modding.potatospells.config.ServerConfigs;
-import net.potato_modding.potatospells.registries.PotatoTags;
+import net.potato_modding.potatospells.tags.PotatoTags;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -134,8 +134,8 @@ public class MainAttributeHandler {
                 ArmorShred = 0.2 + attrVar[5];
                 ProtPierce = 1.5 + attrVar[6];
                 ProtShred = 0.1 + attrVar[6];
-                CritDmg = 0.2 + attrVar[7];
-                Crit = 1.5 + attrVar[7];
+                CritDmg = 1.5 + attrVar[7];
+                Crit = 0.2 + attrVar[7];
             }
             if(mob.getType().is(PotatoTags.RACE_UNDEAD)) {
                 Attack = 1.5 * AttackMod;
@@ -433,6 +433,39 @@ public class MainAttributeHandler {
                 ProtShred = 0.15 + attrVar[6];
                 CritDmg = 1.55 + attrVar[7];
                 Crit = 0.2 + attrVar[7];
+            }
+            if(mob.getType().is(PotatoTags.RACE_DRAGON)) {
+                Attack = 5 * AttackMod;
+                Armor = 5 * ArmorMod;
+                Tough = 5 * ToughMod;
+                SpellPower = 1.3 + attrVar[2];
+                CastReduction = 1.2 + attrVar[3];
+                Resist = 1.5 + attrVar[4];
+                FireRes = 1.15 + attrVar[4];
+                IceRes = 0.85 + attrVar[4];
+                HolyRes = 0.85 + attrVar[4];
+                NatRes = 1.15 + attrVar[4];
+                EvokeRes = 1.15 + attrVar[4];
+                BloodRes = 0.85 + attrVar[4];
+                EndRes = 1.15 + attrVar[4];
+                LigRes = 0.85 + attrVar[4];
+                EldRes = 0.85 + attrVar[4];
+                AbyssRes = 0.85 + attrVar[4];
+                TechRes = 0.85 + attrVar[4];
+                BladeRes = 1.15 + attrVar[4];
+                MindRes = 1.15 + attrVar[4];
+                SoundRes = 0.85 + attrVar[4];
+                WindRes = 1.15 + attrVar[4];
+                SymRes = 0.85 + attrVar[4];
+                SpiritRes = 1.15 + attrVar[4];
+                DuneRes = 1.15 + attrVar[4];
+                AquaRes = 1.15 + attrVar[4];
+                ArmorPierce = 0 + attrVar[5];
+                ArmorShred = 0 + attrVar[5];
+                ProtPierce = 2 + attrVar[6];
+                ProtShred = 0.2 + attrVar[6];
+                CritDmg = 1.0 + attrVar[7];
+                Crit = 0.05 + attrVar[7];
             }
 
             // School Modifiers

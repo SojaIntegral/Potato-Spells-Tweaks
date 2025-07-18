@@ -1,0 +1,14 @@
+{
+  "replace": false,
+  "values": [
+    "irons_spellbooks:fire_boss",
+    "cataclysm:scylla",
+    "cataclysm:maledictus",
+    "irons_spellbooks:archevoker",
+    "irons_spellbooks:necromancer",
+    "irons_spellbooks:cryomancer",
+    "irons_spellbooks:pyromancer",
+    "irons_spellbooks:priest",
+    "irons_spellbooks:apothecarist"
+  ]
+}

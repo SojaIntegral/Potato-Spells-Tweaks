@@ -6,7 +6,7 @@ import io.redspace.ironsspellbooks.api.registry.AttributeRegistry;
 import io.redspace.ironsspellbooks.api.spells.SchoolType;
 import io.redspace.ironsspellbooks.damage.DamageSources;
 import net.minecraft.world.entity.LivingEntity;
-import net.potato_modding.potatospells.utils.PotatoUtils;
+import net.potato_modding.potatospells.utils.RebalanceHandler;
 import org.spongepowered.asm.mixin.Mixin;
 
 @SuppressWarnings("unused")
@@ -18,8 +18,8 @@ public class SpellResistMixin {
         var baseResist = entity.getAttributeValue(AttributeRegistry.SPELL_RESIST);
 
         if (damageSchool == null)
-            return 2 - (float) PotatoUtils.rebalanceFormula(baseResist);
+            return 2 - (float) RebalanceHandler.rebalanceFormula(baseResist);
         else
-            return 2 - (float) PotatoUtils.rebalanceFormula(damageSchool.getResistanceFor(entity) * baseResist);
+            return 2 - (float) RebalanceHandler.rebalanceFormula(damageSchool.getResistanceFor(entity) * baseResist);
     }
 }

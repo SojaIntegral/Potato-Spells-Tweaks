@@ -1,0 +1,16 @@
+{
+  "replace": false,
+  "values": [
+    "alshanex_familiars:scorcher_pet",
+    "cataclysm:ignis",
+    "cataclysm:ignited_revenant",
+    "cataclysm:ignited_berserk",
+    "cataclysm:netherite_monstrosity",
+    "irons_spellbooks:fire_boss",
+    "gametechbcs_spellbooks:hard_dead_king",
+    "irons_spellbooks:dead_king",
+    "irons_spellbooks:dead_king_corpse",
+    "irons_spellbooks:citadel_keeper",
+    "irons_spellbooks:pyromancer"
+  ]
+}

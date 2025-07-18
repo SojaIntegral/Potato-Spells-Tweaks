@@ -1,0 +1,32 @@
+{
+  "replace": false,
+  "values": [
+    "#alshanex_familiars:familiars",
+    "cataclysm:endermaptera",
+    "cataclysm:ignited_berserk",
+    "cataclysm:the_watcher",
+    "cataclysm:deepling_brute",
+    "cataclysm:deepling_warlock",
+    "cataclysm:deepling_priest",
+    "cataclysm:deepling_angler",
+    "cataclysm:deepling",
+    "cataclysm:lionfish",
+    "cataclysm:koboleton",
+    "cataclysm:elite_draugr",
+    "cataclysm:royal_draugr",
+    "cataclysm:draugr",
+    "cataclysm:hippocamtus",
+    "cataclysm:cindaria",
+    "cataclysm:urchinkin",
+    "cataclysm:octohost",
+    "cataclysm:symbiocto",
+    "irons_spellbooks:citadel_keeper",
+    "irons_spellbooks:archevoker",
+    "irons_spellbooks:necromancer",
+    "irons_spellbooks:cryomancer",
+    "irons_spellbooks:pyromancer",
+    "irons_spellbooks:priest",
+    "irons_spellbooks:apothecarist",
+    "irons_spellbooks:ice_spider"
+  ]
+}
