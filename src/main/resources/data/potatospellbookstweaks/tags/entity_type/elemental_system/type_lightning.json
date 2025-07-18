@@ -1,7 +1,7 @@
 {
   "replace": false,
   "values": [
-    "alshanex_familiars:mage_pet",
-    "cataclysm:scylla"
+    {"id": "alshanex_familiars:mage_pet", "required": false },
+    {"id": "cataclysm:scylla", "required": false }
   ]
 }

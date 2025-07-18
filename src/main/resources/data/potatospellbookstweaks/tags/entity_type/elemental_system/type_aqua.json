@@ -1,15 +1,15 @@
 {
   "replace": false,
   "values": [
-    "cataclysm:lionfish",
-    "cataclysm:hippocamtus",
-    "cataclysm:cindaria",
-    "cataclysm:urchinkin",
-    "cataclysm:octohost",
-    "cataclysm:coralssus",
-    "cataclysm:coral_golem",
-    "cataclysm:scylla",
-    "cataclysm:clawdian",
-    "cataclysm:symbiocto"
+    {"id": "cataclysm:lionfish", "required": false },
+    {"id": "cataclysm:hippocamtus", "required": false },
+    {"id": "cataclysm:cindaria", "required": false },
+    {"id": "cataclysm:urchinkin", "required": false },
+    {"id": "cataclysm:drowned_host", "required": false },
+    {"id": "cataclysm:coralssus", "required": false },
+    {"id": "cataclysm:coral_golem", "required": false },
+    {"id": "cataclysm:scylla", "required": false },
+    {"id": "cataclysm:clawdian", "required": false },
+    {"id": "cataclysm:symbiocto", "required": false }
   ]
 }

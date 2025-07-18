@@ -1,8 +1,8 @@
 {
   "replace": false,
   "values": [
-    "cataclysm:clawdian",
-    "cataclysm:endermaptera",
-    "irons_spellbooks:ice_spider"
+    {"id": "cataclysm:clawdian", "required": false },
+    {"id": "cataclysm:endermaptera", "required": false },
+    {"id": "irons_spellbooks:ice_spider", "required": false }
   ]
 }

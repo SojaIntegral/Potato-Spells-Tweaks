@@ -1,8 +1,8 @@
 {
   "replace": false,
   "values": [
-    "alshanex_familiars:hunter_pet",
-    "alshanex_familiars:illusionist_pet",
-    "irons_spellbooks:archevoker"
+    {"id": "alshanex_familiars:hunter_pet", "required": false },
+    {"id": "alshanex_familiars:illusionist_pet", "required": false },
+    {"id": "irons_spellbooks:archevoker", "required": false }
   ]
 }

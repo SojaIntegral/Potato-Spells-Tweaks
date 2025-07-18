@@ -1,12 +1,12 @@
 {
   "replace": false,
   "values": [
-    "cataclysm:maledictus",
-    "cataclysm:elite_draugr",
-    "cataclysm:royal_draugr",
-    "cataclysm:draugr",
-    "cataclysm:aptrgangr",
-    "irons_spellbooks:cryomancer",
-    "irons_spellbooks:ice_spider"
+    {"id": "cataclysm:maledictus", "required": false },
+    {"id": "cataclysm:elite_draugr", "required": false },
+    {"id": "cataclysm:royal_draugr", "required": false },
+    {"id": "cataclysm:draugr", "required": false },
+    {"id": "cataclysm:aptrgangr", "required": false },
+    {"id": "irons_spellbooks:cryomancer", "required": false },
+    {"id": "irons_spellbooks:ice_spider", "required": false }
   ]
 }

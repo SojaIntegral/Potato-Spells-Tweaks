@@ -1,18 +1,18 @@
 {
   "replace": false,
   "values": [
-    "gametechbcs_spellbooks:hard_dead_king",
-    "irons_spellbooks:dead_king",
-    "irons_spellbooks:dead_king_corpse",
-    "cataclysm:ancient_remnant",
-    "cataclysm:ancient_ancient_remnant",
-    "cataclysm:kobolediator",
-    "cataclysm:wadjet",
-    "cataclysm:aptrgangr",
-    "cataclysm:koboleton",
-    "cataclysm:elite_draugr",
-    "cataclysm:royal_draugr",
-    "cataclysm:draugr",
-    "cataclysm:symbiocto"
+    {"id": "gametechbcs_spellbooks:hard_dead_king", "required": false },
+    {"id": "irons_spellbooks:dead_king", "required": false },
+    {"id": "irons_spellbooks:dead_king_corpse", "required": false },
+    {"id": "cataclysm:ancient_remnant", "required": false },
+    {"id": "cataclysm:ancient_ancient_remnant", "required": false },
+    {"id": "cataclysm:kobolediator", "required": false },
+    {"id": "cataclysm:wadjet", "required": false },
+    {"id": "cataclysm:aptrgangr", "required": false },
+    {"id": "cataclysm:koboleton", "required": false },
+    {"id": "cataclysm:elite_draugr", "required": false },
+    {"id": "cataclysm:royal_draugr", "required": false },
+    {"id": "cataclysm:draugr", "required": false },
+    {"id": "cataclysm:drowned_host", "required": false }
   ]
 }

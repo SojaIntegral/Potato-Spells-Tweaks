@@ -37,6 +37,7 @@ public class MainAttributeHandler {
             instance.addPermanentModifier(new AttributeModifier(id, value, AttributeModifier.Operation.ADD_VALUE));
         }
     }
+
     // Add modifier (multiplied base)
     private static void multiplyModifierIfValid(LivingEntity entity, Holder<Attribute> attribute, double value, String idName) {
         var instance = entity.getAttributes().getInstance(attribute);
@@ -104,39 +105,7 @@ public class MainAttributeHandler {
             }
 
             // Type Modifiers
-            if(mob.getType().is(PotatoTags.RACE_HUMAN)) {
-                Attack = 2 * AttackMod;
-                Armor = 2 * ArmorMod;
-                Tough = 2 * ToughMod;
-                SpellPower = 1.15 + attrVar[2];
-                CastReduction = 1.15 + attrVar[3];
-                Resist = 1.2 + attrVar[4];
-                FireRes = 1 + attrVar[4];
-                IceRes = 0.85 + attrVar[4];
-                HolyRes = 1.15 + attrVar[4];
-                NatRes = 1.15 + attrVar[4];
-                EvokeRes = 1 + attrVar[4];
-                BloodRes = 0.85 + attrVar[4];
-                EndRes = 1 + attrVar[4];
-                LigRes = 0.85 + attrVar[4];
-                EldRes = 0.85 + attrVar[4];
-                AbyssRes = 0.85 + attrVar[4];
-                TechRes = 1.15 + attrVar[4];
-                BladeRes = 0.85 + attrVar[4];
-                MindRes = 1.15 + attrVar[4];
-                SoundRes = 1.15 + attrVar[4];
-                WindRes = 1 + attrVar[4];
-                SymRes = 1 + attrVar[4];
-                SpiritRes = 0.85 + attrVar[4];
-                DuneRes = 1.15 + attrVar[4];
-                AquaRes = 1.15 + attrVar[4];
-                ArmorPierce = 3 + attrVar[5];
-                ArmorShred = 0.2 + attrVar[5];
-                ProtPierce = 1.5 + attrVar[6];
-                ProtShred = 0.1 + attrVar[6];
-                CritDmg = 1.5 + attrVar[7];
-                Crit = 0.2 + attrVar[7];
-            }
+
             if(mob.getType().is(PotatoTags.RACE_UNDEAD)) {
                 Attack = 1.5 * AttackMod;
                 Armor = 2.5 * ArmorMod;
@@ -169,6 +138,39 @@ public class MainAttributeHandler {
                 ProtShred = 0.1 + attrVar[6];
                 CritDmg = 1.35 + attrVar[7];
                 Crit = 0.15 + attrVar[7];
+            }
+            if(mob.getType().is(PotatoTags.RACE_HUMAN)) {
+                Attack = 2 * AttackMod;
+                Armor = 2 * ArmorMod;
+                Tough = 2 * ToughMod;
+                SpellPower = 1.15 + attrVar[2];
+                CastReduction = 1.15 + attrVar[3];
+                Resist = 1.2 + attrVar[4];
+                FireRes = 1 + attrVar[4];
+                IceRes = 0.85 + attrVar[4];
+                HolyRes = 1.15 + attrVar[4];
+                NatRes = 1.15 + attrVar[4];
+                EvokeRes = 1 + attrVar[4];
+                BloodRes = 0.85 + attrVar[4];
+                EndRes = 1 + attrVar[4];
+                LigRes = 0.85 + attrVar[4];
+                EldRes = 0.85 + attrVar[4];
+                AbyssRes = 0.85 + attrVar[4];
+                TechRes = 1.15 + attrVar[4];
+                BladeRes = 0.85 + attrVar[4];
+                MindRes = 1.15 + attrVar[4];
+                SoundRes = 1.15 + attrVar[4];
+                WindRes = 1 + attrVar[4];
+                SymRes = 1 + attrVar[4];
+                SpiritRes = 0.85 + attrVar[4];
+                DuneRes = 1.15 + attrVar[4];
+                AquaRes = 1.15 + attrVar[4];
+                ArmorPierce = 3 + attrVar[5];
+                ArmorShred = 0.2 + attrVar[5];
+                ProtPierce = 1.5 + attrVar[6];
+                ProtShred = 0.1 + attrVar[6];
+                CritDmg = 1.5 + attrVar[7];
+                Crit = 0.2 + attrVar[7];
             }
             if(mob.getType().is(PotatoTags.RACE_BRUTE)) {
                 Attack = 3 * AttackMod;

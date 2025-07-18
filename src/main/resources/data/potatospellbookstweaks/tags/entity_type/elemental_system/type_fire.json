@@ -1,16 +1,16 @@
 {
   "replace": false,
   "values": [
-    "alshanex_familiars:scorcher_pet",
-    "cataclysm:ignis",
-    "cataclysm:ignited_revenant",
-    "cataclysm:ignited_berserk",
-    "cataclysm:netherite_monstrosity",
-    "irons_spellbooks:fire_boss",
-    "gametechbcs_spellbooks:hard_dead_king",
-    "irons_spellbooks:dead_king",
-    "irons_spellbooks:dead_king_corpse",
-    "irons_spellbooks:citadel_keeper",
-    "irons_spellbooks:pyromancer"
+    {"id": "alshanex_familiars:scorcher_pet", "required": false },
+    {"id": "cataclysm:ignis", "required": false },
+    {"id": "cataclysm:ignited_revenant", "required": false },
+    {"id": "cataclysm:ignited_berserker", "required": false },
+    {"id": "cataclysm:netherite_monstrosity", "required": false },
+    {"id": "irons_spellbooks:fire_boss", "required": false },
+    {"id": "irons_spellbooks:dead_king", "required": false },
+    {"id": "irons_spellbooks:dead_king_corpse", "required": false },
+    {"id": "irons_spellbooks:citadel_keeper", "required": false },
+    {"id": "irons_spellbooks:pyromancer", "required": false },
+    {"id": "gametechbcs_spellbooks:hard_dead_king", "required": false }
   ]
 }

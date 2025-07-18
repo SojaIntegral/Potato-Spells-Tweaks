@@ -95,4 +95,5 @@ public class PotatoTags {
             TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "race_system/amorph"));
     public static final TagKey<EntityType<?>> RACE_DRAGON =
             TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "race_system/dragon"));
+
 }

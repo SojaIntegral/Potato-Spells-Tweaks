@@ -1,15 +1,15 @@
 {
   "replace": false,
   "values": [
-    "cataclysm:ender_golem",
-    "cataclysm:ignited_revenant",
-    "cataclysm:the_prowler",
-    "cataclysm:coralssus",
-    "cataclysm:coral_golem",
-    "cataclysm:amethyst_crab",
-    "cataclysm:kobolediator",
-    "cataclysm:wadjet",
-    "cataclysm:aptrgangr",
-    "cataclysm:clawdian"
+    {"id": "cataclysm:ender_golem", "required": false },
+    {"id": "cataclysm:ignited_revenant", "required": false },
+    {"id": "cataclysm:the_prowler", "required": false },
+    {"id": "cataclysm:coralssus", "required": false },
+    {"id": "cataclysm:coral_golem", "required": false },
+    {"id": "cataclysm:amethyst_crab", "required": false },
+    {"id": "cataclysm:kobolediator", "required": false },
+    {"id": "cataclysm:wadjet", "required": false },
+    {"id": "cataclysm:aptrgangr", "required": false },
+    {"id": "cataclysm:clawdian",
   ]
 }

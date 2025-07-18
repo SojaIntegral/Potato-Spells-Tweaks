@@ -1,7 +1,7 @@
 {
   "replace": false,
   "values": [
-    "minecraft:wither",
-    "cataclysm:maledictus"
+    {"id": "minecraft:wither", "required": false },
+    {"id": "cataclysm:maledictus", "required": false }
   ]
 }

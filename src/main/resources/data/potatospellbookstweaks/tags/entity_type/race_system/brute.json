@@ -1,7 +1,7 @@
 {
   "replace": false,
   "values": [
-    "minecraft:warden",
-    "cataclysm:amethyst_crab"
+    {"id": "minecraft:warden", "required": false },
+    {"id": "cataclysm:amethyst_crab", "required": false }
   ]
 }

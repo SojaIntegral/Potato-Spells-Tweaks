@@ -1,12 +1,7 @@
 {
   "replace": false,
   "values": [
-    "minecraft:wither",
-    "cataclysm:ender_guardian",
-    "cataclysm:netherite_monstrosity",
-    "cataclysm:ender_golem",
-    "cataclysm:coralssus",
-    "cataclysm:coral_golem",
-    "irons_spellbooks:citadel_keeper"
+    {"id": "minecraft:wither", "required": false },
+    {"id": "irons_spellbooks:citadel_keeper", "required": false }
   ]
 }

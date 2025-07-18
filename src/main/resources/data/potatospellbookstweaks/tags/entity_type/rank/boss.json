@@ -1,20 +1,21 @@
 {
   "replace": false,
   "values": [
-    "minecraft:ender_dragon",
-    "minecraft:wither",
-    "minecraft:warden",
-    "irons_spellbooks:fire_boss",
-    "irons_spellbooks:dead_king",
-    "irons_spellbooks:dead_king_corpse",
-    "cataclysm:ender_guardian",
-    "cataclysm:netherite_monstrosity",
-    "cataclysm:ignis",
-    "cataclysm:the_harbinger",
-    "cataclysm:the_leviathan",
-    "cataclysm:scylla",
-    "cataclysm:maledictus",
-    "cataclysm:ancient_remnant",
-    "cataclysm:ancient_ancient_remnant"
+    {"id": "minecraft:ender_dragon", "required": false },
+    {"id": "minecraft:wither", "required": false },
+    {"id": "minecraft:warden", "required": false },
+    {"id": "irons_spellbooks:fire_boss", "required": false },
+    {"id": "irons_spellbooks:dead_king", "required": false },
+    {"id": "irons_spellbooks:dead_king_corpse", "required": false },
+    {"id": "gametechbcs_spellbooks:hard_dead_king", "required": false },
+    {"id": "cataclysm:ender_guardian", "required": false },
+    {"id": "cataclysm:netherite_monstrosity", "required": false },
+    {"id": "cataclysm:ignis", "required": false },
+    {"id": "cataclysm:the_harbinger", "required": false },
+    {"id": "cataclysm:the_leviathan", "required": false },
+    {"id": "cataclysm:scylla", "required": false },
+    {"id": "cataclysm:maledictus", "required": false },
+    {"id": "cataclysm:ancient_remnant", "required": false },
+    {"id": "cataclysm:ancient_ancient_remnant", "required": false }
   ]
 }

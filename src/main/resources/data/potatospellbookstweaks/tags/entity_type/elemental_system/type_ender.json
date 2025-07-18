@@ -1,10 +1,10 @@
 {
   "replace": false,
   "values": [
-    "alshanex_familiars:archmage_pet",
-    "minecraft:ender_dragon",
-    "cataclysm:ender_guardian",
-    "cataclysm:ender_golem",
-    "cataclysm:endermaptera"
+    {"id": "alshanex_familiars:archmage_pet", "required": false },
+    {"id": "minecraft:ender_dragon", "required": false },
+    {"id": "cataclysm:ender_guardian", "required": false },
+    {"id": "cataclysm:ender_golem", "required": false },
+    {"id": "cataclysm:endermaptera", "required": false }
   ]
 }

@@ -1,10 +1,10 @@
 {
   "replace": false,
   "values": [
-    "alshanex_familiars:druid_pet",
-    "alshanex_familiars:hunter_pet",
-    "alshanex_familiars:plague_pet",
-    "cataclysm:amethyst_crab",
-    "irons_spellbooks:apothecarist"
+    {"id": "alshanex_familiars:druid_pet", "required": false },
+    {"id": "alshanex_familiars:hunter_pet", "required": false },
+    {"id": "alshanex_familiars:plague_pet", "required": false },
+    {"id": "cataclysm:amethyst_crab", "required": false },
+    {"id": "irons_spellbooks:apothecarist", "required": false }
   ]
 }

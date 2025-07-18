@@ -1,12 +1,12 @@
 {
   "replace": false,
   "values": [
-    "cataclysm:the_leviathan",
-    "cataclysm:deepling_brute",
-    "cataclysm:deepling_brute",
-    "cataclysm:deepling_warlock",
-    "cataclysm:deepling_priest",
-    "cataclysm:deepling_angler",
-    "cataclysm:deepling"
+    {"id": "cataclysm:the_leviathan", "required": false },
+    {"id": "cataclysm:deepling_brute", "required": false },
+    {"id": "cataclysm:deepling_brute", "required": false },
+    {"id": "cataclysm:deepling_warlock", "required": false },
+    {"id": "cataclysm:deepling_priest", "required": false },
+    {"id": "cataclysm:deepling_angler", "required": false },
+    {"id": "cataclysm:deepling", "required": false }
   ]
 }

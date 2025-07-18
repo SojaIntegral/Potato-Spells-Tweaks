@@ -1,8 +1,8 @@
 {
   "replace": false,
   "values": [
-    "cataclysm:the_harbinger",
-    "cataclysm:the_prowler",
-    "cataclysm:the_watcher"
+    {"id": "cataclysm:the_harbinger", "required": false },
+    {"id": "cataclysm:the_prowler", "required": false },
+    {"id": "cataclysm:the_watcher", "required": false }
   ]
 }

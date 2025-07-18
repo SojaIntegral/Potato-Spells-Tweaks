@@ -1,7 +1,7 @@
 {
   "replace": false,
   "values": [
-    "alshanex_familiars:cleric_pet",
-    "irons_spellbooks:priest"
+    {"id": "alshanex_familiars:cleric_pet", "required": false },
+    {"id": "irons_spellbooks:priest", "required": false }
   ]
 }

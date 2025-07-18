@@ -1,11 +1,11 @@
 {
   "replace": false,
   "values": [
-    "cataclysm:koboleton",
-    "cataclysm:ancient_remnant",
-    "cataclysm:ancient_ancient_remnant",
-    "cataclysm:kobolediator",
-    "cataclysm:wadjet",
-    "cataclysm:koboleton"
+    {"id": "cataclysm:koboleton", "required": false },
+    {"id": "cataclysm:ancient_remnant", "required": false },
+    {"id": "cataclysm:ancient_ancient_remnant", "required": false },
+    {"id": "cataclysm:kobolediator", "required": false },
+    {"id": "cataclysm:wadjet", "required": false },
+    {"id": "cataclysm:koboleton", "required": false }
   ]
 }
