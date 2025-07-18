@@ -10,6 +10,6 @@
     {"id": "cataclysm:kobolediator", "required": false },
     {"id": "cataclysm:wadjet", "required": false },
     {"id": "cataclysm:aptrgangr", "required": false },
-    {"id": "cataclysm:clawdian",
+    {"id": "cataclysm:clawdian", "required": false }
   ]
 }
