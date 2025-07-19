@@ -1,14 +1,6 @@
 {
   "replace": false,
   "values": [
-    {"id": "irons_spellbooks:fire_boss", "required": false },
-    {"id": "cataclysm:scylla", "required": false },
-    {"id": "cataclysm:maledictus", "required": false },
-    {"id": "irons_spellbooks:archevoker", "required": false },
-    {"id": "irons_spellbooks:necromancer", "required": false },
-    {"id": "irons_spellbooks:cryomancer", "required": false },
-    {"id": "irons_spellbooks:pyromancer", "required": false },
-    {"id": "irons_spellbooks:priest", "required": false },
-    {"id": "irons_spellbooks:apothecarist", "required": false }
+    "minecraft:player"
   ]
 }
