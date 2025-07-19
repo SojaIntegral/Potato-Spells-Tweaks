@@ -4,8 +4,16 @@
 **Every mob must have only one race**
 
 ## Humans:
-- Have average attributes
-- Made for "humanoid" monsters like pillagers, villagers, etc
+- Have average attributes 
+- This race is used only for players
+
+## Dragonborn:
+- Have high resistances, just like dragons, but failed to succeed their immense magical talents
+- Dragonborn are slightly above humans in overall strength
+
+## Humanoids:
+- Have some weaknesses and strengths, but are very balanced
+- This is used for human-like mobs like mages, villagers, etc
 
 ## Undead:
 - Well... They are not alive
@@ -43,3 +51,9 @@
 ## Amorph:
 - Things without proper form, mysterious natural (or unnatural) creatures
 - Amorph creatures are slightly above average, with very defined weaknesses and strengths
+
+## Dragon:
+- The most powerful of all races
+- Dragons have high resistances and armor, making them extremely tough enemies
+- On top of that, dragons are also extremely proficient at magic
+- WARNING: Do not make players dragons! It will feel like actual cheating! Use the dragon-born tag!

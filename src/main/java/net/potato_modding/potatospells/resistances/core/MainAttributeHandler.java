@@ -18,6 +18,8 @@ import net.potato_modding.potatospells.tags.PotatoTags;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.Arrays;
+import java.util.concurrent.ThreadLocalRandom;
 
 import static net.potato_modding.potatospells.utils.ConfigFormulas.*;
 
@@ -51,18 +53,23 @@ public class MainAttributeHandler {
         }
     }
 
+    private static boolean shinyAttribute() {
+        return ThreadLocalRandom.current().nextInt(4096) == 0;
+    }
+
     @SubscribeEvent(priority = net.neoforged.bus.api.EventPriority.LOWEST)
     private static void handleResistanceAttribute(EntityJoinLevelEvent event) {
         var entity = event.getEntity();
         if (!(entity instanceof LivingEntity mob)) return;
 
-        var typeKey = BuiltInRegistries.ENTITY_TYPE.getKey(mob.getType());
-
         // Grabs an attribute and checks if the mob has a modifier
         var instance = mob.getAttributes().getInstance(ALObjects.Attributes.ARMOR_PIERCE);
         assert instance != null;
-        ResourceLocation id = ResourceLocation.fromNamespaceAndPath("potatospellbookstweaks", "armor_pierce");
-        boolean noModifiers = instance.getModifiers().stream().noneMatch(mod -> mod.id().equals(id));
+        ResourceLocation modCheck = ResourceLocation.fromNamespaceAndPath("potatospellbookstweaks", "normal");
+        boolean noModifiers = instance.getModifiers().stream().noneMatch(mod -> mod.id().equals(modCheck));
+        // If the
+        ResourceLocation shinyCheck = ResourceLocation.fromNamespaceAndPath("potatospellbookstweaks", "shiny");
+        boolean noReroll = instance.getModifiers().stream().noneMatch(mod -> mod.id().equals(shinyCheck));
 
         // Checks if the mob has a valid modifier from here
         // If not, it gives the mob modifiers
@@ -72,10 +79,20 @@ public class MainAttributeHandler {
                 PotatoNaturesHandler.applySpawnModifiers(mob);
             }
 
-            // Adds + 0~15% to Familiars' attributes
+            // IVs variation setup
+            boolean isShiny = false;
             double[] attrVar = new double[10];
-            for (int i = 0; i < attrVar.length; i++) {
-                attrVar[i] = Math.random() * randMax;
+            // Chance for shiny & prevents shinies from losing perfect IVs
+            if((ServerConfigs.SHINY.get() && shinyAttribute()) || noReroll) {
+                Arrays.fill(attrVar, 1 * randMax);
+                isShiny = true;
+            }
+            // Adds + 0~15% to Familiars' attributes & can be rerolled
+            // I should be able to copy this code over and make so non-shinies are rerolled
+            else {
+                for (int i = 0; i < attrVar.length; i++) {
+                    attrVar[i] = Math.random() * randMax;
+                }
             }
 
             // Class modifier
@@ -103,9 +120,47 @@ public class MainAttributeHandler {
                 ToughMod = summon_mod * ( 0.5 * (1 + attrVar[1]));
                 AttackMod = summon_mod * ( 0.5 * (1 + attrVar[1]));
             }
+            if(mob.getType().is(PotatoTags.PLAYER)) {
+                mobType = 1;
+                ArmorMod = 1;
+                ToughMod = 1;
+                AttackMod = 1;
+            }
 
             // Type Modifiers
-
+            if(mob.getType().is(PotatoTags.RACE_HUMAN)) {
+                Attack = 0 * AttackMod;
+                Armor = 0 * ArmorMod;
+                Tough = 0 * ToughMod;
+                SpellPower = 1 + attrVar[2];
+                CastReduction = 1 + attrVar[3];
+                Resist = 1 + attrVar[4];
+                FireRes = 1 + attrVar[4];
+                IceRes = 1 + attrVar[4];
+                HolyRes = 1 + attrVar[4];
+                NatRes = 1 + attrVar[4];
+                EvokeRes = 1 + attrVar[4];
+                BloodRes = 1 + attrVar[4];
+                EndRes = 1 + attrVar[4];
+                LigRes = 1 + attrVar[4];
+                EldRes = 1 + attrVar[4];
+                AbyssRes = 1 + attrVar[4];
+                TechRes = 1 + attrVar[4];
+                BladeRes = 1 + attrVar[4];
+                MindRes = 1 + attrVar[4];
+                SoundRes = 1 + attrVar[4];
+                WindRes = 1 + attrVar[4];
+                SymRes = 1 + attrVar[4];
+                SpiritRes = 1 + attrVar[4];
+                DuneRes = 1 + attrVar[4];
+                AquaRes = 1 + attrVar[4];
+                ArmorPierce = 0.5 * (1 + attrVar[5]);
+                ArmorShred = 0.05 * (1 + attrVar[5]);
+                ProtPierce = 0.5 * (1 + attrVar[6]);
+                ProtShred = 0.05 * (1 + attrVar[6]);
+                CritDmg = 1.5 + attrVar[7];
+                Crit = 0.05 + attrVar[7];
+            }
             if(mob.getType().is(PotatoTags.RACE_UNDEAD)) {
                 Attack = 1.5 * AttackMod;
                 Armor = 2.5 * ArmorMod;
@@ -132,14 +187,14 @@ public class MainAttributeHandler {
                 SpiritRes = 1.15 + attrVar[4];
                 DuneRes = 1 + attrVar[4];
                 AquaRes = 1 + attrVar[4];
-                ArmorPierce = 2 + attrVar[5];
-                ArmorShred = 0.15 + attrVar[5];
-                ProtPierce = 2 + attrVar[6];
-                ProtShred = 0.1 + attrVar[6];
+                ArmorPierce = 2 * (1 + attrVar[5]);
+                ArmorShred = 0.15 * (1 + attrVar[5]);
+                ProtPierce = 2 * (1 + attrVar[6]);
+                ProtShred = 0.1 * (1 + attrVar[6]);
                 CritDmg = 1.35 + attrVar[7];
                 Crit = 0.15 + attrVar[7];
             }
-            if(mob.getType().is(PotatoTags.RACE_HUMAN)) {
+            if(mob.getType().is(PotatoTags.RACE_HUMANOID)) {
                 Attack = 2 * AttackMod;
                 Armor = 2 * ArmorMod;
                 Tough = 2 * ToughMod;
@@ -165,10 +220,10 @@ public class MainAttributeHandler {
                 SpiritRes = 0.85 + attrVar[4];
                 DuneRes = 1.15 + attrVar[4];
                 AquaRes = 1.15 + attrVar[4];
-                ArmorPierce = 3 + attrVar[5];
-                ArmorShred = 0.2 + attrVar[5];
-                ProtPierce = 1.5 + attrVar[6];
-                ProtShred = 0.1 + attrVar[6];
+                ArmorPierce = 3 * (1 + attrVar[5]);
+                ArmorShred = 0.2 * (1 + attrVar[5]);
+                ProtPierce = 1.5 * (1 + attrVar[6]);
+                ProtShred = 0.1 * (1 + attrVar[6]);
                 CritDmg = 1.5 + attrVar[7];
                 Crit = 0.2 + attrVar[7];
             }
@@ -198,10 +253,10 @@ public class MainAttributeHandler {
                 SpiritRes = 1 + attrVar[4];
                 DuneRes = 1.15 + attrVar[4];
                 AquaRes = 1.15 + attrVar[4];
-                ArmorPierce = 5 + attrVar[5];
-                ArmorShred = 0.1 + attrVar[5];
-                ProtPierce = 1 + attrVar[6];
-                ProtShred = 1.5 + attrVar[6];
+                ArmorPierce = 5 * (1 + attrVar[5]);
+                ArmorShred = 0.1 * (1 + attrVar[5]);
+                ProtPierce = 1 * (1 + attrVar[6]);
+                ProtShred = 1.5 * (1 + attrVar[6]);
                 CritDmg = 1.4 + attrVar[7];
                 Crit = 0.25 + attrVar[7];
             }
@@ -231,10 +286,10 @@ public class MainAttributeHandler {
                 SpiritRes = 1 + attrVar[4];
                 DuneRes = 1.15 + attrVar[4];
                 AquaRes = 0.85 + attrVar[4];
-                ArmorPierce = 1 + attrVar[5];
-                ArmorShred = 0.25 + attrVar[5];
-                ProtPierce = 1 + attrVar[6];
-                ProtShred = 0.15 + attrVar[6];
+                ArmorPierce = 1 * (1 + attrVar[5]);
+                ArmorShred = 0.25 * (1 + attrVar[5]);
+                ProtPierce = 1 * (1 + attrVar[6]);
+                ProtShred = 0.15 * (1 + attrVar[6]);
                 CritDmg = 1.4 + attrVar[7];
                 Crit = 0.25 + attrVar[7];
             }
@@ -250,7 +305,7 @@ public class MainAttributeHandler {
                 HolyRes = 1 + attrVar[4];
                 NatRes = 1 + attrVar[4];
                 EvokeRes = 1 + attrVar[4];
-                BloodRes -= -0.1 + attrVar[4];
+                BloodRes = 0.85 + attrVar[4];
                 EndRes = 1 + attrVar[4];
                 LigRes = 0.85 + attrVar[4];
                 EldRes = 1 + attrVar[4];
@@ -264,10 +319,10 @@ public class MainAttributeHandler {
                 SpiritRes = 1 + attrVar[4];
                 DuneRes = 1 + attrVar[4];
                 AquaRes = 0.85 + attrVar[4];
-                ArmorPierce = 1 + attrVar[5];
-                ArmorShred = 0.1 + attrVar[5];
-                ProtPierce = 1 + attrVar[6];
-                ProtShred = 0.1 + attrVar[6];
+                ArmorPierce = 1 * (1 + attrVar[5]);
+                ArmorShred = 0.1 * (1 + attrVar[5]);
+                ProtPierce = 1 * (1 + attrVar[6]);
+                ProtShred = 0.1 * (1 + attrVar[6]);
                 CritDmg = 1.35 + attrVar[7];
                 Crit = 0.4 + attrVar[7];
             }
@@ -297,10 +352,10 @@ public class MainAttributeHandler {
                 SpiritRes = 1.15 + attrVar[4];
                 DuneRes = 0.85 + attrVar[4];
                 AquaRes = 1 + attrVar[4];
-                ArmorPierce = 3 + attrVar[5];
-                ArmorShred = 0.15 + attrVar[5];
-                ProtPierce = 1 + attrVar[6];
-                ProtShred = 0.15 + attrVar[6];
+                ArmorPierce = 3 * (1 + attrVar[5]);
+                ArmorShred = 0.15 * (1 + attrVar[5]);
+                ProtPierce = 1 * (1 + attrVar[6]);
+                ProtShred = 0.15 * (1 + attrVar[6]);
                 CritDmg = 1.6 + attrVar[7];
                 Crit = 0.1 + attrVar[7];
             }
@@ -330,10 +385,10 @@ public class MainAttributeHandler {
                 SpiritRes = 1.15 + attrVar[4];
                 DuneRes = 0.85 + attrVar[4];
                 AquaRes = 0.85 + attrVar[4];
-                ArmorPierce = 2 + attrVar[5];
-                ArmorShred = 0.2 + attrVar[5];
-                ProtPierce = 2 + attrVar[6];
-                ProtShred = 0.2 + attrVar[6];
+                ArmorPierce = 2 * (1 + attrVar[5]);
+                ArmorShred = 0.2 * (1 + attrVar[5]);
+                ProtPierce = 2 * (1 + attrVar[6]);
+                ProtShred = 0.2 * (1 + attrVar[6]);
                 CritDmg = 1.25 + attrVar[7];
                 Crit = 1 + attrVar[7];
             }
@@ -363,10 +418,10 @@ public class MainAttributeHandler {
                 SpiritRes = 1 + attrVar[4];
                 DuneRes = 0.85 + attrVar[4];
                 AquaRes = 1.15 + attrVar[4];
-                ArmorPierce = 1.5 + attrVar[5];
-                ArmorShred = 0.15 + attrVar[5];
-                ProtPierce = 1.5 + attrVar[6];
-                ProtShred = 0.15 + attrVar[6];
+                ArmorPierce = 1.5 * (1 + attrVar[5]);
+                ArmorShred = 0.15 * (1 + attrVar[5]);
+                ProtPierce = 1.5 * (1 + attrVar[6]);
+                ProtShred = 0.15 * (1 + attrVar[6]);
                 CritDmg = 1.45 + attrVar[7];
                 Crit = 0.15 + attrVar[7];
             }
@@ -396,10 +451,10 @@ public class MainAttributeHandler {
                 SpiritRes = 0.85 + attrVar[4];
                 DuneRes = 1 + attrVar[4];
                 AquaRes = 1 + attrVar[4];
-                ArmorPierce = 3 + attrVar[5];
-                ArmorShred = 0.25 + attrVar[5];
-                ProtPierce = 3 + attrVar[6];
-                ProtShred = 0.25 + attrVar[6];
+                ArmorPierce = 3 * (1 + attrVar[5]);
+                ArmorShred = 0.25 * (1 + attrVar[5]);
+                ProtPierce = 3 * (1 + attrVar[6]);
+                ProtShred = 0.25 * (1 + attrVar[6]);
                 CritDmg = 1.155 + attrVar[7];
                 Crit = 0.1 + attrVar[7];
             }
@@ -429,12 +484,45 @@ public class MainAttributeHandler {
                 SpiritRes = 1.15 + attrVar[4];
                 DuneRes = 1 + attrVar[4];
                 AquaRes = 1 + attrVar[4];
-                ArmorPierce = 1 + attrVar[5];
-                ArmorShred = 0.1 + attrVar[5];
-                ProtPierce = 2 + attrVar[6];
-                ProtShred = 0.15 + attrVar[6];
+                ArmorPierce = 1 * (1 + attrVar[5]);
+                ArmorShred = 0.1 * (1 + attrVar[5]);
+                ProtPierce = 2 * (1 + attrVar[6]);
+                ProtShred = 0.15 * (1 + attrVar[6]);
                 CritDmg = 1.55 + attrVar[7];
                 Crit = 0.2 + attrVar[7];
+            }
+            if(mob.getType().is(PotatoTags.RACE_DRAGONBORN)) {
+                Attack = 1 * AttackMod;
+                Armor = 2 * ArmorMod;
+                Tough = 1 * ToughMod;
+                SpellPower = 1.15 + attrVar[2];
+                CastReduction = 1.05 + attrVar[3];
+                Resist = 1.1 + attrVar[4];
+                FireRes = 1.05 + attrVar[4];
+                IceRes = 1.05 + attrVar[4];
+                HolyRes = 1.05 + attrVar[4];
+                NatRes = 1.05 + attrVar[4];
+                EvokeRes = 1.05 + attrVar[4];
+                BloodRes = 1.05 + attrVar[4];
+                EndRes = 1.05 + attrVar[4];
+                LigRes = 1.05 + attrVar[4];
+                EldRes = 1.05 + attrVar[4];
+                AbyssRes = 1.05 + attrVar[4];
+                TechRes = 1.05 + attrVar[4];
+                BladeRes = 1.05 + attrVar[4];
+                MindRes = 1.05 + attrVar[4];
+                SoundRes = 1.05 + attrVar[4];
+                WindRes = 1.05 + attrVar[4];
+                SymRes = 1.05 + attrVar[4];
+                SpiritRes = 1.05 + attrVar[4];
+                DuneRes = 1.05 + attrVar[4];
+                AquaRes = 1.05 + attrVar[4];
+                ArmorPierce = 0 * (1 + attrVar[5]);
+                ArmorShred = 0 * (1 + attrVar[5]);
+                ProtPierce = 0 * (1 + attrVar[6]);
+                ProtShred = 0 * (1 + attrVar[6]);
+                CritDmg = 1.3 + attrVar[7];
+                Crit = 0 + attrVar[7];
             }
             if(mob.getType().is(PotatoTags.RACE_DRAGON)) {
                 Attack = 5 * AttackMod;
@@ -443,30 +531,30 @@ public class MainAttributeHandler {
                 SpellPower = 1.3 + attrVar[2];
                 CastReduction = 1.2 + attrVar[3];
                 Resist = 1.5 + attrVar[4];
-                FireRes = 1.15 + attrVar[4];
-                IceRes = 0.85 + attrVar[4];
-                HolyRes = 0.85 + attrVar[4];
-                NatRes = 1.15 + attrVar[4];
-                EvokeRes = 1.15 + attrVar[4];
-                BloodRes = 0.85 + attrVar[4];
-                EndRes = 1.15 + attrVar[4];
-                LigRes = 0.85 + attrVar[4];
-                EldRes = 0.85 + attrVar[4];
-                AbyssRes = 0.85 + attrVar[4];
-                TechRes = 0.85 + attrVar[4];
-                BladeRes = 1.15 + attrVar[4];
-                MindRes = 1.15 + attrVar[4];
-                SoundRes = 0.85 + attrVar[4];
-                WindRes = 1.15 + attrVar[4];
-                SymRes = 0.85 + attrVar[4];
-                SpiritRes = 1.15 + attrVar[4];
-                DuneRes = 1.15 + attrVar[4];
-                AquaRes = 1.15 + attrVar[4];
-                ArmorPierce = 0 + attrVar[5];
-                ArmorShred = 0 + attrVar[5];
-                ProtPierce = 2 + attrVar[6];
-                ProtShred = 0.2 + attrVar[6];
-                CritDmg = 1.0 + attrVar[7];
+                FireRes = 1.1 + attrVar[4];
+                IceRes = 1.1 + attrVar[4];
+                HolyRes = 1.1 + attrVar[4];
+                NatRes = 1.1 + attrVar[4];
+                EvokeRes = 1.1 + attrVar[4];
+                BloodRes = 1.1 + attrVar[4];
+                EndRes = 1.1 + attrVar[4];
+                LigRes = 1.1 + attrVar[4];
+                EldRes = 1.1 + attrVar[4];
+                AbyssRes = 1.1 + attrVar[4];
+                TechRes = 1.1 + attrVar[4];
+                BladeRes = 1.1 + attrVar[4];
+                MindRes = 1.1 + attrVar[4];
+                SoundRes = 1.1 + attrVar[4];
+                WindRes = 1.1 + attrVar[4];
+                SymRes = 1.1 + attrVar[4];
+                SpiritRes = 1.1 + attrVar[4];
+                DuneRes = 1.1 + attrVar[4];
+                AquaRes = 1.1 + attrVar[4];
+                ArmorPierce = 0 * (1 + attrVar[5]);
+                ArmorShred = 0 * (1 + attrVar[5]);
+                ProtPierce = 2 * (1 + attrVar[6]);
+                ProtShred = 0.2 * (1 + attrVar[6]);
+                CritDmg = 1.15 + attrVar[7];
                 Crit = 0.05 + attrVar[7];
             }
 
@@ -477,7 +565,7 @@ public class MainAttributeHandler {
                 HolyRes *= 0.65 * mobType;
                 NatRes *= 1.15 * mobType;
                 EvokeRes *= 1.45 * mobType;
-                BloodRes *= 1.45 * mobType;
+                BloodRes *= 0.85 * mobType;
                 EndRes *= 1 * mobType;
                 LigRes *= 0.85 * mobType;
                 EldRes *= 1.15 * mobType;
@@ -626,7 +714,7 @@ public class MainAttributeHandler {
                 EvokeRes *= 1 * mobType;
                 BloodRes *= 1.15 * mobType;
                 EndRes *= 1 * mobType;
-                LigRes *= 1.45 * mobType;
+                LigRes *= 0.65 * mobType;
                 EldRes *= 0.85 * mobType;
                 AbyssRes *= 1.45 * mobType;
                 TechRes *= 1.45 * mobType;
@@ -729,7 +817,7 @@ public class MainAttributeHandler {
                 HolyRes *= 1.15 * mobType;
                 NatRes *= 1.45 * mobType;
                 EvokeRes *= 1 * mobType;
-                BloodRes *= 1.15 * mobType;
+                BloodRes *= 0.85 * mobType;
                 EndRes *= 0.85 * mobType;
                 LigRes *= 0.85 * mobType;
                 EldRes *= 0.85 * mobType;
@@ -767,7 +855,7 @@ public class MainAttributeHandler {
             }
             if(mob.getType().is(PotatoTags.TYPE_SOUND)) {
                 FireRes *= 1 * mobType;
-                IceRes *= 1.15 * mobType;
+                IceRes *= 0.85 * mobType;
                 HolyRes *= 1.45 * mobType;
                 NatRes *= 0.65 * mobType;
                 EvokeRes *= 1 * mobType;
@@ -851,7 +939,7 @@ public class MainAttributeHandler {
             }
             if(mob.getType().is(PotatoTags.TYPE_AQUA)) {
                 FireRes *= 1.45 * mobType;
-                IceRes *= 1.15 * mobType;
+                IceRes *= 0.85 * mobType;
                 HolyRes *= 0.85 * mobType;
                 NatRes *= 1.45 * mobType;
                 EvokeRes *= 1 * mobType;
@@ -870,11 +958,37 @@ public class MainAttributeHandler {
                 DuneRes *= 1.45 * mobType;
                 AquaRes *= 1.45 * mobType;
             }
+            if(mob.getType().is(PotatoTags.TYPE_NEUTRAL)) {
+                FireRes *= 1 * mobType;
+                IceRes *= 1 * mobType;
+                HolyRes *= 1 * mobType;
+                NatRes *= 1 * mobType;
+                EvokeRes *= 1 * mobType;
+                BloodRes *= 1 * mobType;
+                EndRes *= 1 * mobType;
+                LigRes *= 1 * mobType;
+                EldRes *= 1 * mobType;
+                AbyssRes *= 1 * mobType;
+                TechRes *= 1 * mobType;
+                BladeRes *= 1 * mobType;
+                MindRes *= 1 * mobType;
+                SoundRes *= 1 * mobType;
+                WindRes *= 1 * mobType;
+                SymRes *= 1 * mobType;
+                SpiritRes *= 1 * mobType;
+                DuneRes *= 1 * mobType;
+                AquaRes *= 1 * mobType;
+            }
 
             // Updates mob attributes after rounding it up to 2 decimals
             {
                 // Vanilla Attributes
-                addModifierIfValid(mob, Attributes.ATTACK_DAMAGE, BigDecimal.valueOf(Attack).setScale(2, RoundingMode.HALF_UP).doubleValue(), "attack");
+                if(isShiny && ServerConfigs.SHINY.get()) {
+                    addModifierIfValid(mob, Attributes.ATTACK_DAMAGE, BigDecimal.valueOf(Attack).setScale(2, RoundingMode.HALF_UP).doubleValue(), "shiny");
+                }
+                else {
+                    addModifierIfValid(mob, Attributes.ATTACK_DAMAGE, BigDecimal.valueOf(Attack).setScale(2, RoundingMode.HALF_UP).doubleValue(), "normal");
+                }
                 addModifierIfValid(mob, Attributes.ARMOR, BigDecimal.valueOf(Armor).setScale(2, RoundingMode.HALF_UP).doubleValue(), "armor");
                 addModifierIfValid(mob, Attributes.ARMOR_TOUGHNESS, BigDecimal.valueOf(Tough).setScale(2, RoundingMode.HALF_UP).doubleValue(), "toughness");
 

@@ -1,6 +1,5 @@
 package net.potato_modding.potatospells.config;
 
-import net.neoforged.fml.ModList;
 import net.neoforged.neoforge.common.ModConfigSpec;
 
 public class ServerConfigs {
@@ -15,6 +14,7 @@ public class ServerConfigs {
     public static ModConfigSpec.ConfigValue<Integer> MOB_RESIST;
     public static ModConfigSpec.ConfigValue<Integer> SUMMON_RESIST;
     public static ModConfigSpec.ConfigValue<Boolean> BUFF_STACKING;
+    public static ModConfigSpec.ConfigValue<Boolean> SHINY;
 
     // Familiars Compat
     public static ModConfigSpec.ConfigValue<Integer> FAMILIAR_RAND;
@@ -51,6 +51,7 @@ public class ServerConfigs {
             BUILDER.comment("This bonus multiplies everything else, so is quite powerful");
             BUILDER.comment("WARNING: Only includes familiars by default! Add new ones via datapack");
             FAMILIAR_NATURE = BUILDER.worldRestart().define("Mobs Natures", false);
+            SHINY = BUILDER.worldRestart().define("Chance of Perfect attributes", false);
             BUILDER.pop();
         }
         {

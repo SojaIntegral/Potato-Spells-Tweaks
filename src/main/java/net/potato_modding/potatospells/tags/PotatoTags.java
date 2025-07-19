@@ -24,9 +24,13 @@ public class PotatoTags {
             TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "rank/normal"));
     public static final TagKey<EntityType<?>> SUMMON =
             TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "rank/summon"));
+    public static final TagKey<EntityType<?>> PLAYER =
+            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "rank/player"));
 
     // Mobs elements
     // Base
+    public static final TagKey<EntityType<?>> TYPE_NEUTRAL =
+            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "elemental_system/type_neutral"));
     public static final TagKey<EntityType<?>> TYPE_BLOOD =
             TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "elemental_system/type_blood"));
     public static final TagKey<EntityType<?>> TYPE_ELDRITCH =
@@ -75,6 +79,8 @@ public class PotatoTags {
     // Races
     public static final TagKey<EntityType<?>> RACE_HUMAN =
             TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "race_system/human"));
+    public static final TagKey<EntityType<?>> RACE_HUMANOID =
+            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "race_system/humanoid"));
     public static final TagKey<EntityType<?>> RACE_UNDEAD =
             TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "race_system/undead"));
     public static final TagKey<EntityType<?>> RACE_BRUTE =
@@ -95,5 +101,7 @@ public class PotatoTags {
             TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "race_system/amorph"));
     public static final TagKey<EntityType<?>> RACE_DRAGON =
             TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "race_system/dragon"));
+    public static final TagKey<EntityType<?>> RACE_DRAGONBORN =
+            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "race_system/dragonborn"));
 
 }
