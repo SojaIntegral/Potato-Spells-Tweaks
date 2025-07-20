@@ -37,16 +37,65 @@ public class MobInteractionScreen extends Screen {
     private final double crit;
     private final double armorPierce;
     private final double protPierce;
+    private final boolean schoolFire; private final boolean schoolIce; private final boolean schoolHoly; private final boolean schoolNature; private final boolean schoolEvoke;
+    private final boolean schoolBlood; private final boolean schoolEnder; private final boolean schoolLightning; private final boolean schoolEldritch;
+    private final boolean schoolAbyss; private final boolean schoolTechno; private final boolean schoolBlade; private final boolean schoolMind;
+    private final boolean schoolSound; private final boolean schoolWind; private final boolean schoolSym; private final boolean schoolSoul; private final boolean schoolDune; private final boolean schoolAqua;
 
     private static final ResourceLocation BACKGROUND_TEXTURE =
             ResourceLocation.fromNamespaceAndPath("potatospellbookstweaks", "textures/gui/background.png");
     private static final ResourceLocation OVERLAY_TEXTURE =
             ResourceLocation.fromNamespaceAndPath("potatospellbookstweaks", "textures/gui/identify_gui.png");
 
+    private static final ResourceLocation FIRE_ICON =
+            ResourceLocation.fromNamespaceAndPath("potatospellbookstweaks", "textures/gui/fire_icon.png");
+    private static final ResourceLocation ICE_ICON =
+            ResourceLocation.fromNamespaceAndPath("potatospellbookstweaks", "textures/gui/ice_icon.png");
+    private static final ResourceLocation HOLY_ICON =
+            ResourceLocation.fromNamespaceAndPath("potatospellbookstweaks", "textures/gui/holy_icon.png");
+    private static final ResourceLocation NATURE_ICON =
+            ResourceLocation.fromNamespaceAndPath("potatospellbookstweaks", "textures/gui/nature_icon.png");
+    private static final ResourceLocation EVOKE_ICON =
+            ResourceLocation.fromNamespaceAndPath("potatospellbookstweaks", "textures/gui/evokation_icon.png");
+    private static final ResourceLocation BLOOD_ICON =
+            ResourceLocation.fromNamespaceAndPath("potatospellbookstweaks", "textures/gui/blood_icon.png");
+    private static final ResourceLocation ENDER_ICON =
+            ResourceLocation.fromNamespaceAndPath("potatospellbookstweaks", "textures/gui/ender_icon.png");
+    private static final ResourceLocation LIGHTNING_ICON =
+            ResourceLocation.fromNamespaceAndPath("potatospellbookstweaks", "textures/gui/lightning_icon.png");
+    private static final ResourceLocation ELDRITCH_ICON =
+            ResourceLocation.fromNamespaceAndPath("potatospellbookstweaks", "textures/gui/eldritch_icon.png");
+    private static final ResourceLocation ABYSS_ICON =
+            ResourceLocation.fromNamespaceAndPath("potatospellbookstweaks", "textures/gui/abyss_icon.png");
+    private static final ResourceLocation TECHNO_ICON =
+            ResourceLocation.fromNamespaceAndPath("potatospellbookstweaks", "textures/gui/technomancy_icon.png");
+    private static final ResourceLocation BLADE_ICON =
+            ResourceLocation.fromNamespaceAndPath("potatospellbookstweaks", "textures/gui/blade_icon.png");
+    private static final ResourceLocation MIND_ICON =
+            ResourceLocation.fromNamespaceAndPath("potatospellbookstweaks", "textures/gui/mind_icon.png");
+    private static final ResourceLocation SOUND_ICON =
+            ResourceLocation.fromNamespaceAndPath("potatospellbookstweaks", "textures/gui/sound_icon.png");
+    private static final ResourceLocation WIND_ICON =
+            ResourceLocation.fromNamespaceAndPath("potatospellbookstweaks", "textures/gui/wind_icon.png");
+    private static final ResourceLocation SYMMETRY_ICON =
+            ResourceLocation.fromNamespaceAndPath("potatospellbookstweaks", "textures/gui/symmetry_icon.png");
+    private static final ResourceLocation SOUL_ICON =
+            ResourceLocation.fromNamespaceAndPath("potatospellbookstweaks", "textures/gui/soul_icon.png");
+    private static final ResourceLocation DUNE_ICON =
+            ResourceLocation.fromNamespaceAndPath("potatospellbookstweaks", "textures/gui/dune_icon.png");
+    private static final ResourceLocation AQUA_ICON =
+            ResourceLocation.fromNamespaceAndPath("potatospellbookstweaks", "textures/gui/aqua_icon.png");
+
     public MobInteractionScreen(String entityName, LivingEntity entity,
                                 float health, double armor, double attack,
                                 double mana, double resist, double power, double cast,
-                                double crit, double armorPierce, double protPierce) {
+                                double crit, double armorPierce, double protPierce, boolean schoolFire, boolean schoolIce,
+                                boolean schoolHoly, boolean schoolNature, boolean schoolEvoke,
+                                boolean schoolBlood, boolean schoolEnder, boolean schoolLightning, boolean schoolEldritch,
+                                boolean schoolAbyss, boolean schoolTechno, boolean schoolBlade, boolean schoolMind,
+                                boolean schoolSound, boolean schoolWind, boolean schoolSym, boolean schoolSoul,
+                                boolean schoolDune, boolean schoolAqua) {
+
         super(Component.literal(""));
         this.entityName = entityName;
         this.entity = entity;
@@ -60,6 +109,26 @@ public class MobInteractionScreen extends Screen {
         this.crit = crit;
         this.armorPierce = armorPierce;
         this.protPierce = protPierce;
+
+        this.schoolFire = schoolFire;
+        this.schoolIce = schoolIce;
+        this.schoolHoly = schoolHoly;
+        this.schoolNature = schoolNature;
+        this.schoolEvoke = schoolEvoke;
+        this.schoolBlood = schoolBlood;
+        this.schoolEnder = schoolEnder;
+        this.schoolLightning = schoolLightning;
+        this.schoolEldritch = schoolEldritch;
+        this.schoolAbyss = schoolAbyss;
+        this.schoolTechno = schoolTechno;
+        this.schoolBlade = schoolBlade;
+        this.schoolMind = schoolMind;
+        this.schoolSound = schoolSound;
+        this.schoolWind = schoolWind;
+        this.schoolSym = schoolSym;
+        this.schoolSoul = schoolSoul;
+        this.schoolDune = schoolDune;
+        this.schoolAqua = schoolAqua;
     }
 
     @Override
@@ -82,7 +151,6 @@ public class MobInteractionScreen extends Screen {
         // Call super first to render buttons (no buttons atm)
         super.render(graphics, mouseX, mouseY, partialTicks);
 
-        // Render entity
         int entityX = guiLeft + 36;
         int entityY = guiTop + 80;
 
@@ -107,6 +175,7 @@ public class MobInteractionScreen extends Screen {
         entity.yHeadRot = 0f;
         entity.yBodyRot = 0f;
 
+        // Renders the entity in the GUI
         InventoryScreen.renderEntityInInventory(
                 graphics,
                 entityX,
@@ -129,11 +198,12 @@ public class MobInteractionScreen extends Screen {
         graphics.setColor(1f, 1f, 1f, 1f);
         RenderSystem.setShaderColor(1f, 1f, 1f, 1f);
         RenderSystem.setShaderTexture(0, OVERLAY_TEXTURE);
+        RenderSystem.setShaderTexture(0, FIRE_ICON);
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
 
         Minecraft.getInstance().getTextureManager().getTexture(OVERLAY_TEXTURE).setFilter(false, false);
 
-        // Redraw over the background + entity
+        // Redraw over the background
         graphics.blit(OVERLAY_TEXTURE, guiLeft, guiTop, 0, 0, GUI_WIDTH, GUI_HEIGHT);
         RenderSystem.disableBlend();
 
@@ -193,8 +263,8 @@ public class MobInteractionScreen extends Screen {
         else {
             graphics.drawString(this.font, Component.literal(String.format("%.1f", (health / 1000))+"k"), drawX, drawY, 0xFFAAAA);
         }
-        graphics.drawString(this.font, Component.literal(String.format("%.1f", armor)), drawX, drawY + 16, 0xFFAAAA);
-        graphics.drawString(this.font, Component.literal(String.format("%.1f", attack)), drawX, drawY + 32, 0xFFAAAA);
+        graphics.drawString(this.font, Component.literal(String.format("%.0f", armor)), drawX, drawY + 16, 0xFFAAAA);
+        graphics.drawString(this.font, Component.literal(String.format("%.0f", attack)), drawX, drawY + 32, 0xFFAAAA);
         if(mana < 1000) {
             graphics.drawString(this.font, Component.literal(String.format("%.0f", mana)), drawX + 38, drawY, 0xFFAAAA);
         }
@@ -202,7 +272,7 @@ public class MobInteractionScreen extends Screen {
             graphics.drawString(this.font, Component.literal(String.format("%.1f", (mana / 1000))+"k"), drawX + 38, drawY, 0xFFAAAA);
         }
         graphics.drawString(this.font, Component.literal(String.format("%.0f", (resistParse - 1) * 100)+"%"), drawX + 38, drawY + 16, 0xFFAAAA);
-        graphics.drawString(this.font, Component.literal(String.format("%.1f", power)), drawX + 38, drawY + 32, 0xFFAAAA);
+        graphics.drawString(this.font, Component.literal(String.format("%.0f", ((power - 1) * 100))+"%"), drawX + 38, drawY + 32, 0xFFAAAA);
         graphics.pose().popPose();
 
         float scaledMouseX = mouseX / textScale;
@@ -211,5 +281,20 @@ public class MobInteractionScreen extends Screen {
         if (scaledMouseX >= drawX - 17 && scaledMouseX <= drawX - 2 && scaledMouseY >= drawY - 3 && scaledMouseY <= drawY + 10) {
             graphics.renderTooltip(font, Component.literal("Maximum Health"), mouseX, mouseY);
         }
+
+        RenderSystem.enableBlend();
+        RenderSystem.defaultBlendFunc();
+        graphics.setColor(1f, 1f, 1f, 1f);
+        RenderSystem.setShaderColor(1f, 1f, 1f, 1f);
+        RenderSystem.setShaderTexture(0, OVERLAY_TEXTURE);
+        RenderSystem.setShaderTexture(0, FIRE_ICON);
+        RenderSystem.setShader(GameRenderer::getPositionTexShader);
+        if(schoolFire) {
+            graphics.blit(FIRE_ICON, guiLeft, guiTop, 0, 0, GUI_WIDTH, GUI_HEIGHT);
+            if (mouseX >= guiLeft + 9 && mouseX <= guiLeft + 25 && mouseY >= guiTop + 8 && mouseY <= guiTop + 24) {
+                graphics.renderTooltip(font, Component.literal("Fire Type"), mouseX, mouseY);
+            }
+        }
+        RenderSystem.disableBlend();
     }
 }
