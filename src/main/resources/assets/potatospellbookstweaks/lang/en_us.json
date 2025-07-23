@@ -1,0 +1,9 @@
+{
+  "item.potatospellbookstweaks.mob_identifier": "Mob Identifier",
+  "item.potatospellbookstweaks.miracle_crystal": "Miracle Crystal",
+  "item.potatospellbookstweaks.mood_crystal": "Moody Crystal",
+  "attribute.potatospellbookstweaks.identify_attributes": "Attribute Identification",
+  "creative_tab.potatospellbookstweaks.items": "Potato Tweaks",
+  "key.categories.potatospellbookstweaks": "Potato Spells Tweaks",
+  "key.potatospellbookstweaks.open_entity_screen": "Identify Mob"
+}

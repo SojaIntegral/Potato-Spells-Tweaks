@@ -175,10 +175,10 @@ dependencies {
     localRuntime "io.redspace:irons_spellbooks:${irons_spells_version}"
 
     // Alshanex's Familiars
-    implementation "curse.maven:alshanexs-familiars-1171602:6539981"
+    compileOnly "curse.maven:alshanexs-familiars-1171602:6539981"
 
     // Aeromancy
-    implementation "curse.maven:snackpirates-aeromancy-additions-1160104:6566417"
+    compileOnly "curse.maven:snackpirates-aeromancy-additions-1160104:6566417"
     implementation "curse.maven:expandability-465066:5428824"
 
     // Discerning the Eldritch

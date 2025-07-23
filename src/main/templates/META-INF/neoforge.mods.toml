@@ -23,7 +23,7 @@ license="All Rights Reserved"
 modId="potatospellbookstweaks" #mandatory
 
 # The version number of the mod
-version="1.6.0-BETA" #mandatory
+version="1.6.1" #mandatory
 
 # A display name for the mod
 displayName="Potato Spells Tweaks" #mandatory
@@ -88,21 +88,21 @@ side="BOTH"
 modId="irons_spellbooks"
 type="required"
 versionRange="[1.21.1-3.13.1,)"
-ordering="BEFORE"
+ordering="NONE"
 side="BOTH"
 
 [[dependencies.potatospellbookstweaks]]
 modId="apothic_attributes"
 type="required"
 versionRange="[1.21.1-2.9.0,)"
-ordering="BEFORE"
+ordering="NONE"
 side="BOTH"
 
 [[dependencies.potatospellbookstweaks]]
 modId="aces_spell_utils"
 type="required"
 versionRange="[1.1.2-1.21.1,)"
-ordering="BEFORE"
+ordering="NONE"
 side="BOTH"
 
 # Features are specific properties of the game environment, that you may want to declare you require. This example declares

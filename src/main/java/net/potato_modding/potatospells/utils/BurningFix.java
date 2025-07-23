@@ -6,6 +6,7 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.living.MobEffectEvent;
+import net.potato_modding.potatospells.tags.PotatoTags;
 
 import java.util.Objects;
 
@@ -19,21 +20,8 @@ public class BurningFix {
     @SubscribeEvent
     public static void fireResistanceDoesNotBurn(MobEffectEvent.Added event) {
         var mob = event.getEntity();
-        if (event.getEffectInstance().getEffect().equals(MobEffects.FIRE_RESISTANCE)) {
-            setIfNonNull(mob, 0);
-            event.getEntity().clearFire();
-        }
-    }
-
-    @SubscribeEvent
-    public static void fireResistanceBurnRemove(MobEffectEvent.Remove event) {
-        var mob = event.getEntity();
-        double burn = Objects.requireNonNull(mob.getAttribute(Attributes.BURNING_TIME)).getValue();
-        assert event.getEffectInstance() != null;
-        if (event.getEffectInstance().getEffect().equals(MobEffects.FIRE_RESISTANCE)) {
-            if (!mob.fireImmune()) {
-                setIfNonNull(mob, 1);
-            } else if ((mob.fireImmune()) && burn > 0) {
+        if (mob.getType().is(PotatoTags.PLAYER)) {
+            if (event.getEffectInstance().getEffect().equals(MobEffects.FIRE_RESISTANCE) && mob.isOnFire()) {
                 setIfNonNull(mob, 0);
                 event.getEntity().clearFire();
             }
@@ -41,16 +29,35 @@ public class BurningFix {
     }
 
     @SubscribeEvent
+    public static void fireResistanceBurnRemove(MobEffectEvent.Remove event) {
+        var mob = event.getEntity();
+        if (mob.getType().is(PotatoTags.PLAYER)) {
+            double burn = Objects.requireNonNull(mob.getAttribute(Attributes.BURNING_TIME)).getValue();
+            assert event.getEffectInstance() != null;
+            if (event.getEffectInstance().getEffect().equals(MobEffects.FIRE_RESISTANCE)) {
+                if (!mob.fireImmune()) {
+                    setIfNonNull(mob, 1);
+                } else if ((mob.fireImmune()) && burn > 0 && mob.isOnFire()) {
+                    setIfNonNull(mob, 0);
+                    event.getEntity().clearFire();
+                }
+            }
+        }
+    }
+
+    @SubscribeEvent
     public static void fireResistanceBurnExpire(MobEffectEvent.Expired event) {
         var mob = event.getEntity();
-        double burn = Objects.requireNonNull(mob.getAttribute(Attributes.BURNING_TIME)).getValue();
-        assert event.getEffectInstance() != null;
-        if (event.getEffectInstance().getEffect().equals(MobEffects.FIRE_RESISTANCE)) {
-            if (!mob.fireImmune()) {
-                setIfNonNull(mob, 1);
-            } else if ((mob.fireImmune()) && burn > 0) {
-                setIfNonNull(mob, 0);
-                event.getEntity().clearFire();
+        if (mob.getType().is(PotatoTags.PLAYER)) {
+            double burn = Objects.requireNonNull(mob.getAttribute(Attributes.BURNING_TIME)).getValue();
+            assert event.getEffectInstance() != null;
+            if (event.getEffectInstance().getEffect().equals(MobEffects.FIRE_RESISTANCE)) {
+                if (!mob.fireImmune()) {
+                    setIfNonNull(mob, 1);
+                } else if ((mob.fireImmune()) && burn > 0 && mob.isOnFire()) {
+                    setIfNonNull(mob, 0);
+                    event.getEntity().clearFire();
+                }
             }
         }
     }

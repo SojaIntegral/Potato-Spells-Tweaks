@@ -3,7 +3,6 @@ package net.potato_modding.potatospells.resistances.core;
 import dev.shadowsoffire.apothic_attributes.api.ALObjects;
 import io.redspace.ironsspellbooks.api.registry.AttributeRegistry;
 import net.minecraft.core.Holder;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
@@ -14,11 +13,14 @@ import net.neoforged.fml.ModList;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
 import net.potato_modding.potatospells.config.ServerConfigs;
+import net.potato_modding.potatospells.registry.PotatoAttributes;
 import net.potato_modding.potatospells.tags.PotatoTags;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Arrays;
+import java.util.List;
+import java.util.Set;
 import java.util.concurrent.ThreadLocalRandom;
 
 import static net.potato_modding.potatospells.utils.ConfigFormulas.*;
@@ -26,6 +28,26 @@ import static net.potato_modding.potatospells.utils.ConfigFormulas.*;
 @SuppressWarnings("unused")
 @EventBusSubscriber
 public class MainAttributeHandler {
+
+    public static void removeDanglingModifiers(LivingEntity entity) {
+        // Set of modifier IDs that should NOT be removed
+        Set<ResourceLocation> reset = Set.of(
+                ResourceLocation.fromNamespaceAndPath("potatospellbookstweaks", "example_modifier"),
+                ResourceLocation.fromNamespaceAndPath("potatospellbookstweaks", "another_allowed_modifier")
+        );
+
+        for (var instance : entity.getAttributes().getSyncableAttributes()) {
+            List<AttributeModifier> toRemove = instance.getModifiers().stream()
+                    .filter(mod -> mod.id().getNamespace().equals("potatospellbookstweaks"))
+                    .filter(mod -> reset.contains(mod.id()))
+                    .toList();
+
+            for (AttributeModifier modifier : toRemove) {
+                instance.removeModifier(modifier.id());
+            }
+        }
+    }
+
 
     // Add modifier (base)
     private static void addModifierIfValid(LivingEntity entity, Holder<Attribute> attribute, double value, String idName) {
@@ -54,7 +76,7 @@ public class MainAttributeHandler {
     }
 
     private static boolean shinyAttribute() {
-        return ThreadLocalRandom.current().nextInt(4096) == 0;
+        return ThreadLocalRandom.current().nextInt(ServerConfigs.SHINY_CHANCE.get()) == 0;
     }
 
     @SubscribeEvent(priority = net.neoforged.bus.api.EventPriority.LOWEST)
@@ -63,72 +85,109 @@ public class MainAttributeHandler {
         if (!(entity instanceof LivingEntity mob)) return;
 
         // Grabs an attribute and checks if the mob has a modifier
-        var instance = mob.getAttributes().getInstance(ALObjects.Attributes.ARMOR_PIERCE);
-        assert instance != null;
+        var instance = mob.getAttributes().getInstance(PotatoAttributes.SHINY);
+        if (instance == null) return;
         ResourceLocation modCheck = ResourceLocation.fromNamespaceAndPath("potatospellbookstweaks", "normal");
-        boolean noModifiers = instance.getModifiers().stream().noneMatch(mod -> mod.id().equals(modCheck));
-        // If the
         ResourceLocation shinyCheck = ResourceLocation.fromNamespaceAndPath("potatospellbookstweaks", "shiny");
-        boolean noReroll = instance.getModifiers().stream().noneMatch(mod -> mod.id().equals(shinyCheck));
+        // If the mob is shiny, it won't have this modifier
+        boolean alreadyShiny = instance.getModifiers().stream().anyMatch(mod -> mod.id().equals(shinyCheck));
+        // If the mob is shiny, it won't have this modifier
+        boolean canReroll = instance.getModifiers().stream().noneMatch(mod -> mod.id().equals(modCheck));
+
+        // IVs variation setup
+        boolean isShiny = false;
+        double[] attrVar = new double[10];
+        // Chance for shiny & prevents shinies from losing perfect IVs
+        if ((ServerConfigs.SHINY.get() && shinyAttribute()) || alreadyShiny) {
+            Arrays.fill(attrVar, 1 * randMax);
+            isShiny = true;
+        }
+        // Adds + 0~15% to Familiars' attributes & can be rerolled
+        // I should be able to copy this code over and make so non-shinies are rerolled
+        else if ((ServerConfigs.SHINY.get() && !shinyAttribute()) || canReroll) {
+            for (int i = 0; i < attrVar.length; i++) {
+                attrVar[i] = Math.random() * randMax;
+            }
+        } else if (!ServerConfigs.SHINY.get() || mob.getType().is(PotatoTags.PLAYER)) {
+            Arrays.fill(attrVar, 0);
+        }
 
         // Checks if the mob has a valid modifier from here
         // If not, it gives the mob modifiers
-        if (mob.getType().is(PotatoTags.MOB_ENABLED) && noModifiers) {
+        if (mob.getType().is(PotatoTags.MOB_ENABLED) && canReroll && !alreadyShiny) {
 
-            if(ServerConfigs.FAMILIAR_NATURE.get() && mob.getType().is(PotatoTags.HAS_NATURE)) {
+            if (ServerConfigs.FAMILIAR_NATURE.get() && mob.getType().is(PotatoTags.HAS_NATURE)) {
                 PotatoNaturesHandler.applySpawnModifiers(mob);
             }
 
-            // IVs variation setup
-            boolean isShiny = false;
-            double[] attrVar = new double[10];
-            // Chance for shiny & prevents shinies from losing perfect IVs
-            if((ServerConfigs.SHINY.get() && shinyAttribute()) || noReroll) {
-                Arrays.fill(attrVar, 1 * randMax);
-                isShiny = true;
-            }
-            // Adds + 0~15% to Familiars' attributes & can be rerolled
-            // I should be able to copy this code over and make so non-shinies are rerolled
-            else {
-                for (int i = 0; i < attrVar.length; i++) {
-                    attrVar[i] = Math.random() * randMax;
-                }
-            }
-
             // Class modifier
-            if(mob.getType().is(PotatoTags.BOSS)) {
+            if (mob.getType().is(PotatoTags.BOSS)) {
                 mobType = boss_mod;
                 ArmorMod = boss_mod * (3 * (1 + attrVar[0]));
-                ToughMod = boss_mod * ( 2 * (1 + attrVar[1]));
-                AttackMod = boss_mod * ( 2 * (1 + attrVar[1]));
+                ToughMod = boss_mod * (2 * (1 + attrVar[1]));
+                AttackMod = boss_mod * (2 * (1 + attrVar[1]));
             }
-            if(mob.getType().is(PotatoTags.MINIBOSS)) {
-                mobType =  mini_mod;
-                ArmorMod = mini_mod * ( 1.5 * (1 + attrVar[0]));
-                ToughMod = mini_mod * ( 1.5 * (1 + attrVar[1]));
-                AttackMod = mini_mod * ( 1 * (1 + attrVar[1]));
+            if (mob.getType().is(PotatoTags.MINIBOSS)) {
+                mobType = mini_mod;
+                ArmorMod = mini_mod * (1.5 * (1 + attrVar[0]));
+                ToughMod = mini_mod * (1.5 * (1 + attrVar[1]));
+                AttackMod = mini_mod * (1 * (1 + attrVar[1]));
             }
-            if(mob.getType().is(PotatoTags.NORMAL)) {
+            if (mob.getType().is(PotatoTags.NORMAL)) {
                 mobType = mob_mod;
-                ArmorMod = mob_mod * ( 0.5 * (1 + attrVar[0]));
-                ToughMod = mob_mod * ( 0.5 * (1 + attrVar[1]));
-                AttackMod = mob_mod * ( 0.5 * (1 + attrVar[1]));
+                ArmorMod = mob_mod * (0.75 * (1 + attrVar[0]));
+                ToughMod = mob_mod * (0.5 * (1 + attrVar[1]));
+                AttackMod = mob_mod * (0.65 * (1 + attrVar[1]));
             }
-            if(mob.getType().is(PotatoTags.SUMMON)) {
+            if (mob.getType().is(PotatoTags.SUMMON)) {
                 mobType = summon_mod;
-                ArmorMod = summon_mod * ( 1 * (1 + attrVar[0]));
-                ToughMod = summon_mod * ( 0.5 * (1 + attrVar[1]));
-                AttackMod = summon_mod * ( 0.5 * (1 + attrVar[1]));
+                ArmorMod = summon_mod * (1 * (1 + attrVar[0]));
+                ToughMod = summon_mod * (0.5 * (1 + attrVar[1]));
+                AttackMod = summon_mod * (0.5 * (1 + attrVar[1]));
             }
-            if(mob.getType().is(PotatoTags.PLAYER)) {
+            if (mob.getType().is(PotatoTags.PLAYER)) {
                 mobType = 1;
                 ArmorMod = 1;
                 ToughMod = 1;
                 AttackMod = 1;
             }
 
+            if (mob.getType().is(PotatoTags.RACE_PLAYER)) {
+                Attack = 0 * AttackMod;
+                Armor = 0 * ArmorMod;
+                Tough = 0 * ToughMod;
+                SpellPower = 1;
+                CastReduction = 1;
+                Resist = 1;
+                FireRes = 1;
+                IceRes = 1;
+                HolyRes = 1;
+                NatRes = 1;
+                EvokeRes = 1;
+                BloodRes = 1;
+                EndRes = 1;
+                LigRes = 1;
+                EldRes = 1;
+                AbyssRes = 1;
+                TechRes = 1;
+                BladeRes = 1;
+                MindRes = 1;
+                SoundRes = 1;
+                WindRes = 1;
+                SymRes = 1;
+                SpiritRes = 1;
+                DuneRes = 1;
+                AquaRes = 1;
+                ArmorPierce = 0;
+                ArmorShred = 0;
+                ProtPierce = 0;
+                ProtShred = 0;
+                CritDmg = 0;
+                Crit = 0;
+            }
+
             // Type Modifiers
-            if(mob.getType().is(PotatoTags.RACE_HUMAN)) {
+            if (mob.getType().is(PotatoTags.RACE_HUMAN)) {
                 Attack = 0 * AttackMod;
                 Armor = 0 * ArmorMod;
                 Tough = 0 * ToughMod;
@@ -158,10 +217,10 @@ public class MainAttributeHandler {
                 ArmorShred = 0.05 * (1 + attrVar[5]);
                 ProtPierce = 0.5 * (1 + attrVar[6]);
                 ProtShred = 0.05 * (1 + attrVar[6]);
-                CritDmg = 1.5 + attrVar[7];
-                Crit = 0.05 + attrVar[7];
+                CritDmg = attrVar[7] - 0.05;
+                Crit = attrVar[7] - 0.025;
             }
-            if(mob.getType().is(PotatoTags.RACE_UNDEAD)) {
+            if (mob.getType().is(PotatoTags.RACE_UNDEAD)) {
                 Attack = 1.5 * AttackMod;
                 Armor = 2.5 * ArmorMod;
                 Tough = 1.5 * ToughMod;
@@ -191,10 +250,10 @@ public class MainAttributeHandler {
                 ArmorShred = 0.15 * (1 + attrVar[5]);
                 ProtPierce = 2 * (1 + attrVar[6]);
                 ProtShred = 0.1 * (1 + attrVar[6]);
-                CritDmg = 1.35 + attrVar[7];
-                Crit = 0.15 + attrVar[7];
+                CritDmg = attrVar[7] - 0.15;
+                Crit = attrVar[7];
             }
-            if(mob.getType().is(PotatoTags.RACE_HUMANOID)) {
+            if (mob.getType().is(PotatoTags.RACE_HUMANOID)) {
                 Attack = 2 * AttackMod;
                 Armor = 2 * ArmorMod;
                 Tough = 2 * ToughMod;
@@ -224,10 +283,10 @@ public class MainAttributeHandler {
                 ArmorShred = 0.2 * (1 + attrVar[5]);
                 ProtPierce = 1.5 * (1 + attrVar[6]);
                 ProtShred = 0.1 * (1 + attrVar[6]);
-                CritDmg = 1.5 + attrVar[7];
-                Crit = 0.2 + attrVar[7];
+                CritDmg = attrVar[7];
+                Crit = attrVar[7] - 0.05;
             }
-            if(mob.getType().is(PotatoTags.RACE_BRUTE)) {
+            if (mob.getType().is(PotatoTags.RACE_BRUTE)) {
                 Attack = 3 * AttackMod;
                 Armor = 3 * ArmorMod;
                 Tough = 3 * ToughMod;
@@ -257,10 +316,10 @@ public class MainAttributeHandler {
                 ArmorShred = 0.1 * (1 + attrVar[5]);
                 ProtPierce = 1 * (1 + attrVar[6]);
                 ProtShred = 1.5 * (1 + attrVar[6]);
-                CritDmg = 1.4 + attrVar[7];
-                Crit = 0.25 + attrVar[7];
+                CritDmg = attrVar[7] - 0.15;
+                Crit = attrVar[7] + 0.05;
             }
-            if(mob.getType().is(PotatoTags.RACE_INSECT)) {
+            if (mob.getType().is(PotatoTags.RACE_INSECT)) {
                 Attack = 1 * AttackMod;
                 Armor = 1 * ArmorMod;
                 Tough = 2 * ToughMod;
@@ -290,10 +349,10 @@ public class MainAttributeHandler {
                 ArmorShred = 0.25 * (1 + attrVar[5]);
                 ProtPierce = 1 * (1 + attrVar[6]);
                 ProtShred = 0.15 * (1 + attrVar[6]);
-                CritDmg = 1.4 + attrVar[7];
-                Crit = 0.25 + attrVar[7];
+                CritDmg = attrVar[7] - 0.35;
+                Crit = attrVar[7] + 0.25;
             }
-            if(mob.getType().is(PotatoTags.RACE_FLYING)) {
+            if (mob.getType().is(PotatoTags.RACE_FLYING)) {
                 Attack = 1.5 * AttackMod;
                 Armor = 1 * ArmorMod;
                 Tough = 0 * ToughMod;
@@ -323,10 +382,10 @@ public class MainAttributeHandler {
                 ArmorShred = 0.1 * (1 + attrVar[5]);
                 ProtPierce = 1 * (1 + attrVar[6]);
                 ProtShred = 0.1 * (1 + attrVar[6]);
-                CritDmg = 1.35 + attrVar[7];
-                Crit = 0.4 + attrVar[7];
+                CritDmg = attrVar[7] - 0.25;
+                Crit = attrVar[7] + 0.35;
             }
-            if(mob.getType().is(PotatoTags.RACE_GOLEM)) {
+            if (mob.getType().is(PotatoTags.RACE_GOLEM)) {
                 Attack = 3.5 * AttackMod;
                 Armor = 5 * ArmorMod;
                 Tough = 5 * ToughMod;
@@ -356,10 +415,10 @@ public class MainAttributeHandler {
                 ArmorShred = 0.15 * (1 + attrVar[5]);
                 ProtPierce = 1 * (1 + attrVar[6]);
                 ProtShred = 0.15 * (1 + attrVar[6]);
-                CritDmg = 1.6 + attrVar[7];
-                Crit = 0.1 + attrVar[7];
+                CritDmg = attrVar[7] + 0.15;
+                Crit = attrVar[7] - 0.1;
             }
-            if(mob.getType().is(PotatoTags.RACE_CONSTRUCT)) {
+            if (mob.getType().is(PotatoTags.RACE_CONSTRUCT)) {
                 Attack = 4 * AttackMod;
                 Armor = 4 * ArmorMod;
                 Tough = 5 * ToughMod;
@@ -389,10 +448,10 @@ public class MainAttributeHandler {
                 ArmorShred = 0.2 * (1 + attrVar[5]);
                 ProtPierce = 2 * (1 + attrVar[6]);
                 ProtShred = 0.2 * (1 + attrVar[6]);
-                CritDmg = 1.25 + attrVar[7];
-                Crit = 1 + attrVar[7];
+                CritDmg = attrVar[7] - 0.3;
+                Crit = attrVar[7] + 1;
             }
-            if(mob.getType().is(PotatoTags.RACE_FISH)) {
+            if (mob.getType().is(PotatoTags.RACE_FISH)) {
                 Attack = 2 * AttackMod;
                 Armor = 3 * ArmorMod;
                 Tough = 1.5 * ToughMod;
@@ -422,10 +481,10 @@ public class MainAttributeHandler {
                 ArmorShred = 0.15 * (1 + attrVar[5]);
                 ProtPierce = 1.5 * (1 + attrVar[6]);
                 ProtShred = 0.15 * (1 + attrVar[6]);
-                CritDmg = 1.45 + attrVar[7];
-                Crit = 0.15 + attrVar[7];
+                CritDmg = attrVar[7] - 0.075;
+                Crit = attrVar[7] - 0.05;
             }
-            if(mob.getType().is(PotatoTags.RACE_SPIRIT)) {
+            if (mob.getType().is(PotatoTags.RACE_SPIRIT)) {
                 Attack = 1 * AttackMod;
                 Armor = 0 * ArmorMod;
                 Tough = 0 * ToughMod;
@@ -455,10 +514,10 @@ public class MainAttributeHandler {
                 ArmorShred = 0.25 * (1 + attrVar[5]);
                 ProtPierce = 3 * (1 + attrVar[6]);
                 ProtShred = 0.25 * (1 + attrVar[6]);
-                CritDmg = 1.155 + attrVar[7];
-                Crit = 0.1 + attrVar[7];
+                CritDmg = attrVar[7] - 0.4;
+                Crit = attrVar[7] - 0.1;
             }
-            if(mob.getType().is(PotatoTags.RACE_AMORPH)) {
+            if (mob.getType().is(PotatoTags.RACE_AMORPH)) {
                 Attack = 2.5 * AttackMod;
                 Armor = 2.5 * ArmorMod;
                 Tough = 2.5 * ToughMod;
@@ -488,10 +547,10 @@ public class MainAttributeHandler {
                 ArmorShred = 0.1 * (1 + attrVar[5]);
                 ProtPierce = 2 * (1 + attrVar[6]);
                 ProtShred = 0.15 * (1 + attrVar[6]);
-                CritDmg = 1.55 + attrVar[7];
-                Crit = 0.2 + attrVar[7];
+                CritDmg = attrVar[7] + 0.05;
+                Crit = attrVar[7] + 0.1;
             }
-            if(mob.getType().is(PotatoTags.RACE_DRAGONBORN)) {
+            if (mob.getType().is(PotatoTags.RACE_DRAGONBORN)) {
                 Attack = 1 * AttackMod;
                 Armor = 2 * ArmorMod;
                 Tough = 1 * ToughMod;
@@ -521,10 +580,10 @@ public class MainAttributeHandler {
                 ArmorShred = 0 * (1 + attrVar[5]);
                 ProtPierce = 0 * (1 + attrVar[6]);
                 ProtShred = 0 * (1 + attrVar[6]);
-                CritDmg = 1.3 + attrVar[7];
-                Crit = 0 + attrVar[7];
+                CritDmg = attrVar[7] - 0.2;
+                Crit = attrVar[7] - 0.15;
             }
-            if(mob.getType().is(PotatoTags.RACE_DRAGON)) {
+            if (mob.getType().is(PotatoTags.RACE_DRAGON)) {
                 Attack = 5 * AttackMod;
                 Armor = 5 * ArmorMod;
                 Tough = 5 * ToughMod;
@@ -554,12 +613,12 @@ public class MainAttributeHandler {
                 ArmorShred = 0 * (1 + attrVar[5]);
                 ProtPierce = 2 * (1 + attrVar[6]);
                 ProtShred = 0.2 * (1 + attrVar[6]);
-                CritDmg = 1.15 + attrVar[7];
-                Crit = 0.05 + attrVar[7];
+                CritDmg = attrVar[7] - 0.2;
+                Crit = attrVar[7] - 0.075;
             }
 
             // School Modifiers
-            if(mob.getType().is(PotatoTags.TYPE_BLOOD)) {
+            if (mob.getType().is(PotatoTags.TYPE_BLOOD)) {
                 FireRes *= 0.65 * mobType;
                 IceRes *= 1.155 * mobType;
                 HolyRes *= 0.65 * mobType;
@@ -580,7 +639,7 @@ public class MainAttributeHandler {
                 DuneRes *= 1.15 * mobType;
                 AquaRes *= 1.45 * mobType;
             }
-            if(mob.getType().is(PotatoTags.TYPE_ELDRITCH)) {
+            if (mob.getType().is(PotatoTags.TYPE_ELDRITCH)) {
                 FireRes *= 0.85 * mobType;
                 IceRes *= 1.15 * mobType;
                 HolyRes *= 0.65 * mobType;
@@ -601,7 +660,7 @@ public class MainAttributeHandler {
                 DuneRes *= 1.15 * mobType;
                 AquaRes *= 1.15 * mobType;
             }
-            if(mob.getType().is(PotatoTags.TYPE_ENDER)) {
+            if (mob.getType().is(PotatoTags.TYPE_ENDER)) {
                 FireRes *= 1 * mobType;
                 IceRes *= 1 * mobType;
                 HolyRes *= 0.85 * mobType;
@@ -622,7 +681,7 @@ public class MainAttributeHandler {
                 DuneRes *= 1.15 * mobType;
                 AquaRes *= 1 * mobType;
             }
-            if(mob.getType().is(PotatoTags.TYPE_EVOKATION)) {
+            if (mob.getType().is(PotatoTags.TYPE_EVOKATION)) {
                 FireRes *= 0.85 * mobType;
                 IceRes *= 1 * mobType;
                 HolyRes *= 0.85 * mobType;
@@ -643,7 +702,7 @@ public class MainAttributeHandler {
                 DuneRes *= 1.45 * mobType;
                 AquaRes *= 1 * mobType;
             }
-            if(mob.getType().is(PotatoTags.TYPE_FIRE)) {
+            if (mob.getType().is(PotatoTags.TYPE_FIRE)) {
                 FireRes *= 1.45 * mobType;
                 IceRes *= 1.15 * mobType;
                 HolyRes *= 0.85 * mobType;
@@ -664,7 +723,7 @@ public class MainAttributeHandler {
                 DuneRes *= 1.15 * mobType;
                 AquaRes *= 0.65 * mobType;
             }
-            if(mob.getType().is(PotatoTags.TYPE_HOLY)) {
+            if (mob.getType().is(PotatoTags.TYPE_HOLY)) {
                 FireRes *= 1.15 * mobType;
                 IceRes *= 1.15 * mobType;
                 HolyRes *= 1.45 * mobType;
@@ -685,7 +744,7 @@ public class MainAttributeHandler {
                 DuneRes *= 0.85 * mobType;
                 AquaRes *= 1.15 * mobType;
             }
-            if(mob.getType().is(PotatoTags.TYPE_ICE)) {
+            if (mob.getType().is(PotatoTags.TYPE_ICE)) {
                 FireRes *= 0.85 * mobType;
                 IceRes *= 1.45 * mobType;
                 HolyRes *= 0.85 * mobType;
@@ -706,7 +765,7 @@ public class MainAttributeHandler {
                 DuneRes *= 0.85 * mobType;
                 AquaRes *= 0.85 * mobType;
             }
-            if(mob.getType().is(PotatoTags.TYPE_LIGHTNING)) {
+            if (mob.getType().is(PotatoTags.TYPE_LIGHTNING)) {
                 FireRes *= 1.15 * mobType;
                 IceRes *= 1.45 * mobType;
                 HolyRes *= 1 * mobType;
@@ -727,7 +786,7 @@ public class MainAttributeHandler {
                 DuneRes *= 0.65 * mobType;
                 AquaRes *= 1.15 * mobType;
             }
-            if(mob.getType().is(PotatoTags.TYPE_NATURE)) {
+            if (mob.getType().is(PotatoTags.TYPE_NATURE)) {
                 FireRes *= 0.65 * mobType;
                 IceRes *= 1.15 * mobType;
                 HolyRes *= 1 * mobType;
@@ -748,7 +807,7 @@ public class MainAttributeHandler {
                 DuneRes *= 0.65 * mobType;
                 AquaRes *= 1.45 * mobType;
             }
-            if(mob.getType().is(PotatoTags.TYPE_WIND)) {
+            if (mob.getType().is(PotatoTags.TYPE_WIND)) {
                 FireRes *= 1.15 * mobType;
                 IceRes *= 0.65 * mobType;
                 HolyRes *= 1 * mobType;
@@ -769,7 +828,7 @@ public class MainAttributeHandler {
                 DuneRes *= 0.65 * mobType;
                 AquaRes *= 0.85 * mobType;
             }
-            if(mob.getType().is(PotatoTags.TYPE_ABYSS)) {
+            if (mob.getType().is(PotatoTags.TYPE_ABYSS)) {
                 FireRes *= 1.45 * mobType;
                 IceRes *= 1 * mobType;
                 HolyRes *= 1.15 * mobType;
@@ -790,7 +849,7 @@ public class MainAttributeHandler {
                 DuneRes *= 0.65 * mobType;
                 AquaRes *= 1.45 * mobType;
             }
-            if(mob.getType().is(PotatoTags.TYPE_TECHNOMANCY)) {
+            if (mob.getType().is(PotatoTags.TYPE_TECHNOMANCY)) {
                 FireRes *= 0.85 * mobType;
                 IceRes *= 1.15 * mobType;
                 HolyRes *= 1.45 * mobType;
@@ -811,7 +870,7 @@ public class MainAttributeHandler {
                 DuneRes *= 0.85 * mobType;
                 AquaRes *= 0.65 * mobType;
             }
-            if(mob.getType().is(PotatoTags.TYPE_BLADE)) {
+            if (mob.getType().is(PotatoTags.TYPE_BLADE)) {
                 FireRes *= 1 * mobType;
                 IceRes *= 1.15 * mobType;
                 HolyRes *= 1.15 * mobType;
@@ -832,7 +891,7 @@ public class MainAttributeHandler {
                 DuneRes *= 1.45 * mobType;
                 AquaRes *= 0.65 * mobType;
             }
-            if(mob.getType().is(PotatoTags.TYPE_MIND)) {
+            if (mob.getType().is(PotatoTags.TYPE_MIND)) {
                 FireRes *= 1.15 * mobType;
                 IceRes *= 1.15 * mobType;
                 HolyRes *= 1.45 * mobType;
@@ -853,7 +912,7 @@ public class MainAttributeHandler {
                 DuneRes *= 1.15 * mobType;
                 AquaRes *= 1.15 * mobType;
             }
-            if(mob.getType().is(PotatoTags.TYPE_SOUND)) {
+            if (mob.getType().is(PotatoTags.TYPE_SOUND)) {
                 FireRes *= 1 * mobType;
                 IceRes *= 0.85 * mobType;
                 HolyRes *= 1.45 * mobType;
@@ -866,7 +925,7 @@ public class MainAttributeHandler {
                 AbyssRes *= 0.65 * mobType;
                 TechRes *= 0.85 * mobType;
                 BladeRes *= 1.45 * mobType;
-                MindRes *=  0.85 * mobType;
+                MindRes *= 0.85 * mobType;
                 SoundRes *= 1.45 * mobType;
                 WindRes *= 0.85 * mobType;
                 SymRes *= 1 * mobType;
@@ -874,7 +933,7 @@ public class MainAttributeHandler {
                 DuneRes *= 1 * mobType;
                 AquaRes *= 0.65 * mobType;
             }
-            if(mob.getType().is(PotatoTags.TYPE_DUNE)) {
+            if (mob.getType().is(PotatoTags.TYPE_DUNE)) {
                 FireRes *= 1.15 * mobType;
                 IceRes *= 1.45 * mobType;
                 HolyRes *= 1.15 * mobType;
@@ -895,7 +954,7 @@ public class MainAttributeHandler {
                 DuneRes *= 1 * mobType;
                 AquaRes *= 0.65 * mobType;
             }
-            if(mob.getType().is(PotatoTags.TYPE_SOUL)) {
+            if (mob.getType().is(PotatoTags.TYPE_SOUL)) {
                 FireRes *= 1.15 * mobType;
                 IceRes *= 1.45 * mobType;
                 HolyRes *= 0.65 * mobType;
@@ -916,7 +975,7 @@ public class MainAttributeHandler {
                 DuneRes *= 0.85 * mobType;
                 AquaRes *= 1.15 * mobType;
             }
-            if(mob.getType().is(PotatoTags.TYPE_SYM)) {
+            if (mob.getType().is(PotatoTags.TYPE_SYM)) {
                 FireRes *= 1.15 * mobType;
                 IceRes *= 1.15 * mobType;
                 HolyRes *= 0.85 * mobType;
@@ -937,7 +996,7 @@ public class MainAttributeHandler {
                 DuneRes *= 1.15 * mobType;
                 AquaRes *= 1.15 * mobType;
             }
-            if(mob.getType().is(PotatoTags.TYPE_AQUA)) {
+            if (mob.getType().is(PotatoTags.TYPE_AQUA)) {
                 FireRes *= 1.45 * mobType;
                 IceRes *= 0.85 * mobType;
                 HolyRes *= 0.85 * mobType;
@@ -958,7 +1017,7 @@ public class MainAttributeHandler {
                 DuneRes *= 1.45 * mobType;
                 AquaRes *= 1.45 * mobType;
             }
-            if(mob.getType().is(PotatoTags.TYPE_NEUTRAL)) {
+            if (mob.getType().is(PotatoTags.TYPE_NEUTRAL)) {
                 FireRes *= 1 * mobType;
                 IceRes *= 1 * mobType;
                 HolyRes *= 1 * mobType;
@@ -983,12 +1042,12 @@ public class MainAttributeHandler {
             // Updates mob attributes after rounding it up to 2 decimals
             {
                 // Vanilla Attributes
-                if(isShiny && ServerConfigs.SHINY.get()) {
-                    addModifierIfValid(mob, Attributes.ATTACK_DAMAGE, BigDecimal.valueOf(Attack).setScale(2, RoundingMode.HALF_UP).doubleValue(), "shiny");
+                if (isShiny) {
+                    addModifierIfValid(mob, PotatoAttributes.SHINY, 0, "shiny");
+                } else {
+                    addModifierIfValid(mob, PotatoAttributes.SHINY, 0, "normal");
                 }
-                else {
-                    addModifierIfValid(mob, Attributes.ATTACK_DAMAGE, BigDecimal.valueOf(Attack).setScale(2, RoundingMode.HALF_UP).doubleValue(), "normal");
-                }
+                addModifierIfValid(mob, Attributes.ATTACK_DAMAGE, BigDecimal.valueOf(Attack).setScale(2, RoundingMode.HALF_UP).doubleValue(), "attack");
                 addModifierIfValid(mob, Attributes.ARMOR, BigDecimal.valueOf(Armor).setScale(2, RoundingMode.HALF_UP).doubleValue(), "armor");
                 addModifierIfValid(mob, Attributes.ARMOR_TOUGHNESS, BigDecimal.valueOf(Tough).setScale(2, RoundingMode.HALF_UP).doubleValue(), "toughness");
 
@@ -1016,7 +1075,7 @@ public class MainAttributeHandler {
                     //multiplyModifierIfValid(mob, net.acetheeldritchking.cataclysm_spellbooks.registries.CSAttributeRegistry.TECHNOMANCY_MAGIC_RESIST, (BigDecimal.valueOf(TechRes).setScale(2, RoundingMode.HALF_UP).doubleValue() - 1), "technomancy_resist");
                 }
                 if (ModList.get().isLoaded("alshanex_familiars")) {
-                    multiplyModifierIfValid(mob, net.alshanex.alshanex_familiars.registry.AttributeRegistry.SOUND_MAGIC_RESIST, (BigDecimal.valueOf(SoundRes).setScale(2, RoundingMode.HALF_UP).doubleValue() - 1), "sound_resist");
+                    //multiplyModifierIfValid(mob, net.alshanex.alshanex_familiars.registry.AttributeRegistry.SOUND_MAGIC_RESIST, (BigDecimal.valueOf(SoundRes).setScale(2, RoundingMode.HALF_UP).doubleValue() - 1), "sound_resist");
                 }
                 if (ModList.get().isLoaded("aero_additions")) {
                     multiplyModifierIfValid(mob, com.snackpirate.aeromancy.spells.AASpells.Attributes.WIND_MAGIC_RESIST, (BigDecimal.valueOf(WindRes).setScale(2, RoundingMode.HALF_UP).doubleValue() - 1), "wind_resist");
@@ -1029,12 +1088,12 @@ public class MainAttributeHandler {
                 //if (ModList.get().isLoaded("traveloptics")) {}
 
                 // Apothic Attributes
-                addModifierIfValid(mob, ALObjects.Attributes.ARMOR_PIERCE, BigDecimal.valueOf(ArmorPierce).setScale(2, RoundingMode.HALF_UP).doubleValue(), "armor_pierce");
-                addModifierIfValid(mob, ALObjects.Attributes.ARMOR_SHRED, BigDecimal.valueOf(ArmorShred).setScale(2, RoundingMode.HALF_UP).doubleValue(), "armor_shred");
-                addModifierIfValid(mob, ALObjects.Attributes.PROT_PIERCE, BigDecimal.valueOf(ProtPierce).setScale(2, RoundingMode.HALF_UP).doubleValue(), "protection_pierce");
-                addModifierIfValid(mob, ALObjects.Attributes.PROT_SHRED, BigDecimal.valueOf(ProtShred).setScale(2, RoundingMode.HALF_UP).doubleValue(), "protection_shred");
-                addModifierIfValid(mob, ALObjects.Attributes.CRIT_CHANCE, BigDecimal.valueOf(Crit).setScale(2, RoundingMode.HALF_UP).doubleValue(), "critical_chance");
-                addModifierIfValid(mob, ALObjects.Attributes.CRIT_DAMAGE, BigDecimal.valueOf(CritDmg).setScale(2, RoundingMode.HALF_UP).doubleValue(), "critical_damage");
+                addModifierIfValid(mob, ALObjects.Attributes.ARMOR_PIERCE, BigDecimal.valueOf(ArmorPierce).setScale(4, RoundingMode.HALF_UP).doubleValue(), "armor_pierce");
+                addModifierIfValid(mob, ALObjects.Attributes.ARMOR_SHRED, BigDecimal.valueOf(ArmorShred).setScale(4, RoundingMode.HALF_UP).doubleValue(), "armor_shred");
+                addModifierIfValid(mob, ALObjects.Attributes.PROT_PIERCE, BigDecimal.valueOf(ProtPierce).setScale(4, RoundingMode.HALF_UP).doubleValue(), "protection_pierce");
+                addModifierIfValid(mob, ALObjects.Attributes.PROT_SHRED, BigDecimal.valueOf(ProtShred).setScale(4, RoundingMode.HALF_UP).doubleValue(), "protection_shred");
+                addModifierIfValid(mob, ALObjects.Attributes.CRIT_CHANCE, BigDecimal.valueOf(Crit).setScale(4, RoundingMode.HALF_UP).doubleValue(), "critical_chance");
+                addModifierIfValid(mob, ALObjects.Attributes.CRIT_DAMAGE, BigDecimal.valueOf(CritDmg).setScale(4, RoundingMode.HALF_UP).doubleValue(), "critical_damage");
             }
         }
     }

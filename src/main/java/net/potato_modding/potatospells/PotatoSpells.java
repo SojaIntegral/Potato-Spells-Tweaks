@@ -7,6 +7,8 @@
 package net.potato_modding.potatospells;
 
 import com.mojang.logging.LogUtils;
+import io.redspace.ironsspellbooks.item.SpellBook;
+import io.redspace.ironsspellbooks.render.SpellBookCurioRenderer;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -20,8 +22,11 @@ import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
 import net.potato_modding.potatospells.config.ServerConfigs;
+import net.potato_modding.potatospells.registry.PotatoAttributes;
+import net.potato_modding.potatospells.registry.PotatoCreativeTab;
 import net.potato_modding.potatospells.registry.PotatoRegistry;
 import org.slf4j.Logger;
+import top.theillusivec4.curios.api.client.CuriosRendererRegistry;
 
 // The value here should match an entry in the META-INF/neoforge.mods.toml file
 @SuppressWarnings("unused")
@@ -43,7 +48,9 @@ public class PotatoSpells {
         NeoForge.EVENT_BUS.register(this);
 
         // Register the item to spawn_armor.json creative tab
+        PotatoCreativeTab.register(modEventBus);
         PotatoRegistry.register(modEventBus);
+        PotatoAttributes.register(modEventBus);
         modEventBus.addListener(this::addCreative);
         modContainer.registerConfig(ModConfig.Type.SERVER, ServerConfigs.BUILDING, String.format("%s-server.toml", PotatoSpells.MOD_ID));
     }
@@ -65,6 +72,9 @@ public class PotatoSpells {
     public static class ClientModEvents {
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event) {
+            event.enqueueWork(() -> {
+                PotatoRegistry.getPotatoItems().stream().filter(item -> item.get() instanceof SpellBook).forEach((item) -> CuriosRendererRegistry.register(item.get(), SpellBookCurioRenderer::new));
+            });
         }
     }
 }

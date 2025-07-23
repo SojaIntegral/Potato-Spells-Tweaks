@@ -4,10 +4,16 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.item.Item;
 import net.potato_modding.potatospells.PotatoSpells;
 
 @SuppressWarnings("unused")
 public class PotatoTags {
+
+    public static final TagKey<Item> DROP_ON_DEATH = TagKey.create(
+            Registries.ITEM,
+            ResourceLocation.fromNamespaceAndPath("potatospellbookstweaks", "drop_on_death")
+    );
 
     // For familiars' natures
     public static final TagKey<EntityType<?>> HAS_NATURE =
@@ -103,5 +109,15 @@ public class PotatoTags {
             TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "race_system/dragon"));
     public static final TagKey<EntityType<?>> RACE_DRAGONBORN =
             TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "race_system/dragonborn"));
+    public static final TagKey<EntityType<?>> RACE_PLAYER =
+            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "race_system/player"));
+
+
+
+
+
+
+    public static final TagKey<EntityType<?>> CRASH_FIX =
+            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "crash_fix/culprits"));
 
 }

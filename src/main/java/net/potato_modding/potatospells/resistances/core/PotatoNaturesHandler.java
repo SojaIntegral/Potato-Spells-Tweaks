@@ -189,7 +189,7 @@ public class PotatoNaturesHandler {
         }
     }
 
-    private static final Set<ResourceLocation> NATURE_IDS = Set.of(
+    public static final Set<ResourceLocation> NATURE_IDS = Set.of(
             // +CRIT DMG
             ResourceLocation.fromNamespaceAndPath("potatospellbookstweaks", "hardy"),
             ResourceLocation.fromNamespaceAndPath("potatospellbookstweaks", "lonely"),
@@ -219,154 +219,50 @@ public class PotatoNaturesHandler {
             ResourceLocation.fromNamespaceAndPath("potatospellbookstweaks", "hasty"),
             ResourceLocation.fromNamespaceAndPath("potatospellbookstweaks", "jolly"),
             ResourceLocation.fromNamespaceAndPath("potatospellbookstweaks", "naive"),
-            ResourceLocation.fromNamespaceAndPath("potatospellbookstweaks", "serious")
+            ResourceLocation.fromNamespaceAndPath("potatospellbookstweaks", "serious"),
+            // -CRIT DMG
+            ResourceLocation.fromNamespaceAndPath("potatospellbookstweaks", "hardy_minus"),
+            ResourceLocation.fromNamespaceAndPath("potatospellbookstweaks", "lonely_minus"),
+            ResourceLocation.fromNamespaceAndPath("potatospellbookstweaks", "adamant_minus"),
+            ResourceLocation.fromNamespaceAndPath("potatospellbookstweaks", "naughty_minus"),
+            ResourceLocation.fromNamespaceAndPath("potatospellbookstweaks", "brave_minus"),
+            // -ARMOR
+            ResourceLocation.fromNamespaceAndPath("potatospellbookstweaks", "bold_minus"),
+            ResourceLocation.fromNamespaceAndPath("potatospellbookstweaks", "docile_minus"),
+            ResourceLocation.fromNamespaceAndPath("potatospellbookstweaks", "impish_minus"),
+            ResourceLocation.fromNamespaceAndPath("potatospellbookstweaks", "lax_minus"),
+            ResourceLocation.fromNamespaceAndPath("potatospellbookstweaks", "relaxed_minus"),
+            // -SPELL
+            ResourceLocation.fromNamespaceAndPath("potatospellbookstweaks", "modest_minus"),
+            ResourceLocation.fromNamespaceAndPath("potatospellbookstweaks", "mild_minus"),
+            ResourceLocation.fromNamespaceAndPath("potatospellbookstweaks", "bashful_minus"),
+            ResourceLocation.fromNamespaceAndPath("potatospellbookstweaks", "rash_minus"),
+            ResourceLocation.fromNamespaceAndPath("potatospellbookstweaks", "quiet_minus"),
+            // -RESIST
+            ResourceLocation.fromNamespaceAndPath("potatospellbookstweaks", "calm_minus"),
+            ResourceLocation.fromNamespaceAndPath("potatospellbookstweaks", "gentle_minus"),
+            ResourceLocation.fromNamespaceAndPath("potatospellbookstweaks", "careful_minus"),
+            ResourceLocation.fromNamespaceAndPath("potatospellbookstweaks", "quirky_minus"),
+            ResourceLocation.fromNamespaceAndPath("potatospellbookstweaks", "sassy_minus"),
+            // -CRIT
+            ResourceLocation.fromNamespaceAndPath("potatospellbookstweaks", "timid_minus"),
+            ResourceLocation.fromNamespaceAndPath("potatospellbookstweaks", "hasty_minus"),
+            ResourceLocation.fromNamespaceAndPath("potatospellbookstweaks", "jolly_minus"),
+            ResourceLocation.fromNamespaceAndPath("potatospellbookstweaks", "naive_minus"),
+            ResourceLocation.fromNamespaceAndPath("potatospellbookstweaks", "serious_minus")
     );
 
-    public static void checkMobNature(LivingEntity entity) {
-        for (Attribute attribute : BuiltInRegistries.ATTRIBUTE) {
-            Holder<Attribute> holder = BuiltInRegistries.ATTRIBUTE.wrapAsHolder(attribute);
-            var instance = entity.getAttribute(holder);
-            if (instance == null) continue;
+    public static void removeNatures(LivingEntity entity, Set<ResourceLocation> idsToRemove) {
+        for (var attrInstance : entity.getAttributes().getSyncableAttributes()) {
+            List<AttributeModifier> toRemove = attrInstance.getModifiers().stream()
+                    .filter(mod -> idsToRemove.contains(mod.id()))
+                    .toList();
 
-            for (AttributeModifier modifier : instance.getModifiers()) {
-                ResourceLocation id = modifier.id();
-                if (NATURE_IDS.contains(id)) {
-                    switch (id.getPath()) {
-                        case "hardy" -> triggerHardy(entity);
-                        case "lonely" -> triggerLonely(entity);
-                        case "adamant" -> triggerAdamant(entity);
-                        case "naughty" -> triggerNaughty(entity);
-                        case "brave" -> triggerBrave(entity);
-                            // +ARMOR
-                        case "bold" -> triggerBold(entity);
-                        case "docile" -> triggerDocile(entity);
-                        case "impish" -> triggerImpish(entity);
-                        case "lax" -> triggerLax(entity);
-                        case "relaxed" -> triggerRelaxed(entity);
-                        // +SPELL
-                        case "modest" -> triggerModest(entity);
-                        case "mild" -> triggerMild(entity);
-                        case "bashful" -> triggerBashful(entity);
-                        case "rash" -> triggerRash(entity);
-                        case "quiet" -> triggerQuiet(entity);
-                        // +RESIST
-                        case "calm" -> triggerCalm(entity);
-                        case "gentle" -> triggerGentle(entity);
-                        case "careful" -> triggerCareful(entity);
-                        case "quirky" -> triggerQuirky(entity);
-                        case "sassy" -> triggerSassy(entity);
-                        // +CRIT
-                        case "timid" -> triggerTimid(entity);
-                        case "hasty" -> triggerHasty(entity);
-                        case "jolly" -> triggerJolly(entity);
-                        case "naive" -> triggerNaive(entity);
-                        case "serious" -> triggerSerious(entity);
-                    }
-                    return;
-                }
+            for (AttributeModifier mod : toRemove) {
+                attrInstance.removeModifier(mod.id());
             }
         }
     }
 
-    // Debug code
-    private static void triggerHardy(LivingEntity entity) {
-        System.out.println(entity.getName().getString() + "Neutral ATK");
-    }
-
-    private static void triggerLonely(LivingEntity entity) {
-        System.out.println(entity.getName().getString() + "+CRITdmg -Armor");
-    }
-
-    private static void triggerAdamant(LivingEntity entity) {
-        System.out.println(entity.getName().getString() + "+CRITdmg -Spell");
-    }
-
-    private static void triggerNaughty(LivingEntity entity) {
-        System.out.println(entity.getName().getString() + "+CRITdmg -Resist");
-    }
-
-    private static void triggerBrave(LivingEntity entity) {
-        System.out.println(entity.getName().getString() + "+CRITdmg -Crit");
-    }
-
-    private static void triggerBold(LivingEntity entity) {
-        System.out.println(entity.getName().getString() + "+Armor -CRITdmg");
-    }
-
-    private static void triggerDocile(LivingEntity entity) {
-        System.out.println(entity.getName().getString() + "Neutral Armor");
-    }
-
-    private static void triggerImpish(LivingEntity entity) {
-        System.out.println(entity.getName().getString() + "+Armor -Spell");
-    }
-
-    private static void triggerLax(LivingEntity entity) {
-        System.out.println(entity.getName().getString() + "+Armor -Resist");
-    }
-
-    private static void triggerRelaxed(LivingEntity entity) {
-        System.out.println(entity.getName().getString() + "+Armor -Crit");
-    }
-
-    private static void triggerModest(LivingEntity entity) {
-        System.out.println(entity.getName().getString() + "+Spell -CRITdmg");
-    }
-
-    private static void triggerMild(LivingEntity entity) {
-        System.out.println(entity.getName().getString() + "+Spell -Armor");
-    }
-
-    private static void triggerBashful(LivingEntity entity) {
-        System.out.println(entity.getName().getString() + "Neutral Spell");
-    }
-
-    private static void triggerRash(LivingEntity entity) {
-        System.out.println(entity.getName().getString() + "+Spell -Resist");
-    }
-
-    private static void triggerQuiet(LivingEntity entity) {
-        System.out.println(entity.getName().getString() + "+Spell -Crit");
-    }
-
-    private static void triggerCalm(LivingEntity entity) {
-        System.out.println(entity.getName().getString() + "+Resist -CRITdmg");
-    }
-
-    private static void triggerGentle(LivingEntity entity) {
-        System.out.println(entity.getName().getString() + "+Resist -Armor");
-    }
-
-    private static void triggerCareful(LivingEntity entity) {
-        System.out.println(entity.getName().getString() + "+Resist -Spell");
-    }
-
-    private static void triggerQuirky(LivingEntity entity) {
-        System.out.println(entity.getName().getString() + "Neutral Resist");
-    }
-
-    private static void triggerSassy(LivingEntity entity) {
-        System.out.println(entity.getName().getString() + "+Resist -Crit");
-    }
-
-    private static void triggerTimid(LivingEntity entity) {
-        System.out.println(entity.getName().getString() + "+Crit -CRITdmg");
-    }
-
-    private static void triggerHasty(LivingEntity entity) {
-        System.out.println(entity.getName().getString() + "+Crit -Armor");
-    }
-
-    private static void triggerJolly(LivingEntity entity) {
-        System.out.println(entity.getName().getString() + "+Crit -Spell");
-    }
-
-    private static void triggerNaive(LivingEntity entity) {
-        System.out.println(entity.getName().getString() + "+Crit -Resist");
-    }
-
-    private static void triggerSerious(LivingEntity entity) {
-        System.out.println(entity.getName().getString() + "Neutral Crit");
-    }
 
 }

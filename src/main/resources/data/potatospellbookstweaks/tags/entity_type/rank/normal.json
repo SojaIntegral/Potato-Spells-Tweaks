@@ -1,7 +1,6 @@
 {
   "replace": false,
   "values": [
-    {"id": "#alshanex_familiars:familiars", "required": false },
     {"id": "cataclysm:endermaptera", "required": false },
     {"id": "cataclysm:ignited_berserker", "required": false },
     {"id": "cataclysm:the_watcher", "required": false },
