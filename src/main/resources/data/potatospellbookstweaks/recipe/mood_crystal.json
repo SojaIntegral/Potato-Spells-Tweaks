@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "irons_spellbooks:permafrost_shard"
+    },
+    "B": {
+      "item": "irons_spellbooks:divine_soulshard"
+    },
+    "C": {
+      "item": "irons_spellbooks:divine_pearl"
+    },
+    "D": {
+      "item": "irons_spellbooks:upgrade_orb"
+    }
+  },
+  "pattern": [
+    "AB",
+    "DC"
+  ],
+  "result": {
+    "count": 4,
+    "id": "potatospellbookstweaks:mood_crystal"
+  }
+}

@@ -32,12 +32,16 @@ public class MoodCrystal extends Item {
     private InteractionResultHolder<ItemStack> applyNatureCrystal(ItemStack stack, Player player, LivingEntity target) {
         if (!player.level().isClientSide) {
 
+            if (!player.getAbilities().instabuild) { // Not in creative
+                if (stack.getCount() != 0) {
+                    stack.shrink(1);
+                    player.getCooldowns().addCooldown(stack.getItem(), 20);
+                }
+            }
+
             // Remove existing nature modifiers first
             PotatoNaturesHandler.removeNatures(target, PotatoNaturesHandler.NATURE_IDS);
-
-            if (!player.getAbilities().instabuild) { // Not in creative
-                stack.shrink(1);
-            }
+            // Apply new nature
             PotatoNaturesHandler.applySpawnModifiers(target);
         }
         return InteractionResultHolder.sidedSuccess(stack, player.level().isClientSide);

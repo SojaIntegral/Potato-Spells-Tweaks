@@ -10,29 +10,31 @@ import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
-import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.potato_modding.potatospells.config.ServerConfigs;
+import net.potato_modding.potatospells.datagen.IVCalculator;
+import net.potato_modding.potatospells.registry.PotatoAttributes;
 import net.potato_modding.potatospells.tags.PotatoTags;
+import net.potato_modding.potatospells.utils.ConfigFormulas;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
 
-import java.util.Collection;
 import java.util.Map;
-import java.util.UUID;
+import java.util.Objects;
+import java.util.Optional;
 
 public class MobInteractionScreen extends Screen {
     // Buttons on the GUI
     private Button button1;
     private Button button2;
+    private boolean showIVs = false;
     // Size of GUI
-    private static final int GUI_WIDTH = 232;
-    private static final int GUI_HEIGHT = 142;
+    private static final int GUI_WIDTH = 164;
+    private static final int GUI_HEIGHT = 107;
     // Renders the selected mob
     private final String entityName;
     private final LivingEntity entity;
@@ -50,25 +52,14 @@ public class MobInteractionScreen extends Screen {
     private final double armorShred;
     private final double protPierce;
     private final double protShred;
-    private final boolean schoolFire;
-    private final boolean schoolIce;
-    private final boolean schoolHoly;
-    private final boolean schoolNature;
-    private final boolean schoolEvoke;
-    private final boolean schoolBlood;
-    private final boolean schoolEnder;
-    private final boolean schoolLightning;
-    private final boolean schoolEldritch;
-    private final boolean schoolAbyss;
-    private final boolean schoolTechno;
-    private final boolean schoolBlade;
-    private final boolean schoolMind;
-    private final boolean schoolSound;
-    private final boolean schoolWind;
-    private final boolean schoolSym;
-    private final boolean schoolSoul;
-    private final boolean schoolDune;
-    private final boolean schoolAqua;
+    private final double firstIV;
+    private final double secondIV;
+    private final double thirdIV;
+    private final double fourthIV;
+    private final double fifthIV;
+    private final double sixthIV;
+    private final double seventhIV;
+    private final double eighthIV;
 
     private static final ResourceLocation BACKGROUND_TEXTURE =
             ResourceLocation.fromNamespaceAndPath("potatospellbookstweaks", "textures/gui/background.png");
@@ -82,13 +73,10 @@ public class MobInteractionScreen extends Screen {
     public MobInteractionScreen(String entityName, LivingEntity entity,
                                 float health, double armor, double attack,
                                 double mana, double resist, double power, double cast,
-                                double cooldown, double crit, double critChance,
-                                double armorPierce, double armorShred, double protPierce, double protShred,
-                                boolean schoolFire, boolean schoolIce, boolean schoolHoly, boolean schoolNature, boolean schoolEvoke,
-                                boolean schoolBlood, boolean schoolEnder, boolean schoolLightning, boolean schoolEldritch,
-                                boolean schoolAbyss, boolean schoolTechno, boolean schoolBlade, boolean schoolMind,
-                                boolean schoolSound, boolean schoolWind, boolean schoolSym, boolean schoolSoul,
-                                boolean schoolDune, boolean schoolAqua) {
+                                double cooldown, double crit, double critChance, double armorPierce,
+                                double armorShred, double protPierce, double protShred, double firstIV,
+                                double secondIV, double thirdIV, double fourthIV, double fifthIV,
+                                double sixthIV, double seventhIV, double eighthIV) {
 
         super(Component.literal(""));
         this.entityName = entityName;
@@ -108,25 +96,14 @@ public class MobInteractionScreen extends Screen {
         this.protPierce = protPierce;
         this.protShred = protShred;
 
-        this.schoolFire = schoolFire;
-        this.schoolIce = schoolIce;
-        this.schoolHoly = schoolHoly;
-        this.schoolNature = schoolNature;
-        this.schoolEvoke = schoolEvoke;
-        this.schoolBlood = schoolBlood;
-        this.schoolEnder = schoolEnder;
-        this.schoolLightning = schoolLightning;
-        this.schoolEldritch = schoolEldritch;
-        this.schoolAbyss = schoolAbyss;
-        this.schoolTechno = schoolTechno;
-        this.schoolBlade = schoolBlade;
-        this.schoolMind = schoolMind;
-        this.schoolSound = schoolSound;
-        this.schoolWind = schoolWind;
-        this.schoolSym = schoolSym;
-        this.schoolSoul = schoolSoul;
-        this.schoolDune = schoolDune;
-        this.schoolAqua = schoolAqua;
+        this.firstIV = firstIV;
+        this.secondIV = secondIV;
+        this.thirdIV = thirdIV;
+        this.fourthIV = fourthIV;
+        this.fifthIV = fifthIV;
+        this.sixthIV = sixthIV;
+        this.seventhIV = seventhIV;
+        this.eighthIV = eighthIV;
     }
 
     @Override
@@ -270,10 +247,27 @@ public class MobInteractionScreen extends Screen {
             }
         }
 
+        double IVGrab = ConfigFormulas.randMax;
+
         double critParse = crit * 100;
         double critChanceParse = critChance * 100;
         double armorShredParse = armorShred * 100;
         double protShredParse = protShred * 100;
+
+        this.addRenderableWidget(Button.builder(
+                Component.literal(""),
+                btn -> {
+                    showIVs = !showIVs;
+                    btn.setMessage(Component.literal(""));
+                }
+        ).bounds(guiLeft + 153, guiTop + 96, 9, 9).build());
+
+
+        Component mobName = entity.getDisplayName();
+        if (scaledMouseX >= (guiLeft + 16) / textScale && scaledMouseX <= (guiLeft + 61) / textScale
+                && scaledMouseY >= (guiTop + 37) / textScale && scaledMouseY <= (guiTop + 81) / textScale) {
+            graphics.renderTooltip(font, mobName, (int) scaledMouseX, (int) scaledMouseY);
+        }
 
         // LEFT SIDE
         if (health < 1000) {
@@ -286,43 +280,6 @@ public class MobInteractionScreen extends Screen {
             graphics.renderTooltip(font, Component.literal("Maximum Health"), (int) scaledMouseX, (int) scaledMouseY);
         }
 
-        graphics.drawString(this.font, Component.literal(String.format("%.0f", armor)), (int) ((guiLeft + 96) / textScale), (int) ((guiTop + 20) / textScale), 0xffffff);
-        if (scaledMouseX >= ((guiLeft + 84) / textScale) && scaledMouseX <= ((guiLeft + 94) / textScale)
-                && scaledMouseY >= ((guiTop + 18) / textScale) && scaledMouseY <= ((guiTop + 28) / textScale)) {
-            graphics.renderTooltip(font, Component.literal("Armor"), (int) scaledMouseX, (int) scaledMouseY);
-        }
-
-        graphics.drawString(this.font, Component.literal(String.format("%.0f", attack)), (int) ((guiLeft + 96) / textScale), (int) ((guiTop + 34) / textScale), 0xffffff);
-        if (scaledMouseX >= ((guiLeft + 84) / textScale) && scaledMouseX <= ((guiLeft + 94) / textScale)
-                && scaledMouseY >= ((guiTop + 32) / textScale) && scaledMouseY <= ((guiTop + 42) / textScale)) {
-            graphics.renderTooltip(font, Component.literal("Attack Damage"), (int) scaledMouseX, (int) scaledMouseY);
-        }
-
-        graphics.drawString(this.font, Component.literal(String.format("%.0f", critChanceParse) + "%"), (int) ((guiLeft + 96) / textScale), (int) ((guiTop + 48) / textScale), 0xffffff);
-        if (scaledMouseX >= ((guiLeft + 84) / textScale) && scaledMouseX <= ((guiLeft + 94) / textScale)
-                && scaledMouseY >= ((guiTop + 46) / textScale) && scaledMouseY <= ((guiTop + 56) / textScale)) {
-            graphics.renderTooltip(font, Component.literal("Critical Chance"), (int) scaledMouseX, (int) scaledMouseY);
-        }
-
-        graphics.drawString(this.font, Component.literal(String.format("%.0f", critParse) + "%"), (int) ((guiLeft + 96) / textScale), (int) ((guiTop + 62) / textScale), 0xffffff);
-        if (scaledMouseX >= ((guiLeft + 84) / textScale) && scaledMouseX <= ((guiLeft + 94) / textScale)
-                && scaledMouseY >= ((guiTop + 60) / textScale) && scaledMouseY <= ((guiTop + 70) / textScale)) {
-            graphics.renderTooltip(font, Component.literal("Critical Damage"), (int) scaledMouseX, (int) scaledMouseY);
-        }
-
-        graphics.drawString(this.font, Component.literal(String.format("%.0f", armorPierce)), (int) ((guiLeft + 96) / textScale), (int) ((guiTop + 76) / textScale), 0xffffff);
-        if (scaledMouseX >= ((guiLeft + 84) / textScale) && scaledMouseX <= ((guiLeft + 94) / textScale)
-                && scaledMouseY >= ((guiTop + 74) / textScale) && scaledMouseY <= ((guiTop + 84) / textScale)) {
-            graphics.renderTooltip(font, Component.literal("Armor Piercing"), (int) scaledMouseX, (int) scaledMouseY);
-        }
-
-        graphics.drawString(this.font, Component.literal(String.format("%.0f", armorShredParse) + "%"), (int) ((guiLeft + 96) / textScale), (int) ((guiTop + 90) / textScale), 0xffffff);
-        if (scaledMouseX >= ((guiLeft + 84) / textScale) && scaledMouseX <= ((guiLeft + 94) / textScale)
-                && scaledMouseY >= ((guiTop + 88) / textScale) && scaledMouseY <= ((guiTop + 98) / textScale)) {
-            graphics.renderTooltip(font, Component.literal("Ignored Armor"), (int) scaledMouseX, (int) scaledMouseY);
-        }
-
-        // RIGHT SIDE
         if (mana < 1000) {
             graphics.drawString(this.font, Component.literal(String.format("%.0f", mana)), (int) ((guiLeft + 135) / textScale), (int) ((guiTop + 6) / textScale), 0x57b6db);
         } else {
@@ -333,40 +290,149 @@ public class MobInteractionScreen extends Screen {
             graphics.renderTooltip(font, Component.literal("Maximum Mana"), (int) scaledMouseX, (int) scaledMouseY);
         }
 
-        graphics.drawString(this.font, Component.literal(String.format("%.0f", (resistParse - 1) * 100) + "%"), (int) ((guiLeft + 135) / textScale), (int) ((guiTop + 20) / textScale), 0xffffff);
+        graphics.drawString(this.font, Component.literal(String.format("%.0f", (cooldownParse - 1) * 100) + "%"), (int) ((guiLeft + 135) / textScale), (int) ((guiTop + 20) / textScale), 0xffffff);
         if (scaledMouseX >= ((guiLeft + 123) / textScale) && scaledMouseX <= ((guiLeft + 131) / textScale)
                 && scaledMouseY >= ((guiTop + 18) / textScale) && scaledMouseY <= ((guiTop + 28) / textScale)) {
-            graphics.renderTooltip(font, Component.literal("Spell Resistance"), (int) scaledMouseX, (int) scaledMouseY);
-        }
-
-        graphics.drawString(this.font, Component.literal(String.format("%.0f", ((power - 1) * 100)) + "%"), (int) ((guiLeft + 135) / textScale), (int) ((guiTop + 34) / textScale), 0xffffff);
-        if (scaledMouseX >= ((guiLeft + 123) / textScale) && scaledMouseX <= ((guiLeft + 131) / textScale)
-                && scaledMouseY >= ((guiTop + 32) / textScale) && scaledMouseY <= ((guiTop + 42) / textScale)) {
-            graphics.renderTooltip(font, Component.literal("Spell Power"), (int) scaledMouseX, (int) scaledMouseY);
-        }
-
-        graphics.drawString(this.font, Component.literal(String.format("%.0f", (castParse - 1) * 100) + "%"), (int) ((guiLeft + 135) / textScale), (int) ((guiTop + 48) / textScale), 0xffffff);
-        if (scaledMouseX >= ((guiLeft + 123) / textScale) && scaledMouseX <= ((guiLeft + 131) / textScale)
-                && scaledMouseY >= ((guiTop + 46) / textScale) && scaledMouseY <= ((guiTop + 56) / textScale)) {
-            graphics.renderTooltip(font, Component.literal("Cast Reduction"), (int) scaledMouseX, (int) scaledMouseY);
-        }
-
-        graphics.drawString(this.font, Component.literal(String.format("%.0f", (cooldownParse - 1) * 100) + "%"), (int) ((guiLeft + 135) / textScale), (int) ((guiTop + 62) / textScale), 0xffffff);
-        if (scaledMouseX >= ((guiLeft + 123) / textScale) && scaledMouseX <= ((guiLeft + 131) / textScale)
-                && scaledMouseY >= ((guiTop + 60) / textScale) && scaledMouseY <= ((guiTop + 70) / textScale)) {
             graphics.renderTooltip(font, Component.literal("Cooldown Reduction"), (int) scaledMouseX, (int) scaledMouseY);
         }
 
-        graphics.drawString(this.font, Component.literal(String.format("%.0f", protPierce)), (int) ((guiLeft + 135) / textScale), (int) ((guiTop + 76) / textScale), 0xffffff);
-        if (scaledMouseX >= ((guiLeft + 123) / textScale) && scaledMouseX <= ((guiLeft + 131) / textScale)
-                && scaledMouseY >= ((guiTop + 74) / textScale) && scaledMouseY <= ((guiTop + 84) / textScale)) {
-            graphics.renderTooltip(font, Component.literal("Protection Pierce"), (int) scaledMouseX, (int) scaledMouseY);
-        }
+        if (!showIVs) {
+            graphics.drawString(this.font, Component.literal(String.format("%.0f", armor)), (int) ((guiLeft + 96) / textScale), (int) ((guiTop + 20) / textScale), 0xffffff);
+            if (scaledMouseX >= ((guiLeft + 84) / textScale) && scaledMouseX <= ((guiLeft + 94) / textScale)
+                    && scaledMouseY >= ((guiTop + 18) / textScale) && scaledMouseY <= ((guiTop + 28) / textScale)) {
+                graphics.renderTooltip(font, Component.literal("Armor"), (int) scaledMouseX, (int) scaledMouseY);
+            }
 
-        graphics.drawString(this.font, Component.literal(String.format("%.0f", protShredParse) + "%"), (int) ((guiLeft + 135) / textScale), (int) ((guiTop + 90) / textScale), 0xffffff);
-        if (scaledMouseX >= ((guiLeft + 123) / textScale) && scaledMouseX <= ((guiLeft + 131) / textScale)
-                && scaledMouseY >= ((guiTop + 88) / textScale) && scaledMouseY <= ((guiTop + 98) / textScale)) {
-            graphics.renderTooltip(font, Component.literal("Ignored Protection"), (int) scaledMouseX, (int) scaledMouseY);
+            graphics.drawString(this.font, Component.literal(String.format("%.0f", attack)), (int) ((guiLeft + 96) / textScale), (int) ((guiTop + 34) / textScale), 0xffffff);
+            if (scaledMouseX >= ((guiLeft + 84) / textScale) && scaledMouseX <= ((guiLeft + 94) / textScale)
+                    && scaledMouseY >= ((guiTop + 32) / textScale) && scaledMouseY <= ((guiTop + 42) / textScale)) {
+                graphics.renderTooltip(font, Component.literal("Attack Damage"), (int) scaledMouseX, (int) scaledMouseY);
+            }
+
+            graphics.drawString(this.font, Component.literal(String.format("%.0f", critChanceParse) + "%"), (int) ((guiLeft + 96) / textScale), (int) ((guiTop + 48) / textScale), 0xffffff);
+            if (scaledMouseX >= ((guiLeft + 84) / textScale) && scaledMouseX <= ((guiLeft + 94) / textScale)
+                    && scaledMouseY >= ((guiTop + 46) / textScale) && scaledMouseY <= ((guiTop + 56) / textScale)) {
+                graphics.renderTooltip(font, Component.literal("Critical Chance"), (int) scaledMouseX, (int) scaledMouseY);
+            }
+
+            graphics.drawString(this.font, Component.literal(String.format("%.0f", critParse) + "%"), (int) ((guiLeft + 96) / textScale), (int) ((guiTop + 62) / textScale), 0xffffff);
+            if (scaledMouseX >= ((guiLeft + 84) / textScale) && scaledMouseX <= ((guiLeft + 94) / textScale)
+                    && scaledMouseY >= ((guiTop + 60) / textScale) && scaledMouseY <= ((guiTop + 70) / textScale)) {
+                graphics.renderTooltip(font, Component.literal("Critical Damage"), (int) scaledMouseX, (int) scaledMouseY);
+            }
+
+            graphics.drawString(this.font, Component.literal(String.format("%.0f", armorPierce)), (int) ((guiLeft + 96) / textScale), (int) ((guiTop + 76) / textScale), 0xffffff);
+            if (scaledMouseX >= ((guiLeft + 84) / textScale) && scaledMouseX <= ((guiLeft + 94) / textScale)
+                    && scaledMouseY >= ((guiTop + 74) / textScale) && scaledMouseY <= ((guiTop + 84) / textScale)) {
+                graphics.renderTooltip(font, Component.literal("Armor Piercing"), (int) scaledMouseX, (int) scaledMouseY);
+            }
+
+            graphics.drawString(this.font, Component.literal(String.format("%.0f", armorShredParse) + "%"), (int) ((guiLeft + 96) / textScale), (int) ((guiTop + 90) / textScale), 0xffffff);
+            if (scaledMouseX >= ((guiLeft + 84) / textScale) && scaledMouseX <= ((guiLeft + 94) / textScale)
+                    && scaledMouseY >= ((guiTop + 88) / textScale) && scaledMouseY <= ((guiTop + 98) / textScale)) {
+                graphics.renderTooltip(font, Component.literal("Ignored Armor"), (int) scaledMouseX, (int) scaledMouseY);
+            }
+
+            // RIGHT SIDE
+            graphics.drawString(this.font, Component.literal(String.format("%.0f", (resistParse - 1) * 100) + "%"), (int) ((guiLeft + 135) / textScale), (int) ((guiTop + 62) / textScale), 0xffffff);
+            if (scaledMouseX >= ((guiLeft + 123) / textScale) && scaledMouseX <= ((guiLeft + 131) / textScale)
+                    && scaledMouseY >= ((guiTop + 60) / textScale) && scaledMouseY <= ((guiTop + 70) / textScale)) {
+                graphics.renderTooltip(font, Component.literal("Spell Resistance"), (int) scaledMouseX, (int) scaledMouseY);
+            }
+
+            graphics.drawString(this.font, Component.literal(String.format("%.0f", ((power - 1) * 100)) + "%"), (int) ((guiLeft + 135) / textScale), (int) ((guiTop + 34) / textScale), 0xffffff);
+            if (scaledMouseX >= ((guiLeft + 123) / textScale) && scaledMouseX <= ((guiLeft + 131) / textScale)
+                    && scaledMouseY >= ((guiTop + 32) / textScale) && scaledMouseY <= ((guiTop + 42) / textScale)) {
+                graphics.renderTooltip(font, Component.literal("Spell Power"), (int) scaledMouseX, (int) scaledMouseY);
+            }
+
+            graphics.drawString(this.font, Component.literal(String.format("%.0f", (castParse - 1) * 100) + "%"), (int) ((guiLeft + 135) / textScale), (int) ((guiTop + 48) / textScale), 0xffffff);
+            if (scaledMouseX >= ((guiLeft + 123) / textScale) && scaledMouseX <= ((guiLeft + 131) / textScale)
+                    && scaledMouseY >= ((guiTop + 46) / textScale) && scaledMouseY <= ((guiTop + 56) / textScale)) {
+                graphics.renderTooltip(font, Component.literal("Cast Reduction"), (int) scaledMouseX, (int) scaledMouseY);
+            }
+
+            graphics.drawString(this.font, Component.literal(String.format("%.0f", protPierce)), (int) ((guiLeft + 135) / textScale), (int) ((guiTop + 76) / textScale), 0xffffff);
+            if (scaledMouseX >= ((guiLeft + 123) / textScale) && scaledMouseX <= ((guiLeft + 131) / textScale)
+                    && scaledMouseY >= ((guiTop + 74) / textScale) && scaledMouseY <= ((guiTop + 84) / textScale)) {
+                graphics.renderTooltip(font, Component.literal("Protection Pierce"), (int) scaledMouseX, (int) scaledMouseY);
+            }
+
+            graphics.drawString(this.font, Component.literal(String.format("%.0f", protShredParse) + "%"), (int) ((guiLeft + 135) / textScale), (int) ((guiTop + 90) / textScale), 0xffffff);
+            if (scaledMouseX >= ((guiLeft + 123) / textScale) && scaledMouseX <= ((guiLeft + 131) / textScale)
+                    && scaledMouseY >= ((guiTop + 88) / textScale) && scaledMouseY <= ((guiTop + 98) / textScale)) {
+                graphics.renderTooltip(font, Component.literal("Ignored Protection"), (int) scaledMouseX, (int) scaledMouseY);
+            }
+        }
+        if (showIVs) {
+            Optional<Map<String, Double>> maybeBonuses = IVCalculator.INSTANCE.getBonusesFor(entity);
+
+            graphics.drawString(this.font, Component.literal(String.format("%.0f", 31 * (secondIV / IVGrab))), (int) ((guiLeft + 96) / textScale), (int) ((guiTop + 20) / textScale), 0xffffff);
+            if (scaledMouseX >= ((guiLeft + 84) / textScale) && scaledMouseX <= ((guiLeft + 94) / textScale)
+                    && scaledMouseY >= ((guiTop + 18) / textScale) && scaledMouseY <= ((guiTop + 28) / textScale)) {
+                graphics.renderTooltip(font, Component.literal("Armor IV"), (int) scaledMouseX, (int) scaledMouseY);
+            }
+
+            graphics.drawString(this.font, Component.literal(String.format("%.0f", 31 * (firstIV / IVGrab))), (int) ((guiLeft + 96) / textScale), (int) ((guiTop + 34) / textScale), 0xffffff);
+            if (scaledMouseX >= ((guiLeft + 84) / textScale) && scaledMouseX <= ((guiLeft + 94) / textScale)
+                    && scaledMouseY >= ((guiTop + 32) / textScale) && scaledMouseY <= ((guiTop + 42) / textScale)) {
+                graphics.renderTooltip(font, Component.literal("Attack IV"), (int) scaledMouseX, (int) scaledMouseY);
+            }
+
+            graphics.drawString(this.font, Component.literal(String.format("%.0f", 31 * (eighthIV / IVGrab))), (int) ((guiLeft + 96) / textScale), (int) ((guiTop + 48) / textScale), 0xffffff);
+            if (scaledMouseX >= ((guiLeft + 84) / textScale) && scaledMouseX <= ((guiLeft + 94) / textScale)
+                    && scaledMouseY >= ((guiTop + 46) / textScale) && scaledMouseY <= ((guiTop + 56) / textScale)) {
+                graphics.renderTooltip(font, Component.literal("Critical IV"), (int) scaledMouseX, (int) scaledMouseY);
+            }
+
+            graphics.drawString(this.font, Component.literal(String.format("%.0f", 31 * (eighthIV / IVGrab))), (int) ((guiLeft + 96) / textScale), (int) ((guiTop + 62) / textScale), 0xffffff);
+            if (scaledMouseX >= ((guiLeft + 84) / textScale) && scaledMouseX <= ((guiLeft + 94) / textScale)
+                    && scaledMouseY >= ((guiTop + 60) / textScale) && scaledMouseY <= ((guiTop + 70) / textScale)) {
+                graphics.renderTooltip(font, Component.literal("Critical IV"), (int) scaledMouseX, (int) scaledMouseY);
+            }
+
+            graphics.drawString(this.font, Component.literal(String.format("%.0f", 31 * (sixthIV / IVGrab))), (int) ((guiLeft + 96) / textScale), (int) ((guiTop + 76) / textScale), 0xffffff);
+            if (scaledMouseX >= ((guiLeft + 84) / textScale) && scaledMouseX <= ((guiLeft + 94) / textScale)
+                    && scaledMouseY >= ((guiTop + 74) / textScale) && scaledMouseY <= ((guiTop + 84) / textScale)) {
+                graphics.renderTooltip(font, Component.literal("Armor Piercing IV"), (int) scaledMouseX, (int) scaledMouseY);
+            }
+
+            graphics.drawString(this.font, Component.literal(String.format("%.0f", 31 * (sixthIV / IVGrab))), (int) ((guiLeft + 96) / textScale), (int) ((guiTop + 90) / textScale), 0xffffff);
+            if (scaledMouseX >= ((guiLeft + 84) / textScale) && scaledMouseX <= ((guiLeft + 94) / textScale)
+                    && scaledMouseY >= ((guiTop + 88) / textScale) && scaledMouseY <= ((guiTop + 98) / textScale)) {
+                graphics.renderTooltip(font, Component.literal("Armor Piercing IV"), (int) scaledMouseX, (int) scaledMouseY);
+            }
+
+            // RIGHT SIDE
+            graphics.drawString(this.font, Component.literal(String.format("%.0f", 31 * (fourthIV / IVGrab))), (int) ((guiLeft + 135) / textScale), (int) ((guiTop + 62) / textScale), 0xffffff);
+            if (scaledMouseX >= ((guiLeft + 123) / textScale) && scaledMouseX <= ((guiLeft + 131) / textScale)
+                    && scaledMouseY >= ((guiTop + 60) / textScale) && scaledMouseY <= ((guiTop + 70) / textScale)) {
+                graphics.renderTooltip(font, Component.literal("Resistance IV"), (int) scaledMouseX, (int) scaledMouseY);
+            }
+
+            graphics.drawString(this.font, Component.literal(String.format("%.0f", 31 * (thirdIV / IVGrab))), (int) ((guiLeft + 135) / textScale), (int) ((guiTop + 34) / textScale), 0xffffff);
+            if (scaledMouseX >= ((guiLeft + 123) / textScale) && scaledMouseX <= ((guiLeft + 131) / textScale)
+                    && scaledMouseY >= ((guiTop + 32) / textScale) && scaledMouseY <= ((guiTop + 42) / textScale)) {
+                graphics.renderTooltip(font, Component.literal("Spell IV"), (int) scaledMouseX, (int) scaledMouseY);
+            }
+
+            graphics.drawString(this.font, Component.literal(String.format("%.0f", 31 * (fifthIV / IVGrab))), (int) ((guiLeft + 135) / textScale), (int) ((guiTop + 48) / textScale), 0xffffff);
+            if (scaledMouseX >= ((guiLeft + 123) / textScale) && scaledMouseX <= ((guiLeft + 131) / textScale)
+                    && scaledMouseY >= ((guiTop + 46) / textScale) && scaledMouseY <= ((guiTop + 56) / textScale)) {
+                graphics.renderTooltip(font, Component.literal("Cast IV"), (int) scaledMouseX, (int) scaledMouseY);
+            }
+
+            graphics.drawString(this.font, Component.literal(String.format("%.0f", 31 * (seventhIV / IVGrab))), (int) ((guiLeft + 135) / textScale), (int) ((guiTop + 76) / textScale), 0xffffff);
+            if (scaledMouseX >= ((guiLeft + 123) / textScale) && scaledMouseX <= ((guiLeft + 131) / textScale)
+                    && scaledMouseY >= ((guiTop + 74) / textScale) && scaledMouseY <= ((guiTop + 84) / textScale)) {
+                graphics.renderTooltip(font, Component.literal("Protection Pierce IV"), (int) scaledMouseX, (int) scaledMouseY);
+            }
+
+            graphics.drawString(this.font, Component.literal(String.format("%.0f", 31 * (seventhIV / IVGrab))), (int) ((guiLeft + 135) / textScale), (int) ((guiTop + 90) / textScale), 0xffffff);
+            if (scaledMouseX >= ((guiLeft + 123) / textScale) && scaledMouseX <= ((guiLeft + 131) / textScale)
+                    && scaledMouseY >= ((guiTop + 88) / textScale) && scaledMouseY <= ((guiTop + 98) / textScale)) {
+                graphics.renderTooltip(font, Component.literal("Protection Pierce IV"), (int) scaledMouseX, (int) scaledMouseY);
+            }
         }
 
         graphics.pose().popPose();
@@ -414,15 +480,26 @@ public class MobInteractionScreen extends Screen {
                     graphics.drawString(font, name, guiLeft + 6, guiTop + 93, 0xFFFFFF);
                 }
 
-                if(SHINY.containsKey(id)) {
+                if(Objects.requireNonNull(entity.getAttribute(PotatoAttributes.SHINY)).getValue() == 1) {
                     graphics.blit(SHINY_ICON, guiLeft + 3, guiTop + 23, 0, 0, 16, 16, 16 ,16);
-                    if (mouseX >= (guiLeft + 3) && mouseX <= (guiLeft + 19)
-                            && mouseY >= (guiTop + 23) && mouseY <= (guiTop + 39)) {
+                    if (mouseX >= (guiLeft + 3) && mouseX <= (guiLeft + 18)
+                            && mouseY >= (guiTop + 25) && mouseY <= (guiTop + 35)) {
                         graphics.renderTooltip(font, Component.literal("Shiny"), mouseX, mouseY);
                     }
                 }
             }
         }
+
+        Optional<Map<String, Double>> maybeBonuses = IVCalculator.INSTANCE.getBonusesFor(entity);
+        maybeBonuses.ifPresent(bonuses -> {
+            for (Map.Entry<String, Double> entry : bonuses.entrySet()) {
+                String statName = entry.getKey();
+                double value = entry.getValue();
+
+
+            }
+        });
+
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.disableBlend();
     }
@@ -453,10 +530,6 @@ public class MobInteractionScreen extends Screen {
             Map.entry(ResourceLocation.fromNamespaceAndPath("potatospellbookstweaks", "jolly"), Component.literal("Jolly")),
             Map.entry(ResourceLocation.fromNamespaceAndPath("potatospellbookstweaks", "naive"), Component.literal("Naive")),
             Map.entry(ResourceLocation.fromNamespaceAndPath("potatospellbookstweaks", "serious"), Component.literal("Serious"))
-    );
-
-    private static final Map<ResourceLocation, Component> SHINY = Map.ofEntries(
-            Map.entry(ResourceLocation.fromNamespaceAndPath("potatospellbookstweaks", "shiny"), Component.literal("Shiny"))
     );
 
     private static final Map<TagKey<EntityType<?>>, ResourceLocation> schoolTextures = Map.ofEntries(

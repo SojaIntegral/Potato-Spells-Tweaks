@@ -18,14 +18,11 @@ import net.minecraft.world.level.Level;
 import net.neoforged.fml.ModList;
 import net.potato_modding.potatospells.config.ServerConfigs;
 import net.potato_modding.potatospells.registry.PotatoAttributes;
-import net.potato_modding.potatospells.resistances.core.PotatoNaturesHandler;
 import net.potato_modding.potatospells.tags.PotatoTags;
-import org.jetbrains.annotations.NotNull;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Arrays;
-import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 import static net.potato_modding.potatospells.utils.ConfigFormulas.*;
@@ -49,6 +46,15 @@ public class MiracleCrystal extends Item {
         return InteractionResultHolder.pass(player.getItemInHand(hand));
     }
 
+    private static void setIfNonNull(LivingEntity entity, Holder<Attribute> attribute, double value)
+    {
+        var instance = entity.getAttributes().getInstance(attribute);
+        if (instance != null)
+        {
+            instance.setBaseValue(value);
+        }
+    }
+
     // Add modifier (base)
     private static void addModifierIfValid(LivingEntity target, Holder<Attribute> attribute, double value, String idName) {
         var instance = target.getAttributes().getInstance(attribute);
@@ -70,7 +76,7 @@ public class MiracleCrystal extends Item {
     }
 
     private static boolean shinyAttribute() {
-        return ThreadLocalRandom.current().nextInt(ServerConfigs.SHINY_CHANCE.get()) == 0;
+        return ThreadLocalRandom.current().nextInt(shinyChanceModifier) == 0;
     }
 
     private static double SpellPower = 0;
@@ -110,20 +116,17 @@ public class MiracleCrystal extends Item {
 
             if (!player.getAbilities().instabuild) { // Not in creative
                 if (stack.getCount() != 0) {
-                    System.out.println("removed stack");
                     stack.shrink(1);
+                    player.getCooldowns().addCooldown(stack.getItem(), 10);
                 }
             }
 
             // Grabs an attribute and checks if the mob has a modifier
-            var shinyChecker = target.getAttributes().getInstance(PotatoAttributes.SHINY);
-            ResourceLocation modCheck = ResourceLocation.fromNamespaceAndPath("potatospellbookstweaks", "normal");
-            ResourceLocation shinyCheck = ResourceLocation.fromNamespaceAndPath("potatospellbookstweaks", "shiny");
+            var shinyAttribute = target.getAttributes().getValue(PotatoAttributes.SHINY);
             // If the mob is shiny, it won't have this modifier
-            assert shinyChecker != null;
-            boolean alreadyShiny = shinyChecker.getModifiers().stream().anyMatch(mod -> mod.id().equals(shinyCheck));
+            boolean alreadyShiny = shinyAttribute >= 1;
             // If the mob is shiny, it won't have this modifier
-            boolean canReroll = shinyChecker.getModifiers().stream().noneMatch(mod -> mod.id().equals(shinyCheck));
+            boolean canReroll = shinyAttribute == 0;
 
             // IVs variation setup
             boolean isShiny = false;
@@ -133,6 +136,7 @@ public class MiracleCrystal extends Item {
             if (target != player) {
                 if ((ServerConfigs.SHINY.get() && shinyAttribute()) || alreadyShiny) {
                     Arrays.fill(attrVar, 1 * randMax);
+
                     System.out.println("is shiny");
                     isShiny = true;
                 }
@@ -356,7 +360,7 @@ public class MiracleCrystal extends Item {
                     ArmorPierce = 5 * (1 + attrVar[5]);
                     ArmorShred = 0.1 * (1 + attrVar[5]);
                     ProtPierce = 1 * (1 + attrVar[6]);
-                    ProtShred = 1.5 * (1 + attrVar[6]);
+                    ProtShred = 0.15 * (1 + attrVar[6]);
                     CritDmg = attrVar[7] - 0.15;
                     Crit = attrVar[7] + 0.05;
                 }
@@ -1111,12 +1115,8 @@ public class MiracleCrystal extends Item {
 
                 // Updates mob attributes after rounding it up to 2 decimals
 
-                System.out.println("applying attributes");
-                // Vanilla Attributes
                 if (isShiny) {
-                    addModifierIfValid(target, PotatoAttributes.SHINY, 0, "shiny");
-                } else {
-                    addModifierIfValid(target, PotatoAttributes.SHINY, 0, "normal");
+                    setIfNonNull(target, PotatoAttributes.SHINY, 1);
                 }
                 addModifierIfValid(target, Attributes.ATTACK_DAMAGE, BigDecimal.valueOf(Attack).setScale(2, RoundingMode.HALF_UP).doubleValue(), "attack");
                 addModifierIfValid(target, Attributes.ARMOR, BigDecimal.valueOf(Armor).setScale(2, RoundingMode.HALF_UP).doubleValue(), "armor");
@@ -1166,6 +1166,15 @@ public class MiracleCrystal extends Item {
                 addModifierIfValid(target, ALObjects.Attributes.CRIT_CHANCE, BigDecimal.valueOf(Crit).setScale(4, RoundingMode.HALF_UP).doubleValue(), "critical_chance");
                 addModifierIfValid(target, ALObjects.Attributes.CRIT_DAMAGE, BigDecimal.valueOf(CritDmg).setScale(4, RoundingMode.HALF_UP).doubleValue(), "critical_damage");
                 System.out.println("finished attributes");
+
+                setIfNonNull(target, PotatoAttributes.ATTACK_IV, attrVar[0]);
+                setIfNonNull(target, PotatoAttributes.ARMOR_IV, attrVar[1]);
+                setIfNonNull(target, PotatoAttributes.POWER_IV, attrVar[2]);
+                setIfNonNull(target, PotatoAttributes.RESIST_IV, attrVar[3]);
+                setIfNonNull(target, PotatoAttributes.CAST_IV, attrVar[4]);
+                setIfNonNull(target, PotatoAttributes.ARMOR_PEN_IV, attrVar[5]);
+                setIfNonNull(target, PotatoAttributes.PROT_PEN_IV, attrVar[6]);
+                setIfNonNull(target, PotatoAttributes.CRIT_IV, attrVar[7]);
             }
         }
         System.out.println("success");

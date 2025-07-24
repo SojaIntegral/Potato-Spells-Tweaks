@@ -19,9 +19,11 @@ import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.event.AddReloadListenerEvent;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
 import net.potato_modding.potatospells.config.ServerConfigs;
+import net.potato_modding.potatospells.datagen.IVCalculator;
 import net.potato_modding.potatospells.registry.PotatoAttributes;
 import net.potato_modding.potatospells.registry.PotatoCreativeTab;
 import net.potato_modding.potatospells.registry.PotatoRegistry;
@@ -66,6 +68,11 @@ public class PotatoSpells {
     @SubscribeEvent
     public void onServerStarting(ServerStartingEvent event) {
     }
+
+    private void onReloadListeners(AddReloadListenerEvent event) {
+        event.addListener(IVCalculator.INSTANCE);
+    }
+
 
     // You can use EventBusSubscriber to automatically register all static methods in the class annotated with @SubscribeEvent
     @EventBusSubscriber(modid = MOD_ID, value = Dist.CLIENT)

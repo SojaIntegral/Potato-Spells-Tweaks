@@ -47,7 +47,8 @@ public class ServerConfigs {
             BUILDER.push("Attribute System");
             BUILDER.comment("If mobs will have random variation in their attributes (does not include players)");
             SHINY = BUILDER.worldRestart().define("Random Attribute Variation", true);
-            BUILDER.comment("Chance for perfect attributes | 0 = 100% chance | Default: 4096");
+            BUILDER.comment("Chance for perfect attributes | 1 = 100%");
+            BUILDER.comment("4096 = 0.025% chance | Min: 1 | Max: 8192 | Default: 4096");
             SHINY_CHANCE = BUILDER.worldRestart().define("Chance for Perfect Attributes", 4096);
             BUILDER.comment("Bonus attributes for mobs will be increased by whatever number you put here");
             BUILDER.comment("Maximum: 10000% | Minimum: 1% | Default: 15%");

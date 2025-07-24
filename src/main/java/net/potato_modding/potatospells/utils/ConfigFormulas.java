@@ -41,4 +41,6 @@ public class ConfigFormulas {
 
     // Familiars random attr value
     public static double randMax = (double) Math.clamp(ServerConfigs.FAMILIAR_RAND.get(), 1, 10000) / 100;
+
+    public static int shinyChanceModifier = Math.clamp(ServerConfigs.SHINY_CHANCE.get(), 1, 8192);
 }

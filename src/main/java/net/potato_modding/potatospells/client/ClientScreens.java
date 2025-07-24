@@ -13,20 +13,16 @@ public class ClientScreens {
             float health, double armor, double attack, double mana, double resist,
             double spell, double cast, double cooldown, double crit, double critChance,
             double pierce1, double shred1, double pierce2, double shred2,
-            boolean fire, boolean ice, boolean holy, boolean nature, boolean evoke,
-            boolean blood, boolean ender, boolean lightning, boolean eldritch,
-            boolean abyss, boolean techno, boolean blade, boolean mind,
-            boolean sound, boolean wind, boolean sym, boolean soul, boolean dune, boolean aqua
+            double firstIV, double secondIV, double thirdIV, double fourthIV,
+            double fifthIV, double sixthIV, double seventhIV, double eighthIV
     ) {
         Minecraft.getInstance().setScreen(new MobInteractionScreen(
                 name, entity,
                 health, armor, attack, mana, resist,
                 spell, cast, cooldown, crit, critChance, pierce1,
                 shred1, pierce2, shred2,
-                fire, ice, holy, nature, evoke,
-                blood, ender, lightning, eldritch,
-                abyss, techno, blade, mind,
-                sound, wind, sym, soul, dune, aqua
+                firstIV, secondIV, thirdIV, fourthIV, fifthIV,
+                sixthIV, seventhIV, eighthIV
         ));
     }
 }
