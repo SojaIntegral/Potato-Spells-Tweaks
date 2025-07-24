@@ -9,5 +9,5 @@
 
 You ***can*** apply attributes to players, but that doesn't mean that you should.
 
-If you wish to apply attributes to players, use "minecraft:player".
-Yes... This work like origins. Kinda.
+Players don't have additional attributes by default.
+Yes, this is compatible with Origins.

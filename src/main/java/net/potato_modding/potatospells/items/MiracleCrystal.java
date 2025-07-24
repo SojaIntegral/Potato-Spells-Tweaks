@@ -40,7 +40,7 @@ public class MiracleCrystal extends Item {
 
     @Override
     public InteractionResult interactLivingEntity(ItemStack stack, Player player, LivingEntity target, InteractionHand hand) {
-        return applyIVCrystal(stack, player, target).getResult(); // Use on self
+        return applyIVCrystal(stack, player, target).getResult();
     }
 
     @Override
@@ -59,11 +59,9 @@ public class MiracleCrystal extends Item {
         return InteractionResultHolder.pass(player.getItemInHand(hand));
     }
 
-    private static void setIfNonNull(LivingEntity entity, Holder<Attribute> attribute, double value)
-    {
-        var instance = entity.getAttributes().getInstance(attribute);
-        if (instance != null)
-        {
+    private static void setIfNonNull(LivingEntity target, Holder<Attribute> attribute, double value) {
+        var instance = target.getAttributes().getInstance(attribute);
+        if (instance != null) {
             instance.setBaseValue(value);
         }
     }
@@ -126,76 +124,57 @@ public class MiracleCrystal extends Item {
 
     private InteractionResultHolder<ItemStack> applyIVCrystal(ItemStack stack, Player player, LivingEntity target) {
         if (!player.level().isClientSide) {
-            double shiny = 0;
-            if(!target.getAttributes().hasAttribute(PotatoAttributes.SHINY)) {
+            double shiny;
+
+            if (!target.getAttributes().hasAttribute(PotatoAttributes.SHINY)) {
                 shiny = 0;
             }
             else {
                 shiny = Objects.requireNonNull(target.getAttribute(PotatoAttributes.SHINY)).getValue();
             }
 
-            if(player.getCooldowns().isOnCooldown(stack.getItem())) {
+            if (player.getCooldowns().isOnCooldown(stack.getItem())) {
                 return InteractionResultHolder.fail(stack);
             }
 
-            if(shiny == 1) {
+            if (shiny == 1) {
                 player.displayClientMessage(
                         Component.literal("Target already has perfect IVs").withStyle(ChatFormatting.DARK_RED), true
                 );
                 return InteractionResultHolder.fail(stack);
             }
 
-            if(!target.getType().is(PotatoTags.MOB_ENABLED) || target.getType().is(PotatoTags.RACE_PLAYER)) {
+            if (!target.getType().is(PotatoTags.MOB_ENABLED) || target.getType().is(PotatoTags.RACE_PLAYER)) {
                 player.getCooldowns().addCooldown(stack.getItem(), 20);
                 player.displayClientMessage(
                         Component.literal("Target does not have IVs").withStyle(ChatFormatting.DARK_RED), true
                 );
                 return InteractionResultHolder.sidedSuccess(stack, player.level().isClientSide);
             }
-            if (!player.getAbilities().instabuild) { // Not in creative
-                if (stack.getCount() != 0) {
-                    stack.shrink(1);
-                    player.getCooldowns().addCooldown(stack.getItem(), 10);
-                }
-            }
 
-            // Grabs an attribute and checks if the mob has a modifier
-            var shinyAttribute = target.getAttributes().getValue(PotatoAttributes.SHINY);
+            boolean alreadyShiny = false;
+            alreadyShiny = shiny >= 1;
             // If the mob is shiny, it won't have this modifier
-            boolean alreadyShiny = shinyAttribute >= 1;
-            // If the mob is shiny, it won't have this modifier
-            boolean canReroll = shinyAttribute == 0;
 
             // IVs variation setup
-            boolean isShiny = false;
             double[] attrVar = new double[10];
-            //System.out.println("done logic check");
             // Chance for shiny & prevents shinies from losing perfect IVs
-            if (target != player) {
-                if ((ServerConfigs.SHINY.get() && shinyAttribute()) || alreadyShiny) {
-                    Arrays.fill(attrVar, 1 * randMax);
-
-                    //System.out.println("is shiny");
-                    isShiny = true;
-                }
-                // Adds + 0~15% to Familiars' attributes & can be rerolled
-                // I should be able to copy this code over and make so non-shinies are rerolled
-                else if ((ServerConfigs.SHINY.get() && !shinyAttribute()) || canReroll) {
-                    for (int i = 0; i < attrVar.length; i++) {
-                        attrVar[i] = Math.random() * randMax;
-                        //System.out.println("is not shiny");
-                    }
-                }
+            if ((ServerConfigs.SHINY.get() && shinyAttribute()) || alreadyShiny) {
+                Arrays.fill(attrVar, 1 * randMax);
             }
-            else if (!ServerConfigs.SHINY.get() || target.getType().is(PotatoTags.PLAYER)) {
+            // Adds + 0~15% to Familiars' attributes & can be rerolled
+            // I should be able to copy this code over and make so non-shinies are rerolled
+            else if (ServerConfigs.SHINY.get() && !shinyAttribute()) {
+                for (int i = 0; i < attrVar.length; i++) {
+                    attrVar[i] = Math.random() * randMax;
+                }
+            } else if (!ServerConfigs.SHINY.get() || target.getType().is(PotatoTags.RACE_PLAYER)) {
                 Arrays.fill(attrVar, 0);
-                //System.out.println("is player");
             }
 
             // Checks if the mob has a valid modifier from here
             // If not, it gives the mob modifiers
-            if (target.getType().is(PotatoTags.MOB_ENABLED) && canReroll && !alreadyShiny) {
-                //System.out.println("shit is happening");
+            if (target.getType().is(PotatoTags.MOB_ENABLED) && !alreadyShiny) {
 
                 // Class modifier
                 if (target.getType().is(PotatoTags.BOSS)) {
@@ -217,7 +196,6 @@ public class MiracleCrystal extends Item {
                     AttackMod = mob_mod * (0.65 * (1 + attrVar[1]));
                 }
                 if (target.getType().is(PotatoTags.SUMMON)) {
-                    //System.out.println("attribute calc");
                     mobType = summon_mod;
                     ArmorMod = summon_mod * (1 * (1 + attrVar[0]));
                     ToughMod = summon_mod * (0.5 * (1 + attrVar[1]));
@@ -264,7 +242,6 @@ public class MiracleCrystal extends Item {
                     CritDmg = 0;
                     Crit = 0;
                 }
-
                 // Type Modifiers
                 if (target.getType().is(PotatoTags.RACE_HUMAN)) {
                     //System.out.println("human");
@@ -1152,12 +1129,11 @@ public class MiracleCrystal extends Item {
                 }
 
                 // Updates mob attributes after rounding it up to 2 decimals
-
-                if(attrVar[0] == 1 && attrVar[1] == 1 && attrVar[2] == 1 && attrVar[3] == 1 &&
+                if (attrVar[0] == 1 && attrVar[1] == 1 && attrVar[2] == 1 && attrVar[3] == 1 &&
                         attrVar[4] == 1 && attrVar[5] == 1 && attrVar[6] == 1 && attrVar[7] == 1) {
-                    isShiny = true;
+                    alreadyShiny = true;
                 }
-                if (isShiny) {
+                if (alreadyShiny) {
                     setIfNonNull(target, PotatoAttributes.SHINY, 1);
                 }
                 addModifierIfValid(target, Attributes.ATTACK_DAMAGE, BigDecimal.valueOf(Attack).setScale(2, RoundingMode.HALF_UP).doubleValue(), "attack");
@@ -1218,8 +1194,15 @@ public class MiracleCrystal extends Item {
                 setIfNonNull(target, PotatoAttributes.PROT_PEN_IV, attrVar[6]);
                 setIfNonNull(target, PotatoAttributes.CRIT_IV, attrVar[7]);
             }
+
+            if (!player.getAbilities().instabuild) { // Not in creative
+                if (stack.getCount() != 0) {
+                    stack.shrink(1);
+                    player.getCooldowns().addCooldown(stack.getItem(), 10);
+                }
+            }
         }
-        //System.out.println("success");
+        System.out.println("success");
         return InteractionResultHolder.sidedSuccess(stack, player.level().isClientSide);
     }
 }

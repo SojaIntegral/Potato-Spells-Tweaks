@@ -1,4 +1,5 @@
 
 # Bonus attributes system
 
-WARNING: Mobs can have multiple attributes. However, I recommend a max of 2 for the sake of balance
+WARNING: Do not give a mob more than 1 type
+This could break balance very badly

@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "values": [
+    {"id": "gametechbcs_spellbooks:corroded", "required": false },
+    {"id": "irons_spellbooks:rend", "required": false }
+  ]
+}

@@ -3,13 +3,13 @@
 
 **Every mob must have only one race**
 
-## Humans:
-- Have average attributes 
-- This race is used only for players
+## Player:
+- Have no attribute changes
+- Does not get random bonus
 
-## Dragonborn:
-- Have high resistances, just like dragons, but failed to succeed their immense magical talents
-- Dragonborn are slightly above humans in overall strength
+## Human:
+- Have average attributes
+- Use this for players if you want them to have random bonuses
 
 ## Humanoids:
 - Have some weaknesses and strengths, but are very balanced
@@ -51,6 +51,10 @@
 ## Amorph:
 - Things without proper form, mysterious natural (or unnatural) creatures
 - Amorph creatures are slightly above average, with very defined weaknesses and strengths
+
+## Dragonborn:
+- Have high resistances, just like dragons, but failed to succeed their immense magical talents
+- Dragonborn are slightly above humans in overall strength
 
 ## Dragon:
 - The most powerful of all races

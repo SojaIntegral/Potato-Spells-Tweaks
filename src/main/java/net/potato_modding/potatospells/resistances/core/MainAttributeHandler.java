@@ -104,9 +104,9 @@ public class MainAttributeHandler {
 
             var shinyAttribute = mob.getAttributes().getValue(PotatoAttributes.SHINY);
             // If the mob is shiny, it won't have this modifier
-            boolean alreadyShiny = shinyAttribute >= 1;
+            boolean alreadyShiny = (shinyAttribute >= 1);
             // If the mob is shiny, it won't have this modifier
-            boolean canReroll = shinyAttribute == 0;
+            boolean canReroll = shinyAttribute < 1;
 
             // IVs variation setup
             boolean isShiny = false;
@@ -122,7 +122,7 @@ public class MainAttributeHandler {
                 for (int i = 0; i < attrVar.length; i++) {
                     attrVar[i] = Math.random() * randMax;
                 }
-            } else if (!ServerConfigs.SHINY.get() || mob.getType().is(PotatoTags.PLAYER)) {
+            } else if (!ServerConfigs.SHINY.get() || mob.getType().is(PotatoTags.RACE_PLAYER)) {
                 Arrays.fill(attrVar, 0);
             }
 

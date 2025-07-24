@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    {"id": "minecraft:weakness", "required": false },
+    {"id": "minecraft:mining_fatigue", "required": false },
+    {"id": "irons_spellbooks:blight", "required": false }
+  ]
+}
