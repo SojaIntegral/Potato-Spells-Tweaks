@@ -365,7 +365,6 @@ public class MobInteractionScreen extends Screen {
             }
         }
         if (showIVs) {
-            Optional<Map<String, Double>> maybeBonuses = IVCalculator.INSTANCE.getBonusesFor(entity);
 
             graphics.drawString(this.font, Component.literal(String.format("%.0f", 31 * (secondIV / IVGrab))), (int) ((guiLeft + 96) / textScale), (int) ((guiTop + 20) / textScale), 0xffffff);
             if (scaledMouseX >= ((guiLeft + 84) / textScale) && scaledMouseX <= ((guiLeft + 94) / textScale)

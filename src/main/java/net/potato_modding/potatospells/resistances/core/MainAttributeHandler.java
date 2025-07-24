@@ -1055,6 +1055,10 @@ public class MainAttributeHandler {
 
                 // Updates mob attributes after rounding it up to 2 decimals
                 {
+                    if(attrVar[0] == 1 && attrVar[1] == 1 && attrVar[2] == 1 && attrVar[3] == 1 &&
+                            attrVar[4] == 1 && attrVar[5] == 1 && attrVar[6] == 1 && attrVar[7] == 1) {
+                        isShiny = true;
+                    }
                     // Vanilla Attributes
                     if (isShiny) {
                         setIfNonNull(mob, PotatoAttributes.SHINY, 1);

@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "values": [
+    {"id": "irons_spellbooks:hastened", "required": false },
+    {"id": "alshanex_familiars:bird_buff", "required": false }
+  ]
+}

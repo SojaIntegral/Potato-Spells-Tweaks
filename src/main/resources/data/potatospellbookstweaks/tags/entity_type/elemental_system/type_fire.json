@@ -7,10 +7,17 @@
     {"id": "cataclysm:ignited_berserker", "required": false },
     {"id": "cataclysm:netherite_monstrosity", "required": false },
     {"id": "irons_spellbooks:fire_boss", "required": false },
-    {"id": "irons_spellbooks:dead_king", "required": false },
-    {"id": "irons_spellbooks:dead_king_corpse", "required": false },
     {"id": "irons_spellbooks:citadel_keeper", "required": false },
     {"id": "irons_spellbooks:pyromancer", "required": false },
-    {"id": "gametechbcs_spellbooks:hard_dead_king", "required": false }
+    {"id": "traveloptics:summoned_ignited_revenant", "required": false},
+    {"id": "traveloptics:summoned_ignited_berserker", "required": false},
+    {"id": "cataclysm_spellbooks:summoned_ignited_revenant", "required": false},
+    {"id": "cataclysm_spellbooks:summoned_ignited_berserker", "required": false},
+    "minecraft:blaze",
+    "minecraft:magma_cube",
+    "minecraft:strider",
+    "minecraft:wither_skeleton",
+    "minecraft:zoglin",
+    "minecraft:zombified_piglin"
   ]
 }

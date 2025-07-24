@@ -1,6 +1,14 @@
 {
   "replace": false,
   "values": [
-    {"id": "#alshanex_familiars:familiars", "required": false }
+    {"id": "#alshanex_familiars:familiars", "required": false },
+    {"id": "irons_spellbooks:summoned_vex", "required": false},
+    {"id": "irons_spellbooks:summoned_sword", "required": false},
+    {"id": "irons_spellbooks:summoned_rapier", "required": false},
+    {"id": "irons_spellbooks:summoned_claymore", "required": false},
+    {"id": "irons_spellbooks:summoned_shadow", "required": false},
+    "minecraft:allay",
+    "minecraft:ghast",
+    "minecraft:vex"
   ]
 }

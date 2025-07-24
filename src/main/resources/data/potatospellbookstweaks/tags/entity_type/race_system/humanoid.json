@@ -9,6 +9,14 @@
     {"id": "irons_spellbooks:cryomancer", "required": false },
     {"id": "irons_spellbooks:pyromancer", "required": false },
     {"id": "irons_spellbooks:priest", "required": false },
-    {"id": "irons_spellbooks:apothecarist", "required": false }
+    {"id": "irons_spellbooks:apothecarist", "required": false },
+    "minecraft:enderman",
+    "minecraft:evoker",
+    "minecraft:pillager",
+    "minecraft:villager",
+    "minecraft:vindicator",
+    "minecraft:wandering_trader",
+    "minecraft:witch",
+    {"id": "eternal_starlight:boarwarf", "required": false }
   ]
 }

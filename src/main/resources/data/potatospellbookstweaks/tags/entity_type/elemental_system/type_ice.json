@@ -7,6 +7,18 @@
     {"id": "cataclysm:draugr", "required": false },
     {"id": "cataclysm:aptrgangr", "required": false },
     {"id": "irons_spellbooks:cryomancer", "required": false },
-    {"id": "irons_spellbooks:ice_spider", "required": false }
+    {"id": "irons_spellbooks:ice_spider", "required": false },
+    {"id": "traveloptics:summoned_elite_draugr", "required": false},
+    {"id": "traveloptics:summoned_royal_draugr", "required": false},
+    {"id": "cataclysm_spellbooks:summoned_draugr", "required": false},
+    {"id": "cataclysm_spellbooks:summoned_aptrgangr", "required": false},
+    {"id": "cataclysm_spellbooks:summoned_elite_draugr", "required": false},
+    {"id": "cataclysm_spellbooks:summoned_royal_draugr", "required": false},
+    "minecraft:goat",
+    "minecraft:snow_golem",
+    "minecraft:stray",
+    {"id": "bosses_of_mass_destruction:lich", "required": false },
+    {"id": "eternal_starlight:yeti", "required": false },
+    {"id": "eternal_starlight:crest", "required": false }
   ]
 }

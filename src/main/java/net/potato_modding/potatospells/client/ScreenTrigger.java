@@ -18,7 +18,6 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.ClientTickEvent;
 import net.potato_modding.potatospells.registry.PotatoAttributes;
 import net.potato_modding.potatospells.registry.PotatoRegistry;
-import net.potato_modding.potatospells.tags.PotatoTags;
 
 import java.util.List;
 
@@ -34,9 +33,11 @@ public class ScreenTrigger {
 
         if (!Keybinds.OPEN_SCREEN_KEY.consumeClick() || !hasIdentifier) return;
 
+        var spellPower = getAttr(mc.player, AttributeRegistry.SPELL_POWER);
+        var critDamage = getAttr(mc.player, ALObjects.Attributes.CRIT_DAMAGE);
         LivingEntity target = mc.player.isShiftKeyDown()
                 ? mc.player
-                : getTargetedEntity(16.0 * pow2(getAttr(mc.player, AttributeRegistry.SPELL_POWER)));
+                : getTargetedEntity(16.0 * spellPower * critDamage);
 
         if (target == null) return;
 

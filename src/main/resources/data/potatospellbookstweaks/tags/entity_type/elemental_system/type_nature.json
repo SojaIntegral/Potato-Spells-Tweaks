@@ -5,6 +5,18 @@
     {"id": "alshanex_familiars:hunter_pet", "required": false },
     {"id": "alshanex_familiars:plague_pet", "required": false },
     {"id": "cataclysm:amethyst_crab", "required": false },
-    {"id": "irons_spellbooks:apothecarist", "required": false }
+    {"id": "irons_spellbooks:apothecarist", "required": false },
+    {"id": "cataclysm_spellbooks:summoned_amethyst_crab", "required": false},
+    "minecraft:bee",
+    "minecraft:bogged",
+    "minecraft:cave_spider",
+    "minecraft:frog",
+    "minecraft:mooshroom",
+    "minecraft:pufferfish",
+    "minecraft:sniffer",
+    "minecraft:witch",
+    {"id": "bosses_of_mass_destruction:void_blossom", "required": false },
+    {"id": "eternal_starlight:ent", "required": false },
+    {"id": "eternal_starlight:tangled", "required": false }
   ]
 }

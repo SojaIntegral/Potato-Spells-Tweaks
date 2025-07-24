@@ -3,6 +3,12 @@
   "values": [
     {"id": "cataclysm:clawdian", "required": false },
     {"id": "cataclysm:endermaptera", "required": false },
-    {"id": "irons_spellbooks:ice_spider", "required": false }
+    {"id": "irons_spellbooks:ice_spider", "required": false },
+    "minecraft:bee",
+    "minecraft:cave_spider",
+    "minecraft:endermite",
+    "minecraft:silverfish",
+    "minecraft:spider",
+    {"id": "eternal_starlight:gleech", "required": false }
   ]
 }

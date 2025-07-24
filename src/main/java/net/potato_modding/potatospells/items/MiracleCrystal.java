@@ -2,7 +2,9 @@ package net.potato_modding.potatospells.items;
 
 import dev.shadowsoffire.apothic_attributes.api.ALObjects;
 import io.redspace.ironsspellbooks.api.registry.AttributeRegistry;
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.Holder;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -14,6 +16,7 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.neoforged.fml.ModList;
 import net.potato_modding.potatospells.config.ServerConfigs;
@@ -23,6 +26,8 @@ import net.potato_modding.potatospells.tags.PotatoTags;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.ThreadLocalRandom;
 
 import static net.potato_modding.potatospells.utils.ConfigFormulas.*;
@@ -36,6 +41,14 @@ public class MiracleCrystal extends Item {
     @Override
     public InteractionResult interactLivingEntity(ItemStack stack, Player player, LivingEntity target, InteractionHand hand) {
         return applyIVCrystal(stack, player, target).getResult(); // Use on self
+    }
+
+    @Override
+    public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
+        tooltip.add(Component.literal("Use on a mob to reroll IVs")
+                .withStyle(ChatFormatting.WHITE));
+        tooltip.add(Component.literal("Hold shift to use on yourself")
+                .withStyle(ChatFormatting.WHITE, ChatFormatting.ITALIC));
     }
 
     @Override
@@ -59,7 +72,7 @@ public class MiracleCrystal extends Item {
     private static void addModifierIfValid(LivingEntity target, Holder<Attribute> attribute, double value, String idName) {
         var instance = target.getAttributes().getInstance(attribute);
         if (instance == null) return;
-        System.out.println("add base");
+        //System.out.println("add base");
         ResourceLocation id = ResourceLocation.fromNamespaceAndPath("potatospellbookstweaks", idName);
         instance.removeModifier(id);
         instance.addPermanentModifier(new AttributeModifier(id, value, AttributeModifier.Operation.ADD_VALUE));
@@ -69,7 +82,7 @@ public class MiracleCrystal extends Item {
     private static void multiplyModifierIfValid(LivingEntity target, Holder<Attribute> attribute, double value, String idName) {
         var instance = target.getAttributes().getInstance(attribute);
         if (instance == null) return;
-        System.out.println("multiply base");
+        //System.out.println("multiply base");
         ResourceLocation id = ResourceLocation.fromNamespaceAndPath("potatospellbookstweaks", idName);
         instance.removeModifier(id);
         instance.addPermanentModifier(new AttributeModifier(id, value, AttributeModifier.Operation.ADD_MULTIPLIED_BASE));
@@ -113,7 +126,32 @@ public class MiracleCrystal extends Item {
 
     private InteractionResultHolder<ItemStack> applyIVCrystal(ItemStack stack, Player player, LivingEntity target) {
         if (!player.level().isClientSide) {
+            double shiny = 0;
+            if(!target.getAttributes().hasAttribute(PotatoAttributes.SHINY)) {
+                shiny = 0;
+            }
+            else {
+                shiny = Objects.requireNonNull(target.getAttribute(PotatoAttributes.SHINY)).getValue();
+            }
 
+            if(player.getCooldowns().isOnCooldown(stack.getItem())) {
+                return InteractionResultHolder.fail(stack);
+            }
+
+            if(shiny == 1) {
+                player.displayClientMessage(
+                        Component.literal("Target already has perfect IVs").withStyle(ChatFormatting.DARK_RED), true
+                );
+                return InteractionResultHolder.fail(stack);
+            }
+
+            if(!target.getType().is(PotatoTags.MOB_ENABLED) || target.getType().is(PotatoTags.RACE_PLAYER)) {
+                player.getCooldowns().addCooldown(stack.getItem(), 20);
+                player.displayClientMessage(
+                        Component.literal("Target does not have IVs").withStyle(ChatFormatting.DARK_RED), true
+                );
+                return InteractionResultHolder.sidedSuccess(stack, player.level().isClientSide);
+            }
             if (!player.getAbilities().instabuild) { // Not in creative
                 if (stack.getCount() != 0) {
                     stack.shrink(1);
@@ -131,13 +169,13 @@ public class MiracleCrystal extends Item {
             // IVs variation setup
             boolean isShiny = false;
             double[] attrVar = new double[10];
-            System.out.println("done logic check");
+            //System.out.println("done logic check");
             // Chance for shiny & prevents shinies from losing perfect IVs
             if (target != player) {
                 if ((ServerConfigs.SHINY.get() && shinyAttribute()) || alreadyShiny) {
                     Arrays.fill(attrVar, 1 * randMax);
 
-                    System.out.println("is shiny");
+                    //System.out.println("is shiny");
                     isShiny = true;
                 }
                 // Adds + 0~15% to Familiars' attributes & can be rerolled
@@ -145,19 +183,19 @@ public class MiracleCrystal extends Item {
                 else if ((ServerConfigs.SHINY.get() && !shinyAttribute()) || canReroll) {
                     for (int i = 0; i < attrVar.length; i++) {
                         attrVar[i] = Math.random() * randMax;
-                        System.out.println("is not shiny");
+                        //System.out.println("is not shiny");
                     }
                 }
             }
             else if (!ServerConfigs.SHINY.get() || target.getType().is(PotatoTags.PLAYER)) {
                 Arrays.fill(attrVar, 0);
-                System.out.println("is player");
+                //System.out.println("is player");
             }
 
             // Checks if the mob has a valid modifier from here
             // If not, it gives the mob modifiers
             if (target.getType().is(PotatoTags.MOB_ENABLED) && canReroll && !alreadyShiny) {
-                System.out.println("shit is happening");
+                //System.out.println("shit is happening");
 
                 // Class modifier
                 if (target.getType().is(PotatoTags.BOSS)) {
@@ -179,7 +217,7 @@ public class MiracleCrystal extends Item {
                     AttackMod = mob_mod * (0.65 * (1 + attrVar[1]));
                 }
                 if (target.getType().is(PotatoTags.SUMMON)) {
-                    System.out.println("attribute calc");
+                    //System.out.println("attribute calc");
                     mobType = summon_mod;
                     ArmorMod = summon_mod * (1 * (1 + attrVar[0]));
                     ToughMod = summon_mod * (0.5 * (1 + attrVar[1]));
@@ -193,7 +231,7 @@ public class MiracleCrystal extends Item {
                 }
 
                 if (target.getType().is(PotatoTags.RACE_PLAYER)) {
-                    System.out.println("player");
+                    //System.out.println("player");
                     Attack = 0 * AttackMod;
                     Armor = 0 * ArmorMod;
                     Tough = 0 * ToughMod;
@@ -229,7 +267,7 @@ public class MiracleCrystal extends Item {
 
                 // Type Modifiers
                 if (target.getType().is(PotatoTags.RACE_HUMAN)) {
-                    System.out.println("human");
+                    //System.out.println("human");
                     Attack = 0 * AttackMod;
                     Armor = 0 * ArmorMod;
                     Tough = 0 * ToughMod;
@@ -263,7 +301,7 @@ public class MiracleCrystal extends Item {
                     Crit = attrVar[7] - 0.025;
                 }
                 if (target.getType().is(PotatoTags.RACE_UNDEAD)) {
-                    System.out.println("undead");
+                    //System.out.println("undead");
                     Attack = 1.5 * AttackMod;
                     Armor = 2.5 * ArmorMod;
                     Tough = 1.5 * ToughMod;
@@ -297,7 +335,7 @@ public class MiracleCrystal extends Item {
                     Crit = attrVar[7];
                 }
                 if (target.getType().is(PotatoTags.RACE_HUMANOID)) {
-                    System.out.println("humanoid");
+                    //System.out.println("humanoid");
                     Attack = 2 * AttackMod;
                     Armor = 2 * ArmorMod;
                     Tough = 2 * ToughMod;
@@ -331,7 +369,7 @@ public class MiracleCrystal extends Item {
                     Crit = attrVar[7] - 0.05;
                 }
                 if (target.getType().is(PotatoTags.RACE_BRUTE)) {
-                    System.out.println("brute");
+                    //System.out.println("brute");
                     Attack = 3 * AttackMod;
                     Armor = 3 * ArmorMod;
                     Tough = 3 * ToughMod;
@@ -365,7 +403,7 @@ public class MiracleCrystal extends Item {
                     Crit = attrVar[7] + 0.05;
                 }
                 if (target.getType().is(PotatoTags.RACE_INSECT)) {
-                    System.out.println("insect");
+                    //System.out.println("insect");
                     Attack = 1 * AttackMod;
                     Armor = 1 * ArmorMod;
                     Tough = 2 * ToughMod;
@@ -399,7 +437,7 @@ public class MiracleCrystal extends Item {
                     Crit = attrVar[7] + 0.25;
                 }
                 if (target.getType().is(PotatoTags.RACE_FLYING)) {
-                    System.out.println("flying");
+                    //System.out.println("flying");
                     Attack = 1.5 * AttackMod;
                     Armor = 1 * ArmorMod;
                     Tough = 0 * ToughMod;
@@ -433,7 +471,7 @@ public class MiracleCrystal extends Item {
                     Crit = attrVar[7] + 0.35;
                 }
                 if (target.getType().is(PotatoTags.RACE_GOLEM)) {
-                    System.out.println("golem");
+                    //System.out.println("golem");
                     Attack = 3.5 * AttackMod;
                     Armor = 5 * ArmorMod;
                     Tough = 5 * ToughMod;
@@ -467,7 +505,7 @@ public class MiracleCrystal extends Item {
                     Crit = attrVar[7] - 0.1;
                 }
                 if (target.getType().is(PotatoTags.RACE_CONSTRUCT)) {
-                    System.out.println("construct");
+                    //System.out.println("construct");
                     Attack = 4 * AttackMod;
                     Armor = 4 * ArmorMod;
                     Tough = 5 * ToughMod;
@@ -501,7 +539,7 @@ public class MiracleCrystal extends Item {
                     Crit = attrVar[7] + 1;
                 }
                 if (target.getType().is(PotatoTags.RACE_FISH)) {
-                    System.out.println("fish");
+                    //System.out.println("fish");
                     Attack = 2 * AttackMod;
                     Armor = 3 * ArmorMod;
                     Tough = 1.5 * ToughMod;
@@ -535,7 +573,7 @@ public class MiracleCrystal extends Item {
                     Crit = attrVar[7] - 0.05;
                 }
                 if (target.getType().is(PotatoTags.RACE_SPIRIT)) {
-                    System.out.println("spirit");
+                    //System.out.println("spirit");
                     Attack = 1 * AttackMod;
                     Armor = 0 * ArmorMod;
                     Tough = 0 * ToughMod;
@@ -569,7 +607,7 @@ public class MiracleCrystal extends Item {
                     Crit = attrVar[7] - 0.1;
                 }
                 if (target.getType().is(PotatoTags.RACE_AMORPH)) {
-                    System.out.println("amorph");
+                    //System.out.println("amorph");
                     Attack = 2.5 * AttackMod;
                     Armor = 2.5 * ArmorMod;
                     Tough = 2.5 * ToughMod;
@@ -603,7 +641,7 @@ public class MiracleCrystal extends Item {
                     Crit = attrVar[7] + 0.1;
                 }
                 if (target.getType().is(PotatoTags.RACE_DRAGONBORN)) {
-                    System.out.println("dragonborn");
+                    //System.out.println("dragonborn");
                     Attack = 1 * AttackMod;
                     Armor = 2 * ArmorMod;
                     Tough = 1 * ToughMod;
@@ -637,7 +675,7 @@ public class MiracleCrystal extends Item {
                     Crit = attrVar[7] - 0.15;
                 }
                 if (target.getType().is(PotatoTags.RACE_DRAGON)) {
-                    System.out.println("dragon");
+                    //System.out.println("dragon");
                     Attack = 5 * AttackMod;
                     Armor = 5 * ArmorMod;
                     Tough = 5 * ToughMod;
@@ -673,7 +711,7 @@ public class MiracleCrystal extends Item {
 
                 // School Modifiers
                 if (target.getType().is(PotatoTags.TYPE_BLOOD)) {
-                    System.out.println("blood");
+                    //System.out.println("blood");
                     FireRes *= 0.65 * mobType;
                     IceRes *= 1.155 * mobType;
                     HolyRes *= 0.65 * mobType;
@@ -695,7 +733,7 @@ public class MiracleCrystal extends Item {
                     AquaRes *= 1.45 * mobType;
                 }
                 if (target.getType().is(PotatoTags.TYPE_ELDRITCH)) {
-                    System.out.println("eldritch");
+                    //System.out.println("eldritch");
                     FireRes *= 0.85 * mobType;
                     IceRes *= 1.15 * mobType;
                     HolyRes *= 0.65 * mobType;
@@ -717,7 +755,7 @@ public class MiracleCrystal extends Item {
                     AquaRes *= 1.15 * mobType;
                 }
                 if (target.getType().is(PotatoTags.TYPE_ENDER)) {
-                    System.out.println("ender");
+                    //System.out.println("ender");
                     FireRes *= 1 * mobType;
                     IceRes *= 1 * mobType;
                     HolyRes *= 0.85 * mobType;
@@ -739,7 +777,7 @@ public class MiracleCrystal extends Item {
                     AquaRes *= 1 * mobType;
                 }
                 if (target.getType().is(PotatoTags.TYPE_EVOKATION)) {
-                    System.out.println("evoke");
+                    //System.out.println("evoke");
                     FireRes *= 0.85 * mobType;
                     IceRes *= 1 * mobType;
                     HolyRes *= 0.85 * mobType;
@@ -761,7 +799,7 @@ public class MiracleCrystal extends Item {
                     AquaRes *= 1 * mobType;
                 }
                 if (target.getType().is(PotatoTags.TYPE_FIRE)) {
-                    System.out.println("fire");
+                    //System.out.println("fire");
                     FireRes *= 1.45 * mobType;
                     IceRes *= 1.15 * mobType;
                     HolyRes *= 0.85 * mobType;
@@ -783,7 +821,7 @@ public class MiracleCrystal extends Item {
                     AquaRes *= 0.65 * mobType;
                 }
                 if (target.getType().is(PotatoTags.TYPE_HOLY)) {
-                    System.out.println("holy");
+                    //System.out.println("holy");
                     FireRes *= 1.15 * mobType;
                     IceRes *= 1.15 * mobType;
                     HolyRes *= 1.45 * mobType;
@@ -805,7 +843,7 @@ public class MiracleCrystal extends Item {
                     AquaRes *= 1.15 * mobType;
                 }
                 if (target.getType().is(PotatoTags.TYPE_ICE)) {
-                    System.out.println("ice");
+                    //System.out.println("ice");
                     FireRes *= 0.85 * mobType;
                     IceRes *= 1.45 * mobType;
                     HolyRes *= 0.85 * mobType;
@@ -827,7 +865,7 @@ public class MiracleCrystal extends Item {
                     AquaRes *= 0.85 * mobType;
                 }
                 if (target.getType().is(PotatoTags.TYPE_LIGHTNING)) {
-                    System.out.println("lightning");
+                    //System.out.println("lightning");
                     FireRes *= 1.15 * mobType;
                     IceRes *= 1.45 * mobType;
                     HolyRes *= 1 * mobType;
@@ -849,7 +887,7 @@ public class MiracleCrystal extends Item {
                     AquaRes *= 1.15 * mobType;
                 }
                 if (target.getType().is(PotatoTags.TYPE_NATURE)) {
-                    System.out.println("nature");
+                    //System.out.println("nature");
                     FireRes *= 0.65 * mobType;
                     IceRes *= 1.15 * mobType;
                     HolyRes *= 1 * mobType;
@@ -871,7 +909,7 @@ public class MiracleCrystal extends Item {
                     AquaRes *= 1.45 * mobType;
                 }
                 if (target.getType().is(PotatoTags.TYPE_WIND)) {
-                    System.out.println("wind");
+                    //System.out.println("wind");
                     FireRes *= 1.15 * mobType;
                     IceRes *= 0.65 * mobType;
                     HolyRes *= 1 * mobType;
@@ -893,7 +931,7 @@ public class MiracleCrystal extends Item {
                     AquaRes *= 0.85 * mobType;
                 }
                 if (target.getType().is(PotatoTags.TYPE_ABYSS)) {
-                    System.out.println("abyss");
+                    //System.out.println("abyss");
                     FireRes *= 1.45 * mobType;
                     IceRes *= 1 * mobType;
                     HolyRes *= 1.15 * mobType;
@@ -915,7 +953,7 @@ public class MiracleCrystal extends Item {
                     AquaRes *= 1.45 * mobType;
                 }
                 if (target.getType().is(PotatoTags.TYPE_TECHNOMANCY)) {
-                    System.out.println("tech");
+                    //System.out.println("tech");
                     FireRes *= 0.85 * mobType;
                     IceRes *= 1.15 * mobType;
                     HolyRes *= 1.45 * mobType;
@@ -937,7 +975,7 @@ public class MiracleCrystal extends Item {
                     AquaRes *= 0.65 * mobType;
                 }
                 if (target.getType().is(PotatoTags.TYPE_BLADE)) {
-                    System.out.println("blade");
+                    //System.out.println("blade");
                     FireRes *= 1 * mobType;
                     IceRes *= 1.15 * mobType;
                     HolyRes *= 1.15 * mobType;
@@ -959,7 +997,7 @@ public class MiracleCrystal extends Item {
                     AquaRes *= 0.65 * mobType;
                 }
                 if (target.getType().is(PotatoTags.TYPE_MIND)) {
-                    System.out.println("mind");
+                    //System.out.println("mind");
                     FireRes *= 1.15 * mobType;
                     IceRes *= 1.15 * mobType;
                     HolyRes *= 1.45 * mobType;
@@ -981,7 +1019,7 @@ public class MiracleCrystal extends Item {
                     AquaRes *= 1.15 * mobType;
                 }
                 if (target.getType().is(PotatoTags.TYPE_SOUND)) {
-                    System.out.println("sound");
+                    //System.out.println("sound");
                     FireRes *= 1 * mobType;
                     IceRes *= 0.85 * mobType;
                     HolyRes *= 1.45 * mobType;
@@ -1003,7 +1041,7 @@ public class MiracleCrystal extends Item {
                     AquaRes *= 0.65 * mobType;
                 }
                 if (target.getType().is(PotatoTags.TYPE_DUNE)) {
-                    System.out.println("dune");
+                    //System.out.println("dune");
                     FireRes *= 1.15 * mobType;
                     IceRes *= 1.45 * mobType;
                     HolyRes *= 1.15 * mobType;
@@ -1025,7 +1063,7 @@ public class MiracleCrystal extends Item {
                     AquaRes *= 0.65 * mobType;
                 }
                 if (target.getType().is(PotatoTags.TYPE_SOUL)) {
-                    System.out.println("soul");
+                    //System.out.println("soul");
                     FireRes *= 1.15 * mobType;
                     IceRes *= 1.45 * mobType;
                     HolyRes *= 0.65 * mobType;
@@ -1047,7 +1085,7 @@ public class MiracleCrystal extends Item {
                     AquaRes *= 1.15 * mobType;
                 }
                 if (target.getType().is(PotatoTags.TYPE_SYM)) {
-                    System.out.println("sym");
+                    //System.out.println("sym");
                     FireRes *= 1.15 * mobType;
                     IceRes *= 1.15 * mobType;
                     HolyRes *= 0.85 * mobType;
@@ -1069,7 +1107,7 @@ public class MiracleCrystal extends Item {
                     AquaRes *= 1.15 * mobType;
                 }
                 if (target.getType().is(PotatoTags.TYPE_AQUA)) {
-                    System.out.println("aqua");
+                    //System.out.println("aqua");
                     FireRes *= 1.45 * mobType;
                     IceRes *= 0.85 * mobType;
                     HolyRes *= 0.85 * mobType;
@@ -1091,7 +1129,7 @@ public class MiracleCrystal extends Item {
                     AquaRes *= 1.45 * mobType;
                 }
                 if (target.getType().is(PotatoTags.TYPE_NEUTRAL)) {
-                    System.out.println("neutral");
+                    //System.out.println("neutral");
                     FireRes *= 1 * mobType;
                     IceRes *= 1 * mobType;
                     HolyRes *= 1 * mobType;
@@ -1115,6 +1153,10 @@ public class MiracleCrystal extends Item {
 
                 // Updates mob attributes after rounding it up to 2 decimals
 
+                if(attrVar[0] == 1 && attrVar[1] == 1 && attrVar[2] == 1 && attrVar[3] == 1 &&
+                        attrVar[4] == 1 && attrVar[5] == 1 && attrVar[6] == 1 && attrVar[7] == 1) {
+                    isShiny = true;
+                }
                 if (isShiny) {
                     setIfNonNull(target, PotatoAttributes.SHINY, 1);
                 }
@@ -1165,7 +1207,7 @@ public class MiracleCrystal extends Item {
                 addModifierIfValid(target, ALObjects.Attributes.PROT_SHRED, BigDecimal.valueOf(ProtShred).setScale(4, RoundingMode.HALF_UP).doubleValue(), "protection_shred");
                 addModifierIfValid(target, ALObjects.Attributes.CRIT_CHANCE, BigDecimal.valueOf(Crit).setScale(4, RoundingMode.HALF_UP).doubleValue(), "critical_chance");
                 addModifierIfValid(target, ALObjects.Attributes.CRIT_DAMAGE, BigDecimal.valueOf(CritDmg).setScale(4, RoundingMode.HALF_UP).doubleValue(), "critical_damage");
-                System.out.println("finished attributes");
+                //System.out.println("finished attributes");
 
                 setIfNonNull(target, PotatoAttributes.ATTACK_IV, attrVar[0]);
                 setIfNonNull(target, PotatoAttributes.ARMOR_IV, attrVar[1]);
@@ -1177,7 +1219,7 @@ public class MiracleCrystal extends Item {
                 setIfNonNull(target, PotatoAttributes.CRIT_IV, attrVar[7]);
             }
         }
-        System.out.println("success");
+        //System.out.println("success");
         return InteractionResultHolder.sidedSuccess(stack, player.level().isClientSide);
     }
 }

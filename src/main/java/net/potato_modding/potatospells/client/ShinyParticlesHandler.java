@@ -46,9 +46,9 @@ public class ShinyParticlesHandler {
                 double offsetX = (mc.level.random.nextDouble() - 0.5) * width;
                 double offsetZ = (mc.level.random.nextDouble() - 0.5) * width;
 
-                double velocityX = offsetX * 0.1;
+                double velocityX = offsetX * 0.11;
                 double velocityY = 0.05 + mc.level.random.nextDouble() * 1.5;
-                double velocityZ = offsetZ * 0.1;
+                double velocityZ = offsetZ * 0.11;
 
                 mc.level.addParticle(ParticleTypes.GLOW,
                         x + offsetX, y, z + offsetZ,

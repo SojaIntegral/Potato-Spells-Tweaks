@@ -1,8 +1,16 @@
 {
   "replace": false,
   "values": [
-    {"id": "alshanex_familiars:hunter_pet", "required": false },
     {"id": "alshanex_familiars:illusionist_pet", "required": false },
-    {"id": "irons_spellbooks:archevoker", "required": false }
+    {"id": "irons_spellbooks:archevoker", "required": false },
+    {"id": "irons_spellbooks:summoned_polar_bear", "required": false},
+    "minecraft:creeper",
+    "minecraft:elder_guardian",
+    "minecraft:evoker",
+    "minecraft:guardian",
+    "minecraft:ravager",
+    "minecraft:trader_llama",
+    "minecraft:vex",
+    "minecraft:wandering_trader"
   ]
 }

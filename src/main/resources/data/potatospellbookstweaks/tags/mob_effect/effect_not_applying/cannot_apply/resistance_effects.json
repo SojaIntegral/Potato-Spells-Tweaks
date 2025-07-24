@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    {"id": "brewinandchewin:tipsy", "required": false },
+    {"id": "minecraft:absorption", "required": false },
+    {"id": "minecraft:resistance", "required": false }
+  ]
+}

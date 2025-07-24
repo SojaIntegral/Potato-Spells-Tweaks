@@ -7,6 +7,8 @@
     {"id": "cataclysm:deepling_warlock", "required": false },
     {"id": "cataclysm:deepling_priest", "required": false },
     {"id": "cataclysm:deepling_angler", "required": false },
-    {"id": "cataclysm:deepling", "required": false }
+    {"id": "cataclysm:deepling", "required": false },
+    "minecraft:glow_squid",
+    {"id": "eternal_starlight:creteor", "required": false }
   ]
 }

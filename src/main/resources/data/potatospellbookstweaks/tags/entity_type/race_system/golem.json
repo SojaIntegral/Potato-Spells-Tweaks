@@ -2,6 +2,13 @@
   "replace": false,
   "values": [
     {"id": "minecraft:wither", "required": false },
-    {"id": "irons_spellbooks:citadel_keeper", "required": false }
+    {"id": "irons_spellbooks:citadel_keeper", "required": false },
+    {"id": "traveloptics:summoned_ender_golem", "required": false},
+    "minecraft:iron_golem",
+    "minecraft:snow_golem",
+    {"id": "bosses_of_mass_destruction:obsidilith", "required": false },
+    {"id": "crystal_chronicles:crystal_golem", "required": false },
+    {"id": "eternal_starlight:ent", "required": false },
+    {"id": "eternal_starlight:creteor", "required": false }
   ]
 }

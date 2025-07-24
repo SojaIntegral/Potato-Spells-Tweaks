@@ -2,6 +2,10 @@
   "replace": false,
   "values": [
     {"id": "minecraft:wither", "required": false },
-    {"id": "cataclysm:maledictus", "required": false }
+    {"id": "cataclysm:maledictus", "required": false },
+    {"id": "irons_spellbooks:summoned_vex", "required": false},
+    {"id": "irons_spellbooks:summoned_shadow", "required": false},
+    {"id": "iss_magicfromtheeast:summoned_jiangshi", "required": false},
+    "minecraft:ghast"
   ]
 }
