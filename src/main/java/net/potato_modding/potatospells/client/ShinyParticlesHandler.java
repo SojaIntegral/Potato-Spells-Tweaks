@@ -9,6 +9,7 @@ import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.ClientTickEvent;
+import net.potato_modding.potatospells.config.ClientConfigs;
 import net.potato_modding.potatospells.registry.PotatoAttributes;
 
 import java.util.List;
@@ -18,6 +19,8 @@ public class ShinyParticlesHandler {
 
     @SubscribeEvent
     public static void onClientTick(ClientTickEvent.Post event) {
+        if (!ClientConfigs.SHINY_GLOW.get()) return;
+
         Minecraft mc = Minecraft.getInstance();
         if (mc.player == null || mc.level == null) return;
 
@@ -41,6 +44,8 @@ public class ShinyParticlesHandler {
             double x = entity.getX();
             double y = bounds.minY; // Feet level
             double z = entity.getZ();
+
+            if(entity == mc.player && !ClientConfigs.PLAYER_GLOW.get()) return;
 
             for (int i = 0; i < 2; i++) {
                 double offsetX = (mc.level.random.nextDouble() - 0.5) * width;

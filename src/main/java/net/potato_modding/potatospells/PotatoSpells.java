@@ -22,8 +22,8 @@ import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.AddReloadListenerEvent;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
+import net.potato_modding.potatospells.config.ClientConfigs;
 import net.potato_modding.potatospells.config.ServerConfigs;
-import net.potato_modding.potatospells.datagen.IVCalculator;
 import net.potato_modding.potatospells.registry.PotatoAttributes;
 import net.potato_modding.potatospells.registry.PotatoCreativeTab;
 import net.potato_modding.potatospells.registry.PotatoRegistry;
@@ -35,7 +35,7 @@ import top.theillusivec4.curios.api.client.CuriosRendererRegistry;
 @Mod(PotatoSpells.MOD_ID)
 public class PotatoSpells {
     public static final String MOD_ID = "potatospellbookstweaks";
-    private static final Logger LOGGER = LogUtils.getLogger();
+    public static final Logger LOGGER = LogUtils.getLogger();
 
     // The constructor for the mod class is the first code that is run when your mod is loaded.
     // FML will recognize some parameter types like IEventBus or ModContainer and pass them in automatically.
@@ -43,6 +43,7 @@ public class PotatoSpells {
         // Register the commonSetup method for modloading
 
         modEventBus.addListener(this::commonSetup);
+        modEventBus.addListener(this::addCreative);
 
         // Register ourselves for server and other game events we are interested in.
         // Note that this is necessary if and only if we want *this* class (ExampleMod) to respond directly to events.
@@ -53,8 +54,8 @@ public class PotatoSpells {
         PotatoCreativeTab.register(modEventBus);
         PotatoRegistry.register(modEventBus);
         PotatoAttributes.register(modEventBus);
-        modEventBus.addListener(this::addCreative);
         modContainer.registerConfig(ModConfig.Type.SERVER, ServerConfigs.BUILDING, String.format("%s-server.toml", PotatoSpells.MOD_ID));
+        modContainer.registerConfig(ModConfig.Type.CLIENT, ClientConfigs.BUILDING, String.format("%s-client.toml", PotatoSpells.MOD_ID));
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
@@ -70,7 +71,6 @@ public class PotatoSpells {
     }
 
     private void onReloadListeners(AddReloadListenerEvent event) {
-        event.addListener(IVCalculator.INSTANCE);
     }
 
 

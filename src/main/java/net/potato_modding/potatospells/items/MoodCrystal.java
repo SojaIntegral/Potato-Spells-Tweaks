@@ -11,6 +11,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
+import net.potato_modding.potatospells.config.ServerConfigs;
 import net.potato_modding.potatospells.resistances.core.PotatoNaturesHandler;
 import net.potato_modding.potatospells.tags.PotatoTags;
 
@@ -24,7 +25,7 @@ public class MoodCrystal extends Item {
 
     @Override
     public InteractionResult interactLivingEntity(ItemStack stack, Player player, LivingEntity target, InteractionHand hand) {
-        return applyNatureCrystal(stack, player, target).getResult(); // Use on self
+        return applyNatureCrystal(stack, player, target).getResult(); // Use on target
     }
 
     @Override
@@ -43,9 +44,20 @@ public class MoodCrystal extends Item {
         return InteractionResultHolder.pass(player.getItemInHand(hand));
     }
 
-    private InteractionResultHolder<ItemStack> applyNatureCrystal(ItemStack stack, Player player, LivingEntity target) {
+    public InteractionResultHolder<ItemStack> applyNatureCrystal(ItemStack stack, Player player, LivingEntity target) {
         if (!player.level().isClientSide) {
+
+            if(!ServerConfigs.NATURE_SYSTEM.get()) {
+                player.displayClientMessage(
+                        Component.literal("This item has been disabled").withStyle(ChatFormatting.DARK_RED), true
+                );
+                return InteractionResultHolder.fail(stack);
+            }
+
             if(player.getCooldowns().isOnCooldown(stack.getItem())) {
+                player.displayClientMessage(
+                        Component.literal("Item on Cooldown").withStyle(ChatFormatting.DARK_RED), true
+                );
                 return InteractionResultHolder.fail(stack);
             }
 

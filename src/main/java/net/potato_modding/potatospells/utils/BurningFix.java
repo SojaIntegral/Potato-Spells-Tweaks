@@ -6,6 +6,7 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.living.MobEffectEvent;
+import net.potato_modding.potatospells.config.ServerConfigs;
 import net.potato_modding.potatospells.tags.PotatoTags;
 
 import java.util.Objects;
@@ -20,7 +21,7 @@ public class BurningFix {
     @SubscribeEvent
     public static void fireResistanceDoesNotBurn(MobEffectEvent.Added event) {
         var mob = event.getEntity();
-        if (mob.getType().is(PotatoTags.PLAYER)) {
+        if (mob.getType().is(PotatoTags.PLAYER) && ServerConfigs.BURN_REMOVE.get()) {
             if (event.getEffectInstance().getEffect().equals(MobEffects.FIRE_RESISTANCE) && mob.isOnFire()) {
                 setIfNonNull(mob, 0);
                 event.getEntity().clearFire();
@@ -31,7 +32,7 @@ public class BurningFix {
     @SubscribeEvent
     public static void fireResistanceBurnRemove(MobEffectEvent.Remove event) {
         var mob = event.getEntity();
-        if (mob.getType().is(PotatoTags.PLAYER)) {
+        if (mob.getType().is(PotatoTags.PLAYER) && ServerConfigs.BURN_REMOVE.get()) {
             double burn = Objects.requireNonNull(mob.getAttribute(Attributes.BURNING_TIME)).getValue();
             assert event.getEffectInstance() != null;
             if (event.getEffectInstance().getEffect().equals(MobEffects.FIRE_RESISTANCE)) {
@@ -48,7 +49,7 @@ public class BurningFix {
     @SubscribeEvent
     public static void fireResistanceBurnExpire(MobEffectEvent.Expired event) {
         var mob = event.getEntity();
-        if (mob.getType().is(PotatoTags.PLAYER)) {
+        if (mob.getType().is(PotatoTags.PLAYER) && ServerConfigs.BURN_REMOVE.get()) {
             double burn = Objects.requireNonNull(mob.getAttribute(Attributes.BURNING_TIME)).getValue();
             assert event.getEffectInstance() != null;
             if (event.getEffectInstance().getEffect().equals(MobEffects.FIRE_RESISTANCE)) {

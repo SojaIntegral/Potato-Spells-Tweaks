@@ -16,7 +16,6 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.potato_modding.potatospells.config.ServerConfigs;
-import net.potato_modding.potatospells.datagen.IVCalculator;
 import net.potato_modding.potatospells.registry.PotatoAttributes;
 import net.potato_modding.potatospells.tags.PotatoTags;
 import net.potato_modding.potatospells.utils.ConfigFormulas;
@@ -25,7 +24,6 @@ import org.joml.Vector3f;
 
 import java.util.Map;
 import java.util.Objects;
-import java.util.Optional;
 
 public class MobInteractionScreen extends Screen {
     // Buttons on the GUI
@@ -488,17 +486,6 @@ public class MobInteractionScreen extends Screen {
                 }
             }
         }
-
-        Optional<Map<String, Double>> maybeBonuses = IVCalculator.INSTANCE.getBonusesFor(entity);
-        maybeBonuses.ifPresent(bonuses -> {
-            for (Map.Entry<String, Double> entry : bonuses.entrySet()) {
-                String statName = entry.getKey();
-                double value = entry.getValue();
-
-
-            }
-        });
-
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.disableBlend();
     }

@@ -14,12 +14,13 @@ public class ServerConfigs {
     public static ModConfigSpec.ConfigValue<Integer> MOB_RESIST;
     public static ModConfigSpec.ConfigValue<Integer> SUMMON_RESIST;
     public static ModConfigSpec.ConfigValue<Boolean> BUFF_STACKING;
-    public static ModConfigSpec.ConfigValue<Boolean> SHINY;
+    public static ModConfigSpec.ConfigValue<Boolean> IV_SYSTEM;
     public static ModConfigSpec.ConfigValue<Integer> SHINY_CHANCE;
+    public static ModConfigSpec.ConfigValue<Boolean> BURN_REMOVE;
 
     // Familiars Compat
-    public static ModConfigSpec.ConfigValue<Integer> FAMILIAR_RAND;
-    public static ModConfigSpec.ConfigValue<Boolean> FAMILIAR_NATURE;
+    public static ModConfigSpec.ConfigValue<Integer> IV_RANGE;
+    public static ModConfigSpec.ConfigValue<Boolean> NATURE_SYSTEM;
 
     static {
 
@@ -28,7 +29,7 @@ public class ServerConfigs {
             BUILDER.push("Re-Balance");
             BUILDER.comment("Valid values: 0, 1, 2, 3 or 4 | Default: 0");
             BUILDER.comment("0 = 'Default': Default ISS formula");
-            BUILDER.comment("1 = 'Custom': For very light ISS modpacks");
+            BUILDER.comment("1 = 'Casual': For very light ISS modpacks");
             BUILDER.comment("2 = 'Recommended': Made for regular modpacks and multiplayer");
             BUILDER.comment("3 = 'Apotheosis': Made modpacks with Apotheosis and other 'ridiculous' mods");
             BUILDER.comment("4 = 'Alternative': Great for balanced ISS PvP (Heavily nerfs scaling)");
@@ -44,19 +45,25 @@ public class ServerConfigs {
             BUILDER.pop();
         }
         {
+            BUILDER.push("Remove Burning");
+            BUILDER.comment("Turn this feature off if your game crashes when something catches fire");
+            BURN_REMOVE = BUILDER.worldRestart().define("Fire Immune doesn't burn", true);
+            BUILDER.pop();
+        }
+        {
             BUILDER.push("Attribute System");
             BUILDER.comment("If mobs will have random variation in their attributes (does not include players)");
-            SHINY = BUILDER.worldRestart().define("Random Attribute Variation", true);
+            IV_SYSTEM = BUILDER.worldRestart().define("Random Attribute Variation", true);
             BUILDER.comment("Chance for perfect attributes | 1 = 100%");
             BUILDER.comment("4096 = 0.025% chance | Min: 1 | Max: 8192 | Default: 4096");
             SHINY_CHANCE = BUILDER.worldRestart().define("Chance for Perfect Attributes", 4096);
             BUILDER.comment("Bonus attributes for mobs will be increased by whatever number you put here");
             BUILDER.comment("Maximum: 10000% | Minimum: 1% | Default: 15%");
-            FAMILIAR_RAND = BUILDER.worldRestart().define("Attributes variance", 15);
+            IV_RANGE = BUILDER.worldRestart().define("Attributes variance", 15);
             BUILDER.comment("Natures increase one attribute by 10% and reduce another by the same amount");
             BUILDER.comment("This bonus multiplies everything else, so is quite powerful");
             BUILDER.comment("WARNING: Only includes familiars by default! Add new ones via datapack");
-            FAMILIAR_NATURE = BUILDER.worldRestart().define("Mobs Natures", true);
+            NATURE_SYSTEM = BUILDER.worldRestart().define("Mobs Natures", true);
             BUILDER.pop();
         }
         {

@@ -7,6 +7,7 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredRegister;
+import net.potato_modding.potatospells.config.ServerConfigs;
 
 import java.util.function.Supplier;
 
@@ -20,8 +21,8 @@ public class PotatoCreativeTab {
                     .displayItems((itemDisplayParameters, output) -> {
                         // Materials
                         output.accept(PotatoRegistry.MOB_IDENTIFIER.get());
-                        output.accept(PotatoRegistry.ATTRIBUTE_REROLLER.get());
-                        output.accept(PotatoRegistry.NATURE_REROLLER.get());
+                        if(ServerConfigs.IV_SYSTEM.get()) output.accept(PotatoRegistry.ATTRIBUTE_REROLLER.get());
+                        if(ServerConfigs.NATURE_SYSTEM.get()) output.accept(PotatoRegistry.NATURE_REROLLER.get());
                     }).build());
 
     public static void register(IEventBus eventBus)

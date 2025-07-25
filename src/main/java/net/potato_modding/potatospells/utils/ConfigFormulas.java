@@ -40,7 +40,7 @@ public class ConfigFormulas {
     public static double summon_mod = 0.75 * modifier * Math.clamp(ServerConfigs.SUMMON_RESIST.get(), 1, 10000) / 100;
 
     // Familiars random attr value
-    public static double randMax = (double) Math.clamp(ServerConfigs.FAMILIAR_RAND.get(), 1, 10000) / 100;
+    public static double randMax = (double) Math.clamp(ServerConfigs.IV_RANGE.get(), 1, 10000) / 100;
 
     public static int shinyChanceModifier = Math.clamp(ServerConfigs.SHINY_CHANCE.get(), 1, 8192);
 }

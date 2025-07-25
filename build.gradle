@@ -116,6 +116,7 @@ repositories {
     flatDir {
         dir 'libs'
     }
+    maven { url 'https://jitpack.io' }
     maven { url = "https://maven.enginehub.org/repo/" }
     maven {
         url = "https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/"

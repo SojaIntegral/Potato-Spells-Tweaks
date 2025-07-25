@@ -112,17 +112,17 @@ public class MainAttributeHandler {
             boolean isShiny = false;
             double[] attrVar = new double[10];
             // Chance for shiny & prevents shinies from losing perfect IVs
-            if ((ServerConfigs.SHINY.get() && shinyAttribute()) || alreadyShiny) {
+            if ((ServerConfigs.IV_SYSTEM.get() && shinyAttribute()) || alreadyShiny) {
                 Arrays.fill(attrVar, 1 * randMax);
                 isShiny = true;
             }
             // Adds + 0~15% to Familiars' attributes & can be rerolled
             // I should be able to copy this code over and make so non-shinies are rerolled
-            else if ((ServerConfigs.SHINY.get() && !shinyAttribute()) || canReroll) {
+            else if ((ServerConfigs.IV_SYSTEM.get() && !shinyAttribute()) || canReroll) {
                 for (int i = 0; i < attrVar.length; i++) {
                     attrVar[i] = Math.random() * randMax;
                 }
-            } else if (!ServerConfigs.SHINY.get() || mob.getType().is(PotatoTags.RACE_PLAYER)) {
+            } else if (!ServerConfigs.IV_SYSTEM.get() || mob.getType().is(PotatoTags.RACE_PLAYER)) {
                 Arrays.fill(attrVar, 0);
             }
 
@@ -130,7 +130,7 @@ public class MainAttributeHandler {
             // If not, it gives the mob modifiers
             if (mob.getType().is(PotatoTags.MOB_ENABLED) && canReroll && !alreadyShiny) {
 
-                if (ServerConfigs.FAMILIAR_NATURE.get() && mob.getType().is(PotatoTags.HAS_NATURE)) {
+                if (ServerConfigs.NATURE_SYSTEM.get() && mob.getType().is(PotatoTags.HAS_NATURE)) {
                     PotatoNaturesHandler.applySpawnModifiers(mob);
                 }
 
