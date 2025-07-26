@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "potatospellbookstweaks:mob_identifier"
+    },
+    "B": {
+      "item": "irons_spellbooks:energized_core"
+    }
+  },
+  "pattern": [
+    "AB"
+  ],
+  "result": {
+    "count": 1,
+    "id": "potatospellbookstweaks:analyzer"
+  }
+}

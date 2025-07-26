@@ -6,7 +6,7 @@
       "item": "irons_spellbooks:permafrost_shard"
     },
     "B": {
-      "item": "irons_spellbooks:divine_soulshard"
+      "item": "irons_spellbooks:cinderous_soulcaller"
     },
     "C": {
       "item": "irons_spellbooks:divine_pearl"
@@ -20,7 +20,7 @@
     "DC"
   ],
   "result": {
-    "count": 4,
+    "count": 2,
     "id": "potatospellbookstweaks:mood_crystal"
   }
 }

@@ -32,6 +32,8 @@ public class BurningFix {
     @SubscribeEvent
     public static void fireResistanceBurnRemove(MobEffectEvent.Remove event) {
         var mob = event.getEntity();
+        var effectInstance = event.getEffectInstance();
+        if (effectInstance == null) return;
         if (mob.getType().is(PotatoTags.PLAYER) && ServerConfigs.BURN_REMOVE.get()) {
             double burn = Objects.requireNonNull(mob.getAttribute(Attributes.BURNING_TIME)).getValue();
             assert event.getEffectInstance() != null;
@@ -49,6 +51,8 @@ public class BurningFix {
     @SubscribeEvent
     public static void fireResistanceBurnExpire(MobEffectEvent.Expired event) {
         var mob = event.getEntity();
+        var effectInstance = event.getEffectInstance();
+        if (effectInstance == null) return;
         if (mob.getType().is(PotatoTags.PLAYER) && ServerConfigs.BURN_REMOVE.get()) {
             double burn = Objects.requireNonNull(mob.getAttribute(Attributes.BURNING_TIME)).getValue();
             assert event.getEffectInstance() != null;

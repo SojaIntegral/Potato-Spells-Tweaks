@@ -6,6 +6,7 @@ import net.minecraft.world.entity.ai.attributes.RangedAttribute;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.common.PercentageAttribute;
 import net.neoforged.neoforge.event.entity.EntityAttributeModificationEvent;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -25,6 +26,8 @@ public class PotatoAttributes {
     public static final DeferredHolder<Attribute, Attribute> PROT_PEN_IV = registerIdentifyAttribute("prot_pen_iv");
     public static final DeferredHolder<Attribute, Attribute> CRIT_IV = registerIdentifyAttribute("crit_iv");
 
+    public static final DeferredHolder<Attribute, Attribute> MANA_SHIELD = registerIdentifyAttribute("mana_shield");
+
     public static void register(IEventBus eventBus) {
         ATTRIBUTES.register(eventBus);
     }
@@ -37,10 +40,9 @@ public class PotatoAttributes {
                         )));
     }
 
-    // ;_;
     private static DeferredHolder<Attribute, Attribute> registerIdentifyAttribute(String id) {
         return ATTRIBUTES.register(id, () ->
-                (new RangedAttribute("attribute.potatospellbookstweaks." + id,
+                (new PercentageAttribute("attribute.potatospellbookstweaks." + id,
                         0, 0, 1).setSyncable(true)));
     }
 }

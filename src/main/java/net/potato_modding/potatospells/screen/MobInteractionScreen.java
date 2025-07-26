@@ -15,10 +15,10 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
-import net.potato_modding.potatospells.config.ServerConfigs;
 import net.potato_modding.potatospells.registry.PotatoAttributes;
 import net.potato_modding.potatospells.tags.PotatoTags;
 import net.potato_modding.potatospells.utils.ConfigFormulas;
+import net.potato_modding.potatospells.utils.RebalanceHandler;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
 
@@ -32,7 +32,7 @@ public class MobInteractionScreen extends Screen {
     private boolean showIVs = false;
     // Size of GUI
     private static final int GUI_WIDTH = 164;
-    private static final int GUI_HEIGHT = 107;
+    private static final int GUI_HEIGHT = 124;
     // Renders the selected mob
     private final String entityName;
     private final LivingEntity entity;
@@ -188,62 +188,28 @@ public class MobInteractionScreen extends Screen {
         float scaledMouseX = mouseX / textScale;
         float scaledMouseY = mouseY / textScale;
 
-        double castParse = 0;
-        double cooldownParse = 0;
-        double resistParse = 0;
-        double x = resist;
-        double y = cooldown;
-        double z = cast;
+        double castParse = RebalanceHandler.rebalanceFormula(cast);
+        double cooldownParse = RebalanceHandler.rebalanceFormula(cooldown);
+        double resistParse = RebalanceHandler.rebalanceFormula(resist);
 
-        if (ServerConfigs.FORMULA_REBALANCE.get() == 0) {
-            if (resist <= 1.75) {
-                resistParse = resist;
-                cooldownParse = cooldown;
-                castParse = cast;
-            } else {
-                resistParse = 1 / (-16 * (x - 1.5)) + 2;
-                cooldownParse = 1 / (-16 * (y - 1.5)) + 2;
-                castParse = 1 / (-16 * (z - 1.5)) + 2;
-            }
-        }
-        if (ServerConfigs.FORMULA_REBALANCE.get() == 1) {
-            if (resist <= 3.62699) {
-                resistParse = 2 * (Math.sin(0.4 * (x + 0.3))) + 0.00624;
-                cooldownParse = 2 * (Math.sin(0.4 * (y + 0.3))) + 0.00624;
-                castParse = 2 * (Math.sin(0.4 * (z + 0.3))) + 0.00624;
-            } else {
-                resistParse = cooldownParse = castParse = 2;
-            }
-        }
-        if (ServerConfigs.FORMULA_REBALANCE.get() == 2) {
-            if (resist <= 4.80999) {
-                resistParse = 2 * (Math.sin(0.28 * (x + 0.8))) + 0.034136;
-                cooldownParse = 2 * (Math.sin(0.28 * (y + 0.8))) + 0.034136;
-                castParse = 2 * (Math.sin(0.28 * (z + 0.8))) + 0.034136;
-            } else {
-                resistParse = cooldownParse = castParse = 2;
-            }
-        }
-        if (ServerConfigs.FORMULA_REBALANCE.get() == 3) {
-            if (resist <= 8.01198) {
-                resistParse = 2 * (Math.sin(0.15 * (x + 2.46))) + 0.001736;
-                cooldownParse = 2 * (Math.sin(0.15 * (y + 2.46))) + 0.001736;
-                castParse = 2 * (Math.sin(0.15 * (z + 2.46))) + 0.001736;
-            } else {
-                resistParse = cooldownParse = castParse = 2;
-            }
-        }
-        if (ServerConfigs.FORMULA_REBALANCE.get() == 4) {
-            if (resist >= 0) {
-                resistParse = 1.966667 - (30 / (29 + x));
-                cooldownParse = 1.966667 - (30 / (29 + y));
-                castParse = 1.966667 - (30 / (29 + z));
-            } else {
-                resistParse = 2 - ((20 - x) / 20);
-                cooldownParse = 2 - ((20 - y) / 20);
-                castParse = 2 - ((20 - z) / 20);
-            }
-        }
+        double attacklevel = attack * 3;
+        double healthLevel = health;
+        double armorLevel = armor * 2;
+        double manaLevel = Math.sqrt(mana);
+        double resistLevel = 10 * Math.pow(resistParse, 2);
+        double spellLevel = 10 * Math.pow((1 + power), 2);
+        double castLevel = 5 * Math.pow(castParse, 2);
+        double cooldownLevel = 7 * Math.pow(cooldownParse, 2);
+        double criticalLevel = 1 + Math.clamp(critChance, 0, 1);
+        double critLevel = attacklevel * Math.pow(crit, criticalLevel);
+        double pierceLevel = 1 + (armorPierce / 2) + protPierce;
+        double shredLevel = Math.clamp(armorShred, 0, 1) + Math.clamp(protShred, 0, 1);
+        double bypassLevel = 25 * (pierceLevel * (1 + shredLevel));
+        double ivLevel = firstIV + secondIV + thirdIV + fourthIV + fifthIV + sixthIV + seventhIV + eighthIV;
+        double defensePower = (healthLevel + armorLevel + resistLevel);
+        double offensePower = (spellLevel + castLevel + cooldownLevel + attacklevel + critLevel + bypassLevel);
+        double powerLevel = 10 * (manaLevel + defensePower + offensePower) * (1 + ivLevel);
+        if(minecraft.player != null && entity != minecraft.player) powerLevel /= 5;
 
         double IVGrab = ConfigFormulas.randMax;
 
@@ -476,6 +442,8 @@ public class MobInteractionScreen extends Screen {
                     Component name = NATURES.get(id);
                     graphics.drawString(font, name, guiLeft + 6, guiTop + 93, 0xFFFFFF);
                 }
+
+                graphics.drawString(font, Component.literal("Power: " + String.format("%.0f", powerLevel)), guiLeft + 6, guiTop + 111, 0xFFFFFF);
 
                 if(Objects.requireNonNull(entity.getAttribute(PotatoAttributes.SHINY)).getValue() == 1) {
                     graphics.blit(SHINY_ICON, guiLeft + 3, guiTop + 23, 0, 0, 16, 16, 16 ,16);

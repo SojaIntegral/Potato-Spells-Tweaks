@@ -29,15 +29,38 @@ public class ScreenTrigger {
         Minecraft mc = Minecraft.getInstance();
         if (mc.player == null || mc.level == null) return;
 
-        boolean hasIdentifier = ASUtils.hasCurio(mc.player, PotatoRegistry.MOB_IDENTIFIER.get());
+        boolean hasIdentifier = ASUtils.hasCurio(mc.player, PotatoRegistry.BASE_ANALYZER.get()) ||
+                ASUtils.hasCurio(mc.player, PotatoRegistry.RED_ANALYZER.get()) ||
+                ASUtils.hasCurio(mc.player, PotatoRegistry.GREEN_ANALYZER.get()) ||
+                ASUtils.hasCurio(mc.player, PotatoRegistry.BLUE_ANALYZER.get()) ||
+                ASUtils.hasCurio(mc.player, PotatoRegistry.YELLOW_ANALYZER.get()) ||
+                ASUtils.hasCurio(mc.player, PotatoRegistry.PINK_ANALYZER.get());
 
         if (!Keybinds.OPEN_SCREEN_KEY.consumeClick() || !hasIdentifier) return;
 
-        var spellPower = getAttr(mc.player, AttributeRegistry.SPELL_POWER);
-        var critDamage = getAttr(mc.player, ALObjects.Attributes.CRIT_DAMAGE);
+        double curioModifier = 0;
+        if(ASUtils.hasCurio(mc.player, PotatoRegistry.RED_ANALYZER.get())) {
+            curioModifier = (getAttr(mc.player, Attributes.ATTACK_DAMAGE)
+                    + getAttr(mc.player, ALObjects.Attributes.ARMOR_PIERCE))
+                    * (getAttr(mc.player, ALObjects.Attributes.ARMOR_SHRED) + 0.05);
+        }
+        if(ASUtils.hasCurio(mc.player, PotatoRegistry.GREEN_ANALYZER.get())) {
+            curioModifier = 8 + 16 * (getAttr(mc.player, Attributes.ARMOR)
+                    + getAttr(mc.player, Attributes.ARMOR_TOUGHNESS)) / 6;
+        }
+        if(ASUtils.hasCurio(mc.player, PotatoRegistry.BLUE_ANALYZER.get())) {
+            curioModifier = pow2(getAttr(mc.player, AttributeRegistry.SPELL_POWER));
+        }
+        if(ASUtils.hasCurio(mc.player, PotatoRegistry.YELLOW_ANALYZER.get())) {
+            curioModifier = pow2(getAttr(mc.player, ALObjects.Attributes.CRIT_DAMAGE));
+        }
+        if(ASUtils.hasCurio(mc.player, PotatoRegistry.PINK_ANALYZER.get())) {
+            curioModifier = (getAttr(mc.player, AttributeRegistry.CAST_TIME_REDUCTION)
+                    * getAttr(mc.player, AttributeRegistry.COOLDOWN_REDUCTION));
+        }
         LivingEntity target = mc.player.isShiftKeyDown()
                 ? mc.player
-                : getTargetedEntity(16.0 * spellPower * critDamage);
+                : getTargetedEntity(8 + 16 * curioModifier);
 
         if (target == null) return;
 

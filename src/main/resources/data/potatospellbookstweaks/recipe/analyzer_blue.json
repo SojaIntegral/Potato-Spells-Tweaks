@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "potatospellbookstweaks:analyzer"
+    },
+    "B": {
+      "item": "irons_spellbooks:divine_soulshard"
+    },
+    "C": {
+      "item": "irons_spellbooks:pyrium_ingot"
+    }
+  },
+  "pattern": [
+    "C ",
+    "AB"
+  ],
+  "result": {
+    "count": 1,
+    "id": "potatospellbookstweaks:analyzer_blue"
+  }
+}

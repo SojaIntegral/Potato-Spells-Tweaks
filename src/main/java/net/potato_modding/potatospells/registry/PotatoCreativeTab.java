@@ -16,11 +16,17 @@ public class PotatoCreativeTab {
             DeferredRegister.create(Registries.CREATIVE_MODE_TAB, CataclysmSpellbooks.MOD_ID);
 
     public static final Supplier<CreativeModeTab> POTATO_ITEMS = CREATIVE_MODE_TAB.register("potato_tweaks_items",
-            () -> CreativeModeTab.builder().icon(() -> new ItemStack(PotatoRegistry.MOB_IDENTIFIER.get()))
+            () -> CreativeModeTab.builder().icon(() -> new ItemStack(PotatoRegistry.BASE_ANALYZER.get()))
                     .title(Component.translatable("creative_tab.potatospellbookstweaks.items"))
                     .displayItems((itemDisplayParameters, output) -> {
                         // Materials
                         output.accept(PotatoRegistry.MOB_IDENTIFIER.get());
+                        output.accept(PotatoRegistry.BASE_ANALYZER.get());
+                        output.accept(PotatoRegistry.RED_ANALYZER.get());
+                        output.accept(PotatoRegistry.GREEN_ANALYZER.get());
+                        output.accept(PotatoRegistry.BLUE_ANALYZER.get());
+                        output.accept(PotatoRegistry.YELLOW_ANALYZER.get());
+                        output.accept(PotatoRegistry.PINK_ANALYZER.get());
                         if(ServerConfigs.IV_SYSTEM.get()) output.accept(PotatoRegistry.ATTRIBUTE_REROLLER.get());
                         if(ServerConfigs.NATURE_SYSTEM.get()) output.accept(PotatoRegistry.NATURE_REROLLER.get());
                     }).build());

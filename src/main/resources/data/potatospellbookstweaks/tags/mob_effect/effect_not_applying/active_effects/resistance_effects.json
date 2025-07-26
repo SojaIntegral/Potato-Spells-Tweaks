@@ -7,6 +7,7 @@
     {"id": "irons_spellbooks:evasion", "required": false },
     {"id": "irons_spellbooks:heartstop", "required": false },
     {"id": "irons_spellbooks:vigor", "required": false },
+    {"id": "irons_spellbooks:oakskin", "required": false },
     {"id": "gametechbcs_spellbooks:lingering_strain", "required": false }
   ]
 }

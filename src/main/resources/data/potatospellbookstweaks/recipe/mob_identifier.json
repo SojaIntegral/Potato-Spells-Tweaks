@@ -3,18 +3,21 @@
   "category": "misc",
   "key": {
     "A": {
-      "item": "irons_spellbooks:mithril_scrap"
+      "item": "minecraft:iron_ingot"
     },
     "B": {
-      "item": "irons_spellbooks:upgrade_orb"
+      "item": "irons_spellbooks:lightning_bottle"
     },
     "C": {
       "tag": "c:glass_panes"
+    },
+    "D": {
+      "item": "minecraft:redstone"
     }
   },
   "pattern": [
-    "AB",
-    " C"
+    "AC",
+    "DB"
   ],
   "result": {
     "count": 1,

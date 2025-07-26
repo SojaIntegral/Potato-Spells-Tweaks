@@ -1,21 +1,16 @@
 package net.potato_modding.potatospells.items;
 
-import com.google.common.collect.LinkedHashMultimap;
-import com.google.common.collect.Multimap;
 import dev.shadowsoffire.apothic_attributes.api.ALObjects;
 import io.redspace.ironsspellbooks.api.registry.AttributeRegistry;
 import io.redspace.ironsspellbooks.item.curios.CurioBaseItem;
 import io.redspace.ironsspellbooks.util.ItemPropertiesHelper;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.Holder;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
-import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -23,29 +18,25 @@ import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.TooltipFlag;
 import net.potato_modding.potatospells.client.ClientScreens;
 import net.potato_modding.potatospells.registry.PotatoAttributes;
-import top.theillusivec4.curios.api.SlotContext;
 
 import java.util.List;
-
 
 public class MobIdentifier extends CurioBaseItem {
 
     public MobIdentifier() {
-        super(ItemPropertiesHelper.equipment().stacksTo(1).fireResistant().component(DataComponents.ENCHANTMENT_GLINT_OVERRIDE, true).rarity(Rarity.EPIC));
+        super(ItemPropertiesHelper.equipment().stacksTo(1).rarity(Rarity.UNCOMMON));
     }
 
     @Override
     public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
-        tooltip.add(Component.literal("Allows to identify mobs attributes")
-                .withStyle(ChatFormatting.BLUE, ChatFormatting.ITALIC));
-    }
-
-    @Override
-    public Multimap<Holder<Attribute>, AttributeModifier> getAttributeModifiers(SlotContext slotContext, ResourceLocation id, ItemStack stack) {
-        Multimap<Holder<Attribute>, AttributeModifier> attr = LinkedHashMultimap.create();
-        attr.put(ALObjects.Attributes.CRIT_DAMAGE, new AttributeModifier(id, 0.075, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL));
-        attr.put(ALObjects.Attributes.CRIT_CHANCE, new AttributeModifier(id, 0.2, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL));
-        return attr;
+        tooltip.add(Component.literal("Can identify attributes")
+                .withStyle(ChatFormatting.WHITE));
+        tooltip.add(Component.literal("")
+                .withStyle(ChatFormatting.WHITE, ChatFormatting.ITALIC));
+        tooltip.add(Component.literal("Right click on a mob to identify")
+                .withStyle(ChatFormatting.WHITE, ChatFormatting.ITALIC));
+        tooltip.add(Component.literal("Hold shift to identify yourself")
+                .withStyle(ChatFormatting.WHITE, ChatFormatting.ITALIC));
     }
 
     @Override

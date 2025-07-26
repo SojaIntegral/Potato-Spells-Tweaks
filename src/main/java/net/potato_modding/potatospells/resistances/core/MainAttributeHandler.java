@@ -1,5 +1,6 @@
 package net.potato_modding.potatospells.resistances.core;
 
+import com.github.L_Ender.cataclysm.init.ModEntities;
 import dev.shadowsoffire.apothic_attributes.api.ALObjects;
 import io.redspace.ironsspellbooks.api.registry.AttributeRegistry;
 import net.minecraft.core.Holder;
@@ -1055,7 +1056,7 @@ public class MainAttributeHandler {
 
                 // Updates mob attributes after rounding it up to 2 decimals
                 {
-                    if(attrVar[0] == 1 && attrVar[1] == 1 && attrVar[2] == 1 && attrVar[3] == 1 &&
+                    if (attrVar[0] == 1 && attrVar[1] == 1 && attrVar[2] == 1 && attrVar[3] == 1 &&
                             attrVar[4] == 1 && attrVar[5] == 1 && attrVar[6] == 1 && attrVar[7] == 1) {
                         isShiny = true;
                     }
@@ -1119,6 +1120,10 @@ public class MainAttributeHandler {
                     setIfNonNull(mob, PotatoAttributes.ARMOR_PEN_IV, attrVar[5]);
                     setIfNonNull(mob, PotatoAttributes.PROT_PEN_IV, attrVar[6]);
                     setIfNonNull(mob, PotatoAttributes.CRIT_IV, attrVar[7]);
+
+                    if (ModList.get().isLoaded("alshanex_familiars") && mob.getType() == ModEntities.MALEDICTUS.get()) {
+                        setIfNonNull(mob, ALObjects.Attributes.LIFE_STEAL, 10);
+                    }
                 }
             }
         }
