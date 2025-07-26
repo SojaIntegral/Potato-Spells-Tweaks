@@ -6,9 +6,6 @@ public class RebalanceHandler {
 
     /*
     SOFTCAP FORMULAS
-
-    They look like they are out of order, but this is the most likely order to be used,
-    if we go by what the mod was intended to do.
     */
 
     public static int reFormula = ServerConfigs.FORMULA_REBALANCE.get();

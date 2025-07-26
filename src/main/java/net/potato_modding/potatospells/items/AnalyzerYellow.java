@@ -2,8 +2,6 @@ package net.potato_modding.potatospells.items;
 
 import com.google.common.collect.LinkedHashMultimap;
 import com.google.common.collect.Multimap;
-import de.cadentem.additional_attributes.registry.AAttributes;
-import dev.shadowsoffire.apothic_attributes.api.ALObjects;
 import io.redspace.ironsspellbooks.api.registry.AttributeRegistry;
 import io.redspace.ironsspellbooks.item.curios.CurioBaseItem;
 import io.redspace.ironsspellbooks.util.ItemPropertiesHelper;
@@ -21,7 +19,6 @@ import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.TooltipFlag;
 import net.neoforged.api.distmarker.Dist;
 import net.potato_modding.potatospells.client.Keybinds;
-import net.potato_modding.potatospells.registry.PotatoAttributes;
 import top.theillusivec4.curios.api.SlotContext;
 
 import java.math.BigDecimal;
