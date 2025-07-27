@@ -488,47 +488,27 @@ public class MobInteractionScreen extends Screen {
 
     private static final Map<TagKey<EntityType<?>>, ResourceLocation> schoolTextures = Map.ofEntries(
             Map.entry(PotatoTags.TYPE_FIRE, ResourceLocation.fromNamespaceAndPath("potatospellbookstweaks", "textures/gui/type/fire_icon.png")),
-            Map.entry(PotatoTags.TYPE_ICE, ResourceLocation.fromNamespaceAndPath("potatospellbookstweaks", "textures/gui/type/ice_icon.png")),
             Map.entry(PotatoTags.TYPE_HOLY, ResourceLocation.fromNamespaceAndPath("potatospellbookstweaks", "textures/gui/type/holy_icon.png")),
-            Map.entry(PotatoTags.TYPE_NATURE, ResourceLocation.fromNamespaceAndPath("potatospellbookstweaks", "textures/gui/type/nature_icon.png")),
-            Map.entry(PotatoTags.TYPE_EVOKATION, ResourceLocation.fromNamespaceAndPath("potatospellbookstweaks", "textures/gui/type/evoke_icon.png")),
+            Map.entry(PotatoTags.TYPE_EARTH, ResourceLocation.fromNamespaceAndPath("potatospellbookstweaks", "textures/gui/type/nature_icon.png")),
             Map.entry(PotatoTags.TYPE_BLOOD, ResourceLocation.fromNamespaceAndPath("potatospellbookstweaks", "textures/gui/type/blood_icon.png")),
             Map.entry(PotatoTags.TYPE_ENDER, ResourceLocation.fromNamespaceAndPath("potatospellbookstweaks", "textures/gui/type/ender_icon.png")),
-            Map.entry(PotatoTags.TYPE_LIGHTNING, ResourceLocation.fromNamespaceAndPath("potatospellbookstweaks", "textures/gui/type/lightning_icon.png")),
             Map.entry(PotatoTags.TYPE_ELDRITCH, ResourceLocation.fromNamespaceAndPath("potatospellbookstweaks", "textures/gui/type/eldritch_icon.png")),
-            Map.entry(PotatoTags.TYPE_ABYSS, ResourceLocation.fromNamespaceAndPath("potatospellbookstweaks", "textures/gui/type/abyss_icon.png")),
-            Map.entry(PotatoTags.TYPE_TECHNOMANCY, ResourceLocation.fromNamespaceAndPath("potatospellbookstweaks", "textures/gui/type/techno_icon.png")),
-            Map.entry(PotatoTags.TYPE_BLADE, ResourceLocation.fromNamespaceAndPath("potatospellbookstweaks", "textures/gui/type/blade_icon.png")),
-            Map.entry(PotatoTags.TYPE_MIND, ResourceLocation.fromNamespaceAndPath("potatospellbookstweaks", "textures/gui/type/mind_icon.png")),
-            Map.entry(PotatoTags.TYPE_SOUND, ResourceLocation.fromNamespaceAndPath("potatospellbookstweaks", "textures/gui/type/sound_icon.png")),
             Map.entry(PotatoTags.TYPE_WIND, ResourceLocation.fromNamespaceAndPath("potatospellbookstweaks", "textures/gui/type/wind_icon.png")),
-            Map.entry(PotatoTags.TYPE_SYM, ResourceLocation.fromNamespaceAndPath("potatospellbookstweaks", "textures/gui/type/sym_icon.png")),
             Map.entry(PotatoTags.TYPE_SOUL, ResourceLocation.fromNamespaceAndPath("potatospellbookstweaks", "textures/gui/type/soul_icon.png")),
-            Map.entry(PotatoTags.TYPE_DUNE, ResourceLocation.fromNamespaceAndPath("potatospellbookstweaks", "textures/gui/type/dune_icon.png")),
-            Map.entry(PotatoTags.TYPE_AQUA, ResourceLocation.fromNamespaceAndPath("potatospellbookstweaks", "textures/gui/type/aqua_icon.png")),
+            Map.entry(PotatoTags.TYPE_WATER, ResourceLocation.fromNamespaceAndPath("potatospellbookstweaks", "textures/gui/type/aqua_icon.png")),
             Map.entry(PotatoTags.TYPE_NEUTRAL, ResourceLocation.fromNamespaceAndPath("potatospellbookstweaks", "textures/gui/type/neutral_icon.png"))
     );
 
     private static final Map<TagKey<EntityType<?>>, Component> schoolTooltips = Map.ofEntries(
             Map.entry(PotatoTags.TYPE_FIRE, Component.literal("Fire")),
-            Map.entry(PotatoTags.TYPE_ICE, Component.literal("Ice")),
             Map.entry(PotatoTags.TYPE_HOLY, Component.literal("Holy")),
-            Map.entry(PotatoTags.TYPE_NATURE, Component.literal("Nature")),
-            Map.entry(PotatoTags.TYPE_EVOKATION, Component.literal("Evocation")),
+            Map.entry(PotatoTags.TYPE_EARTH, Component.literal("Earth")),
             Map.entry(PotatoTags.TYPE_BLOOD, Component.literal("Blood")),
             Map.entry(PotatoTags.TYPE_ENDER, Component.literal("Ender")),
-            Map.entry(PotatoTags.TYPE_LIGHTNING, Component.literal("Lightning")),
             Map.entry(PotatoTags.TYPE_ELDRITCH, Component.literal("Eldritch")),
-            Map.entry(PotatoTags.TYPE_ABYSS, Component.literal("Abyss")),
-            Map.entry(PotatoTags.TYPE_TECHNOMANCY, Component.literal("Technomancy")),
-            Map.entry(PotatoTags.TYPE_BLADE, Component.literal("Blade")),
-            Map.entry(PotatoTags.TYPE_MIND, Component.literal("Mind")),
-            Map.entry(PotatoTags.TYPE_SOUND, Component.literal("Sound")),
             Map.entry(PotatoTags.TYPE_WIND, Component.literal("Wind")),
-            Map.entry(PotatoTags.TYPE_SYM, Component.literal("Symphony")),
             Map.entry(PotatoTags.TYPE_SOUL, Component.literal("Soul")),
-            Map.entry(PotatoTags.TYPE_DUNE, Component.literal("Dune")),
-            Map.entry(PotatoTags.TYPE_AQUA, Component.literal("Aqua")),
+            Map.entry(PotatoTags.TYPE_WATER, Component.literal("Water")),
             Map.entry(PotatoTags.TYPE_NEUTRAL, Component.literal("Neutral"))
     );
 

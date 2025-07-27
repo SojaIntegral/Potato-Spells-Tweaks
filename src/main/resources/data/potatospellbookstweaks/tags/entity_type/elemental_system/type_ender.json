@@ -13,6 +13,7 @@
     "minecraft:enderman",
     "minecraft:endermite",
     "minecraft:shulker",
-    {"id": "bosses_of_mass_destruction:obsidilith", "required": false }
+    {"id": "bosses_of_mass_destruction:obsidilith", "required": false },
+    {"id": "alshanex_familiars:mage_pet", "required": false }
   ]
 }

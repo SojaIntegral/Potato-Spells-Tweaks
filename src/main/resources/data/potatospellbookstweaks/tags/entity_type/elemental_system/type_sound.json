@@ -1,8 +1,0 @@
-{
-  "replace": false,
-  "values": [
-    {"id": "alshanex_familiars:bard_pet", "required": false },
-    "minecraft:bat",
-    "minecraft:parrot"
-  ]
-}

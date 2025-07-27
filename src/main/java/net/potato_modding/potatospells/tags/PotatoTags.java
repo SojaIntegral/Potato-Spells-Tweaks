@@ -33,50 +33,24 @@ public class PotatoTags {
     // Base
     public static final TagKey<EntityType<?>> TYPE_NEUTRAL =
             TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "elemental_system/type_neutral"));
-    public static final TagKey<EntityType<?>> TYPE_BLOOD =
-            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "elemental_system/type_blood"));
-    public static final TagKey<EntityType<?>> TYPE_ELDRITCH =
-            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "elemental_system/type_eldritch"));
-    public static final TagKey<EntityType<?>> TYPE_ENDER =
-            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "elemental_system/type_ender"));
-    public static final TagKey<EntityType<?>> TYPE_EVOKATION =
-            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "elemental_system/type_evokation"));
+    public static final TagKey<EntityType<?>> TYPE_WATER =
+            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "elemental_system/type_water"));
+    public static final TagKey<EntityType<?>> TYPE_EARTH =
+            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "elemental_system/type_earth"));
     public static final TagKey<EntityType<?>> TYPE_FIRE =
             TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "elemental_system/type_fire"));
-    public static final TagKey<EntityType<?>> TYPE_HOLY =
-            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "elemental_system/type_holy"));
-    public static final TagKey<EntityType<?>> TYPE_ICE =
-            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "elemental_system/type_ice"));
-    public static final TagKey<EntityType<?>> TYPE_LIGHTNING =
-            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "elemental_system/type_lightning"));
-    public static final TagKey<EntityType<?>> TYPE_NATURE =
-            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "elemental_system/type_nature"));
-    // Aeromancy
     public static final TagKey<EntityType<?>> TYPE_WIND =
             TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "elemental_system/type_wind"));
-    // CAT:S
-    public static final TagKey<EntityType<?>> TYPE_ABYSS =
-            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "elemental_system/type_abyss"));
-    public static final TagKey<EntityType<?>> TYPE_TECHNOMANCY =
-            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "elemental_system/type_techno"));
-    // Ender's
-    public static final TagKey<EntityType<?>> TYPE_BLADE =
-            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "elemental_system/type_blade"));
-    public static final TagKey<EntityType<?>> TYPE_MIND =
-            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "elemental_system/type_mind"));
-    // Familiars
-    public static final TagKey<EntityType<?>> TYPE_SOUND =
-            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "elemental_system/type_sound"));
-    // Magic from the East
+    public static final TagKey<EntityType<?>> TYPE_ELDRITCH =
+            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "elemental_system/type_eldritch"));
+    public static final TagKey<EntityType<?>> TYPE_HOLY =
+            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "elemental_system/type_holy"));
+    public static final TagKey<EntityType<?>> TYPE_BLOOD =
+            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "elemental_system/type_blood"));
     public static final TagKey<EntityType<?>> TYPE_SOUL =
             TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "elemental_system/type_soul"));
-    public static final TagKey<EntityType<?>> TYPE_SYM =
-            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "elemental_system/type_sym"));
-    public static final TagKey<EntityType<?>> TYPE_DUNE =
-            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "elemental_system/type_dune"));
-    // TO Tweaks
-    public static final TagKey<EntityType<?>> TYPE_AQUA =
-            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "elemental_system/type_aqua"));
+    public static final TagKey<EntityType<?>> TYPE_ENDER =
+            TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "elemental_system/type_ender"));
 
     // Races
     public static final TagKey<EntityType<?>> RACE_HUMAN =

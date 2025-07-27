@@ -17,6 +17,8 @@
     "minecraft:witch",
     {"id": "bosses_of_mass_destruction:void_blossom", "required": false },
     {"id": "eternal_starlight:ent", "required": false },
-    {"id": "eternal_starlight:tangled", "required": false }
+    {"id": "eternal_starlight:tangled", "required": false },
+    "minecraft:camel",
+    "minecraft:husk"
   ]
 }

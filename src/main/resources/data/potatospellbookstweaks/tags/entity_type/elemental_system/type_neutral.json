@@ -33,6 +33,26 @@
     {"id": "crystal_chronicles:crystal_golem", "required": false },
     {"id": "crystal_chronicles:crystal_scorpion", "required": false },
     {"id": "eternal_starlight:boarwarf", "required": false },
-    {"id": "eternal_starlight:ratlin", "required": false }
+    {"id": "eternal_starlight:ratlin", "required": false },
+    {"id": "cataclysm:the_harbinger", "required": false },
+    {"id": "cataclysm:the_prowler", "required": false },
+    {"id": "cataclysm:the_watcher", "required": false },
+    {"id": "traveloptics:summoned_the_watcher", "required": false},
+    {"id": "bosses_of_mass_destruction:gauntlet", "required": false },
+    "minecraft:bat",
+    "minecraft:parrot",
+    {"id": "alshanex_familiars:illusionist_pet", "required": false },
+    {"id": "irons_spellbooks:archevoker", "required": false },
+    {"id": "irons_spellbooks:summoned_polar_bear", "required": false},
+    "minecraft:creeper",
+    "minecraft:elder_guardian",
+    "minecraft:evoker",
+    "minecraft:guardian",
+    "minecraft:ravager",
+    "minecraft:trader_llama",
+    "minecraft:vex",
+    "minecraft:wandering_trader",
+    {"id": "irons_spellbooks:citadel_keeper", "required": false }
+
   ]
 }
