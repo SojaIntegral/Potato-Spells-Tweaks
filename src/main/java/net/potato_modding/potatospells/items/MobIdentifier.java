@@ -92,7 +92,7 @@ public class MobIdentifier extends CurioBaseItem {
             double evokerPower = getAttr(target, AttributeRegistry.EVOCATION_SPELL_POWER);
             double abyssPower = (ModList.get().isLoaded("cataclysm_spellbooks")) ? getAttr(target, CSAttributeRegistry.ABYSSAL_MAGIC_POWER) : 1;
             double bladePower = (ModList.get().isLoaded("endersequipment")) ? getAttr(target, EEAttributeRegistry.BLADE_SPELL_POWER) : 1;
-            double songPower = (ModList.get().isLoaded("alshanex_familiars")) ? 1 : 1;
+            double songPower = (ModList.get().isLoaded("alshanex_familiars")) ? getAttr(target, net.alshanex.familiarslib.registry.AttributeRegistry.SOUND_SPELL_POWER) : 1;
             double windPower = (ModList.get().isLoaded("aero_additions")) ? getAttr(target, AASpells.Attributes.WIND_SPELL_POWER) : 1;
             double symmetryPower = (ModList.get().isLoaded("iss_magicfromtheeast")) ? getAttr(target, MFTEAttributeRegistries.SYMMETRY_SPELL_POWER) : 1;
             double dunePower = (ModList.get().isLoaded("iss_magicfromtheeast")) ? getAttr(target, MFTEAttributeRegistries.DUNE_SPELL_POWER) : 1;
@@ -108,7 +108,7 @@ public class MobIdentifier extends CurioBaseItem {
             double evokerRes = getAttr(target, AttributeRegistry.EVOCATION_MAGIC_RESIST);
             double abyssRes = (ModList.get().isLoaded("cataclysm_spellbooks")) ? getAttr(target, CSAttributeRegistry.ABYSSAL_MAGIC_RESIST) : 1;
             double bladeRes = (ModList.get().isLoaded("endersequipment")) ? getAttr(target, EEAttributeRegistry.BLADE_MAGIC_RESIST) : 1;
-            double songRes = (ModList.get().isLoaded("alshanex_familiars")) ? 1 : 1;
+            double songRes = (ModList.get().isLoaded("alshanex_familiars")) ? getAttr(target, net.alshanex.familiarslib.registry.AttributeRegistry.SOUND_MAGIC_RESIST) : 1;
             double windRes = (ModList.get().isLoaded("aero_additions")) ? getAttr(target, AASpells.Attributes.WIND_MAGIC_RESIST) : 1;
             double symmetryRes = (ModList.get().isLoaded("iss_magicfromtheeast")) ? getAttr(target, MFTEAttributeRegistries.SYMMETRY_MAGIC_RESIST) : 1;
             double duneRes = (ModList.get().isLoaded("iss_magicfromtheeast")) ? getAttr(target, MFTEAttributeRegistries.DUNE_MAGIC_RESIST) : 1;

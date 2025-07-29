@@ -3,6 +3,7 @@ package net.potato_modding.potatospells.items;
 import com.github.L_Ender.cataclysm.init.ModEntities;
 import dev.shadowsoffire.apothic_attributes.api.ALObjects;
 import io.redspace.ironsspellbooks.api.registry.AttributeRegistry;
+import net.alshanex.familiarslib.entity.AbstractSpellCastingPet;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
@@ -41,7 +42,22 @@ public class MiracleCrystal extends Item {
 
     @Override
     public InteractionResult interactLivingEntity(ItemStack stack, Player player, LivingEntity target, InteractionHand hand) {
-        return applyIVCrystal(stack, player, target).getResult();
+        if(player.getCooldowns().isOnCooldown(stack.getItem())) {
+            player.displayClientMessage(
+                    Component.literal("Item on Cooldown").withStyle(ChatFormatting.DARK_RED), true
+            );
+            return InteractionResult.FAIL;
+        }
+
+        if(!player.level().isClientSide && target instanceof AbstractSpellCastingPet familiar) {
+            if (familiar.getSummoner() != null && familiar.getSummoner().is(player)) {
+
+                return applyIVCrystal(stack, player, target).getResult();
+            }
+        }
+        player.getCooldowns().addCooldown(stack.getItem(), 20);
+
+        return InteractionResult.PASS;
     }
 
     @Override
@@ -707,7 +723,7 @@ public class MiracleCrystal extends Item {
                         //multiplyModifierIfValid(target, net.acetheeldritchking.cataclysm_spellbooks.registries.CSAttributeRegistry.TECHNOMANCY_MAGIC_RESIST, (BigDecimal.valueOf(NeutralRes).setScale(2, RoundingMode.HALF_UP).doubleValue() - 1), "technomancy_resist");
                     }
                     if (ModList.get().isLoaded("alshanex_familiars")) {
-                        //multiplyModifierIfValid(target, net.alshanex.alshanex_familiars.registry.AttributeRegistry.SOUND_MAGIC_RESIST, (BigDecimal.valueOf(HolyRes).setScale(2, RoundingMode.HALF_UP).doubleValue() - 1), "sound_resist");
+                        multiplyModifierIfValid(target, net.alshanex.familiarslib.registry.AttributeRegistry.SOUND_MAGIC_RESIST, (BigDecimal.valueOf(HolyRes).setScale(2, RoundingMode.HALF_UP).doubleValue() - 1), "sound_resist");
                     }
                     if (ModList.get().isLoaded("aero_additions")) {
                         multiplyModifierIfValid(target, com.snackpirate.aeromancy.spells.AASpells.Attributes.WIND_MAGIC_RESIST, (BigDecimal.valueOf(WindRes).setScale(2, RoundingMode.HALF_UP).doubleValue() - 1), "wind_resist");

@@ -176,7 +176,8 @@ dependencies {
     localRuntime "io.redspace:irons_spellbooks:${irons_spells_version}"
 
     // Alshanex's Familiars
-    compileOnly "curse.maven:alshanexs-familiars-1171602:6539981"
+    implementation "curse.maven:alshanexs-familiars-1171602:6825732"
+    implementation "curse.maven:familiarslib-1316458:6824093"
 
     // Aeromancy
     compileOnly "curse.maven:snackpirates-aeromancy-additions-1160104:6566417"
