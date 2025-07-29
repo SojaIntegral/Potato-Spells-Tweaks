@@ -7,6 +7,7 @@ import io.redspace.ironsspellbooks.item.curios.CurioBaseItem;
 import io.redspace.ironsspellbooks.util.ItemPropertiesHelper;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -39,12 +40,9 @@ public class AnalyzerPink extends CurioBaseItem {
                 * getAttr(mc.player, AttributeRegistry.COOLDOWN_REDUCTION));
         double curioModifier = BigDecimal.valueOf(attributeValue).setScale(0, RoundingMode.HALF_UP).doubleValue();
 
-        tooltip.add(Component.literal("Can analyze attributes from far away")
-                .withStyle(ChatFormatting.LIGHT_PURPLE));
-        tooltip.add(Component.literal(""));
-        tooltip.add(Component.literal("Range: " + curioModifier + " blocks | Press [")
-                .append(Keybinds.OPEN_SCREEN_KEY.getTranslatedKeyMessage()).append("] to analyze")
-                .withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC));
+            tooltip.add(Component.literal("Range: " + curioModifier + " blocks | Press [")
+                    .append(Keybinds.OPEN_SCREEN_KEY.getTranslatedKeyMessage()).append("] to analyze")
+                    .withStyle(ChatFormatting.LIGHT_PURPLE));
     }
 
     @Override
@@ -52,7 +50,7 @@ public class AnalyzerPink extends CurioBaseItem {
         Multimap<Holder<Attribute>, AttributeModifier> attr = LinkedHashMultimap.create();
         attr.put(AttributeRegistry.SPELL_RESIST, new AttributeModifier(id, 0.1, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL));
         attr.put(AttributeRegistry.CAST_TIME_REDUCTION, new AttributeModifier(id, 0.15, AttributeModifier.Operation.ADD_VALUE));
-        attr.put(AttributeRegistry.COOLDOWN_REDUCTION, new AttributeModifier(id, -0.05, AttributeModifier.Operation.ADD_VALUE));
+        attr.put(AttributeRegistry.COOLDOWN_REDUCTION, new AttributeModifier(id, 0.05, AttributeModifier.Operation.ADD_VALUE));
         return attr;
     }
 
@@ -65,4 +63,7 @@ public class AnalyzerPink extends CurioBaseItem {
     public Component getName(ItemStack stack) {
         return super.getName(stack).copy().withStyle(ChatFormatting.DARK_PURPLE);
     }
+
+    public static final ResourceLocation OVERLAY_TEXTURE =
+            ResourceLocation.fromNamespaceAndPath("potatospellbookstweaks", "textures/gui/identify_gui_pink.png");
 }

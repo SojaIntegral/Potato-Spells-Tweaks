@@ -23,7 +23,6 @@
     "minecraft:tropical_fish",
     "minecraft:turtle",
     {"id": "eternal_starlight:rookfish", "required": false },
-    {"id": "cataclysm:maledictus", "required": false },
     {"id": "irons_spellbooks:cryomancer", "required": false },
     {"id": "irons_spellbooks:ice_spider", "required": false },
     "minecraft:goat",

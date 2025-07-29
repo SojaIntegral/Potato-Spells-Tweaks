@@ -2,6 +2,7 @@ package net.potato_modding.potatospells.attributes;
 
 import io.redspace.ironsspellbooks.api.magic.MagicData;
 import io.redspace.ironsspellbooks.api.registry.AttributeRegistry;
+import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.entity.player.Player;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -22,19 +23,17 @@ public class ManaShield {
         var playerMana = MagicData.getPlayerMagicData(player);
         double currentMana = playerMana.getMana();
         double spellPower = player.getAttributeValue(AttributeRegistry.SPELL_POWER);
-        double manaShield = player.getAttributeValue(PotatoAttributes.MANA_SHIELD) - 1;
+        double manaShield = player.getAttributeValue(PotatoAttributes.MANA_SHIELD);
 
-        if ((player.getAttributeValue(PotatoAttributes.MANA_SHIELD) <= 0) || (playerMana.getMana() <= 0)) return;
+        if ((player.getAttributeValue(PotatoAttributes.MANA_SHIELD) <= 0) || (currentMana <= 0)) return;
+        if (player.isBlocking() && !event.getSource().is(DamageTypeTags.BYPASSES_SHIELD)) return;
 
-        float reduction = (float) (Math.min(manaShield * (currentMana / 1000) * spellPower, 0.9));
-        container.addModifier(DamageContainer.Reduction.ARMOR,
+        float reduction = (float) (Math.min(manaShield * (currentMana / 3500) * spellPower, 0.9));
+        float cost = (float) (currentMana - ((original / (1 - reduction)) * 5));
+        playerMana.setMana(cost);
+        container.addModifier(DamageContainer.Reduction.MOB_EFFECTS,
                 (ct, base) -> reduction);
 
         event.setAmount(original * (1 - reduction));
-        float cost = (float) (currentMana - ((original / (1 - reduction)) * 3));
-        playerMana.setMana(cost);
-        System.out.println(reduction);
-        System.out.println(event.getAmount());
-        System.out.println(cost);
     }
 }

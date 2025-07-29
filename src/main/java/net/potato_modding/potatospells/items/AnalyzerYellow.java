@@ -42,12 +42,9 @@ public class AnalyzerYellow extends CurioBaseItem {
                 * (getAttr(mc.player, Attributes.SNEAKING_SPEED));
         double curioModifier = BigDecimal.valueOf(attributeValue).setScale(0, RoundingMode.HALF_UP).doubleValue();
 
-        tooltip.add(Component.literal("Can analyze attributes from far away")
-                .withStyle(ChatFormatting.YELLOW));
-        tooltip.add(Component.literal(""));
         tooltip.add(Component.literal("Range: " + curioModifier + " blocks | Press [")
                 .append(Keybinds.OPEN_SCREEN_KEY.getTranslatedKeyMessage()).append("] to analyze")
-                .withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC));
+                .withStyle(ChatFormatting.GOLD));
     }
 
     @Override
@@ -55,9 +52,9 @@ public class AnalyzerYellow extends CurioBaseItem {
         Multimap<Holder<Attribute>, AttributeModifier> attr = LinkedHashMultimap.create();
         attr.put(AttributeRegistry.SPELL_RESIST, new AttributeModifier(id, 0.1, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL));
         attr.put(Attributes.MOVEMENT_SPEED, new AttributeModifier(id, 0.1, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL));
-        attr.put(Attributes.SNEAKING_SPEED, new AttributeModifier(id, 0.075, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL));
-        attr.put(Attributes.ATTACK_SPEED, new AttributeModifier(id, 0.05, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL));
-        attr.put(AttributeRegistry.COOLDOWN_REDUCTION, new AttributeModifier(id, 0.05, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL));
+        attr.put(Attributes.SNEAKING_SPEED, new AttributeModifier(id, 0.1, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL));
+        attr.put(Attributes.ATTACK_SPEED, new AttributeModifier(id, 0.1, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL));
+        attr.put(Attributes.MINING_EFFICIENCY, new AttributeModifier(id, 0.1, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL));
         return attr;
     }
 
@@ -70,4 +67,7 @@ public class AnalyzerYellow extends CurioBaseItem {
     public Component getName(ItemStack stack) {
         return super.getName(stack).copy().withStyle(ChatFormatting.GOLD);
     }
+
+    public static final ResourceLocation OVERLAY_TEXTURE =
+            ResourceLocation.fromNamespaceAndPath("potatospellbookstweaks", "textures/gui/identify_gui_yellow.png");
 }

@@ -73,6 +73,7 @@ public class MainAttributeHandler {
         }
     }
 
+
     // Add modifier (multiplied base)
     private static void multiplyModifierIfValid(LivingEntity entity, Holder<Attribute> attribute, double value, String idName) {
         var instance = entity.getAttributes().getInstance(attribute);
@@ -223,7 +224,7 @@ public class MainAttributeHandler {
                     Tough = 1.5 * ToughMod;
                     SpellPower = 1.2 + attrVar[2];
                     CastReduction = 0.9 + attrVar[3];
-                    Resist = 1 + attrVar[4];
+                    Resist = 1.1 + attrVar[4];
                     NeutralRes = 1 + attrVar[4];
                     WaterRes = 1.1 + attrVar[4];
                     EarthRes = 1.1 + attrVar[4];
@@ -247,7 +248,7 @@ public class MainAttributeHandler {
                     Tough = 2 * ToughMod;
                     SpellPower = 1.15 + attrVar[2];
                     CastReduction = 1.15 + attrVar[3];
-                    Resist = 1 + attrVar[4];
+                    Resist = 1.05 + attrVar[4];
                     NeutralRes = 1 + attrVar[4];
                     WaterRes = 1.05 + attrVar[4];
                     EarthRes = 1.05 + attrVar[4];
@@ -271,7 +272,7 @@ public class MainAttributeHandler {
                     Tough = 3 * ToughMod;
                     SpellPower = 1 + attrVar[2];
                     CastReduction = 0.9 + attrVar[3];
-                    Resist = 1 + attrVar[4];
+                    Resist = 0.9 + attrVar[4];
                     NeutralRes = 1 + attrVar[4];
                     WaterRes = 1.1 + attrVar[4];
                     EarthRes = 1.1 + attrVar[4];
@@ -295,7 +296,7 @@ public class MainAttributeHandler {
                     Tough = 2 * ToughMod;
                     SpellPower = 0.9 + attrVar[2];
                     CastReduction = 1 + attrVar[3];
-                    Resist = 1 + attrVar[4];
+                    Resist = 0.95 + attrVar[4];
                     NeutralRes = 1 + attrVar[4];
                     WaterRes = 1.1 + attrVar[4];
                     EarthRes = 1.1 + attrVar[4];
@@ -319,10 +320,10 @@ public class MainAttributeHandler {
                     Tough = 0 * ToughMod;
                     SpellPower = 0.95 + attrVar[2];
                     CastReduction = 1.25 + attrVar[3];
-                    Resist = 1 + attrVar[4];
+                    Resist = 0.95 + attrVar[4];
                     NeutralRes = 1 + attrVar[4];
                     WaterRes = 0.9 + attrVar[4];
-                    EarthRes = 0.085 + attrVar[4];
+                    EarthRes = 0.85 + attrVar[4];
                     FireRes = 0.95 + attrVar[4];
                     WindRes = 1.15 + attrVar[4];
                     BloodRes = 0.9 + attrVar[4];
@@ -343,7 +344,7 @@ public class MainAttributeHandler {
                     Tough = 5 * ToughMod;
                     SpellPower = 1.15 + attrVar[2];
                     CastReduction = 0.8 + attrVar[3];
-                    Resist = 1 + attrVar[4];
+                    Resist = 1.15 + attrVar[4];
                     NeutralRes = 1.1 + attrVar[4];
                     WaterRes = 1.1 + attrVar[4];
                     EarthRes = 1.1 + attrVar[4];
@@ -367,7 +368,7 @@ public class MainAttributeHandler {
                     Tough = 5 * ToughMod;
                     SpellPower = 0.8 + attrVar[2];
                     CastReduction = 1.5 + attrVar[3];
-                    Resist = 1 + attrVar[4];
+                    Resist = 1.1 + attrVar[4];
                     NeutralRes = 1 + attrVar[4];
                     WaterRes = 1 + attrVar[4];
                     EarthRes = 1 + attrVar[4];
@@ -391,7 +392,7 @@ public class MainAttributeHandler {
                     Tough = 1.5 * ToughMod;
                     SpellPower = 0.95 + attrVar[2];
                     CastReduction = 1.2 + attrVar[3];
-                    Resist = 1 + attrVar[4];
+                    Resist = 0.9 + attrVar[4];
                     NeutralRes = 1 + attrVar[4];
                     WaterRes = 1.2 + attrVar[4];
                     EarthRes = 1.05 + attrVar[4];
@@ -415,7 +416,7 @@ public class MainAttributeHandler {
                     Tough = 0 * ToughMod;
                     SpellPower = 1.25 + attrVar[2];
                     CastReduction = 1.25 + attrVar[3];
-                    Resist = 1 + attrVar[4];
+                    Resist = 1.2 + attrVar[4];
                     NeutralRes = 1 + attrVar[4];
                     WaterRes = 1.1 + attrVar[4];
                     EarthRes = 1.1 + attrVar[4];
@@ -439,7 +440,7 @@ public class MainAttributeHandler {
                     Tough = 2.5 * ToughMod;
                     SpellPower = 1.05 + attrVar[2];
                     CastReduction = 1.05 + attrVar[3];
-                    Resist = 1 + attrVar[4];
+                    Resist = 1.15 + attrVar[4];
                     NeutralRes = 1.05 + attrVar[4];
                     WaterRes = 1.05 + attrVar[4];
                     EarthRes = 1.05 + attrVar[4];
@@ -463,7 +464,7 @@ public class MainAttributeHandler {
                     Tough = 1 * ToughMod;
                     SpellPower = 1.15 + attrVar[2];
                     CastReduction = 1.05 + attrVar[3];
-                    Resist = 1 + attrVar[4];
+                    Resist = 1.1 + attrVar[4];
                     NeutralRes = 1.1 + attrVar[4];
                     WaterRes = 1.05 + attrVar[4];
                     EarthRes = 1.05 + attrVar[4];
@@ -487,7 +488,7 @@ public class MainAttributeHandler {
                     Tough = 5 * ToughMod;
                     SpellPower = 1.3 + attrVar[2];
                     CastReduction = 1.2 + attrVar[3];
-                    Resist = 1 + attrVar[4];
+                    Resist = 1.2 + attrVar[4];
                     NeutralRes = 1.1 + attrVar[4];
                     WaterRes = 1.1 + attrVar[4];
                     EarthRes = 1.1 + attrVar[4];
@@ -508,6 +509,7 @@ public class MainAttributeHandler {
 
                 // School Modifiers
                 if (mob.getType().is(PotatoTags.TYPE_NEUTRAL)) {
+                    Resist *= mobType;
                     NeutralRes *= 1 * mobType;
                     WaterRes *= 1 * mobType;
                     EarthRes *= 1 * mobType;
@@ -520,6 +522,7 @@ public class MainAttributeHandler {
                     EnderRes *= 1 * mobType;
                 }
                 if (mob.getType().is(PotatoTags.TYPE_WATER)) {
+                    Resist *= mobType;
                     NeutralRes *= 1 * mobType;
                     WaterRes *= 1.6 * mobType;
                     EarthRes *= 1 * mobType;
@@ -532,6 +535,7 @@ public class MainAttributeHandler {
                     EnderRes *= 1 * mobType;
                 }
                 if (mob.getType().is(PotatoTags.TYPE_EARTH)) {
+                    Resist *= mobType;
                     NeutralRes *= 1 * mobType;
                     WaterRes *= 1 * mobType;
                     EarthRes *= 1.6 * mobType;
@@ -544,6 +548,7 @@ public class MainAttributeHandler {
                     EnderRes *= 1 * mobType;
                 }
                 if (mob.getType().is(PotatoTags.TYPE_FIRE)) {
+                    Resist *= mobType;
                     NeutralRes *= 1 * mobType;
                     WaterRes *= 0.55 * mobType;
                     EarthRes *= 1.1 * mobType;
@@ -556,6 +561,7 @@ public class MainAttributeHandler {
                     EnderRes *= 1 * mobType;
                 }
                 if (mob.getType().is(PotatoTags.TYPE_WIND)) {
+                    Resist *= mobType;
                     NeutralRes *= 1 * mobType;
                     WaterRes *= 1.1 * mobType;
                     EarthRes *= 0.55 * mobType;
@@ -568,6 +574,7 @@ public class MainAttributeHandler {
                     EnderRes *= 1 * mobType;
                 }
                 if (mob.getType().is(PotatoTags.TYPE_BLOOD)) {
+                    Resist *= mobType;
                     NeutralRes *= 1 * mobType;
                     WaterRes *= 0.55 * mobType;
                     EarthRes *= 0.55 * mobType;
@@ -580,6 +587,7 @@ public class MainAttributeHandler {
                     EnderRes *= 1.2 * mobType;
                 }
                 if (mob.getType().is(PotatoTags.TYPE_HOLY)) {
+                    Resist *= mobType;
                     NeutralRes *= 1 * mobType;
                     WaterRes *= 1 * mobType;
                     EarthRes *= 1 * mobType;
@@ -592,6 +600,7 @@ public class MainAttributeHandler {
                     EnderRes *= 0.8 * mobType;
                 }
                 if (mob.getType().is(PotatoTags.TYPE_ELDRITCH)) {
+                    Resist *= mobType;
                     NeutralRes *= 1 * mobType;
                     WaterRes *= 1 * mobType;
                     EarthRes *= 1 * mobType;
@@ -604,6 +613,7 @@ public class MainAttributeHandler {
                     EnderRes *= 1 * mobType;
                 }
                 if (mob.getType().is(PotatoTags.TYPE_SOUL)) {
+                    Resist *= mobType;
                     NeutralRes *= 1.1 * mobType;
                     WaterRes *= 1 * mobType;
                     EarthRes *= 1 * mobType;
@@ -616,6 +626,7 @@ public class MainAttributeHandler {
                     EnderRes *= 1 * mobType;
                 }
                 if (mob.getType().is(PotatoTags.TYPE_ENDER)) {
+                    Resist *= mobType;
                     NeutralRes *= 1 * mobType;
                     WaterRes *= 1 * mobType;
                     EarthRes *= 1 * mobType;

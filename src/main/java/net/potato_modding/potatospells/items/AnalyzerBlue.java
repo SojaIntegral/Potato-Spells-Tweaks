@@ -2,12 +2,14 @@ package net.potato_modding.potatospells.items;
 
 import com.google.common.collect.LinkedHashMultimap;
 import com.google.common.collect.Multimap;
+import io.redspace.ironsspellbooks.api.magic.MagicData;
 import io.redspace.ironsspellbooks.api.registry.AttributeRegistry;
 import io.redspace.ironsspellbooks.item.curios.CurioBaseItem;
 import io.redspace.ironsspellbooks.util.ItemPropertiesHelper;
 import net.acetheeldritchking.aces_spell_utils.registries.ASAttributeRegistry;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -38,20 +40,23 @@ public class AnalyzerBlue extends CurioBaseItem {
         if (mc.player == null || mc.level == null) return;
         double attributeValue = 8 + 16 * Math.pow(getAttr(mc.player, AttributeRegistry.SPELL_POWER), 2);
         double curioModifier = BigDecimal.valueOf(attributeValue).setScale(0, RoundingMode.HALF_UP).doubleValue();
+        double manaStealAttr = mc.player.getAttributeValue(ASAttributeRegistry.MANA_STEAL) * 100;
 
-        tooltip.add(Component.literal("Can analyze attributes from far away")
-                .withStyle(ChatFormatting.AQUA));
-        tooltip.add(Component.literal(""));
         tooltip.add(Component.literal("Range: " + curioModifier + " blocks | Press [")
                 .append(Keybinds.OPEN_SCREEN_KEY.getTranslatedKeyMessage()).append("] to analyze")
-                .withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC));
+                .withStyle(ChatFormatting.AQUA));
+        tooltip.add(Component.literal(""));
+        tooltip.add(Component.literal("Mana Steal:")
+                .withStyle(ChatFormatting.AQUA));
+        tooltip.add(Component.literal("Recovers [" + manaStealAttr + "]% of the damage as mana")
+                .withStyle(ChatFormatting.GRAY));
     }
 
     @Override
     public Multimap<Holder<Attribute>, AttributeModifier> getAttributeModifiers(SlotContext slotContext, ResourceLocation id, ItemStack stack) {
         Multimap<Holder<Attribute>, AttributeModifier> attr = LinkedHashMultimap.create();
         attr.put(AttributeRegistry.SPELL_RESIST, new AttributeModifier(id, 0.1, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL));
-        attr.put(ASAttributeRegistry.MANA_STEAL, new AttributeModifier(id, 0.05, AttributeModifier.Operation.ADD_MULTIPLIED_BASE));
+        attr.put(ASAttributeRegistry.MANA_STEAL, new AttributeModifier(id, 0.5, AttributeModifier.Operation.ADD_MULTIPLIED_BASE));
         return attr;
     }
 
@@ -64,4 +69,7 @@ public class AnalyzerBlue extends CurioBaseItem {
     public Component getName(ItemStack stack) {
         return super.getName(stack).copy().withStyle(ChatFormatting.DARK_AQUA);
     }
+
+    public static final ResourceLocation OVERLAY_TEXTURE =
+            ResourceLocation.fromNamespaceAndPath("potatospellbookstweaks", "textures/gui/identify_gui_blue.png");
 }

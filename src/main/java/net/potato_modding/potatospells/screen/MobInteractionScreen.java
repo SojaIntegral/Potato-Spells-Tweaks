@@ -15,6 +15,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.potato_modding.potatospells.items.*;
 import net.potato_modding.potatospells.registry.PotatoAttributes;
 import net.potato_modding.potatospells.tags.PotatoTags;
 import net.potato_modding.potatospells.utils.ConfigFormulas;
@@ -24,6 +25,8 @@ import org.joml.Vector3f;
 
 import java.util.Map;
 import java.util.Objects;
+
+import static net.potato_modding.potatospells.items.Analyzer.OVERLAY_TEXTURE;
 
 public class MobInteractionScreen extends Screen {
     // Buttons on the GUI
@@ -58,11 +61,20 @@ public class MobInteractionScreen extends Screen {
     private final double sixthIV;
     private final double seventhIV;
     private final double eighthIV;
+    private final double attackSpeed;
+    private final double firePower;
+    private final double icePower; private final double lightningPower; private final double naturePower; private final double enderPower;
+    private final double holyPower; private final double eldritchPower; private final double evokerPower; private final double abyssPower;
+    private final double bladePower; private final double songPower; private final double windPower; private final double symmetryPower;
+    private final double dunePower; private final double spiritPower; private final double fireRes; private final double iceRes; private final double lightningRes;
+    private final double natureRes; private final double enderRes; private final double holyRes; private final double eldritchRes; private final double evokerRes;
+    private final double abyssRes; private final double bladeRes; private final double songRes; private final double windRes; private final double symmetryRes;
+    private final double duneRes; private final double spiritRes;
+
+    private final double rgb;
 
     private static final ResourceLocation BACKGROUND_TEXTURE =
             ResourceLocation.fromNamespaceAndPath("potatospellbookstweaks", "textures/gui/background.png");
-    private static final ResourceLocation OVERLAY_TEXTURE =
-            ResourceLocation.fromNamespaceAndPath("potatospellbookstweaks", "textures/gui/identify_gui.png");
     private static final ResourceLocation DEFAULT_ICONS =
             ResourceLocation.fromNamespaceAndPath("potatospellbookstweaks", "textures/gui/default_icons.png");
     private static final ResourceLocation SHINY_ICON =
@@ -74,7 +86,14 @@ public class MobInteractionScreen extends Screen {
                                 double cooldown, double crit, double critChance, double armorPierce,
                                 double armorShred, double protPierce, double protShred, double firstIV,
                                 double secondIV, double thirdIV, double fourthIV, double fifthIV,
-                                double sixthIV, double seventhIV, double eighthIV) {
+                                double sixthIV, double seventhIV, double eighthIV, double attackSpeed, double firePower,
+                                double icePower, double lightningPower, double naturePower, double enderPower,
+                                double holyPower, double eldritchPower, double evokerPower, double abyssPower,
+                                double bladePower, double songPower, double windPower, double symmetryPower,
+                                double dunePower, double spiritPower, double fireRes, double iceRes, double lightningRes,
+                                double natureRes, double enderRes, double holyRes, double eldritchRes, double evokerRes,
+                                double abyssRes, double bladeRes, double songRes, double windRes, double symmetryRes,
+                                double duneRes, double spiritRes, double rgb) {
 
         super(Component.literal(""));
         this.entityName = entityName;
@@ -102,6 +121,18 @@ public class MobInteractionScreen extends Screen {
         this.sixthIV = sixthIV;
         this.seventhIV = seventhIV;
         this.eighthIV = eighthIV;
+        this.attackSpeed = attackSpeed;
+
+        this.firePower = firePower;
+        this.icePower = icePower; this.lightningPower = lightningPower; this.naturePower = naturePower; this.enderPower = enderPower;
+        this.holyPower = holyPower; this.eldritchPower = eldritchPower; this.evokerPower = evokerPower; this.abyssPower = abyssPower;
+        this.bladePower = bladePower; this.songPower = songPower; this.windPower = windPower; this.symmetryPower = symmetryPower;
+        this.dunePower = dunePower; this.spiritPower = spiritPower; this.fireRes = fireRes; this.iceRes = iceRes; this.lightningRes = lightningRes;
+        this.natureRes = natureRes; this.enderRes = enderRes; this.holyRes = holyRes; this.eldritchRes = eldritchRes; this.evokerRes = evokerRes;
+        this.abyssRes = abyssRes; this.bladeRes = bladeRes; this.songRes = songRes; this.windRes = windRes; this.symmetryRes = symmetryRes;
+        this.duneRes = duneRes; this.spiritRes = spiritRes;
+
+        this.rgb = rgb;
     }
 
     @Override
@@ -166,16 +197,23 @@ public class MobInteractionScreen extends Screen {
         entity.yHeadRot = originalYHeadRot;
         entity.yBodyRot = originalYBodyRot;
 
+        var overlayTexture = Analyzer.OVERLAY_TEXTURE;
+        if(rgb == 1) overlayTexture = AnalyzerRed.OVERLAY_TEXTURE;
+        if(rgb == 2) overlayTexture = AnalyzerGreen.OVERLAY_TEXTURE;
+        if(rgb == 3) overlayTexture = AnalyzerBlue.OVERLAY_TEXTURE;
+        if(rgb == 4) overlayTexture = AnalyzerYellow.OVERLAY_TEXTURE;
+        if(rgb == 5) overlayTexture = AnalyzerPink.OVERLAY_TEXTURE;
+
         RenderSystem.enableBlend();
         RenderSystem.defaultBlendFunc();
         graphics.setColor(1f, 1f, 1f, 1f);
         RenderSystem.setShaderColor(1f, 1f, 1f, 1f);
-        RenderSystem.setShaderTexture(0, OVERLAY_TEXTURE);
+        RenderSystem.setShaderTexture(0, overlayTexture);
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
 
-        Minecraft.getInstance().getTextureManager().getTexture(OVERLAY_TEXTURE).setFilter(false, false);
+        Minecraft.getInstance().getTextureManager().getTexture(overlayTexture).setFilter(false, false);
 
-        graphics.blit(OVERLAY_TEXTURE, guiLeft, guiTop, 0, 0, GUI_WIDTH, GUI_HEIGHT);
+        graphics.blit(overlayTexture, guiLeft, guiTop, 0, 0, GUI_WIDTH, GUI_HEIGHT);
         graphics.blit(DEFAULT_ICONS, guiLeft, guiTop, 0, 0, GUI_WIDTH, GUI_HEIGHT);
         RenderSystem.disableBlend();
 
@@ -192,26 +230,95 @@ public class MobInteractionScreen extends Screen {
         double cooldownParse = RebalanceHandler.rebalanceFormula(cooldown);
         double resistParse = RebalanceHandler.rebalanceFormula(resist);
 
-        double attacklevel = attack * 3;
-        double healthLevel = health;
-        double armorLevel = armor * 2;
-        double manaLevel = Math.sqrt(mana);
-        double resistLevel = 10 * Math.pow(resistParse, 2);
-        double spellLevel = 10 * Math.pow((1 + power), 2);
-        double castLevel = 5 * Math.pow(castParse, 2);
-        double cooldownLevel = 7 * Math.pow(cooldownParse, 2);
-        double criticalLevel = 1 + Math.clamp(critChance, 0, 1);
-        double critLevel = attacklevel * Math.pow(crit, criticalLevel);
-        double pierceLevel = 1 + (armorPierce / 2) + protPierce;
-        double shredLevel = Math.clamp(armorShred, 0, 1) + Math.clamp(protShred, 0, 1);
-        double bypassLevel = 25 * (pierceLevel * (1 + shredLevel));
-        double ivLevel = firstIV + secondIV + thirdIV + fourthIV + fifthIV + sixthIV + seventhIV + eighthIV;
-        double defensePower = (healthLevel + armorLevel + resistLevel);
-        double offensePower = (spellLevel + castLevel + cooldownLevel + attacklevel + critLevel + bypassLevel);
-        double powerLevel = 10 * (manaLevel + defensePower + offensePower) * (1 + ivLevel);
-        if(minecraft.player != null && entity != minecraft.player) powerLevel /= 5;
-
         double IVGrab = ConfigFormulas.randMax;
+
+        double armorLevel;
+        double manaLevel;
+        double resistLevel;
+        double spellLevel;
+        double castLevel;
+        double cooldownLevel;
+        double criticalLevel;
+        double critLevel;
+        double critMagicLevel;
+        double pierceLevel;
+        double shredLevel;
+        double bypassLevel;
+        double ivLevel;
+        double defensePower;
+        double magicalPower;
+        double attackPower;
+        double attackLevel;
+        double powerLevel;
+        double elementalResist;
+
+        // Defensive attributes
+        armorLevel = armor;
+        elementalResist = RebalanceHandler.rebalanceFormula(fireRes) * RebalanceHandler.rebalanceFormula(iceRes)
+                * RebalanceHandler.rebalanceFormula(lightningRes) * RebalanceHandler.rebalanceFormula(natureRes)
+                * RebalanceHandler.rebalanceFormula(enderRes) * RebalanceHandler.rebalanceFormula(holyRes)
+                * RebalanceHandler.rebalanceFormula(eldritchRes) * RebalanceHandler.rebalanceFormula(evokerRes)
+                * RebalanceHandler.rebalanceFormula(abyssRes) * RebalanceHandler.rebalanceFormula(bladeRes)
+                * RebalanceHandler.rebalanceFormula(songRes) * RebalanceHandler.rebalanceFormula(windRes)
+                * RebalanceHandler.rebalanceFormula(symmetryRes) * RebalanceHandler.rebalanceFormula(duneRes)
+                * RebalanceHandler.rebalanceFormula(spiritRes);
+        resistLevel = (resistParse * elementalResist);
+        defensePower = ((health * 0.05) * resistLevel) + (armorLevel * resistLevel); // Using vanilla health as base (1/20)
+        if(entity.getType().is(PotatoTags.PLAYER)) defensePower = defensePower * (1 + (mana / 3500));
+
+        // Universal combat attributes
+        criticalLevel = Math.clamp(critChance, 0, 1);
+        critLevel = Math.max(Math.pow(crit, criticalLevel + 0.25), 1);
+        pierceLevel = (armorPierce + (1.5 * protPierce)) * 0.05;
+        shredLevel = (0.5 * Math.clamp(armorShred, 0, 1)) + Math.clamp(protShred, 0, 1);
+        bypassLevel = 1 + (pierceLevel + shredLevel);
+
+        double[] values = {firePower, icePower, lightningPower,
+                naturePower, enderPower, holyPower, eldritchPower,
+                evokerPower, abyssPower, bladePower, songPower,
+                windPower, symmetryPower, dunePower, spiritPower};
+        double elementalPower = Double.NEGATIVE_INFINITY;
+
+        for (double val : values) {
+            if (val > elementalPower) elementalPower = val;
+        }
+
+        // Magic attributes
+        manaLevel = mana <= 100? mana : 100 + Math.sqrt(mana - 100);
+        spellLevel = power * elementalPower;
+        castLevel = (1 + castParse) == 0 ? -0.01 : (1 + castParse);
+        cooldownLevel = (1 + cooldownParse) == 0 ? -0.01 : (1 + cooldownParse);
+        critMagicLevel = Math.max(Math.pow(crit, criticalLevel), 1);
+        magicalPower = manaLevel * spellLevel * castLevel * cooldownLevel * bypassLevel * critMagicLevel;
+
+        // Attack
+        attackLevel = 5 * attack * attackSpeed;
+        attackPower = attackLevel * bypassLevel * critLevel; // Critical for attack has more value because of jump crit
+
+        // IV bonus
+        ivLevel = (firstIV + secondIV + thirdIV + fourthIV + fifthIV + sixthIV + seventhIV + eighthIV) * 0.125;
+
+        // Power Level
+        powerLevel = (defensePower + attackPower + magicalPower) * (1 + ivLevel);
+
+        // Type modifiers
+        if(entity.getType().is(PotatoTags.BOSS)) powerLevel *= ConfigFormulas.boss_mod * 0.75;
+        if(entity.getType().is(PotatoTags.MINIBOSS)) powerLevel *= ConfigFormulas.mini_mod * 0.5;
+        if(entity.getType().is(PotatoTags.NORMAL)) powerLevel *= ConfigFormulas.mob_mod * 0.3;
+        if(entity.getType().is(PotatoTags.SUMMON)) powerLevel *= ConfigFormulas.summon_mod * 0.25;
+
+        // Race modifiers
+        if(entity.getType().is(PotatoTags.RACE_AMORPH)) powerLevel *= 1.15;
+        if(entity.getType().is(PotatoTags.RACE_BRUTE)) powerLevel *= 1.05;
+        if(entity.getType().is(PotatoTags.RACE_CONSTRUCT)) powerLevel *= 1.2;
+        if(entity.getType().is(PotatoTags.RACE_DRAGON)) powerLevel *= 1.2;
+        if(entity.getType().is(PotatoTags.RACE_DRAGONBORN)) powerLevel *= 1.15;
+        if(entity.getType().is(PotatoTags.RACE_FISH)) powerLevel *= 1.05;
+        if(entity.getType().is(PotatoTags.RACE_FLYING)) powerLevel *= 1;
+        if(entity.getType().is(PotatoTags.RACE_GOLEM)) powerLevel *= 1.25;
+        if(entity.getType().is(PotatoTags.RACE_HUMAN)) powerLevel *= 1.05;
+        if(entity.getType().is(PotatoTags.RACE_HUMANOID)) powerLevel *= 1.025;
+        if(entity.getType().is(PotatoTags.RACE_INSECT)) powerLevel *= 1.15;
 
         double critParse = crit * 100;
         double critChanceParse = critChance * 100;
@@ -409,7 +516,7 @@ public class MobInteractionScreen extends Screen {
         RenderSystem.defaultBlendFunc();
         graphics.setColor(1f, 1f, 1f, 1f);
         RenderSystem.setShaderColor(1f, 1f, 1f, 1f);
-        RenderSystem.setShaderTexture(0, OVERLAY_TEXTURE);
+        RenderSystem.setShaderTexture(0, overlayTexture);
 
         // Rendering icons and tooltips
         var schoolVisualTooltip = getSchoolVisuals(entity);

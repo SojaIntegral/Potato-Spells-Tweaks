@@ -35,9 +35,9 @@ public class ConfigFormulas {
 
     // These modifiers ensure that things don't get out of hand, but also aren't too easy
     public static double boss_mod = 1.15 * modifier * Math.clamp(ServerConfigs.BOSS_RESIST.get(), 1, 10000) / 100;
-    public static double mini_mod = 1.05 * modifier * Math.clamp(ServerConfigs.MINIBOSS_RESIST.get(), 1, 10000) / 100;
-    public static double mob_mod = 0.9 * modifier * Math.clamp(ServerConfigs.MOB_RESIST.get(), 1, 10000) / 100;
-    public static double summon_mod = 0.75 * modifier * Math.clamp(ServerConfigs.SUMMON_RESIST.get(), 1, 10000) / 100;
+    public static double mini_mod = 1.0 * modifier * Math.clamp(ServerConfigs.MINIBOSS_RESIST.get(), 1, 10000) / 100;
+    public static double mob_mod = 0.85 * modifier * Math.clamp(ServerConfigs.MOB_RESIST.get(), 1, 10000) / 100;
+    public static double summon_mod = 0.9 * modifier * Math.clamp(ServerConfigs.SUMMON_RESIST.get(), 1, 10000) / 100;
 
     // Familiars random attr value
     public static double randMax = (double) Math.clamp(ServerConfigs.IV_RANGE.get(), 1, 10000) / 100;

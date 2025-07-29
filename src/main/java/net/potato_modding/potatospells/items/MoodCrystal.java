@@ -34,6 +34,9 @@ public class MoodCrystal extends Item {
                 .withStyle(ChatFormatting.WHITE));
         tooltip.add(Component.literal("Hold shift to use on yourself")
                 .withStyle(ChatFormatting.WHITE, ChatFormatting.ITALIC));
+        tooltip.add(Component.literal(""));
+        tooltip.add(Component.literal("WARNING: Only works on Familiars by default")
+                .withStyle(ChatFormatting.RED, ChatFormatting.ITALIC));
     }
 
     @Override

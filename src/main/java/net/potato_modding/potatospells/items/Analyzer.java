@@ -30,12 +30,9 @@ public class Analyzer extends CurioBaseItem {
     @Override
     @net.neoforged.api.distmarker.OnlyIn(Dist.CLIENT)
     public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
-        tooltip.add(Component.literal("Can analyze attributes from far away")
-                .withStyle(ChatFormatting.GRAY));
-        tooltip.add(Component.literal(""));
         tooltip.add(Component.literal("Range: 8 blocks | Press [")
                 .append(Keybinds.OPEN_SCREEN_KEY.getTranslatedKeyMessage()).append("] to analyze")
-                .withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC));
+                .withStyle(ChatFormatting.GRAY));
     }
 
     @Override
@@ -54,4 +51,7 @@ public class Analyzer extends CurioBaseItem {
     public Component getName(ItemStack stack) {
         return super.getName(stack).copy().withStyle(ChatFormatting.DARK_GRAY);
     }
+
+    public static final ResourceLocation OVERLAY_TEXTURE =
+            ResourceLocation.fromNamespaceAndPath("potatospellbookstweaks", "textures/gui/identify_gui.png");
 }

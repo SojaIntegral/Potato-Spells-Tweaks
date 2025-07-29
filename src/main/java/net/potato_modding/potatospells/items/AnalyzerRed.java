@@ -36,15 +36,13 @@ public class AnalyzerRed extends CurioBaseItem {
     public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
         Minecraft mc = Minecraft.getInstance();
         if (mc.player == null || mc.level == null) return;
-        double attributeValue = 8 + 16 * Math.pow(getAttr(mc.player, ALObjects.Attributes.CRIT_DAMAGE), 2);
+        double attributeValue = 8 + 16 * Math.pow(getAttr(mc.player, ALObjects.Attributes.CRIT_DAMAGE), 2)
+                * getAttr(mc.player, ALObjects.Attributes.CRIT_CHANCE);
         double curioModifier = BigDecimal.valueOf(attributeValue).setScale(0, RoundingMode.HALF_UP).doubleValue();
 
-        tooltip.add(Component.literal("Can analyze attributes from far away")
-                .withStyle(ChatFormatting.RED));
-        tooltip.add(Component.literal(""));
         tooltip.add(Component.literal("Range: " + curioModifier + " blocks | Press [")
                 .append(Keybinds.OPEN_SCREEN_KEY.getTranslatedKeyMessage()).append("] to analyze")
-                .withStyle(ChatFormatting.GRAY, ChatFormatting.ITALIC));
+                .withStyle(ChatFormatting.RED));
     }
 
     @Override
@@ -65,4 +63,7 @@ public class AnalyzerRed extends CurioBaseItem {
     public Component getName(ItemStack stack) {
         return super.getName(stack).copy().withStyle(ChatFormatting.DARK_RED);
     }
+
+    public static final ResourceLocation OVERLAY_TEXTURE =
+            ResourceLocation.fromNamespaceAndPath("potatospellbookstweaks", "textures/gui/identify_gui_red.png");
 }
