@@ -14,12 +14,14 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.TooltipFlag;
 import net.neoforged.api.distmarker.Dist;
 import net.potato_modding.potatospells.client.Keybinds;
 import top.theillusivec4.curios.api.SlotContext;
+import top.theillusivec4.curios.api.type.capability.ICurioItem;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -28,7 +30,7 @@ import java.util.List;
 public class AnalyzerPink extends CurioBaseItem {
 
     public AnalyzerPink() {
-        super(ItemPropertiesHelper.equipment().stacksTo(1).fireResistant().rarity(Rarity.EPIC));
+        super(ItemPropertiesHelper.equipment().stacksTo(1).rarity(Rarity.RARE));
     }
 
     @Override

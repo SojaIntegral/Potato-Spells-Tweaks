@@ -7,8 +7,7 @@
 package net.potato_modding.potatospells;
 
 import com.mojang.logging.LogUtils;
-import io.redspace.ironsspellbooks.item.SpellBook;
-import io.redspace.ironsspellbooks.render.SpellBookCurioRenderer;
+import net.acetheeldritchking.cataclysm_spellbooks.registries.ItemRegistries;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -24,6 +23,8 @@ import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
 import net.potato_modding.potatospells.config.ClientConfigs;
 import net.potato_modding.potatospells.config.ServerConfigs;
+import net.potato_modding.potatospells.entity.render.items.AnalyzerCurioRenderer;
+import net.potato_modding.potatospells.items.*;
 import net.potato_modding.potatospells.registry.PotatoAttributes;
 import net.potato_modding.potatospells.registry.PotatoCreativeTab;
 import net.potato_modding.potatospells.registry.PotatoRegistry;
@@ -80,7 +81,12 @@ public class PotatoSpells {
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event) {
             event.enqueueWork(() -> {
-                PotatoRegistry.getPotatoItems().stream().filter(item -> item.get() instanceof SpellBook).forEach((item) -> CuriosRendererRegistry.register(item.get(), SpellBookCurioRenderer::new));
+                CuriosRendererRegistry.register(PotatoRegistry.BASE_ANALYZER.get(), AnalyzerCurioRenderer::new);
+                CuriosRendererRegistry.register(PotatoRegistry.RED_ANALYZER.get(), AnalyzerCurioRenderer::new);
+                CuriosRendererRegistry.register(PotatoRegistry.GREEN_ANALYZER.get(), AnalyzerCurioRenderer::new);
+                CuriosRendererRegistry.register(PotatoRegistry.BLUE_ANALYZER.get(), AnalyzerCurioRenderer::new);
+                CuriosRendererRegistry.register(PotatoRegistry.YELLOW_ANALYZER.get(), AnalyzerCurioRenderer::new);
+                CuriosRendererRegistry.register(PotatoRegistry.PINK_ANALYZER.get(), AnalyzerCurioRenderer::new);
             });
         }
     }
