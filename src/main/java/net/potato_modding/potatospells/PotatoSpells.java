@@ -26,6 +26,7 @@ import net.potato_modding.potatospells.config.ServerConfigs;
 import net.potato_modding.potatospells.entity.render.items.AnalyzerCurioRenderer;
 import net.potato_modding.potatospells.items.*;
 import net.potato_modding.potatospells.registry.PotatoAttributes;
+import net.potato_modding.potatospells.registry.PotatoBigAttributes;
 import net.potato_modding.potatospells.registry.PotatoCreativeTab;
 import net.potato_modding.potatospells.registry.PotatoRegistry;
 import org.slf4j.Logger;
@@ -55,6 +56,7 @@ public class PotatoSpells {
         PotatoCreativeTab.register(modEventBus);
         PotatoRegistry.register(modEventBus);
         PotatoAttributes.register(modEventBus);
+        PotatoBigAttributes.register(modEventBus);
         modContainer.registerConfig(ModConfig.Type.SERVER, ServerConfigs.BUILDING, String.format("%s-server.toml", PotatoSpells.MOD_ID));
         modContainer.registerConfig(ModConfig.Type.CLIENT, ClientConfigs.BUILDING, String.format("%s-client.toml", PotatoSpells.MOD_ID));
     }
@@ -87,6 +89,7 @@ public class PotatoSpells {
                 CuriosRendererRegistry.register(PotatoRegistry.BLUE_ANALYZER.get(), AnalyzerCurioRenderer::new);
                 CuriosRendererRegistry.register(PotatoRegistry.YELLOW_ANALYZER.get(), AnalyzerCurioRenderer::new);
                 CuriosRendererRegistry.register(PotatoRegistry.PINK_ANALYZER.get(), AnalyzerCurioRenderer::new);
+                CuriosRendererRegistry.register(PotatoRegistry.BLACK_ANALYZER.get(), AnalyzerCurioRenderer::new);
             });
         }
     }

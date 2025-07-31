@@ -20,6 +20,7 @@ public class PotatoRegistry {
     public static final Supplier<CurioBaseItem> MOB_IDENTIFIER = ITEMS.register("mob_identifier", MobIdentifier::new);
     public static final Supplier<CurioBaseItem> BASE_ANALYZER = ITEMS.register("analyzer", Analyzer::new);
     public static final Supplier<CurioBaseItem> PINK_ANALYZER = ITEMS.register("analyzer_pink", AnalyzerPink::new);
+    public static final Supplier<CurioBaseItem> BLACK_ANALYZER = ITEMS.register("analyzer_black", AnalyzerBlack::new);
     public static final Supplier<CurioBaseItem> BLUE_ANALYZER = ITEMS.register("analyzer_blue", AnalyzerBlue::new);
     public static final Supplier<CurioBaseItem> RED_ANALYZER = ITEMS.register("analyzer_red", AnalyzerRed::new);
     public static final Supplier<CurioBaseItem> GREEN_ANALYZER = ITEMS.register("analyzer_green", AnalyzerGreen::new);

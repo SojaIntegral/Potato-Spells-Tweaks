@@ -26,6 +26,7 @@ public class PotatoAttributes {
     public static final DeferredHolder<Attribute, Attribute> CRIT_IV = registerIdentifyAttribute("crit_iv");
 
     public static final DeferredHolder<Attribute, Attribute> MANA_SHIELD = registerIdentifyAttribute("mana_shield");
+    public static final DeferredHolder<Attribute, Attribute> SPELL_RESIST_SHRED = registerIdentifyAttribute("spell_res_shred");
 
     public static void register(IEventBus eventBus) {
         ATTRIBUTES.register(eventBus);

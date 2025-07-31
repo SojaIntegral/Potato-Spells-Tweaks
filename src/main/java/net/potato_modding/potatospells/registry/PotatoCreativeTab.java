@@ -27,6 +27,7 @@ public class PotatoCreativeTab {
                         output.accept(PotatoRegistry.BLUE_ANALYZER.get());
                         output.accept(PotatoRegistry.YELLOW_ANALYZER.get());
                         output.accept(PotatoRegistry.PINK_ANALYZER.get());
+                        output.accept(PotatoRegistry.BLACK_ANALYZER.get());
                         if(ServerConfigs.IV_SYSTEM.get()) output.accept(PotatoRegistry.ATTRIBUTE_REROLLER.get());
                         if(ServerConfigs.NATURE_SYSTEM.get()) output.accept(PotatoRegistry.NATURE_REROLLER.get());
                     }).build());

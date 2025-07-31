@@ -48,8 +48,8 @@ public class AnalyzerGreen extends CurioBaseItem {
         double spellPower = getAttr(mc.player, AttributeRegistry.SPELL_POWER);
         double manaShield = getAttr(mc.player, PotatoAttributes.MANA_SHIELD);
         double rawShield = BigDecimal.valueOf((manaShield * currentMana * spellPower) / 35).setScale(0, RoundingMode.HALF_UP).doubleValue();
-        double shieldStrength = Math.min(rawShield, 90);
-        double manaCost = 10 * (1 - (Math.min(rawShield, 90) / 100));
+        double shieldStrength = BigDecimal.valueOf(Math.min(rawShield, 90)).setScale(0, RoundingMode.HALF_UP).doubleValue();
+        double manaCost = BigDecimal.valueOf(10 * (1 - (Math.min(rawShield, 90) / 100))).setScale(2, RoundingMode.HALF_UP).doubleValue();
 
         tooltip.add(Component.literal("Range: " + curioModifier + " blocks | Press [")
                 .append(Keybinds.OPEN_SCREEN_KEY.getTranslatedKeyMessage()).append("] to analyze")

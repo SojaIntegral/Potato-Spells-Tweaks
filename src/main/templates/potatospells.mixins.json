@@ -6,7 +6,8 @@
     "SpellResistMixin",
     "CooldownMixin",
     "CastTimeMixin",
-    "AttributesFixerMixin"
+    "AttributesFixerMixin",
+    "SpellDamageMixin"
   ],
   "client": [
   ],

@@ -22,6 +22,7 @@ import net.neoforged.fml.ModList;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.ClientTickEvent;
 import net.potato_modding.potatospells.registry.PotatoAttributes;
+import net.potato_modding.potatospells.registry.PotatoBigAttributes;
 import net.potato_modding.potatospells.registry.PotatoRegistry;
 import net.potato_modding.potatospells.tags.PotatoTags;
 import net.potato_modding.potatospells.utils.RebalanceHandler;
@@ -47,7 +48,9 @@ public class ScreenTrigger {
                         ASUtils.hasCurio(mc.player, PotatoRegistry.GREEN_ANALYZER.get()) ||
                         ASUtils.hasCurio(mc.player, PotatoRegistry.BLUE_ANALYZER.get()) ||
                         ASUtils.hasCurio(mc.player, PotatoRegistry.YELLOW_ANALYZER.get()) ||
-                        ASUtils.hasCurio(mc.player, PotatoRegistry.PINK_ANALYZER.get());
+                        ASUtils.hasCurio(mc.player, PotatoRegistry.PINK_ANALYZER.get()) ||
+                        ASUtils.hasCurio(mc.player, PotatoRegistry.BLACK_ANALYZER.get())
+                ;
 
         if (!Keybinds.OPEN_SCREEN_KEY.consumeClick() || !hasIdentifier) return;
 
@@ -76,6 +79,11 @@ public class ScreenTrigger {
             curioModifier = (getAttr(mc.player, AttributeRegistry.CAST_TIME_REDUCTION)
                     * getAttr(mc.player, AttributeRegistry.COOLDOWN_REDUCTION));
             rgb = 5;
+        }
+        if (ASUtils.hasCurio(mc.player, PotatoRegistry.BLACK_ANALYZER.get())) {
+            curioModifier = (1 + getAttr(mc.player, PotatoBigAttributes.SPELL_RESIST_PIERCE))
+                    * (1 + getAttr(mc.player, PotatoAttributes.SPELL_RESIST_SHRED)) * 1.5;
+            rgb = 1;
         }
         LivingEntity target = mc.player.isShiftKeyDown()
                 ? mc.player

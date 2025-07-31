@@ -2,6 +2,8 @@
   "replace": false,
   "values": [
     {"id": "minecraft:wither", "required": false },
+    {"id": "cataclysm:ender_guardian", "required": false },
+    {"id": "cataclysm:ender_golem", "required": false },
     {"id": "irons_spellbooks:citadel_keeper", "required": false },
     {"id": "traveloptics:summoned_ender_golem", "required": false},
     "minecraft:iron_golem",

@@ -5,35 +5,51 @@ import com.google.common.collect.Multimap;
 import io.redspace.ironsspellbooks.api.registry.AttributeRegistry;
 import io.redspace.ironsspellbooks.item.curios.CurioBaseItem;
 import io.redspace.ironsspellbooks.util.ItemPropertiesHelper;
+import net.acetheeldritchking.aces_spell_utils.registries.ASAttributeRegistry;
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.TooltipFlag;
 import net.neoforged.api.distmarker.Dist;
 import net.potato_modding.potatospells.client.Keybinds;
+import net.potato_modding.potatospells.registry.PotatoAttributes;
+import net.potato_modding.potatospells.registry.PotatoBigAttributes;
 import top.theillusivec4.curios.api.SlotContext;
-import top.theillusivec4.curios.api.type.capability.ICurioItem;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
 
-public class Analyzer extends CurioBaseItem {
+public class AnalyzerBlack extends CurioBaseItem {
 
-    public Analyzer() {
+    public AnalyzerBlack() {
         super(ItemPropertiesHelper.equipment().stacksTo(1).rarity(Rarity.RARE));
     }
 
     @Override
     @net.neoforged.api.distmarker.OnlyIn(Dist.CLIENT)
     public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
-        tooltip.add(Component.literal("Range: 8 blocks | Press [")
+        Minecraft mc = Minecraft.getInstance();
+        if (mc.player == null || mc.level == null) return;
+        double modifier = (1 + getAttr(mc.player, PotatoBigAttributes.SPELL_RESIST_PIERCE)) * (1 + getAttr(mc.player, PotatoAttributes.SPELL_RESIST_SHRED));
+        double attributeValue = 8 + 24 * modifier;
+        double curioModifier = BigDecimal.valueOf(attributeValue).setScale(0, RoundingMode.HALF_UP).doubleValue();
+        double resistShred = BigDecimal.valueOf(mc.player.getAttributeValue(PotatoAttributes.SPELL_RESIST_SHRED) * 100).setScale(0, RoundingMode.HALF_UP).doubleValue();
+
+        tooltip.add(Component.literal("Range: " + curioModifier + " blocks | Press [")
                 .append(Keybinds.OPEN_SCREEN_KEY.getTranslatedKeyMessage()).append("] to analyze")
+                .withStyle(ChatFormatting.GRAY));
+        tooltip.add(Component.literal(""));
+        tooltip.add(Component.literal("Spell Resistance Shred:")
+                .withStyle(ChatFormatting.GRAY));
+        tooltip.add(Component.literal("Ignores [" + resistShred + "]% of Spell Resistance")
                 .withStyle(ChatFormatting.GRAY));
     }
 
@@ -41,6 +57,8 @@ public class Analyzer extends CurioBaseItem {
     public Multimap<Holder<Attribute>, AttributeModifier> getAttributeModifiers(SlotContext slotContext, ResourceLocation id, ItemStack stack) {
         Multimap<Holder<Attribute>, AttributeModifier> attr = LinkedHashMultimap.create();
         attr.put(AttributeRegistry.SPELL_RESIST, new AttributeModifier(id, 0.1, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL));
+        attr.put(PotatoAttributes.SPELL_RESIST_SHRED, new AttributeModifier(id, 0.1, AttributeModifier.Operation.ADD_VALUE));
+        attr.put(PotatoBigAttributes.SPELL_RESIST_PIERCE, new AttributeModifier(id, 0.15, AttributeModifier.Operation.ADD_VALUE));
         return attr;
     }
 
@@ -51,7 +69,7 @@ public class Analyzer extends CurioBaseItem {
 
     @Override
     public Component getName(ItemStack stack) {
-        return super.getName(stack).copy().withStyle(ChatFormatting.WHITE);
+        return super.getName(stack).copy().withStyle(ChatFormatting.DARK_GRAY);
     }
 
     public static final ResourceLocation OVERLAY_TEXTURE =
