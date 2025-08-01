@@ -7,21 +7,18 @@ import io.redspace.ironsspellbooks.item.curios.CurioBaseItem;
 import io.redspace.ironsspellbooks.util.ItemPropertiesHelper;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.TooltipFlag;
 import net.neoforged.api.distmarker.Dist;
 import net.potato_modding.potatospells.client.Keybinds;
 import top.theillusivec4.curios.api.SlotContext;
-import top.theillusivec4.curios.api.type.capability.ICurioItem;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -51,8 +48,8 @@ public class AnalyzerPink extends CurioBaseItem {
     public Multimap<Holder<Attribute>, AttributeModifier> getAttributeModifiers(SlotContext slotContext, ResourceLocation id, ItemStack stack) {
         Multimap<Holder<Attribute>, AttributeModifier> attr = LinkedHashMultimap.create();
         attr.put(AttributeRegistry.SPELL_RESIST, new AttributeModifier(id, 0.1, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL));
-        attr.put(AttributeRegistry.CAST_TIME_REDUCTION, new AttributeModifier(id, 0.15, AttributeModifier.Operation.ADD_VALUE));
-        attr.put(AttributeRegistry.COOLDOWN_REDUCTION, new AttributeModifier(id, 0.05, AttributeModifier.Operation.ADD_VALUE));
+        attr.put(AttributeRegistry.CAST_TIME_REDUCTION, new AttributeModifier(id, 0.2, AttributeModifier.Operation.ADD_VALUE));
+        attr.put(AttributeRegistry.COOLDOWN_REDUCTION, new AttributeModifier(id, 0.1, AttributeModifier.Operation.ADD_VALUE));
         return attr;
     }
 

@@ -8,6 +8,7 @@ public class ServerConfigs {
 
     // Main config
     public static ModConfigSpec.ConfigValue<Integer> FORMULA_REBALANCE;
+    public static ModConfigSpec.ConfigValue<String> FORMULA_CUSTOM;
     public static ModConfigSpec.ConfigValue<Boolean> BOSS_SWITCH;
     public static ModConfigSpec.ConfigValue<Integer> BOSS_RESIST;
     public static ModConfigSpec.ConfigValue<Integer> MINIBOSS_RESIST;
@@ -27,14 +28,20 @@ public class ServerConfigs {
         // MAIN CONFIG
         {
             BUILDER.push("Re-Balance");
-            BUILDER.comment("Valid values: 0, 1, 2, 3 or 4 | Default: 0");
-            BUILDER.comment("0 = 'Default': Default ISS formula");
-            BUILDER.comment("1 = 'Casual': For very light ISS modpacks");
+            BUILDER.comment("Valid values: from 0 to 5 | Default: 5");
+            BUILDER.comment("0 = 'Classic': Old ISS formula");
+            BUILDER.comment("1 = 'Nerfed': For very light ISS modpacks");
             BUILDER.comment("2 = 'Recommended': Made for regular modpacks and multiplayer");
             BUILDER.comment("3 = 'Apotheosis': Made modpacks with Apotheosis and other 'ridiculous' mods");
             BUILDER.comment("4 = 'Alternative': Great for balanced ISS PvP (Heavily nerfs scaling)");
+            BUILDER.comment("5 = 'Default': New ISS formula");
             BUILDER.comment("WARNING: This affects [Spell Resistance], [Cast Speed] AND [Cooldown Reduction]!");
-            FORMULA_REBALANCE = BUILDER.worldRestart().define("Rebalance", 2);
+            FORMULA_REBALANCE = BUILDER.worldRestart().define("Rebalance", 5);
+            BUILDER.comment("");
+            BUILDER.comment("CUSTOM FORMULA! Use '6' on Rebalance formula to use your custom formula");
+            BUILDER.comment("Using the 'Recommended' formula as default");
+            BUILDER.comment("WARNING: Custom formula can be slightly harsher on CPU than pre-set ones");
+            FORMULA_CUSTOM = BUILDER.worldRestart().define("Custom Formula", "x >= 0 ? 1.966667 - (30 / (29 + x)) : 2 - ((20 - x) / 20)");
             BUILDER.pop();
         }
         {

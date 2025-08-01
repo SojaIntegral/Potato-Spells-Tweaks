@@ -7,21 +7,15 @@ import io.redspace.ironsspellbooks.api.events.SpellDamageEvent;
 import io.redspace.ironsspellbooks.api.spells.AbstractSpell;
 import io.redspace.ironsspellbooks.damage.DamageSources;
 import io.redspace.ironsspellbooks.damage.SpellDamageSource;
-import net.acetheeldritchking.aces_spell_utils.AcesSpellUtils;
-import net.acetheeldritchking.aces_spell_utils.registries.ASAttributeRegistry;
-import net.minecraft.core.Holder;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.player.Player;
 import net.neoforged.neoforge.common.NeoForge;
 import net.potato_modding.potatospells.registry.PotatoAttributes;
 import net.potato_modding.potatospells.registry.PotatoBigAttributes;
 import net.potato_modding.potatospells.utils.RebalanceHandler;
 import org.spongepowered.asm.mixin.Mixin;
-
-import java.lang.reflect.Field;
 
 import static io.redspace.ironsspellbooks.damage.DamageSources.*;
 

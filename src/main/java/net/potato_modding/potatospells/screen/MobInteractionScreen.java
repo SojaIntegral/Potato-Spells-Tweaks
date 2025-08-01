@@ -26,8 +26,6 @@ import org.joml.Vector3f;
 import java.util.Map;
 import java.util.Objects;
 
-import static net.potato_modding.potatospells.items.Analyzer.OVERLAY_TEXTURE;
-
 public class MobInteractionScreen extends Screen {
     // Buttons on the GUI
     private Button button1;

@@ -7,7 +7,8 @@
 package net.potato_modding.potatospells;
 
 import com.mojang.logging.LogUtils;
-import net.acetheeldritchking.cataclysm_spellbooks.registries.ItemRegistries;
+import net.acetheeldritchking.cataclysm_spellbooks.CataclysmSpellbooks;
+import net.minecraft.resources.ResourceLocation;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -24,11 +25,8 @@ import net.neoforged.neoforge.event.server.ServerStartingEvent;
 import net.potato_modding.potatospells.config.ClientConfigs;
 import net.potato_modding.potatospells.config.ServerConfigs;
 import net.potato_modding.potatospells.entity.render.items.AnalyzerCurioRenderer;
-import net.potato_modding.potatospells.items.*;
-import net.potato_modding.potatospells.registry.PotatoAttributes;
-import net.potato_modding.potatospells.registry.PotatoBigAttributes;
-import net.potato_modding.potatospells.registry.PotatoCreativeTab;
-import net.potato_modding.potatospells.registry.PotatoRegistry;
+import net.potato_modding.potatospells.registry.*;
+import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import top.theillusivec4.curios.api.client.CuriosRendererRegistry;
 
@@ -53,10 +51,14 @@ public class PotatoSpells {
         NeoForge.EVENT_BUS.register(this);
 
         // Register the item to spawn_armor.json creative tab
+        PotatoSchool.register(modEventBus);
+        SpellRegistries.register(modEventBus);
+        PotatoEffects.register(modEventBus);
         PotatoCreativeTab.register(modEventBus);
         PotatoRegistry.register(modEventBus);
         PotatoAttributes.register(modEventBus);
         PotatoBigAttributes.register(modEventBus);
+        PotatoMagicAttributes.register(modEventBus);
         modContainer.registerConfig(ModConfig.Type.SERVER, ServerConfigs.BUILDING, String.format("%s-server.toml", PotatoSpells.MOD_ID));
         modContainer.registerConfig(ModConfig.Type.CLIENT, ClientConfigs.BUILDING, String.format("%s-client.toml", PotatoSpells.MOD_ID));
     }
@@ -92,5 +94,10 @@ public class PotatoSpells {
                 CuriosRendererRegistry.register(PotatoRegistry.BLACK_ANALYZER.get(), AnalyzerCurioRenderer::new);
             });
         }
+    }
+
+    public static ResourceLocation id(@NotNull String path)
+    {
+        return ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, path);
     }
 }

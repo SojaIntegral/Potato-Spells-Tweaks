@@ -3,11 +3,9 @@ package net.potato_modding.potatospells.items;
 import net.alshanex.familiarslib.entity.AbstractSpellCastingPet;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -19,7 +17,6 @@ import net.potato_modding.potatospells.resistances.core.PotatoNaturesHandler;
 import net.potato_modding.potatospells.tags.PotatoTags;
 
 import java.util.List;
-import java.util.UUID;
 
 public class MoodCrystal extends Item {
 

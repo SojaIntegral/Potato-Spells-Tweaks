@@ -10,7 +10,6 @@ import net.ender.endersequipment.registries.EEAttributeRegistry;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
@@ -23,13 +22,9 @@ import net.minecraft.world.item.TooltipFlag;
 import net.neoforged.fml.ModList;
 import net.potato_modding.potatospells.client.ClientScreens;
 import net.potato_modding.potatospells.registry.PotatoAttributes;
-import net.potato_modding.potatospells.tags.PotatoTags;
-import net.potato_modding.potatospells.utils.RebalanceHandler;
 import net.warphan.iss_magicfromtheeast.registries.MFTEAttributeRegistries;
 
 import java.util.List;
-
-import static net.potato_modding.potatospells.utils.ConfigFormulas.mobType;
 
 public class MobIdentifier extends CurioBaseItem {
 

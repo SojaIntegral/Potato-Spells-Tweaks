@@ -1,6 +1,5 @@
 package net.potato_modding.potatospells.config;
 
-import mod.azure.azurelib.core.math.functions.classic.Mod;
 import net.neoforged.neoforge.common.ModConfigSpec;
 
 public class ClientConfigs {

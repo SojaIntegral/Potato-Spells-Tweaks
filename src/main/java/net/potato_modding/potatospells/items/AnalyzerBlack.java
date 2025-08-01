@@ -5,7 +5,6 @@ import com.google.common.collect.Multimap;
 import io.redspace.ironsspellbooks.api.registry.AttributeRegistry;
 import io.redspace.ironsspellbooks.item.curios.CurioBaseItem;
 import io.redspace.ironsspellbooks.util.ItemPropertiesHelper;
-import net.acetheeldritchking.aces_spell_utils.registries.ASAttributeRegistry;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.Holder;
@@ -39,7 +38,7 @@ public class AnalyzerBlack extends CurioBaseItem {
         Minecraft mc = Minecraft.getInstance();
         if (mc.player == null || mc.level == null) return;
         double modifier = (1 + getAttr(mc.player, PotatoBigAttributes.SPELL_RESIST_PIERCE)) * (1 + getAttr(mc.player, PotatoAttributes.SPELL_RESIST_SHRED));
-        double attributeValue = 8 + 24 * modifier;
+        double attributeValue = 8 + 16 * modifier * 1.25;
         double curioModifier = BigDecimal.valueOf(attributeValue).setScale(0, RoundingMode.HALF_UP).doubleValue();
         double resistShred = BigDecimal.valueOf(mc.player.getAttributeValue(PotatoAttributes.SPELL_RESIST_SHRED) * 100).setScale(0, RoundingMode.HALF_UP).doubleValue();
 

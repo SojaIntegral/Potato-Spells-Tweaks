@@ -1,6 +1,5 @@
 package net.potato_modding.potatospells.resistances.core;
 
-import com.github.L_Ender.cataclysm.init.ModEntities;
 import dev.shadowsoffire.apothic_attributes.api.ALObjects;
 import io.redspace.ironsspellbooks.api.registry.AttributeRegistry;
 import net.minecraft.core.Holder;
@@ -706,8 +705,8 @@ public class MainAttributeHandler {
                     setIfNonNull(mob, PotatoAttributes.PROT_PEN_IV, attrVar[6]);
                     setIfNonNull(mob, PotatoAttributes.CRIT_IV, attrVar[7]);
 
-                    if (ModList.get().isLoaded("cataclysm") && mob.getType() == ModEntities.MALEDICTUS.get()) {
-                        setIfNonNull(mob, ALObjects.Attributes.LIFE_STEAL, 10);
+                    if (ModList.get().isLoaded("cataclysm") && mob.getType().is(PotatoTags.BOSS)) {
+                        setIfNonNull(mob, ALObjects.Attributes.LIFE_STEAL, 5);
                     }
                 }
             }

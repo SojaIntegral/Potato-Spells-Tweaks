@@ -174,6 +174,8 @@ dependencies {
     // ISS
     compileOnly "io.redspace:irons_spellbooks:${irons_spells_version}"
     localRuntime "io.redspace:irons_spellbooks:${irons_spells_version}"
+    implementation "curse.maven:irons-jewelry-1101111:6796627"
+    implementation "curse.maven:atlas-api-1145462:6462042"
 
     // Alshanex's Familiars
     implementation "curse.maven:alshanexs-familiars-1171602:6825732"

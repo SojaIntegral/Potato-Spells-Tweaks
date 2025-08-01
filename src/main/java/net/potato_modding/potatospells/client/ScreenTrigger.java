@@ -8,7 +8,6 @@ import net.acetheeldritchking.cataclysm_spellbooks.registries.CSAttributeRegistr
 import net.ender.endersequipment.registries.EEAttributeRegistry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.Holder;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
@@ -24,13 +23,9 @@ import net.neoforged.neoforge.client.event.ClientTickEvent;
 import net.potato_modding.potatospells.registry.PotatoAttributes;
 import net.potato_modding.potatospells.registry.PotatoBigAttributes;
 import net.potato_modding.potatospells.registry.PotatoRegistry;
-import net.potato_modding.potatospells.tags.PotatoTags;
-import net.potato_modding.potatospells.utils.RebalanceHandler;
 import net.warphan.iss_magicfromtheeast.registries.MFTEAttributeRegistries;
 
 import java.util.List;
-
-import static net.potato_modding.potatospells.utils.ConfigFormulas.mobType;
 
 @EventBusSubscriber(value = Dist.CLIENT)
 public class ScreenTrigger {
@@ -82,7 +77,7 @@ public class ScreenTrigger {
         }
         if (ASUtils.hasCurio(mc.player, PotatoRegistry.BLACK_ANALYZER.get())) {
             curioModifier = (1 + getAttr(mc.player, PotatoBigAttributes.SPELL_RESIST_PIERCE))
-                    * (1 + getAttr(mc.player, PotatoAttributes.SPELL_RESIST_SHRED)) * 1.5;
+                    * (1 + getAttr(mc.player, PotatoAttributes.SPELL_RESIST_SHRED)) * 1.25;
             rgb = 1;
         }
         LivingEntity target = mc.player.isShiftKeyDown()

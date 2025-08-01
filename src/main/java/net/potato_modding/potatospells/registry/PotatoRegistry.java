@@ -30,8 +30,6 @@ public class PotatoRegistry {
     public static final Supplier<Item> NATURE_REROLLER = ITEMS.register("mood_crystal",
             () -> new MoodCrystal(new Item.Properties().stacksTo(4).fireResistant().component(DataComponents.ENCHANTMENT_GLINT_OVERRIDE, true).rarity(Rarity.UNCOMMON)));
 
-
-
     public static Collection<DeferredHolder<Item, ? extends Item>> getPotatoItems()
 
     {
