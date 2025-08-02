@@ -7,5 +7,5 @@ import net.minecraft.world.item.Item;
 import net.potato_modding.potatospells.PotatoSpells;
 
 public class PotatoFocuses {
-    public static final TagKey<Item> GENERIC_FOCUS = ItemTags.create(ResourceLocation.parse(ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "generic_focus").toString()));
+    public static final TagKey<Item> GENERIC_FOCUS = ItemTags.create(ResourceLocation.parse(ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "generic_focus.json").toString()));
 }

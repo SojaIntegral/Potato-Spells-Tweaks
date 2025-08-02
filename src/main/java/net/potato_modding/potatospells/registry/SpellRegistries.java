@@ -5,6 +5,8 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.potato_modding.potatospells.PotatoSpells;
 import net.potato_modding.potatospells.spells.ManaShieldSpell;
+import net.potato_modding.potatospells.spells.ManaStealSpell;
+import net.potato_modding.potatospells.spells.MassRecallSpell;
 
 import java.util.function.Supplier;
 
@@ -18,6 +20,8 @@ public class SpellRegistries {
     }
 
     public static final Supplier<AbstractSpell> MANA_SHIELD_SPELL = registerSpell(new ManaShieldSpell());
+    public static final Supplier<AbstractSpell> MANA_STEAL_SPELL = registerSpell(new ManaStealSpell());
+    public static final Supplier<AbstractSpell> MASS_RECALL = registerSpell(new MassRecallSpell());
 
     public static void register(IEventBus eventBus)
     {

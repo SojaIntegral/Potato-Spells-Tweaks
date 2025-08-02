@@ -13,7 +13,6 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.neoforged.neoforge.common.NeoForge;
 import net.potato_modding.potatospells.registry.PotatoAttributes;
-import net.potato_modding.potatospells.registry.PotatoBigAttributes;
 import net.potato_modding.potatospells.utils.RebalanceHandler;
 import org.spongepowered.asm.mixin.Mixin;
 
@@ -55,7 +54,7 @@ public class SpellDamageMixin {
 
                 spellShred = Math.abs(pierceAmount * piercingAttr);
 
-                spellPierce = RebalanceHandler.rebalanceFormula(livingCaster.getAttribute(PotatoBigAttributes.SPELL_RESIST_PIERCE).getValue());
+                spellPierce = RebalanceHandler.rebalanceFormula(livingCaster.getAttribute(PotatoAttributes.SPELL_RESIST_PIERCE).getValue());
             }
             float adjustedDamage = (float)(baseAmount * (getResist(livingTarget, spellDamageSource.spell().getSchoolType()) + spellShred + spellPierce));
             if (damageSource.getDirectEntity() instanceof NoKnockbackProjectile) {

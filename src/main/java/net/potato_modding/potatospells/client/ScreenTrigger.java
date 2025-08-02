@@ -21,7 +21,6 @@ import net.neoforged.fml.ModList;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.ClientTickEvent;
 import net.potato_modding.potatospells.registry.PotatoAttributes;
-import net.potato_modding.potatospells.registry.PotatoBigAttributes;
 import net.potato_modding.potatospells.registry.PotatoRegistry;
 import net.warphan.iss_magicfromtheeast.registries.MFTEAttributeRegistries;
 
@@ -76,7 +75,7 @@ public class ScreenTrigger {
             rgb = 5;
         }
         if (ASUtils.hasCurio(mc.player, PotatoRegistry.BLACK_ANALYZER.get())) {
-            curioModifier = (1 + getAttr(mc.player, PotatoBigAttributes.SPELL_RESIST_PIERCE))
+            curioModifier = (1 + getAttr(mc.player, PotatoAttributes.SPELL_RESIST_PIERCE))
                     * (1 + getAttr(mc.player, PotatoAttributes.SPELL_RESIST_SHRED)) * 1.25;
             rgb = 1;
         }

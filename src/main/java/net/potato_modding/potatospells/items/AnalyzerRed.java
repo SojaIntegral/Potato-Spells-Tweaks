@@ -28,7 +28,7 @@ import java.util.List;
 public class AnalyzerRed extends CurioBaseItem {
 
     public AnalyzerRed() {
-        super(ItemPropertiesHelper.equipment().stacksTo(1).rarity(Rarity.RARE));
+        super(ItemPropertiesHelper.equipment().stacksTo(1).rarity(Rarity.EPIC));
     }
 
     @Override

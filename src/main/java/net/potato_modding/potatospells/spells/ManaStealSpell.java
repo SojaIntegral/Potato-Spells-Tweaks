@@ -17,14 +17,14 @@ import net.potato_modding.potatospells.registry.PotatoSchool;
 import java.util.List;
 
 @AutoSpellConfig
-public class ManaShieldSpell extends AbstractSpell {
-    private final ResourceLocation spellId = ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "mana_shield_spell");
+public class ManaStealSpell extends AbstractSpell {
+    private final ResourceLocation spellId = ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "mana_steal_spell");
 
     @Override
     public List<MutableComponent> getUniqueInfo(int spellLevel, LivingEntity caster) {
         return List.of(
-                Component.translatable("ui.irons_spellbooks.effect_length", Utils.timeFromTicks(getSpellPower(spellLevel, caster) * 250, 0)),
-                Component.translatable("attribute.modifier.plus.1", Utils.stringTruncation((int) (getSpellPower(spellLevel, caster)  * 0.35), 0), Component.translatable("potatospellbookstweaks.mana_shield"))
+                Component.translatable("ui.irons_spellbooks.effect_length", Utils.timeFromTicks(getSpellPower(spellLevel, caster) * 4, 0)),
+                Component.translatable("attribute.modifier.plus.1", Utils.stringTruncation((int) (getSpellPower(spellLevel, caster)  * 0.25), 0), Component.translatable("potatospellbookstweaks.mana_steal"))
         );
     }
 
@@ -32,17 +32,17 @@ public class ManaShieldSpell extends AbstractSpell {
             .setMinRarity(SpellRarity.LEGENDARY)
             .setSchoolResource(PotatoSchool.GENERIC_RESOURCE)
             .setMaxLevel(1)
-            .setCooldownSeconds(300)
+            .setCooldownSeconds(120)
             .setAllowCrafting(false)
             .build();
 
-    public ManaShieldSpell()
+    public ManaStealSpell()
     {
         this.manaCostPerLevel = 0;
         this.baseSpellPower = 100;
         this.spellPowerPerLevel = 0;
-        this.castTime = 200;
-        this.baseManaCost = 200;
+        this.castTime = 20;
+        this.baseManaCost = 100;
     }
 
     @Override
@@ -62,9 +62,9 @@ public class ManaShieldSpell extends AbstractSpell {
 
     @Override
     public void onCast(Level level, int spellLevel, LivingEntity entity, CastSource castSource, MagicData playerMagicData) {
-        entity.addEffect(new MobEffectInstance(PotatoEffects.MANA_SHIELD,
-                (int) (getSpellPower(spellLevel, entity) * 250),
-                (int) ((getSpellPower(spellLevel, entity) - 1) * 0.35),
+        entity.addEffect(new MobEffectInstance(PotatoEffects.MANA_STEAL,
+                (int) getSpellPower(spellLevel, entity) * 4,
+                (int) ((getSpellPower(spellLevel, entity) - 1) * 0.25),
                 false,
                 false,
                 true));

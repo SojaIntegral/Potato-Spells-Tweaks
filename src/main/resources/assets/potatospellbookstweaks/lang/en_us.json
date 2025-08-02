@@ -9,11 +9,25 @@
   "item.potatospellbookstweaks.analyzer_black": "Destroyer's Analyzer",
   "item.potatospellbookstweaks.miracle_crystal": "Miracle Crystal",
   "item.potatospellbookstweaks.mood_crystal": "Moody Crystal",
-  "attribute.potatospellbookstweaks.mana_shield": "Mana Shield",
   "attribute.potatospellbookstweaks.spell_res_pierce": "Resistance Pierce",
   "attribute.potatospellbookstweaks.spell_res_shred": "Resistance Shred",
   "attribute.potatospellbookstweaks.identify_attributes": "Attribute Identification",
   "creative_tab.potatospellbookstweaks.items": "Potato Tweaks",
   "key.categories.potatospellbookstweaks": "Potato Spells Tweaks",
-  "key.potatospellbookstweaks.open_entity_screen": "Identify Mob"
+  "key.potatospellbookstweaks.open_entity_screen": "Identify Mob",
+
+  "attribute.potatospellbookstweaks.mana_shield": "Mana Shield",
+  "school.potatospellbookstweaks.generic": "Mana",
+  "spell.potatospellbookstweaks.mana_shield_spell": "Mana Shield",
+  "potatospellbookstweaks.mana_shield": "Mana Shield strength",
+  "effect.potatospellbookstweaks.mana_shield": "Mana Shield",
+  "spell.potatospellbookstweaks.mana_shield_spell.guide": "Reduces damage received based on mana shield strength and current mana. Replaces other resistance effects and goes up to 90% damage reduction.",
+  "item.potatospellbookstweaks.analyzer_green.desc": "",
+
+
+  "potatospellbookstweaks.mana_steal": "Mana Steal",
+  "spell.potatospellbookstweaks.mana_steal_spell": "Mana Steal",
+  "effect.potatospellbookstweaks.mana_steal": "Mana Steal",
+  "spell.potatospellbookstweaks.mana_steal_spell.guide": "Steals back a % of damage back as mana.",
+  "item.potatospellbookstweaks.analyzer_blue.desc": ""
 }

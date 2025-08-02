@@ -27,7 +27,7 @@ import java.util.List;
 public class AnalyzerPink extends CurioBaseItem {
 
     public AnalyzerPink() {
-        super(ItemPropertiesHelper.equipment().stacksTo(1).rarity(Rarity.RARE));
+        super(ItemPropertiesHelper.equipment().stacksTo(1).rarity(Rarity.EPIC));
     }
 
     @Override

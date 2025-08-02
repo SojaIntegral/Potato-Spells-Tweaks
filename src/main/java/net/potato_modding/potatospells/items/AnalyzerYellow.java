@@ -3,8 +3,9 @@ package net.potato_modding.potatospells.items;
 import com.google.common.collect.LinkedHashMultimap;
 import com.google.common.collect.Multimap;
 import io.redspace.ironsspellbooks.api.registry.AttributeRegistry;
-import io.redspace.ironsspellbooks.item.curios.CurioBaseItem;
+import io.redspace.ironsspellbooks.api.registry.SpellDataRegistryHolder;
 import io.redspace.ironsspellbooks.util.ItemPropertiesHelper;
+import net.acetheeldritchking.aces_spell_utils.items.curios.ImbuableCurio;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.Holder;
@@ -19,16 +20,20 @@ import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.TooltipFlag;
 import net.neoforged.api.distmarker.Dist;
 import net.potato_modding.potatospells.client.Keybinds;
+import net.potato_modding.potatospells.registry.SpellRegistries;
 import top.theillusivec4.curios.api.SlotContext;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.List;
 
-public class AnalyzerYellow extends CurioBaseItem {
+public class AnalyzerYellow extends ImbuableCurio {
 
     public AnalyzerYellow() {
-        super(ItemPropertiesHelper.equipment().stacksTo(1).rarity(Rarity.RARE));
+        super(ItemPropertiesHelper.equipment().stacksTo(1).rarity(Rarity.EPIC),
+                "head", SpellDataRegistryHolder.of(
+                        new SpellDataRegistryHolder(SpellRegistries.MASS_RECALL, 1)
+                ));
     }
 
     @Override

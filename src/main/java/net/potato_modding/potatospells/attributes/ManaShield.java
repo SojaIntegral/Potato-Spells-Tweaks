@@ -14,7 +14,7 @@ import net.potato_modding.potatospells.registry.PotatoAttributes;
 public class ManaShield {
 
     @SubscribeEvent
-    public static void ManaShieldAttribute(LivingIncomingDamageEvent event) {
+    public static void manaShieldEvent(LivingIncomingDamageEvent event) {
         if (!(event.getEntity() instanceof Player player)) return;
 
         float original = event.getAmount();
@@ -23,7 +23,7 @@ public class ManaShield {
         var playerMana = MagicData.getPlayerMagicData(player);
         double currentMana = playerMana.getMana();
         double spellPower = player.getAttributeValue(AttributeRegistry.SPELL_POWER);
-        double manaShield = player.getAttributeValue(PotatoAttributes.MANA_SHIELD);
+        double manaShield = player.getAttributeValue(PotatoAttributes.MANA_SHIELD) - 1;
 
         if ((player.getAttributeValue(PotatoAttributes.MANA_SHIELD) <= 0) || (currentMana <= 0)) return;
         if (player.isBlocking() && !event.getSource().is(DamageTypeTags.BYPASSES_SHIELD)) return;
@@ -37,3 +37,6 @@ public class ManaShield {
         event.setAmount(original * (1 - reduction));
     }
 }
+
+
+

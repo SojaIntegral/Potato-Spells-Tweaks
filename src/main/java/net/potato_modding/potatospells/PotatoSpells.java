@@ -7,7 +7,6 @@
 package net.potato_modding.potatospells;
 
 import com.mojang.logging.LogUtils;
-import net.acetheeldritchking.cataclysm_spellbooks.CataclysmSpellbooks;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
@@ -57,8 +56,6 @@ public class PotatoSpells {
         PotatoCreativeTab.register(modEventBus);
         PotatoRegistry.register(modEventBus);
         PotatoAttributes.register(modEventBus);
-        PotatoBigAttributes.register(modEventBus);
-        PotatoMagicAttributes.register(modEventBus);
         modContainer.registerConfig(ModConfig.Type.SERVER, ServerConfigs.BUILDING, String.format("%s-server.toml", PotatoSpells.MOD_ID));
         modContainer.registerConfig(ModConfig.Type.CLIENT, ClientConfigs.BUILDING, String.format("%s-client.toml", PotatoSpells.MOD_ID));
     }
