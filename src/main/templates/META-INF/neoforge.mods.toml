@@ -23,7 +23,7 @@ license="All Rights Reserved"
 modId="potatospellbookstweaks" #mandatory
 
 # The version number of the mod
-version="1.7.1" #mandatory
+version="1.7.1-MM3" #mandatory
 
 # A display name for the mod
 displayName="Potato Spells Tweaks" #mandatory
