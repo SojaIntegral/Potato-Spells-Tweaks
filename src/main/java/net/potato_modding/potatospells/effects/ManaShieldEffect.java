@@ -7,13 +7,13 @@ import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeMap;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.potato_modding.potatoessentials.registry.PotatoEssentialsAttributes;
 import net.potato_modding.potatospells.PotatoSpells;
-import net.potato_modding.potatospells.registry.PotatoAttributes;
 
 public class ManaShieldEffect extends MobEffect {
     public ManaShieldEffect() {
         super(MobEffectCategory.BENEFICIAL, 0xbaf7ff);
-        this.addAttributeModifier(PotatoAttributes.MANA_SHIELD, PotatoSpells.id("mana_shield_effect"),
+        this.addAttributeModifier(PotatoEssentialsAttributes.MANA_SHIELD, PotatoSpells.id("mana_shield_effect"),
                 ManaShieldEffect.MANA_SHIELD_PER_LEVEL, AttributeModifier.Operation.ADD_MULTIPLIED_BASE);
     }
 

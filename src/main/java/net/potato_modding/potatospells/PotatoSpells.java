@@ -7,6 +7,7 @@
 package net.potato_modding.potatospells;
 
 import com.mojang.logging.LogUtils;
+import io.redspace.ironsspellbooks.render.SpellBookCurioRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
@@ -41,6 +42,9 @@ public class PotatoSpells {
     public PotatoSpells(IEventBus modEventBus, ModContainer modContainer) {
         // Register the commonSetup method for modloading
 
+        modContainer.registerConfig(ModConfig.Type.SERVER, ServerConfigs.BUILDING, String.format("%s-server.toml", PotatoSpells.MOD_ID));
+        modContainer.registerConfig(ModConfig.Type.CLIENT, ClientConfigs.BUILDING, String.format("%s-client.toml", PotatoSpells.MOD_ID));
+
         modEventBus.addListener(this::commonSetup);
         modEventBus.addListener(this::addCreative);
 
@@ -56,8 +60,6 @@ public class PotatoSpells {
         PotatoCreativeTab.register(modEventBus);
         PotatoRegistry.register(modEventBus);
         PotatoAttributes.register(modEventBus);
-        modContainer.registerConfig(ModConfig.Type.SERVER, ServerConfigs.BUILDING, String.format("%s-server.toml", PotatoSpells.MOD_ID));
-        modContainer.registerConfig(ModConfig.Type.CLIENT, ClientConfigs.BUILDING, String.format("%s-client.toml", PotatoSpells.MOD_ID));
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
@@ -82,6 +84,7 @@ public class PotatoSpells {
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event) {
             event.enqueueWork(() -> {
+                CuriosRendererRegistry.register(PotatoRegistry.DUSTY_BOOK.get(), SpellBookCurioRenderer::new);
                 CuriosRendererRegistry.register(PotatoRegistry.BASE_ANALYZER.get(), AnalyzerCurioRenderer::new);
                 CuriosRendererRegistry.register(PotatoRegistry.RED_ANALYZER.get(), AnalyzerCurioRenderer::new);
                 CuriosRendererRegistry.register(PotatoRegistry.GREEN_ANALYZER.get(), AnalyzerCurioRenderer::new);
@@ -89,6 +92,7 @@ public class PotatoSpells {
                 CuriosRendererRegistry.register(PotatoRegistry.YELLOW_ANALYZER.get(), AnalyzerCurioRenderer::new);
                 CuriosRendererRegistry.register(PotatoRegistry.PINK_ANALYZER.get(), AnalyzerCurioRenderer::new);
                 CuriosRendererRegistry.register(PotatoRegistry.BLACK_ANALYZER.get(), AnalyzerCurioRenderer::new);
+                CuriosRendererRegistry.register(PotatoRegistry.WHITE_ANALYZER.get(), AnalyzerCurioRenderer::new);
             });
         }
     }

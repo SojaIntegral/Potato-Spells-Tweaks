@@ -19,9 +19,9 @@ public class ConfigFormulas {
         safetyCheck.add(4);
 
         // Defining variables that hod the values that were input in the configs
-        int config_check = ServerConfigs.FORMULA_REBALANCE.get();
+        int config_check = net.potato_modding.potatoessentials.config.ServerConfigs.FORMULA_REBALANCE.get();
         // Making sure we aren't trying to math out nonsense for spawn_armor.json
-        if (!safetyCheck.contains(ServerConfigs.FORMULA_REBALANCE.get())) config_check = 4;
+        if (!safetyCheck.contains(net.potato_modding.potatoessentials.config.ServerConfigs.FORMULA_REBALANCE.get())) config_check = 4;
         if (config_check == 2) modifier = 1.326;
         else if (config_check == 3) modifier = 2.209;
         else modifier = 1;

@@ -3,7 +3,6 @@ package net.potato_modding.potatospells.resistances.core;
 import dev.shadowsoffire.apothic_attributes.api.ALObjects;
 import io.redspace.ironsspellbooks.api.registry.AttributeRegistry;
 import net.minecraft.core.Holder;
-import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
@@ -20,7 +19,6 @@ import net.potato_modding.potatospells.tags.PotatoTags;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Arrays;
-import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -90,10 +88,6 @@ public class MainAttributeHandler {
         return ThreadLocalRandom.current().nextInt(shinyChanceModifier) == 0;
     }
 
-    private static final Map<ResourceLocation, Component> SHINY = Map.ofEntries(
-            Map.entry(ResourceLocation.fromNamespaceAndPath("potatospellbookstweaks", "attack"), Component.literal("attack"))
-    );
-
     @SubscribeEvent(priority = net.neoforged.bus.api.EventPriority.LOWEST)
     private static void handleResistanceAttribute(EntityJoinLevelEvent event) {
 
@@ -103,7 +97,9 @@ public class MainAttributeHandler {
         MainAttributeHandler.checkForNoReroll(mob);
         if (!blockReroll) {
 
-            var shinyAttribute = mob.getAttributes().getValue(PotatoAttributes.SHINY);
+            double shinyAttribute = 0;
+            if(mob.getAttributes().hasAttribute(PotatoAttributes.SHINY))
+                shinyAttribute = mob.getAttributeValue(PotatoAttributes.SHINY);
             // If the mob is shiny, it won't have this modifier
             boolean alreadyShiny = (shinyAttribute >= 1);
             // If the mob is shiny, it won't have this modifier
@@ -653,18 +649,20 @@ public class MainAttributeHandler {
                     addModifierIfValid(mob, Attributes.ARMOR_TOUGHNESS, BigDecimal.valueOf(Tough).setScale(2, RoundingMode.HALF_UP).doubleValue(), "toughness");
 
                     // Magic Attributes
-                    multiplyModifierIfValid(mob, AttributeRegistry.SPELL_POWER, (BigDecimal.valueOf(SpellPower).setScale(2, RoundingMode.HALF_UP).doubleValue() - 1), "spell_power");
-                    multiplyModifierIfValid(mob, AttributeRegistry.CAST_TIME_REDUCTION, (BigDecimal.valueOf(CastReduction).setScale(2, RoundingMode.HALF_UP).doubleValue() - 1), "cast");
-                    multiplyModifierIfValid(mob, AttributeRegistry.SPELL_RESIST, (BigDecimal.valueOf(Resist).setScale(2, RoundingMode.HALF_UP).doubleValue() - 1), "resist");
-                    multiplyModifierIfValid(mob, AttributeRegistry.FIRE_MAGIC_RESIST, (BigDecimal.valueOf(FireRes).setScale(2, RoundingMode.HALF_UP).doubleValue() - 1), "fire_resist");
-                    multiplyModifierIfValid(mob, AttributeRegistry.NATURE_MAGIC_RESIST, (BigDecimal.valueOf(EarthRes).setScale(2, RoundingMode.HALF_UP).doubleValue() - 1), "nature_resist");
-                    multiplyModifierIfValid(mob, AttributeRegistry.ENDER_MAGIC_RESIST, (BigDecimal.valueOf(EnderRes).setScale(2, RoundingMode.HALF_UP).doubleValue() - 1), "end_resist");
-                    multiplyModifierIfValid(mob, AttributeRegistry.EVOCATION_MAGIC_RESIST, (BigDecimal.valueOf(NeutralRes).setScale(2, RoundingMode.HALF_UP).doubleValue() - 1), "evoke_resist");
-                    multiplyModifierIfValid(mob, AttributeRegistry.BLOOD_MAGIC_RESIST, (BigDecimal.valueOf(BloodRes).setScale(2, RoundingMode.HALF_UP).doubleValue() - 1), "blood_resist");
-                    multiplyModifierIfValid(mob, AttributeRegistry.ICE_MAGIC_RESIST, (BigDecimal.valueOf(WaterRes).setScale(2, RoundingMode.HALF_UP).doubleValue() - 1), "ice_resist");
-                    multiplyModifierIfValid(mob, AttributeRegistry.LIGHTNING_MAGIC_RESIST, (BigDecimal.valueOf(WindRes).setScale(2, RoundingMode.HALF_UP).doubleValue() - 1), "lightning_resist");
-                    multiplyModifierIfValid(mob, AttributeRegistry.ELDRITCH_MAGIC_RESIST, (BigDecimal.valueOf(EldritchRes).setScale(2, RoundingMode.HALF_UP).doubleValue() - 1), "eldritch_resist");
-                    multiplyModifierIfValid(mob, AttributeRegistry.HOLY_MAGIC_RESIST, (BigDecimal.valueOf(HolyRes).setScale(2, RoundingMode.HALF_UP).doubleValue() - 1), "holy_resist");
+                    if (ModList.get().isLoaded("irons_spellbooks")) {
+                        multiplyModifierIfValid(mob, AttributeRegistry.SPELL_POWER, (BigDecimal.valueOf(SpellPower).setScale(2, RoundingMode.HALF_UP).doubleValue() - 1), "spell_power");
+                        multiplyModifierIfValid(mob, AttributeRegistry.CAST_TIME_REDUCTION, (BigDecimal.valueOf(CastReduction).setScale(2, RoundingMode.HALF_UP).doubleValue() - 1), "cast");
+                        multiplyModifierIfValid(mob, AttributeRegistry.SPELL_RESIST, (BigDecimal.valueOf(Resist).setScale(2, RoundingMode.HALF_UP).doubleValue() - 1), "resist");
+                        multiplyModifierIfValid(mob, AttributeRegistry.FIRE_MAGIC_RESIST, (BigDecimal.valueOf(FireRes).setScale(2, RoundingMode.HALF_UP).doubleValue() - 1), "fire_resist");
+                        multiplyModifierIfValid(mob, AttributeRegistry.NATURE_MAGIC_RESIST, (BigDecimal.valueOf(EarthRes).setScale(2, RoundingMode.HALF_UP).doubleValue() - 1), "nature_resist");
+                        multiplyModifierIfValid(mob, AttributeRegistry.ENDER_MAGIC_RESIST, (BigDecimal.valueOf(EnderRes).setScale(2, RoundingMode.HALF_UP).doubleValue() - 1), "end_resist");
+                        multiplyModifierIfValid(mob, AttributeRegistry.EVOCATION_MAGIC_RESIST, (BigDecimal.valueOf(NeutralRes).setScale(2, RoundingMode.HALF_UP).doubleValue() - 1), "evoke_resist");
+                        multiplyModifierIfValid(mob, AttributeRegistry.BLOOD_MAGIC_RESIST, (BigDecimal.valueOf(BloodRes).setScale(2, RoundingMode.HALF_UP).doubleValue() - 1), "blood_resist");
+                        multiplyModifierIfValid(mob, AttributeRegistry.ICE_MAGIC_RESIST, (BigDecimal.valueOf(WaterRes).setScale(2, RoundingMode.HALF_UP).doubleValue() - 1), "ice_resist");
+                        multiplyModifierIfValid(mob, AttributeRegistry.LIGHTNING_MAGIC_RESIST, (BigDecimal.valueOf(WindRes).setScale(2, RoundingMode.HALF_UP).doubleValue() - 1), "lightning_resist");
+                        multiplyModifierIfValid(mob, AttributeRegistry.ELDRITCH_MAGIC_RESIST, (BigDecimal.valueOf(EldritchRes).setScale(2, RoundingMode.HALF_UP).doubleValue() - 1), "eldritch_resist");
+                        multiplyModifierIfValid(mob, AttributeRegistry.HOLY_MAGIC_RESIST, (BigDecimal.valueOf(HolyRes).setScale(2, RoundingMode.HALF_UP).doubleValue() - 1), "holy_resist");
+                    }
                     // This needs to be conditional or the game shits itself if the mod is not present
                     if (ModList.get().isLoaded("endersequipment")) {
                         multiplyModifierIfValid(mob, net.ender.endersequipment.registries.EEAttributeRegistry.BLADE_MAGIC_RESIST, (BigDecimal.valueOf(NeutralRes).setScale(2, RoundingMode.HALF_UP).doubleValue() - 1), "blade_resist");

@@ -27,13 +27,13 @@ public class PotatoAttributes {
     public static final DeferredHolder<Attribute, Attribute> PROT_PEN_IV = registerRegularAttributes("prot_pen_iv",0,0,1);
     public static final DeferredHolder<Attribute, Attribute> CRIT_IV = registerRegularAttributes("crit_iv",0,0,1);
 
-    //Regular attributes
-    public static final DeferredHolder<Attribute, Attribute> SPELL_RESIST_SHRED =
-            registerSpecialAttributes("spell_res_shred", 0, 0, 1);
-    public static final DeferredHolder<Attribute, Attribute> SPELL_RESIST_PIERCE =
-            registerRegularAttributes("spell_res_pierce", 0, 0, 1000);
-    public static final DeferredHolder<Attribute, Attribute> MANA_SHIELD =
-            registerRegularAttributes("mana_shield",1,1,10);
+    //Slayer Attributes
+    public static final DeferredHolder<Attribute, Attribute> BOSS_SLAYER =
+            registerSpecialAttributes("boss_slayer", 0, -100, 100);
+    public static final DeferredHolder<Attribute, Attribute> MONSTER_SLAYER =
+            registerSpecialAttributes("monster_slayer", 0, -100, 100);
+    public static final DeferredHolder<Attribute, Attribute> PLAYER_SLAYER =
+            registerSpecialAttributes("player_slayer", 0, -100, 100);
 
     //Magic attributes
     public static final DeferredHolder<Attribute, Attribute> GENERIC_SPELL_POWER =

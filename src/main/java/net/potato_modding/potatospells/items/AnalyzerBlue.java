@@ -5,8 +5,6 @@ import com.google.common.collect.Multimap;
 import io.redspace.ironsspellbooks.api.registry.AttributeRegistry;
 import io.redspace.ironsspellbooks.api.registry.SpellDataRegistryHolder;
 import io.redspace.ironsspellbooks.util.ItemPropertiesHelper;
-import net.acetheeldritchking.aces_spell_utils.items.curios.ImbuableCurio;
-import net.acetheeldritchking.aces_spell_utils.registries.ASAttributeRegistry;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.Holder;
@@ -19,8 +17,10 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.TooltipFlag;
 import net.neoforged.api.distmarker.Dist;
+import net.potato_modding.potatoessentials.registry.PotatoEssentialsAttributes;
 import net.potato_modding.potatospells.client.Keybinds;
 import net.potato_modding.potatospells.registry.SpellRegistries;
+import net.potato_modding.potatospells.utils.ImbuableCurio;
 import top.theillusivec4.curios.api.SlotContext;
 
 import java.math.BigDecimal;
@@ -43,7 +43,7 @@ public class AnalyzerBlue extends ImbuableCurio {
         if (mc.player == null || mc.level == null) return;
         double attributeValue = 8 + 16 * Math.pow(getAttr(mc.player, AttributeRegistry.SPELL_POWER), 2);
         double curioModifier = BigDecimal.valueOf(attributeValue).setScale(0, RoundingMode.HALF_UP).doubleValue();
-        double manaStealAttr = mc.player.getAttributeValue(ASAttributeRegistry.MANA_STEAL) * 100;
+        double manaStealAttr = mc.player.getAttributeValue(PotatoEssentialsAttributes.MANA_STEAL) * 100;
 
         tooltip.add(Component.literal("Range: " + curioModifier + " blocks | Press [")
                 .append(Keybinds.OPEN_SCREEN_KEY.getTranslatedKeyMessage()).append("] to analyze")

@@ -15,11 +15,11 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.potato_modding.potatoessentials.utils.RebalanceHandler;
 import net.potato_modding.potatospells.items.*;
 import net.potato_modding.potatospells.registry.PotatoAttributes;
 import net.potato_modding.potatospells.tags.PotatoTags;
 import net.potato_modding.potatospells.utils.ConfigFormulas;
-import net.potato_modding.potatospells.utils.RebalanceHandler;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
 
@@ -201,6 +201,8 @@ public class MobInteractionScreen extends Screen {
         if(rgb == 3) overlayTexture = AnalyzerBlue.OVERLAY_TEXTURE;
         if(rgb == 4) overlayTexture = AnalyzerYellow.OVERLAY_TEXTURE;
         if(rgb == 5) overlayTexture = AnalyzerPink.OVERLAY_TEXTURE;
+        if(rgb == 6) overlayTexture = AnalyzerBlack.OVERLAY_TEXTURE;
+        if(rgb == 7) overlayTexture = AnalyzerWhite.OVERLAY_TEXTURE;
 
         RenderSystem.enableBlend();
         RenderSystem.defaultBlendFunc();
@@ -224,9 +226,9 @@ public class MobInteractionScreen extends Screen {
         float scaledMouseX = mouseX / textScale;
         float scaledMouseY = mouseY / textScale;
 
-        double castParse = RebalanceHandler.rebalanceFormula(cast);
-        double cooldownParse = RebalanceHandler.rebalanceFormula(cooldown);
-        double resistParse = RebalanceHandler.rebalanceFormula(resist);
+        double castParse = RebalanceHandler.rebalanceCastFormula(cast);
+        double cooldownParse = RebalanceHandler.rebalanceCooldownFormula(cooldown);
+        double resistParse = RebalanceHandler.rebalanceResistFormula(resist);
 
         double IVGrab = ConfigFormulas.randMax;
 
@@ -252,14 +254,14 @@ public class MobInteractionScreen extends Screen {
 
         // Defensive attributes
         armorLevel = armor;
-        elementalResist = RebalanceHandler.rebalanceFormula(fireRes) * RebalanceHandler.rebalanceFormula(iceRes)
-                * RebalanceHandler.rebalanceFormula(lightningRes) * RebalanceHandler.rebalanceFormula(natureRes)
-                * RebalanceHandler.rebalanceFormula(enderRes) * RebalanceHandler.rebalanceFormula(holyRes)
-                * RebalanceHandler.rebalanceFormula(eldritchRes) * RebalanceHandler.rebalanceFormula(evokerRes)
-                * RebalanceHandler.rebalanceFormula(abyssRes) * RebalanceHandler.rebalanceFormula(bladeRes)
-                * RebalanceHandler.rebalanceFormula(songRes) * RebalanceHandler.rebalanceFormula(windRes)
-                * RebalanceHandler.rebalanceFormula(symmetryRes) * RebalanceHandler.rebalanceFormula(duneRes)
-                * RebalanceHandler.rebalanceFormula(spiritRes);
+        elementalResist = RebalanceHandler.rebalanceResistFormula(fireRes) * RebalanceHandler.rebalanceResistFormula(iceRes)
+                * RebalanceHandler.rebalanceResistFormula(lightningRes) * RebalanceHandler.rebalanceResistFormula(natureRes)
+                * RebalanceHandler.rebalanceResistFormula(enderRes) * RebalanceHandler.rebalanceResistFormula(holyRes)
+                * RebalanceHandler.rebalanceResistFormula(eldritchRes) * RebalanceHandler.rebalanceResistFormula(evokerRes)
+                * RebalanceHandler.rebalanceResistFormula(abyssRes) * RebalanceHandler.rebalanceResistFormula(bladeRes)
+                * RebalanceHandler.rebalanceResistFormula(songRes) * RebalanceHandler.rebalanceResistFormula(windRes)
+                * RebalanceHandler.rebalanceResistFormula(symmetryRes) * RebalanceHandler.rebalanceResistFormula(duneRes)
+                * RebalanceHandler.rebalanceResistFormula(spiritRes);
         resistLevel = (resistParse * elementalResist);
         defensePower = ((health * 0.05) * resistLevel) + (armorLevel * resistLevel); // Using vanilla health as base (1/20)
         if(entity.getType().is(PotatoTags.PLAYER)) defensePower = defensePower * (1 + (mana / 3500));

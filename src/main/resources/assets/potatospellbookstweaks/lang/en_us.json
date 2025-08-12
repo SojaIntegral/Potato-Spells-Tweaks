@@ -1,12 +1,13 @@
 {
   "item.potatospellbookstweaks.mob_identifier": "Identifier",
   "item.potatospellbookstweaks.analyzer": "Analyzer",
-  "item.potatospellbookstweaks.analyzer_blue": "Mage Slayer's Analyzer",
+  "item.potatospellbookstweaks.analyzer_blue": "Mage Hunter's Analyzer",
   "item.potatospellbookstweaks.analyzer_green": "Crusader's Analyzer",
   "item.potatospellbookstweaks.analyzer_pink": "Archmage's Analyzer",
   "item.potatospellbookstweaks.analyzer_red": "Berserker's Analyzer",
   "item.potatospellbookstweaks.analyzer_yellow": "Explorer's Analyzer",
   "item.potatospellbookstweaks.analyzer_black": "Destroyer's Analyzer",
+  "item.potatospellbookstweaks.analyzer_white": "Slayer's Analyzer",
   "item.potatospellbookstweaks.miracle_crystal": "Miracle Crystal",
   "item.potatospellbookstweaks.mood_crystal": "Moody Crystal",
   "attribute.potatospellbookstweaks.spell_res_pierce": "Resistance Pierce",
@@ -15,6 +16,7 @@
   "creative_tab.potatospellbookstweaks.items": "Potato Tweaks",
   "key.categories.potatospellbookstweaks": "Potato Spells Tweaks",
   "key.potatospellbookstweaks.open_entity_screen": "Identify Mob",
+
 
   "attribute.potatospellbookstweaks.mana_shield": "Mana Shield",
   "school.potatospellbookstweaks.generic": "Mana",
@@ -29,5 +31,12 @@
   "spell.potatospellbookstweaks.mana_steal_spell": "Mana Steal",
   "effect.potatospellbookstweaks.mana_steal": "Mana Steal",
   "spell.potatospellbookstweaks.mana_steal_spell.guide": "Steals back a % of damage back as mana.",
-  "item.potatospellbookstweaks.analyzer_blue.desc": ""
+  "item.potatospellbookstweaks.analyzer_blue.desc": "",
+
+
+  "attribute.potatospellbookstweaks.boss_slayer": "Boss Damage",
+  "attribute.potatospellbookstweaks.monster_slayer": "Monster Damage",
+  "attribute.potatospellbookstweaks.player_slayer": "Player Damage",
+  "item.potatospellbookstweaks.analyzer_white.desc": "",
+  "spell.potatospellbookstweaks.mass_recall": "Mass Recall"
 }

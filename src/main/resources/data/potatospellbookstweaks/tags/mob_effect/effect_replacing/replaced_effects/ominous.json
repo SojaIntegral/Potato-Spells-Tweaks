@@ -2,13 +2,7 @@
   "replace": false,
   "values": [
     {"id": "minecraft:speed", "required": false },
-    {"id": "minecraft:strength", "required": false },
     {"id": "brewinandchewin:tipsy", "required": false },
-    {"id": "cataclysm_spellbooks:abyssal_predator_effect", "required": false },
-    {"id": "endersequipment:hone_edge", "required": false },
-    {"id": "gametechbcs_spellbooks:assassin", "required": false },
-    {"id": "gametechbcs_spellbooks:withered_strike", "required": false },
-    {"id": "irons_spellbooks:charged", "required": false },
     {"id": "endersequipment:ebony_armor", "required": false },
     {"id": "irons_spellbooks:fortify", "required": false },
     {"id": "endersequipment:blizard_armor", "required": false },

@@ -21,6 +21,7 @@ public class PotatoRegistry {
     public static final Supplier<CurioBaseItem> BASE_ANALYZER = ITEMS.register("analyzer", Analyzer::new);
     public static final Supplier<CurioBaseItem> PINK_ANALYZER = ITEMS.register("analyzer_pink", AnalyzerPink::new);
     public static final Supplier<CurioBaseItem> BLACK_ANALYZER = ITEMS.register("analyzer_black", AnalyzerBlack::new);
+    public static final Supplier<CurioBaseItem> WHITE_ANALYZER = ITEMS.register("analyzer_white", AnalyzerWhite::new);
     public static final Supplier<CurioBaseItem> BLUE_ANALYZER = ITEMS.register("analyzer_blue", AnalyzerBlue::new);
     public static final Supplier<CurioBaseItem> RED_ANALYZER = ITEMS.register("analyzer_red", AnalyzerRed::new);
     public static final Supplier<CurioBaseItem> GREEN_ANALYZER = ITEMS.register("analyzer_green", AnalyzerGreen::new);
@@ -29,6 +30,8 @@ public class PotatoRegistry {
             () -> new MiracleCrystal(new Item.Properties().stacksTo(64).fireResistant().component(DataComponents.ENCHANTMENT_GLINT_OVERRIDE, true).rarity(Rarity.UNCOMMON)));
     public static final Supplier<Item> NATURE_REROLLER = ITEMS.register("mood_crystal",
             () -> new MoodCrystal(new Item.Properties().stacksTo(4).fireResistant().component(DataComponents.ENCHANTMENT_GLINT_OVERRIDE, true).rarity(Rarity.UNCOMMON)));
+    public static final DeferredHolder<Item, Item> DUSTY_BOOK = ITEMS.register
+            ("dusty_book", DustyBook::new);
 
     public static Collection<DeferredHolder<Item, ? extends Item>> getPotatoItems()
 

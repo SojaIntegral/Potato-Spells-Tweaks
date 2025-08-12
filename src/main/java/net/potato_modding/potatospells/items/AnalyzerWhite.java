@@ -19,6 +19,7 @@ import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.TooltipFlag;
 import net.neoforged.api.distmarker.Dist;
 import net.potato_modding.potatospells.client.Keybinds;
+import net.potato_modding.potatospells.registry.PotatoAttributes;
 import net.potato_modding.potatospells.registry.SpellRegistries;
 import net.potato_modding.potatospells.utils.ImbuableCurio;
 import top.theillusivec4.curios.api.SlotContext;
@@ -27,9 +28,9 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.List;
 
-public class AnalyzerYellow extends ImbuableCurio {
+public class AnalyzerWhite extends ImbuableCurio {
 
-    public AnalyzerYellow() {
+    public AnalyzerWhite() {
         super(ItemPropertiesHelper.equipment().stacksTo(1).rarity(Rarity.EPIC),
                 "head", SpellDataRegistryHolder.of(
                         new SpellDataRegistryHolder(SpellRegistries.MASS_RECALL, 1)
@@ -56,10 +57,9 @@ public class AnalyzerYellow extends ImbuableCurio {
     public Multimap<Holder<Attribute>, AttributeModifier> getAttributeModifiers(SlotContext slotContext, ResourceLocation id, ItemStack stack) {
         Multimap<Holder<Attribute>, AttributeModifier> attr = LinkedHashMultimap.create();
         attr.put(AttributeRegistry.SPELL_RESIST, new AttributeModifier(id, 0.125, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL));
-        attr.put(Attributes.MOVEMENT_SPEED, new AttributeModifier(id, 0.125, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL));
-        attr.put(Attributes.SNEAKING_SPEED, new AttributeModifier(id, 0.125, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL));
-        attr.put(Attributes.ATTACK_SPEED, new AttributeModifier(id, 0.125, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL));
-        attr.put(Attributes.MINING_EFFICIENCY, new AttributeModifier(id, 0.125, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL));
+        attr.put(PotatoAttributes.BOSS_SLAYER, new AttributeModifier(id, 0.2, AttributeModifier.Operation.ADD_VALUE));
+        attr.put(PotatoAttributes.MONSTER_SLAYER, new AttributeModifier(id, -0.15, AttributeModifier.Operation.ADD_VALUE));
+        attr.put(PotatoAttributes.PLAYER_SLAYER, new AttributeModifier(id, -0.15, AttributeModifier.Operation.ADD_VALUE));
         return attr;
     }
 
@@ -74,5 +74,6 @@ public class AnalyzerYellow extends ImbuableCurio {
     }
 
     public static final ResourceLocation OVERLAY_TEXTURE =
-            ResourceLocation.fromNamespaceAndPath("potatospellbookstweaks", "textures/gui/identify_gui_yellow.png");
+            ResourceLocation.fromNamespaceAndPath("potatospellbookstweaks", "textures/gui/identify_gui.png");
 }
+

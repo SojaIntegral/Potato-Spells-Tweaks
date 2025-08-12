@@ -196,8 +196,9 @@ dependencies {
     compileOnly "curse.maven:azurelib-817423:6541667"
     localRuntime "curse.maven:azurelib-817423:6541667"
 
-    // Ace Spell Utils
-    implementation "curse.maven:aces-spell-utils-1299492:6772134"
+    // Potato Essentials
+    implementation "curse.maven:potato-spells-essentials-1320398:6876959"
+    implementation "curse.maven:aces-spell-utils-1299492:6845096"
 
     // Ender's Stuff
     implementation "curse.maven:enders-spellsandstuff-1140215:6427854"
