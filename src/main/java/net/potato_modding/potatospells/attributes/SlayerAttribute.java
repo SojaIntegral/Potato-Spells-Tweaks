@@ -4,8 +4,8 @@ import net.minecraft.world.entity.LivingEntity;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
+import net.potato_modding.potatoessentials.tags.PotatoTags;
 import net.potato_modding.potatospells.registry.PotatoAttributes;
-import net.potato_modding.potatospells.tags.PotatoTags;
 
 @EventBusSubscriber
 public class SlayerAttribute {

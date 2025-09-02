@@ -10,6 +10,7 @@ import net.ender.endersequipment.registries.EEAttributeRegistry;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
@@ -21,10 +22,11 @@ import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.TooltipFlag;
 import net.neoforged.fml.ModList;
 import net.potato_modding.potatospells.client.ClientScreens;
-import net.potato_modding.potatospells.registry.PotatoAttributes;
 import net.warphan.iss_magicfromtheeast.registries.MFTEAttributeRegistries;
 
 import java.util.List;
+
+import static net.potato_modding.potatospells.client.ScreenTrigger.getAttrMod;
 
 public class MobIdentifier extends CurioBaseItem {
 
@@ -54,6 +56,8 @@ public class MobIdentifier extends CurioBaseItem {
             float targetHealth = target.getMaxHealth();
             double targetArmor = getAttr(target, Attributes.ARMOR);
             double targetAttack = getAttr(target, Attributes.ATTACK_DAMAGE);
+            double attackSpeed = getAttr(target, Attributes.ATTACK_SPEED);
+
             double targetMana = getAttr(target, AttributeRegistry.MAX_MANA);
             double targetResist = getAttr(target, AttributeRegistry.SPELL_RESIST);
             double targetSpell = getAttr(target, AttributeRegistry.SPELL_POWER);
@@ -66,32 +70,31 @@ public class MobIdentifier extends CurioBaseItem {
             double targetPierce2 = getAttr(target, ALObjects.Attributes.PROT_PIERCE);
             double targetShred2 = getAttr(target, ALObjects.Attributes.PROT_SHRED);
 
-            double firstIV = getAttr(target, PotatoAttributes.ATTACK_IV);
-            double secondIV = getAttr(target, PotatoAttributes.ARMOR_IV);
-            double thirdIV = getAttr(target, PotatoAttributes.POWER_IV);
-            double fourthIV = getAttr(target, PotatoAttributes.RESIST_IV);
-            double fifthIV = getAttr(target, PotatoAttributes.CAST_IV);
-            double sixthIV = getAttr(target, PotatoAttributes.ARMOR_PEN_IV);
-            double seventhIV = getAttr(target, PotatoAttributes.PROT_PEN_IV);
-            double eighthIV = getAttr(target, PotatoAttributes.CRIT_IV);
 
-            double attackSpeed = getAttr(target, Attributes.ATTACK_SPEED);
+            double firstIV = getAttrMod(target, Attributes.ATTACK_DAMAGE, ResourceLocation.fromNamespaceAndPath("potatoessentials", "attack"));
+            double secondIV = getAttrMod(target, Attributes.ARMOR, ResourceLocation.fromNamespaceAndPath("potatoessentials", "armor"));
+            double thirdIV = getAttrMod(target, AttributeRegistry.SPELL_POWER, ResourceLocation.fromNamespaceAndPath("potatoessentials", "spell_power"));
+            double fourthIV = getAttrMod(target, AttributeRegistry.CAST_TIME_REDUCTION, ResourceLocation.fromNamespaceAndPath("potatoessentials", "cast"));
+            double fifthIV = getAttrMod(target, AttributeRegistry.SPELL_RESIST, ResourceLocation.fromNamespaceAndPath("potatoessentials", "resist"));
+            double sixthIV = getAttrMod(target, ALObjects.Attributes.ARMOR_PIERCE, ResourceLocation.fromNamespaceAndPath("potatoessentials", "armor_pierce"));
+            double seventhIV = getAttrMod(target, ALObjects.Attributes.PROT_PIERCE, ResourceLocation.fromNamespaceAndPath("potatoessentials", "protection_pierce"));
+            double eighthIV = getAttrMod(target, ALObjects.Attributes.CRIT_CHANCE, ResourceLocation.fromNamespaceAndPath("potatoessentials", "critical_chance"));
 
-            double firePower = getAttr(target, AttributeRegistry.FIRE_SPELL_POWER);
-            double icePower = getAttr(target, AttributeRegistry.ICE_SPELL_POWER);
-            double lightningPower = getAttr(target, AttributeRegistry.LIGHTNING_SPELL_POWER);
-            double naturePower = getAttr(target, AttributeRegistry.NATURE_SPELL_POWER);
-            double enderPower = getAttr(target, AttributeRegistry.ENDER_SPELL_POWER);
-            double holyPower = getAttr(target, AttributeRegistry.HOLY_SPELL_POWER);
-            double eldritchPower = getAttr(target, AttributeRegistry.ELDRITCH_SPELL_POWER);
-            double evokerPower = getAttr(target, AttributeRegistry.EVOCATION_SPELL_POWER);
-            double abyssPower = (ModList.get().isLoaded("cataclysm_spellbooks")) ? getAttr(target, CSAttributeRegistry.ABYSSAL_MAGIC_POWER) : 1;
-            double bladePower = (ModList.get().isLoaded("endersequipment")) ? getAttr(target, EEAttributeRegistry.BLADE_SPELL_POWER) : 1;
-            double songPower = (ModList.get().isLoaded("alshanex_familiars")) ? getAttr(target, net.alshanex.familiarslib.registry.AttributeRegistry.SOUND_SPELL_POWER) : 1;
-            double windPower = (ModList.get().isLoaded("aero_additions")) ? getAttr(target, AASpells.Attributes.WIND_SPELL_POWER) : 1;
-            double symmetryPower = (ModList.get().isLoaded("iss_magicfromtheeast")) ? getAttr(target, MFTEAttributeRegistries.SYMMETRY_SPELL_POWER) : 1;
-            double dunePower = (ModList.get().isLoaded("iss_magicfromtheeast")) ? getAttr(target, MFTEAttributeRegistries.DUNE_SPELL_POWER) : 1;
-            double spiritPower = (ModList.get().isLoaded("iss_magicfromtheeast")) ? getAttr(target, MFTEAttributeRegistries.SPIRIT_SPELL_POWER) : 1;
+            double firePow = getAttr(target, AttributeRegistry.FIRE_SPELL_POWER);
+            double icePow = getAttr(target, AttributeRegistry.ICE_SPELL_POWER);
+            double lightningPow = getAttr(target, AttributeRegistry.LIGHTNING_SPELL_POWER);
+            double naturePow = getAttr(target, AttributeRegistry.NATURE_SPELL_POWER);
+            double enderPow = getAttr(target, AttributeRegistry.ENDER_SPELL_POWER);
+            double holyPow = getAttr(target, AttributeRegistry.HOLY_SPELL_POWER);
+            double eldritchPow = getAttr(target, AttributeRegistry.ELDRITCH_SPELL_POWER);
+            double evokerPow = getAttr(target, AttributeRegistry.EVOCATION_SPELL_POWER);
+            double abyssPow = (ModList.get().isLoaded("cataclysm_spellbooks")) ? getAttr(target, CSAttributeRegistry.ABYSSAL_MAGIC_POWER) : 1;
+            double bladePow = (ModList.get().isLoaded("endersequipment")) ? getAttr(target, EEAttributeRegistry.BLADE_SPELL_POWER) : 1;
+            double songPow = (ModList.get().isLoaded("alshanex_familiars")) ? getAttr(target, net.alshanex.familiarslib.registry.AttributeRegistry.SOUND_SPELL_POWER) : 1;
+            double windPow = (ModList.get().isLoaded("aero_additions")) ? getAttr(target, AASpells.Attributes.WIND_SPELL_POWER) : 1;
+            double symmetryPow = (ModList.get().isLoaded("iss_magicfromtheeast")) ? getAttr(target, MFTEAttributeRegistries.SYMMETRY_SPELL_POWER) : 1;
+            double dunePow = (ModList.get().isLoaded("iss_magicfromtheeast")) ? getAttr(target, MFTEAttributeRegistries.DUNE_SPELL_POWER) : 1;
+            double spiritPow = (ModList.get().isLoaded("iss_magicfromtheeast")) ? getAttr(target, MFTEAttributeRegistries.SPIRIT_SPELL_POWER) : 1;
 
             double fireRes = getAttr(target, AttributeRegistry.FIRE_MAGIC_RESIST);
             double iceRes = getAttr(target, AttributeRegistry.ICE_MAGIC_RESIST);
@@ -115,15 +118,16 @@ public class MobIdentifier extends CurioBaseItem {
             // Call the client screen opener
             ClientScreens.openMobInteractionScreen(
                     target.getName().getString(), target,
-                    targetHealth, targetArmor, targetAttack, targetMana, targetResist,
-                    targetSpell, targetCast, targetCooldown, targetCrit, targetCritChance, targetPierce1,
-                    targetShred1, targetPierce2, targetShred2,
-                    firstIV, secondIV, thirdIV, fourthIV, fifthIV,
-                    sixthIV, seventhIV, eighthIV, attackSpeed,
-                    firePower, icePower, lightningPower, naturePower,
-                    enderPower, holyPower, eldritchPower, evokerPower,
-                    abyssPower, bladePower, songPower, windPower,
-                    symmetryPower, dunePower, spiritPower,
+                    targetHealth, targetArmor, targetAttack,
+                    targetMana, targetResist, targetSpell, targetCast,
+                    targetCooldown, targetCrit, targetCritChance, targetPierce1,
+                    targetShred1, targetPierce2, targetShred2, attackSpeed,
+                    firstIV, secondIV, thirdIV, fourthIV,
+                    fifthIV, sixthIV, seventhIV, eighthIV,
+                    firePow, icePow, lightningPow, naturePow,
+                    enderPow, holyPow, eldritchPow, evokerPow,
+                    abyssPow, bladePow, songPow, windPow,
+                    symmetryPow, dunePow, spiritPow,
                     fireRes, iceRes, lightningRes, natureRes,
                     enderRes, holyRes, eldritchRes, evokerRes,
                     abyssRes, bladeRes, songRes, windRes,

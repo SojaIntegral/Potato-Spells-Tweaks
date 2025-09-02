@@ -12,9 +12,9 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
+import net.potato_modding.potatoessentials.core.PotatoNaturesHandler;
+import net.potato_modding.potatoessentials.tags.PotatoTags;
 import net.potato_modding.potatospells.config.ServerConfigs;
-import net.potato_modding.potatospells.resistances.core.PotatoNaturesHandler;
-import net.potato_modding.potatospells.tags.PotatoTags;
 
 import java.util.List;
 

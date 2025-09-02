@@ -1,6 +1,5 @@
 package net.potato_modding.potatospells.items;
 
-import com.gametechbc.traveloptics.api.entity.mobs.MagicAbyssalSummon;
 import com.google.common.collect.LinkedHashMultimap;
 import com.google.common.collect.Multimap;
 import io.redspace.ironsspellbooks.api.magic.MagicData;

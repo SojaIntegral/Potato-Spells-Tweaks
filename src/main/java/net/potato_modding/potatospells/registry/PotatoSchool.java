@@ -36,6 +36,8 @@ public class PotatoSchool {
                     PotatoAttributes.GENERIC_SPELL_POWER,
                     PotatoAttributes.GENERIC_MAGIC_RESIST,
                     SoundRegistry.EVOCATION_CAST,
-                    PotatoDamageTypes.GENERIC_MAGIC
+                    PotatoDamageTypes.GENERIC_MAGIC,
+                    true,
+                    false
             ));
 }

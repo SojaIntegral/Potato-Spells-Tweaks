@@ -7,6 +7,7 @@ import net.acetheeldritchking.cataclysm_spellbooks.registries.CSAttributeRegistr
 import net.ender.endersequipment.registries.EEAttributeRegistry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.Holder;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
@@ -20,7 +21,6 @@ import net.neoforged.fml.ModList;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.ClientTickEvent;
 import net.potato_modding.potatoessentials.registry.PotatoEssentialsAttributes;
-import net.potato_modding.potatospells.registry.PotatoAttributes;
 import net.potato_modding.potatospells.registry.PotatoRegistry;
 import net.warphan.iss_magicfromtheeast.registries.MFTEAttributeRegistries;
 
@@ -107,15 +107,16 @@ public class ScreenTrigger {
                 getAttr(target, ALObjects.Attributes.ARMOR_SHRED),
                 getAttr(target, ALObjects.Attributes.PROT_PIERCE),
                 getAttr(target, ALObjects.Attributes.PROT_SHRED),
-                getAttr(target, PotatoAttributes.ATTACK_IV),
-                getAttr(target, PotatoAttributes.ARMOR_IV),
-                getAttr(target, PotatoAttributes.POWER_IV),
-                getAttr(target, PotatoAttributes.RESIST_IV),
-                getAttr(target, PotatoAttributes.CAST_IV),
-                getAttr(target, PotatoAttributes.ARMOR_PEN_IV),
-                getAttr(target, PotatoAttributes.PROT_PEN_IV),
-                getAttr(target, PotatoAttributes.CRIT_IV),
                 getAttr(target, Attributes.ATTACK_SPEED),
+
+                getAttrMod(target, Attributes.ATTACK_DAMAGE, ResourceLocation.fromNamespaceAndPath("potatoessentials", "attack")),
+                getAttrMod(target, Attributes.ARMOR, ResourceLocation.fromNamespaceAndPath("potatoessentials", "armor")),
+                getAttrMod(target, AttributeRegistry.SPELL_POWER, ResourceLocation.fromNamespaceAndPath("potatoessentials", "spell_power")),
+                getAttrMod(target, AttributeRegistry.CAST_TIME_REDUCTION, ResourceLocation.fromNamespaceAndPath("potatoessentials", "cast")),
+                getAttrMod(target, AttributeRegistry.SPELL_RESIST, ResourceLocation.fromNamespaceAndPath("potatoessentials", "resist")),
+                getAttrMod(target, ALObjects.Attributes.ARMOR_PIERCE, ResourceLocation.fromNamespaceAndPath("potatoessentials", "armor_pierce")),
+                getAttrMod(target, ALObjects.Attributes.PROT_PIERCE, ResourceLocation.fromNamespaceAndPath("potatoessentials", "protection_pierce")),
+                getAttrMod(target, ALObjects.Attributes.CRIT_CHANCE, ResourceLocation.fromNamespaceAndPath("potatoessentials", "critical_chance")),
 
                 getAttr(target, AttributeRegistry.FIRE_SPELL_POWER),
                 getAttr(target, AttributeRegistry.ICE_SPELL_POWER),
@@ -132,6 +133,7 @@ public class ScreenTrigger {
                 (ModList.get().isLoaded("iss_magicfromtheeast")) ? getAttr(target, MFTEAttributeRegistries.SYMMETRY_SPELL_POWER) : 1,
                 (ModList.get().isLoaded("iss_magicfromtheeast")) ? getAttr(target, MFTEAttributeRegistries.DUNE_SPELL_POWER) : 1,
                 (ModList.get().isLoaded("iss_magicfromtheeast")) ? getAttr(target, MFTEAttributeRegistries.SPIRIT_SPELL_POWER) : 1,
+
                 getAttr(target, AttributeRegistry.FIRE_MAGIC_RESIST),
                 getAttr(target, AttributeRegistry.ICE_MAGIC_RESIST),
                 getAttr(target, AttributeRegistry.LIGHTNING_MAGIC_RESIST),
@@ -155,6 +157,15 @@ public class ScreenTrigger {
     private static double getAttr(LivingEntity entity, Holder<Attribute> attribute) {
         var instance = entity.getAttribute(attribute);
         return instance != null ? instance.getValue() : 0.0;
+    }
+
+    public static double getAttrMod(LivingEntity entity, Holder<Attribute> attribute, ResourceLocation modifierId) {
+        var instance = entity.getAttribute(attribute);
+        if (instance != null) {
+            var modifier = instance.getModifier(modifierId);
+            return modifier != null ? modifier.amount() : 0.0;
+        }
+        return 0.0;
     }
 
     private static double pow2(double value) {

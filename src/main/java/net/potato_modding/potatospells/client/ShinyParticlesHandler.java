@@ -1,7 +1,9 @@
 package net.potato_modding.potatospells.client;
 
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
@@ -10,7 +12,6 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.ClientTickEvent;
 import net.potato_modding.potatospells.config.ClientConfigs;
-import net.potato_modding.potatospells.registry.PotatoAttributes;
 
 import java.util.List;
 
@@ -35,7 +36,9 @@ public class ShinyParticlesHandler {
         );
 
         List<LivingEntity> nearbyEntities = mc.level.getEntitiesOfClass(LivingEntity.class, searchBox, entity -> {
-            return getAttr(entity) > 0;
+            CompoundTag potatoData = entity.getPersistentData().getCompound("PotatoData");
+
+            return potatoData.getBoolean("shiny");
         });
 
         for (LivingEntity entity : nearbyEntities) {
@@ -60,10 +63,5 @@ public class ShinyParticlesHandler {
                         velocityX, velocityY, velocityZ);
             }
         }
-    }
-
-    private static double getAttr(LivingEntity entity) {
-        var attrInstance = entity.getAttribute(PotatoAttributes.SHINY);
-        return attrInstance != null ? attrInstance.getValue() : 0;
     }
 }
