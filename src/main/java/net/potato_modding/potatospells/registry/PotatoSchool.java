@@ -37,7 +37,7 @@ public class PotatoSchool {
                     PotatoAttributes.GENERIC_MAGIC_RESIST,
                     SoundRegistry.EVOCATION_CAST,
                     PotatoDamageTypes.GENERIC_MAGIC,
-                    true,
+                    false,
                     false
             ));
 }

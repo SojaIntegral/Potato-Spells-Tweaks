@@ -10,6 +10,8 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.Style;
+import net.minecraft.network.chat.TextColor;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
@@ -56,14 +58,14 @@ public class AnalyzerGreen extends ImbuableCurio {
 
         tooltip.add(Component.literal("Range: " + curioModifier + " blocks | Press [")
                 .append(Keybinds.OPEN_SCREEN_KEY.getTranslatedKeyMessage()).append("] to analyze")
-                .withStyle(ChatFormatting.GREEN));
+                .withStyle(Style.EMPTY.withColor(TextColor.parseColor("#64bf50").getOrThrow())));
         tooltip.add(Component.literal(""));
         tooltip.add(Component.literal("Mana Shield:")
-                .withStyle(ChatFormatting.GREEN));
+                .withStyle(Style.EMPTY.withColor(TextColor.parseColor("#64bf50").getOrThrow())));
         tooltip.add(Component.literal("Damage is reduced by the user's mana")
-                .withStyle(ChatFormatting.GRAY));
+                .withStyle(Style.EMPTY.withColor(TextColor.parseColor("#9def8b").getOrThrow())));
         tooltip.add(Component.literal("Current amount: [" + shieldStrength + "]%")
-                .withStyle(ChatFormatting.GRAY));
+                .withStyle(Style.EMPTY.withColor(TextColor.parseColor("#9def8b").getOrThrow())));
 
         tooltip.add(Component.literal("Cost: [" + manaCost + "] mana per damage reduced")
                 .withStyle(ChatFormatting.GRAY));
@@ -85,7 +87,8 @@ public class AnalyzerGreen extends ImbuableCurio {
 
     @Override
     public Component getName(ItemStack stack) {
-        return super.getName(stack).copy().withStyle(ChatFormatting.DARK_GREEN);
+        return super.getName(stack).copy()
+                .withStyle(Style.EMPTY.withColor(TextColor.parseColor("#42af2a").getOrThrow()));
     }
 
     public static final ResourceLocation OVERLAY_TEXTURE =

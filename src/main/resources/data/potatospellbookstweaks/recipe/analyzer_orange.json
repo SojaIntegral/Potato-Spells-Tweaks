@@ -13,11 +13,11 @@
     }
   },
   "pattern": [
-    "A ",
-    "CB"
+    "AB",
+    " C"
   ],
   "result": {
     "count": 1,
-    "id": "potatospellbookstweaks:analyzer_black"
+    "id": "potatospellbookstweaks:analyzer_orange"
   }
 }

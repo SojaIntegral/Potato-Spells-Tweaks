@@ -1,0 +1,39 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "potatospellbookstweaks:analyzer_red"
+    },
+    "B": {
+      "item": "potatospellbookstweaks:analyzer_orange"
+    },
+    "C": {
+      "item": "potatospellbookstweaks:analyzer_yellow"
+    },
+    "D": {
+      "item": "potatospellbookstweaks:analyzer_green"
+    },
+    "E": {
+      "item": "potatospellbookstweaks:analyzer_blue"
+    },
+    "F": {
+      "item": "potatospellbookstweaks:analyzer_pink"
+    },
+    "G": {
+      "item": "potatospellbookstweaks:analyzer_purple"
+    },
+    "H": {
+      "item": "irons_spellbooks:pyrium_ingot"
+    }
+  },
+  "pattern": [
+    "CDE",
+    "BHF",
+    "A G"
+  ],
+  "result": {
+    "count": 1,
+    "id": "potatospellbookstweaks:analyzer_prism"
+  }
+}

@@ -20,12 +20,13 @@ public class PotatoRegistry {
     public static final Supplier<CurioBaseItem> MOB_IDENTIFIER = ITEMS.register("mob_identifier", MobIdentifier::new);
     public static final Supplier<CurioBaseItem> BASE_ANALYZER = ITEMS.register("analyzer", Analyzer::new);
     public static final Supplier<CurioBaseItem> PINK_ANALYZER = ITEMS.register("analyzer_pink", AnalyzerPink::new);
-    public static final Supplier<CurioBaseItem> BLACK_ANALYZER = ITEMS.register("analyzer_black", AnalyzerBlack::new);
-    public static final Supplier<CurioBaseItem> WHITE_ANALYZER = ITEMS.register("analyzer_white", AnalyzerWhite::new);
+    public static final Supplier<CurioBaseItem> PURPLE_ANALYZER = ITEMS.register("analyzer_purple", AnalyzerPurple::new);
+    public static final Supplier<CurioBaseItem> PRISMATIC_ANALYZER = ITEMS.register("analyzer_prism", AnalyzerPrismatic::new);
     public static final Supplier<CurioBaseItem> BLUE_ANALYZER = ITEMS.register("analyzer_blue", AnalyzerBlue::new);
     public static final Supplier<CurioBaseItem> RED_ANALYZER = ITEMS.register("analyzer_red", AnalyzerRed::new);
     public static final Supplier<CurioBaseItem> GREEN_ANALYZER = ITEMS.register("analyzer_green", AnalyzerGreen::new);
     public static final Supplier<CurioBaseItem> YELLOW_ANALYZER = ITEMS.register("analyzer_yellow", AnalyzerYellow::new);
+    public static final Supplier<CurioBaseItem> ORANGE_ANALYZER = ITEMS.register("analyzer_orange", AnalyzerOrange::new);
     public static final Supplier<Item> ATTRIBUTE_REROLLER = ITEMS.register("miracle_crystal",
             () -> new MiracleCrystal(new Item.Properties().stacksTo(64).fireResistant().component(DataComponents.ENCHANTMENT_GLINT_OVERRIDE, true).rarity(Rarity.UNCOMMON)));
     public static final Supplier<Item> NATURE_REROLLER = ITEMS.register("mood_crystal",

@@ -9,6 +9,8 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.Style;
+import net.minecraft.network.chat.TextColor;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
@@ -28,12 +30,11 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.List;
 
-public class AnalyzerWhite extends ImbuableCurio {
+public class AnalyzerOrange extends ImbuableCurio {
 
-    public AnalyzerWhite() {
+    public AnalyzerOrange() {
         super(ItemPropertiesHelper.equipment().stacksTo(1).rarity(Rarity.EPIC),
                 "head", SpellDataRegistryHolder.of(
-                        new SpellDataRegistryHolder(SpellRegistries.MASS_RECALL, 1)
                 ));
     }
 
@@ -50,7 +51,7 @@ public class AnalyzerWhite extends ImbuableCurio {
 
         tooltip.add(Component.literal("Range: " + curioModifier + " blocks | Press [")
                 .append(Keybinds.OPEN_SCREEN_KEY.getTranslatedKeyMessage()).append("] to analyze")
-                .withStyle(ChatFormatting.GOLD));
+                .withStyle(Style.EMPTY.withColor(TextColor.parseColor("#f7af67").getOrThrow())));
     }
 
     @Override
@@ -70,10 +71,11 @@ public class AnalyzerWhite extends ImbuableCurio {
 
     @Override
     public Component getName(ItemStack stack) {
-        return super.getName(stack).copy().withStyle(ChatFormatting.GOLD);
+        return super.getName(stack).copy()
+                .withStyle(Style.EMPTY.withColor(TextColor.parseColor("#ce7a27").getOrThrow()));
+
     }
 
     public static final ResourceLocation OVERLAY_TEXTURE =
-            ResourceLocation.fromNamespaceAndPath("potatospellbookstweaks", "textures/gui/identify_gui.png");
+            ResourceLocation.fromNamespaceAndPath("potatospellbookstweaks", "textures/gui/identify_gui_yellow.png");
 }
-

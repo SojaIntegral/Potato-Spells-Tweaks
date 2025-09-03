@@ -46,12 +46,12 @@ public class MoodCrystal extends Item {
 
     @Override
     public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
-        tooltip.add(Component.literal("Use on a mob to reroll Natures")
+        tooltip.add(Component.literal("Use on a familiar to reroll Natures")
                 .withStyle(ChatFormatting.WHITE));
         tooltip.add(Component.literal("Hold shift to use on yourself")
                 .withStyle(ChatFormatting.WHITE, ChatFormatting.ITALIC));
         tooltip.add(Component.literal(""));
-        tooltip.add(Component.literal("WARNING: Only works on Familiars by default")
+        tooltip.add(Component.literal("WARNING: Does not work on players by default!")
                 .withStyle(ChatFormatting.RED, ChatFormatting.ITALIC));
     }
 

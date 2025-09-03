@@ -3,6 +3,7 @@ package net.potato_modding.potatospells.items;
 import com.google.common.collect.LinkedHashMultimap;
 import com.google.common.collect.Multimap;
 import io.redspace.ironsspellbooks.api.registry.AttributeRegistry;
+import io.redspace.ironsspellbooks.api.registry.SpellDataRegistryHolder;
 import io.redspace.ironsspellbooks.item.curios.CurioBaseItem;
 import io.redspace.ironsspellbooks.util.ItemPropertiesHelper;
 import net.minecraft.ChatFormatting;
@@ -17,14 +18,17 @@ import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.TooltipFlag;
 import net.neoforged.api.distmarker.Dist;
 import net.potato_modding.potatospells.client.Keybinds;
+import net.potato_modding.potatospells.utils.ImbuableCurio;
 import top.theillusivec4.curios.api.SlotContext;
 
 import java.util.List;
 
-public class Analyzer extends CurioBaseItem {
+public class Analyzer extends ImbuableCurio {
 
     public Analyzer() {
-        super(ItemPropertiesHelper.equipment().stacksTo(1).rarity(Rarity.RARE));
+        super(ItemPropertiesHelper.equipment().stacksTo(1).rarity(Rarity.EPIC),
+                "head", SpellDataRegistryHolder.of(
+                ));
     }
 
     @Override

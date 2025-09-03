@@ -90,9 +90,10 @@ public class PotatoSpells {
                 CuriosRendererRegistry.register(PotatoRegistry.GREEN_ANALYZER.get(), AnalyzerCurioRenderer::new);
                 CuriosRendererRegistry.register(PotatoRegistry.BLUE_ANALYZER.get(), AnalyzerCurioRenderer::new);
                 CuriosRendererRegistry.register(PotatoRegistry.YELLOW_ANALYZER.get(), AnalyzerCurioRenderer::new);
+                CuriosRendererRegistry.register(PotatoRegistry.ORANGE_ANALYZER.get(), AnalyzerCurioRenderer::new);
                 CuriosRendererRegistry.register(PotatoRegistry.PINK_ANALYZER.get(), AnalyzerCurioRenderer::new);
-                CuriosRendererRegistry.register(PotatoRegistry.BLACK_ANALYZER.get(), AnalyzerCurioRenderer::new);
-                CuriosRendererRegistry.register(PotatoRegistry.WHITE_ANALYZER.get(), AnalyzerCurioRenderer::new);
+                CuriosRendererRegistry.register(PotatoRegistry.PURPLE_ANALYZER.get(), AnalyzerCurioRenderer::new);
+                CuriosRendererRegistry.register(PotatoRegistry.PRISMATIC_ANALYZER.get(), AnalyzerCurioRenderer::new);
             });
         }
     }

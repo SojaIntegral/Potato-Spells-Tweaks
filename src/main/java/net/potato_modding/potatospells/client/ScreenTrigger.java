@@ -41,11 +41,13 @@ public class ScreenTrigger {
         boolean hasIdentifier =
                 hasCurio(mc.player, PotatoRegistry.BASE_ANALYZER.get()) ||
                         hasCurio(mc.player, PotatoRegistry.RED_ANALYZER.get()) ||
+                        hasCurio(mc.player, PotatoRegistry.ORANGE_ANALYZER.get()) ||
+                        hasCurio(mc.player, PotatoRegistry.YELLOW_ANALYZER.get()) ||
                         hasCurio(mc.player, PotatoRegistry.GREEN_ANALYZER.get()) ||
                         hasCurio(mc.player, PotatoRegistry.BLUE_ANALYZER.get()) ||
-                        hasCurio(mc.player, PotatoRegistry.YELLOW_ANALYZER.get()) ||
                         hasCurio(mc.player, PotatoRegistry.PINK_ANALYZER.get()) ||
-                        hasCurio(mc.player, PotatoRegistry.BLACK_ANALYZER.get())
+                        hasCurio(mc.player, PotatoRegistry.PURPLE_ANALYZER.get()) ||
+                        hasCurio(mc.player, PotatoRegistry.PRISMATIC_ANALYZER.get())
                 ;
 
         if (!Keybinds.OPEN_SCREEN_KEY.consumeClick() || !hasIdentifier) return;
@@ -76,18 +78,18 @@ public class ScreenTrigger {
                     * getAttr(mc.player, AttributeRegistry.COOLDOWN_REDUCTION));
             rgb = 5;
         }
-        if (hasCurio(mc.player, PotatoRegistry.BLACK_ANALYZER.get())) {
+        if (hasCurio(mc.player, PotatoRegistry.PURPLE_ANALYZER.get())) {
             curioModifier = (1 + getAttr(mc.player, PotatoEssentialsAttributes.SPELL_RESIST_PIERCE))
                     * (1 + getAttr(mc.player, PotatoEssentialsAttributes.SPELL_RESIST_SHRED)) * 1.25;
             rgb = 1;
         }
-        if (hasCurio(mc.player, PotatoRegistry.WHITE_ANALYZER.get())) {
-            curioModifier = 4;
+        if (hasCurio(mc.player, PotatoRegistry.PRISMATIC_ANALYZER.get())) {
+            curioModifier = 7.5;
             rgb = 1;
         }
         LivingEntity target = mc.player.isShiftKeyDown()
                 ? mc.player
-                : getTargetedEntity(8 + 16 * curioModifier);
+                : getTargetedEntity(Math.min((8 + 16 * curioModifier), 128));
 
         if (target == null) return;
 

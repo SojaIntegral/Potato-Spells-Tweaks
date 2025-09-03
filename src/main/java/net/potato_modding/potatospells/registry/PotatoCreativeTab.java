@@ -23,12 +23,13 @@ public class PotatoCreativeTab {
                         output.accept(PotatoRegistry.MOB_IDENTIFIER.get());
                         output.accept(PotatoRegistry.BASE_ANALYZER.get());
                         output.accept(PotatoRegistry.RED_ANALYZER.get());
+                        output.accept(PotatoRegistry.ORANGE_ANALYZER.get());
+                        output.accept(PotatoRegistry.YELLOW_ANALYZER.get());
                         output.accept(PotatoRegistry.GREEN_ANALYZER.get());
                         output.accept(PotatoRegistry.BLUE_ANALYZER.get());
-                        output.accept(PotatoRegistry.YELLOW_ANALYZER.get());
                         output.accept(PotatoRegistry.PINK_ANALYZER.get());
-                        output.accept(PotatoRegistry.BLACK_ANALYZER.get());
-                        output.accept(PotatoRegistry.WHITE_ANALYZER.get());
+                        output.accept(PotatoRegistry.PURPLE_ANALYZER.get());
+                        output.accept(PotatoRegistry.PRISMATIC_ANALYZER.get());
                         output.accept(PotatoRegistry.DUSTY_BOOK.get());
                         if(ServerConfigs.IV_SYSTEM.get()) output.accept(PotatoRegistry.ATTRIBUTE_REROLLER.get());
                         if(ServerConfigs.NATURE_SYSTEM.get()) output.accept(PotatoRegistry.NATURE_REROLLER.get());

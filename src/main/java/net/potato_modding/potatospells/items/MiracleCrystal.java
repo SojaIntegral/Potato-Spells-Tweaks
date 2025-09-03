@@ -72,10 +72,13 @@ public class MiracleCrystal extends Item {
 
     @Override
     public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
-        tooltip.add(Component.literal("Use on a mob to reroll IVs")
+        tooltip.add(Component.literal("Use on a familiar to reroll IVs")
                 .withStyle(ChatFormatting.WHITE));
         tooltip.add(Component.literal("Hold shift to use on yourself")
                 .withStyle(ChatFormatting.WHITE, ChatFormatting.ITALIC));
+        tooltip.add(Component.literal(""));
+        tooltip.add(Component.literal("WARNING: Does not work on players by default!")
+                .withStyle(ChatFormatting.RED, ChatFormatting.ITALIC));
     }
 
     @Override
@@ -295,15 +298,25 @@ public class MiracleCrystal extends Item {
 
                 // Updates mob attributes after rounding it up to 2 decimals
                 {
-                    if (attrVar[0] == 1 && attrVar[1] == 1 && attrVar[2] == 1 && attrVar[3] == 1 &&
-                            attrVar[4] == 1 && attrVar[5] == 1 && attrVar[6] == 1 && attrVar[7] == 1) {
-                        isShiny = true;
+                    if (target instanceof AbstractSpellCastingPet familiar) {
+                        if (attrVar[1] == 1 && attrVar[2] == 1 && attrVar[3] == 1 &&
+                                attrVar[4] == 1 && attrVar[5] == 1 && attrVar[6] == 1 && attrVar[7] == 1) {
+                            isShiny = true;
+                        }
                     }
+                    else {
+                        if (attrVar[0] == 1 && attrVar[1] == 1 && attrVar[2] == 1 && attrVar[3] == 1 &&
+                                attrVar[4] == 1 && attrVar[5] == 1 && attrVar[6] == 1 && attrVar[7] == 1) {
+                            isShiny = true;
+                        }
+                    }
+
                     // Vanilla Attributes
                     if (isShiny) {
                         potatoData.putBoolean("shiny", true);
                         nbtdata.put("PotatoData", potatoData);;
                     }
+
                     // Vanilla Attributes
                     {
                         addModifierIfValid(target, Attributes.ATTACK_DAMAGE, BigDecimal.valueOf(Attack).setScale(2, RoundingMode.HALF_UP).doubleValue(), "attack");

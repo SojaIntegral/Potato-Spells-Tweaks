@@ -3,12 +3,15 @@ package net.potato_modding.potatospells.items;
 import com.google.common.collect.LinkedHashMultimap;
 import com.google.common.collect.Multimap;
 import io.redspace.ironsspellbooks.api.registry.AttributeRegistry;
+import io.redspace.ironsspellbooks.api.registry.SpellDataRegistryHolder;
 import io.redspace.ironsspellbooks.item.curios.CurioBaseItem;
 import io.redspace.ironsspellbooks.util.ItemPropertiesHelper;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.Style;
+import net.minecraft.network.chat.TextColor;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
@@ -19,16 +22,19 @@ import net.minecraft.world.item.TooltipFlag;
 import net.neoforged.api.distmarker.Dist;
 import net.potato_modding.potatoessentials.registry.PotatoEssentialsAttributes;
 import net.potato_modding.potatospells.client.Keybinds;
+import net.potato_modding.potatospells.utils.ImbuableCurio;
 import top.theillusivec4.curios.api.SlotContext;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.List;
 
-public class AnalyzerBlack extends CurioBaseItem {
+public class AnalyzerPurple extends ImbuableCurio {
 
-    public AnalyzerBlack() {
-        super(ItemPropertiesHelper.equipment().stacksTo(1).rarity(Rarity.EPIC));
+    public AnalyzerPurple() {
+        super(ItemPropertiesHelper.equipment().stacksTo(1).rarity(Rarity.EPIC),
+                "head", SpellDataRegistryHolder.of(
+                ));
     }
 
     @Override
@@ -43,12 +49,12 @@ public class AnalyzerBlack extends CurioBaseItem {
 
         tooltip.add(Component.literal("Range: " + curioModifier + " blocks | Press [")
                 .append(Keybinds.OPEN_SCREEN_KEY.getTranslatedKeyMessage()).append("] to analyze")
-                .withStyle(ChatFormatting.GRAY));
+                .withStyle(Style.EMPTY.withColor(TextColor.parseColor("#9443db").getOrThrow())));
         tooltip.add(Component.literal(""));
         tooltip.add(Component.literal("Spell Resistance Shred:")
-                .withStyle(ChatFormatting.GRAY));
+                .withStyle(Style.EMPTY.withColor(TextColor.parseColor("#af68ed").getOrThrow())));
         tooltip.add(Component.literal("Ignores [" + resistShred + "]% of Spell Resistance")
-                .withStyle(ChatFormatting.GRAY));
+                .withStyle(Style.EMPTY.withColor(TextColor.parseColor("#af68ed").getOrThrow())));
     }
 
     @Override
@@ -67,7 +73,8 @@ public class AnalyzerBlack extends CurioBaseItem {
 
     @Override
     public Component getName(ItemStack stack) {
-        return super.getName(stack).copy().withStyle(ChatFormatting.DARK_GRAY);
+        return super.getName(stack).copy()
+                .withStyle(Style.EMPTY.withColor(TextColor.parseColor("#6a15b5").getOrThrow()));
     }
 
     public static final ResourceLocation OVERLAY_TEXTURE =

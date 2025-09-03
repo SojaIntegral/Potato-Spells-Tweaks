@@ -4,12 +4,15 @@ import com.google.common.collect.LinkedHashMultimap;
 import com.google.common.collect.Multimap;
 import dev.shadowsoffire.apothic_attributes.api.ALObjects;
 import io.redspace.ironsspellbooks.api.registry.AttributeRegistry;
+import io.redspace.ironsspellbooks.api.registry.SpellDataRegistryHolder;
 import io.redspace.ironsspellbooks.item.curios.CurioBaseItem;
 import io.redspace.ironsspellbooks.util.ItemPropertiesHelper;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.Style;
+import net.minecraft.network.chat.TextColor;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
@@ -19,16 +22,19 @@ import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.TooltipFlag;
 import net.neoforged.api.distmarker.Dist;
 import net.potato_modding.potatospells.client.Keybinds;
+import net.potato_modding.potatospells.utils.ImbuableCurio;
 import top.theillusivec4.curios.api.SlotContext;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.List;
 
-public class AnalyzerRed extends CurioBaseItem {
+public class AnalyzerRed extends ImbuableCurio {
 
     public AnalyzerRed() {
-        super(ItemPropertiesHelper.equipment().stacksTo(1).rarity(Rarity.EPIC));
+        super(ItemPropertiesHelper.equipment().stacksTo(1).rarity(Rarity.EPIC),
+                "head", SpellDataRegistryHolder.of(
+                ));
     }
 
     @Override
@@ -42,7 +48,7 @@ public class AnalyzerRed extends CurioBaseItem {
 
         tooltip.add(Component.literal("Range: " + curioModifier + " blocks | Press [")
                 .append(Keybinds.OPEN_SCREEN_KEY.getTranslatedKeyMessage()).append("] to analyze")
-                .withStyle(ChatFormatting.RED));
+                .withStyle(Style.EMPTY.withColor(TextColor.parseColor("#ed5e5e").getOrThrow())));
     }
 
     @Override
@@ -61,7 +67,8 @@ public class AnalyzerRed extends CurioBaseItem {
 
     @Override
     public Component getName(ItemStack stack) {
-        return super.getName(stack).copy().withStyle(ChatFormatting.DARK_RED);
+        return super.getName(stack).copy()
+                .withStyle(Style.EMPTY.withColor(TextColor.parseColor("#e03c3c").getOrThrow()));
     }
 
     public static final ResourceLocation OVERLAY_TEXTURE =

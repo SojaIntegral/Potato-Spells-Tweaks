@@ -24,6 +24,8 @@ public class PotatoAttributes {
             registerSpecialAttributes("monster_slayer", 0, -100, 100);
     public static final DeferredHolder<Attribute, Attribute> PLAYER_SLAYER =
             registerSpecialAttributes("player_slayer", 0, -100, 100);
+    public static final DeferredHolder<Attribute, Attribute> SLAYER =
+            registerSpecialAttributes("slayer", 0, -100, 100);
 
     //Magic attributes
     public static final DeferredHolder<Attribute, Attribute> GENERIC_SPELL_POWER =

@@ -9,6 +9,8 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.Style;
+import net.minecraft.network.chat.TextColor;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
@@ -32,7 +34,6 @@ public class AnalyzerYellow extends ImbuableCurio {
     public AnalyzerYellow() {
         super(ItemPropertiesHelper.equipment().stacksTo(1).rarity(Rarity.EPIC),
                 "head", SpellDataRegistryHolder.of(
-                        new SpellDataRegistryHolder(SpellRegistries.MASS_RECALL, 1)
                 ));
     }
 
@@ -49,7 +50,7 @@ public class AnalyzerYellow extends ImbuableCurio {
 
         tooltip.add(Component.literal("Range: " + curioModifier + " blocks | Press [")
                 .append(Keybinds.OPEN_SCREEN_KEY.getTranslatedKeyMessage()).append("] to analyze")
-                .withStyle(ChatFormatting.GOLD));
+                .withStyle(Style.EMPTY.withColor(TextColor.parseColor("#efe24c").getOrThrow())));
     }
 
     @Override
@@ -70,7 +71,8 @@ public class AnalyzerYellow extends ImbuableCurio {
 
     @Override
     public Component getName(ItemStack stack) {
-        return super.getName(stack).copy().withStyle(ChatFormatting.GOLD);
+        return super.getName(stack).copy()
+                .withStyle(Style.EMPTY.withColor(TextColor.parseColor("#ddcc11").getOrThrow()));
     }
 
     public static final ResourceLocation OVERLAY_TEXTURE =

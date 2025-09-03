@@ -6,7 +6,7 @@
       "item": "irons_spellbooks:mithril_scrap"
     },
     "B": {
-      "item": "minecraft:netherite_scrap"
+      "tag": "c:raw_materials/gold"
     },
     "C": {
       "tag": "c:gems/amethyst"
