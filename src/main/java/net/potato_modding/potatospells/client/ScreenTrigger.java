@@ -7,6 +7,7 @@ import net.acetheeldritchking.cataclysm_spellbooks.registries.CSAttributeRegistr
 import net.ender.endersequipment.registries.EEAttributeRegistry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.Holder;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -98,6 +99,9 @@ public class ScreenTrigger {
                 : getTargetedEntity(Math.min((8 + 16 * curioModifier), 128));
 
         if (target == null) return;
+
+        CompoundTag nbtdata = target.getPersistentData();
+        CompoundTag potatoData = nbtdata.getCompound("PotatoData");
 
         ClientScreens.openMobInteractionScreen(
                 target.getName().getString(), target,
@@ -209,5 +213,16 @@ public class ScreenTrigger {
         }
 
         return closest != null ? (LivingEntity) closest.getEntity() : null;
+    }
+
+    private static LivingEntity getServerEntity(double range) {
+        Minecraft mc = Minecraft.getInstance();
+        Entity cameraEntity = mc.getCameraEntity();
+        if (cameraEntity == null) return null;
+
+        var hitResult = cameraEntity.pick(range, 0.0F, false);
+        if (hitResult == null) return null;
+
+        return mc.crosshairPickEntity instanceof LivingEntity living ? living : null;
     }
 }

@@ -8,7 +8,6 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.InventoryScreen;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.Style;
@@ -34,12 +33,14 @@ import org.joml.Quaternionf;
 import org.joml.Vector3f;
 import org.lwjgl.glfw.GLFW;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Map;
 
 import static net.potato_modding.potatoessentials.PotatoEssentials.MOD_ID;
 import static net.potato_modding.potatoessentials.utils.ConfigFormulas.*;
 
-@SuppressWarnings("unused")
+@SuppressWarnings({"unused", "deprecation"})
 public class MobInteractionScreen extends Screen {
 
     private long lastCleanupTime = 0L;
@@ -456,41 +457,41 @@ public class MobInteractionScreen extends Screen {
                 ResourceLocation dataId = ResourceLocation.fromNamespaceAndPath(MOD_ID, raceName);
                 var data = MobRaceLoader.get(dataId);
 
-                    if (entity.getType().is(PotatoTags.BOSS)) {
-                        mobType = boss_mod;
-                        ArmorMod = boss_mod * (3 * (1 + randMax));
-                        ToughMod = boss_mod * (2 * (1 + randMax));
-                        AttackMod = boss_mod * (2 * (1 + randMax));
-                    } else if (entity.getType().is(PotatoTags.MINIBOSS)) {
-                        mobType = mini_mod;
-                        ArmorMod = mini_mod * (1.5 * (1 + randMax));
-                        ToughMod = mini_mod * (1.5 * (1 + randMax));
-                        AttackMod = mini_mod * (1 * (1 + randMax));
-                    } else if (entity.getType().is(PotatoTags.NORMAL)) {
-                        mobType = mob_mod;
-                        ArmorMod = mob_mod * (0.75 * (1 + randMax));
-                        ToughMod = mob_mod * (0.5 * (1 + randMax));
-                        AttackMod = mob_mod * (0.65 * (1 + randMax));
-                    } else if (entity.getType().is(PotatoTags.SUMMON)) {
-                        mobType = summon_mod;
-                        ArmorMod = summon_mod * (1 * (1 + randMax));
-                        ToughMod = summon_mod * (0.5 * (1 + randMax));
-                        AttackMod = summon_mod * (0.5 * (1 + randMax));
-                    } else {
-                        mobType = 1;
-                        ArmorMod = 1;
-                        ToughMod = 1;
-                        AttackMod = 1;
-                    }
+                if (entity.getType().is(PotatoTags.BOSS)) {
+                    mobType = boss_mod;
+                    ArmorMod = boss_mod * (3 * (1 + randMax));
+                    ToughMod = boss_mod * (2 * (1 + randMax));
+                    AttackMod = boss_mod * (2 * (1 + randMax));
+                } else if (entity.getType().is(PotatoTags.MINIBOSS)) {
+                    mobType = mini_mod;
+                    ArmorMod = mini_mod * (1.5 * (1 + randMax));
+                    ToughMod = mini_mod * (1.5 * (1 + randMax));
+                    AttackMod = mini_mod * (1 * (1 + randMax));
+                } else if (entity.getType().is(PotatoTags.NORMAL)) {
+                    mobType = mob_mod;
+                    ArmorMod = mob_mod * (0.75 * (1 + randMax));
+                    ToughMod = mob_mod * (0.5 * (1 + randMax));
+                    AttackMod = mob_mod * (0.65 * (1 + randMax));
+                } else if (entity.getType().is(PotatoTags.SUMMON)) {
+                    mobType = summon_mod;
+                    ArmorMod = summon_mod * (1 * (1 + randMax));
+                    ToughMod = summon_mod * (0.5 * (1 + randMax));
+                    AttackMod = summon_mod * (0.5 * (1 + randMax));
+                } else {
+                    mobType = 1;
+                    ArmorMod = 1;
+                    ToughMod = 1;
+                    AttackMod = 1;
+                }
 
-                    parseIV[0] /= data.attack() == 0 ? 1 : (data.attack() * AttackMod);
-                    parseIV[1] /= data.armor() == 0 ? 1 : (data.armor() * ArmorMod);
-                    parseIV[2] /= (data.spellPower() + randMax) - 1;
-                    parseIV[3] /= (data.castReduction() + randMax) - 1;
-                    parseIV[8] = (data.resist() + randMax);
-                    parseIV[5] /= (data.armorPierce() * (1 + randMax));
-                    parseIV[6] /= (data.protPierce() * (1 + randMax));
-                    parseIV[7] /= 0.05 + (data.crit() + randMax);
+                parseIV[0] /= data.attack() == 0 ? 1 : (data.attack() * AttackMod);
+                parseIV[1] /= data.armor() == 0 ? 1 : (data.armor() * ArmorMod);
+                parseIV[2] /= (data.spellPower() + randMax) - 1;
+                parseIV[3] /= (data.castReduction() + randMax) - 1;
+                parseIV[8] = (data.resist() + randMax);
+                parseIV[5] /= (data.armorPierce() * (1 + randMax));
+                parseIV[6] /= (data.protPierce() * (1 + randMax));
+                parseIV[7] /= 0.05 + (data.crit() + randMax);
 
                 race[0] = data.race();
             }
@@ -505,21 +506,28 @@ public class MobInteractionScreen extends Screen {
                 ResourceLocation dataId = ResourceLocation.fromNamespaceAndPath(MOD_ID, elementName);
                 var data = MobElementLoader.get(dataId);
 
+                parseIV[4] /= (parseIV[8] * (data.resist() * mobType)) - 1;
 
-                    parseIV[4] /= (parseIV[8] * (data.resist() * mobType)) - 1;
-                    firstRender = false;
+                firstRender = false;
 
                 element[0] = data.element();
             }
         });
 
+        parseIV[0] = BigDecimal.valueOf(parseIV[0] * 31).setScale(0, RoundingMode.HALF_UP).doubleValue();
+        parseIV[1] = BigDecimal.valueOf(parseIV[1] * 31).setScale(0, RoundingMode.HALF_UP).doubleValue();
+        parseIV[2] = BigDecimal.valueOf(parseIV[2] * 31).setScale(0, RoundingMode.HALF_UP).doubleValue();
+        parseIV[3] = BigDecimal.valueOf(parseIV[3] * 31).setScale(0, RoundingMode.HALF_UP).doubleValue();
+        parseIV[4] = BigDecimal.valueOf(parseIV[4] * 31).setScale(0, RoundingMode.HALF_UP).doubleValue();
+        parseIV[5] = BigDecimal.valueOf(parseIV[5] * 31).setScale(0, RoundingMode.HALF_UP).doubleValue();
+        parseIV[6] = BigDecimal.valueOf(parseIV[6] * 31).setScale(0, RoundingMode.HALF_UP).doubleValue();
+        parseIV[7] = BigDecimal.valueOf(parseIV[7] * 31).setScale(0, RoundingMode.HALF_UP).doubleValue();
 
         Component mobName = entity.getDisplayName();
         if (scaledMouseX >= (guiLeft + 16) / textScale && scaledMouseX <= (guiLeft + 61) / textScale
                 && scaledMouseY >= (guiTop + 37) / textScale && scaledMouseY <= (guiTop + 81) / textScale) {
             graphics.renderTooltip(font, mobName, (int) scaledMouseX, (int) scaledMouseY);
         }
-
 
         var buttonTooltipColor = TextColor.parseColor("#bbe0f9").getOrThrow();
         if (scaledMouseX >= ((guiLeft + 152) / textScale) && scaledMouseX <= ((guiLeft + 160) / textScale)
@@ -652,68 +660,68 @@ public class MobInteractionScreen extends Screen {
         }
 
         if (showIVs) {
-            graphics.drawString(this.font, Component.literal(String.format("%.0f", 31 * parseIV[1])).withStyle(Style.EMPTY.withColor(nat2)), (int) ((guiLeft + 96) / textScale), (int) ((guiTop + 20) / textScale), 0xffffff);
+            graphics.drawString(this.font, Component.literal(String.format("%.0f", parseIV[1])).withStyle(Style.EMPTY.withColor(nat2)), (int) ((guiLeft + 96) / textScale), (int) ((guiTop + 20) / textScale), 0xffffff);
             if (scaledMouseX >= ((guiLeft + 84) / textScale) && scaledMouseX <= ((guiLeft + 94) / textScale)
                     && scaledMouseY >= ((guiTop + 18) / textScale) && scaledMouseY <= ((guiTop + 28) / textScale)) {
                 graphics.renderTooltip(font, Component.literal("Armor IV").withStyle(Style.EMPTY.withColor(nat2)), (int) scaledMouseX, (int) scaledMouseY);
             }
 
-            graphics.drawString(this.font, Component.literal(String.format("%.0f", 31 * parseIV[0])), (int) ((guiLeft + 96) / textScale), (int) ((guiTop + 34) / textScale), 0xffffff);
+            graphics.drawString(this.font, Component.literal(String.format("%.0f", parseIV[0])), (int) ((guiLeft + 96) / textScale), (int) ((guiTop + 34) / textScale), 0xffffff);
             if (scaledMouseX >= ((guiLeft + 84) / textScale) && scaledMouseX <= ((guiLeft + 94) / textScale)
                     && scaledMouseY >= ((guiTop + 32) / textScale) && scaledMouseY <= ((guiTop + 42) / textScale)) {
                 graphics.renderTooltip(font, Component.literal("Attack IV"), (int) scaledMouseX, (int) scaledMouseY);
             }
 
-            graphics.drawString(this.font, Component.literal(String.format("%.0f", 31 * parseIV[7])).withStyle(Style.EMPTY.withColor(nat5)), (int) ((guiLeft + 96) / textScale), (int) ((guiTop + 48) / textScale), 0xffffff);
+            graphics.drawString(this.font, Component.literal(String.format("%.0f", parseIV[7])).withStyle(Style.EMPTY.withColor(nat5)), (int) ((guiLeft + 96) / textScale), (int) ((guiTop + 48) / textScale), 0xffffff);
             if (scaledMouseX >= ((guiLeft + 84) / textScale) && scaledMouseX <= ((guiLeft + 94) / textScale)
                     && scaledMouseY >= ((guiTop + 46) / textScale) && scaledMouseY <= ((guiTop + 56) / textScale)) {
                 graphics.renderTooltip(font, Component.literal("Critical IV").withStyle(Style.EMPTY.withColor(nat5)), (int) scaledMouseX, (int) scaledMouseY);
             }
 
-            graphics.drawString(this.font, Component.literal(String.format("%.0f", 31 * parseIV[7])).withStyle(Style.EMPTY.withColor(nat1)), (int) ((guiLeft + 96) / textScale), (int) ((guiTop + 62) / textScale), 0xffffff);
+            graphics.drawString(this.font, Component.literal(String.format("%.0f", parseIV[7])).withStyle(Style.EMPTY.withColor(nat1)), (int) ((guiLeft + 96) / textScale), (int) ((guiTop + 62) / textScale), 0xffffff);
             if (scaledMouseX >= ((guiLeft + 84) / textScale) && scaledMouseX <= ((guiLeft + 94) / textScale)
                     && scaledMouseY >= ((guiTop + 60) / textScale) && scaledMouseY <= ((guiTop + 70) / textScale)) {
                 graphics.renderTooltip(font, Component.literal("Critical IV").withStyle(Style.EMPTY.withColor(nat1)), (int) scaledMouseX, (int) scaledMouseY);
             }
 
-            graphics.drawString(this.font, Component.literal(String.format("%.0f", 31 * parseIV[5])), (int) ((guiLeft + 96) / textScale), (int) ((guiTop + 76) / textScale), 0xffffff);
+            graphics.drawString(this.font, Component.literal(String.format("%.0f", parseIV[5])), (int) ((guiLeft + 96) / textScale), (int) ((guiTop + 76) / textScale), 0xffffff);
             if (scaledMouseX >= ((guiLeft + 84) / textScale) && scaledMouseX <= ((guiLeft + 94) / textScale)
                     && scaledMouseY >= ((guiTop + 74) / textScale) && scaledMouseY <= ((guiTop + 84) / textScale)) {
                 graphics.renderTooltip(font, Component.literal("Armor Piercing IV"), (int) scaledMouseX, (int) scaledMouseY);
             }
 
-            graphics.drawString(this.font, Component.literal(String.format("%.0f", 31 * parseIV[5])), (int) ((guiLeft + 96) / textScale), (int) ((guiTop + 90) / textScale), 0xffffff);
+            graphics.drawString(this.font, Component.literal(String.format("%.0f", parseIV[5])), (int) ((guiLeft + 96) / textScale), (int) ((guiTop + 90) / textScale), 0xffffff);
             if (scaledMouseX >= ((guiLeft + 84) / textScale) && scaledMouseX <= ((guiLeft + 94) / textScale)
                     && scaledMouseY >= ((guiTop + 88) / textScale) && scaledMouseY <= ((guiTop + 98) / textScale)) {
                 graphics.renderTooltip(font, Component.literal("Armor Shred IV"), (int) scaledMouseX, (int) scaledMouseY);
             }
 
             // RIGHT SIDE
-            graphics.drawString(this.font, Component.literal(String.format("%.0f", 31 * parseIV[4])).withStyle(Style.EMPTY.withColor(nat4)), (int) ((guiLeft + 135) / textScale), (int) ((guiTop + 62) / textScale), 0xffffff);
+            graphics.drawString(this.font, Component.literal(String.format("%.0f", parseIV[4])).withStyle(Style.EMPTY.withColor(nat4)), (int) ((guiLeft + 135) / textScale), (int) ((guiTop + 62) / textScale), 0xffffff);
             if (scaledMouseX >= ((guiLeft + 123) / textScale) && scaledMouseX <= ((guiLeft + 131) / textScale)
                     && scaledMouseY >= ((guiTop + 60) / textScale) && scaledMouseY <= ((guiTop + 70) / textScale)) {
                 graphics.renderTooltip(font, Component.literal("Resistance IV").withStyle(Style.EMPTY.withColor(nat4)), (int) scaledMouseX, (int) scaledMouseY);
             }
 
-            graphics.drawString(this.font, Component.literal(String.format("%.0f", 31 * parseIV[2])).withStyle(Style.EMPTY.withColor(nat3)), (int) ((guiLeft + 135) / textScale), (int) ((guiTop + 34) / textScale), 0xffffff);
+            graphics.drawString(this.font, Component.literal(String.format("%.0f", parseIV[2])).withStyle(Style.EMPTY.withColor(nat3)), (int) ((guiLeft + 135) / textScale), (int) ((guiTop + 34) / textScale), 0xffffff);
             if (scaledMouseX >= ((guiLeft + 123) / textScale) && scaledMouseX <= ((guiLeft + 131) / textScale)
                     && scaledMouseY >= ((guiTop + 32) / textScale) && scaledMouseY <= ((guiTop + 42) / textScale)) {
                 graphics.renderTooltip(font, Component.literal("Spell IV").withStyle(Style.EMPTY.withColor(nat3)), (int) scaledMouseX, (int) scaledMouseY);
             }
 
-            graphics.drawString(this.font, Component.literal(String.format("%.0f", 31 * parseIV[3])), (int) ((guiLeft + 135) / textScale), (int) ((guiTop + 48) / textScale), 0xffffff);
+            graphics.drawString(this.font, Component.literal(String.format("%.0f", parseIV[3])), (int) ((guiLeft + 135) / textScale), (int) ((guiTop + 48) / textScale), 0xffffff);
             if (scaledMouseX >= ((guiLeft + 123) / textScale) && scaledMouseX <= ((guiLeft + 131) / textScale)
                     && scaledMouseY >= ((guiTop + 46) / textScale) && scaledMouseY <= ((guiTop + 56) / textScale)) {
                 graphics.renderTooltip(font, Component.literal("Cast IV"), (int) scaledMouseX, (int) scaledMouseY);
             }
 
-            graphics.drawString(this.font, Component.literal(String.format("%.0f", 31 * parseIV[6])), (int) ((guiLeft + 135) / textScale), (int) ((guiTop + 76) / textScale), 0xffffff);
+            graphics.drawString(this.font, Component.literal(String.format("%.0f", parseIV[6])), (int) ((guiLeft + 135) / textScale), (int) ((guiTop + 76) / textScale), 0xffffff);
             if (scaledMouseX >= ((guiLeft + 123) / textScale) && scaledMouseX <= ((guiLeft + 131) / textScale)
                     && scaledMouseY >= ((guiTop + 74) / textScale) && scaledMouseY <= ((guiTop + 84) / textScale)) {
                 graphics.renderTooltip(font, Component.literal("Protection Pierce IV"), (int) scaledMouseX, (int) scaledMouseY);
             }
 
-            graphics.drawString(this.font, Component.literal(String.format("%.0f", 31 * parseIV[6])), (int) ((guiLeft + 135) / textScale), (int) ((guiTop + 90) / textScale), 0xffffff);
+            graphics.drawString(this.font, Component.literal(String.format("%.0f", parseIV[6])), (int) ((guiLeft + 135) / textScale), (int) ((guiTop + 90) / textScale), 0xffffff);
             if (scaledMouseX >= ((guiLeft + 123) / textScale) && scaledMouseX <= ((guiLeft + 131) / textScale)
                     && scaledMouseY >= ((guiTop + 88) / textScale) && scaledMouseY <= ((guiTop + 98) / textScale)) {
                 graphics.renderTooltip(font, Component.literal("Protection Shred IV"), (int) scaledMouseX, (int) scaledMouseY);
@@ -763,10 +771,10 @@ public class MobInteractionScreen extends Screen {
                     graphics.drawString(font, name, guiLeft + 6, guiTop + 93, 0xFFFFFF);
                 }
 
-                CompoundTag nbtdata = entity.getPersistentData();
-                CompoundTag potatoData = nbtdata.getCompound("PotatoData");
+                boolean thiShitIsShiny = (parseIV[0] == 31 && parseIV[1] == 31 && parseIV[2] == 31 && parseIV[3] == 31
+                        && parseIV[4] == 31 && parseIV[5] == 31 && parseIV[6] == 31 && parseIV[7] == 31);
 
-                if (potatoData.getBoolean("shiny")) {
+                if (thiShitIsShiny) {
                     graphics.blit(SHINY_ICON, guiLeft + 3, guiTop + 23, 0, 0, 16, 16, 16, 16);
                     if (mouseX >= (guiLeft + 3) && mouseX <= (guiLeft + 18)
                             && mouseY >= (guiTop + 25) && mouseY <= (guiTop + 35)) {

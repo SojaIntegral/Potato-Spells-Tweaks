@@ -8,7 +8,7 @@ import top.theillusivec4.curios.api.CuriosApi;
 
 import java.util.Optional;
 
-@SuppressWarnings("deprecation")
+@SuppressWarnings("all")
 public class CurioUtil {
 
     public static boolean hasCurio(Player player, Item item) {

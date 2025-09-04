@@ -48,9 +48,19 @@ public class MiracleCrystal extends Item {
 
     @Override
     public InteractionResult interactLivingEntity(ItemStack stack, Player player, LivingEntity target, InteractionHand hand) {
+        CompoundTag nbtdata = target.getPersistentData();
+        CompoundTag potatoData = nbtdata.getCompound("PotatoData");
+
         if(player.getCooldowns().isOnCooldown(stack.getItem())) {
             player.displayClientMessage(
                     Component.literal("Item on Cooldown").withStyle(ChatFormatting.DARK_RED), true
+            );
+            return InteractionResult.FAIL;
+        }
+
+        if(potatoData.getBoolean("shiny")) {
+            player.displayClientMessage(
+                    Component.literal("Already has perfect IVs").withStyle(ChatFormatting.DARK_RED), true
             );
             return InteractionResult.FAIL;
         }
@@ -94,8 +104,10 @@ public class MiracleCrystal extends Item {
 
         CompoundTag nbtdata = target.getPersistentData();
         CompoundTag potatoData = nbtdata.getCompound("PotatoData");
+        var shinyCheck = false;
+        if(!target.level().isClientSide()) shinyCheck = potatoData.getBoolean("shiny");
 
-        if(!(potatoData.getBoolean("shiny"))) {
+        if(!shinyCheck) {
             ResourceLocation id = ResourceLocation.fromNamespaceAndPath("potatoessentials", idName);
             instance.removeModifier(id);
             instance.addPermanentModifier(new AttributeModifier(id, value, AttributeModifier.Operation.ADD_VALUE));
@@ -109,8 +121,10 @@ public class MiracleCrystal extends Item {
 
         CompoundTag nbtdata = target.getPersistentData();
         CompoundTag potatoData = nbtdata.getCompound("PotatoData");
+        var shinyCheck = false;
+        if(!target.level().isClientSide()) shinyCheck = potatoData.getBoolean("shiny");
 
-        if(!(potatoData.getBoolean("shiny"))) {
+        if(!shinyCheck) {
             ResourceLocation id = ResourceLocation.fromNamespaceAndPath("potatoessentials", idName);
             instance.removeModifier(id);
             instance.addPermanentModifier(new AttributeModifier(id, value, AttributeModifier.Operation.ADD_MULTIPLIED_BASE));
@@ -159,7 +173,7 @@ public class MiracleCrystal extends Item {
             CompoundTag nbtdata = target.getPersistentData();
             CompoundTag potatoData = nbtdata.getCompound("PotatoData");
 
-            if(potatoData.getBoolean("shiny")) isShiny = true;
+            if(!target.level().isClientSide()) isShiny = potatoData.getBoolean("shiny");
 
             if (player.getCooldowns().isOnCooldown(stack.getItem())) {
                 player.displayClientMessage(
@@ -296,23 +310,18 @@ public class MiracleCrystal extends Item {
 
                 // Updates mob attributes after rounding it up to 2 decimals
                 {
-                    if (target instanceof AbstractSpellCastingPet familiar) {
-                        if (attrVar[1] == 1 && attrVar[2] == 1 && attrVar[3] == 1 &&
-                                attrVar[4] == 1 && attrVar[5] == 1 && attrVar[6] == 1 && attrVar[7] == 1) {
-                            isShiny = true;
-                        }
-                    }
-                    else {
-                        if (attrVar[0] == 1 && attrVar[1] == 1 && attrVar[2] == 1 && attrVar[3] == 1 &&
-                                attrVar[4] == 1 && attrVar[5] == 1 && attrVar[6] == 1 && attrVar[7] == 1) {
-                            isShiny = true;
-                        }
+                    if ((Armor == 0 || attrVar[0] == 1) && (Attack == 0 || attrVar[1] == 1) &&
+                            (attrVar[2] == 1) && (attrVar[3] == 1) && (attrVar[4] == 1) &&
+                            (ArmorPierce == 0 || attrVar[5] == 1) && (ProtPierce == 0 || attrVar[6] == 1) && (attrVar[7] == 1)) {
+                        isShiny = true;
                     }
 
                     // Vanilla Attributes
                     if (isShiny) {
-                        potatoData.putBoolean("shiny", true);
-                        nbtdata.put("PotatoData", potatoData);;
+                        if(!target.level().isClientSide()) {
+                            potatoData.putBoolean("shiny", true);
+                            nbtdata.put("PotatoData", potatoData);
+                        }
                     }
 
                     // Vanilla Attributes
@@ -368,18 +377,6 @@ public class MiracleCrystal extends Item {
                         addModifierIfValid(target, ALObjects.Attributes.PROT_SHRED, BigDecimal.valueOf(ProtShred).setScale(4, RoundingMode.HALF_UP).doubleValue(), "protection_shred");
                         addModifierIfValid(target, ALObjects.Attributes.CRIT_CHANCE, BigDecimal.valueOf(Crit).setScale(4, RoundingMode.HALF_UP).doubleValue(), "critical_chance");
                         addModifierIfValid(target, ALObjects.Attributes.CRIT_DAMAGE, BigDecimal.valueOf(CritDmg).setScale(4, RoundingMode.HALF_UP).doubleValue(), "critical_damage");
-                    }
-
-                    {
-                        potatoData.putDouble("IV1", attrVar[0]);
-                        potatoData.putDouble("IV2", attrVar[1]);
-                        potatoData.putDouble("IV3", attrVar[2]);
-                        potatoData.putDouble("IV4", attrVar[3]);
-                        potatoData.putDouble("IV5", attrVar[4]);
-                        potatoData.putDouble("IV6", attrVar[5]);
-                        potatoData.putDouble("IV7", attrVar[6]);
-                        potatoData.putDouble("IV8", attrVar[7]);
-                        nbtdata.put("PotatoData", potatoData);
                     }
                 }
             }
