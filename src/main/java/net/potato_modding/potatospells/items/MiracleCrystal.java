@@ -28,6 +28,7 @@ import net.neoforged.fml.ModList;
 import net.potato_modding.potatoessentials.config.ServerConfigs;
 import net.potato_modding.potatoessentials.datagen.MobElementLoader;
 import net.potato_modding.potatoessentials.datagen.MobRaceLoader;
+import net.potato_modding.potatoessentials.registry.PotatoEssentialsAttributes;
 import net.potato_modding.potatoessentials.tags.PotatoTags;
 import net.warphan.iss_magicfromtheeast.registries.MFTEAttributeRegistries;
 
@@ -48,8 +49,6 @@ public class MiracleCrystal extends Item {
 
     @Override
     public InteractionResult interactLivingEntity(ItemStack stack, Player player, LivingEntity target, InteractionHand hand) {
-        CompoundTag nbtdata = target.getPersistentData();
-        CompoundTag potatoData = nbtdata.getCompound("PotatoData");
 
         if(player.getCooldowns().isOnCooldown(stack.getItem())) {
             player.displayClientMessage(
@@ -58,7 +57,7 @@ public class MiracleCrystal extends Item {
             return InteractionResult.FAIL;
         }
 
-        if(potatoData.getBoolean("shiny")) {
+        if(target.getAttributeValue(PotatoEssentialsAttributes.SHINY) == 1) {
             player.displayClientMessage(
                     Component.literal("Already has perfect IVs").withStyle(ChatFormatting.DARK_RED), true
             );
@@ -170,10 +169,7 @@ public class MiracleCrystal extends Item {
                 return InteractionResultHolder.fail(stack);
             }
 
-            CompoundTag nbtdata = target.getPersistentData();
-            CompoundTag potatoData = nbtdata.getCompound("PotatoData");
-
-            if(!target.level().isClientSide()) isShiny = potatoData.getBoolean("shiny");
+            if (target.getAttributeValue(PotatoEssentialsAttributes.SHINY) == 1) isShiny = true;
 
             if (player.getCooldowns().isOnCooldown(stack.getItem())) {
                 player.displayClientMessage(
@@ -318,9 +314,8 @@ public class MiracleCrystal extends Item {
 
                     // Vanilla Attributes
                     if (isShiny) {
-                        if(!target.level().isClientSide()) {
-                            potatoData.putBoolean("shiny", true);
-                            nbtdata.put("PotatoData", potatoData);
+                        if(ServerConfigs.IV_SYSTEM.get()) {
+                            setIfNonNull(target, PotatoEssentialsAttributes.SHINY, 1);
                         }
                     }
 
@@ -390,5 +385,12 @@ public class MiracleCrystal extends Item {
         }
         //System.out.println("success");
         return InteractionResultHolder.sidedSuccess(stack, player.level().isClientSide);
+    }
+
+    private static void setIfNonNull(LivingEntity entity, Holder<Attribute> attribute, double value) {
+        var instance = entity.getAttributes().getInstance(attribute);
+        if (instance != null) {
+            instance.setBaseValue(value);
+        }
     }
 }
