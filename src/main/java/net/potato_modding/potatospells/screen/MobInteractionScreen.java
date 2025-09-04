@@ -1,17 +1,16 @@
 package net.potato_modding.potatospells.screen;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.InventoryScreen;
 import net.minecraft.client.renderer.GameRenderer;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.Style;
 import net.minecraft.network.chat.TextColor;
 import net.minecraft.resources.ResourceLocation;
@@ -21,14 +20,19 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
-import net.potato_modding.potatoessentials.core.PotatoNaturesHandler;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.potato_modding.potatoessentials.datagen.MobElementLoader;
 import net.potato_modding.potatoessentials.datagen.MobRaceLoader;
 import net.potato_modding.potatoessentials.tags.PotatoTags;
 import net.potato_modding.potatoessentials.utils.RebalanceHandler;
 import net.potato_modding.potatospells.items.*;
+import net.potato_modding.potatospells.registry.PotatoRegistry;
+import net.potato_modding.potatospells.utils.CurioUtil;
+import net.potato_modding.potatospells.utils.IHatePackets;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
+import org.lwjgl.glfw.GLFW;
 
 import java.util.Map;
 
@@ -37,6 +41,8 @@ import static net.potato_modding.potatoessentials.utils.ConfigFormulas.*;
 
 @SuppressWarnings("unused")
 public class MobInteractionScreen extends Screen {
+
+    private long lastCleanupTime = 0L;
 
     // Buttons on the GUI
     private Button button1;
@@ -111,10 +117,14 @@ public class MobInteractionScreen extends Screen {
 
     private final double rgb;
 
+    private boolean firstRender = true;
+
     private static final ResourceLocation BACKGROUND_TEXTURE =
             ResourceLocation.fromNamespaceAndPath("potatospellbookstweaks", "textures/gui/background.png");
     private static final ResourceLocation DEFAULT_ICONS =
             ResourceLocation.fromNamespaceAndPath("potatospellbookstweaks", "textures/gui/default_icons.png");
+    private static final ResourceLocation COLORS_BUTTON =
+            ResourceLocation.fromNamespaceAndPath("potatospellbookstweaks", "textures/gui/colors_button.png");
     private static final ResourceLocation SHINY_ICON =
             ResourceLocation.fromNamespaceAndPath("potatospellbookstweaks", "textures/gui/shiny_icon.png");
 
@@ -257,32 +267,65 @@ public class MobInteractionScreen extends Screen {
                 this.entity
         );
 
-        // Restore original rotations
         entity.setYRot(originalYRot);
         entity.setXRot(originalXRot);
         entity.yHeadRot = originalYHeadRot;
         entity.yBodyRot = originalYBodyRot;
 
-        var overlayTexture = Analyzer.OVERLAY_TEXTURE;
-        if (rgb == 1) overlayTexture = AnalyzerRed.OVERLAY_TEXTURE;
-        if (rgb == 2) overlayTexture = AnalyzerGreen.OVERLAY_TEXTURE;
-        if (rgb == 3) overlayTexture = AnalyzerBlue.OVERLAY_TEXTURE;
-        if (rgb == 4) overlayTexture = AnalyzerYellow.OVERLAY_TEXTURE;
-        if (rgb == 5) overlayTexture = AnalyzerPink.OVERLAY_TEXTURE;
-        if (rgb == 6) overlayTexture = AnalyzerPurple.OVERLAY_TEXTURE;
-        if (rgb == 7) overlayTexture = AnalyzerPrismatic.OVERLAY_TEXTURE;
+
+        var coloredGUI = new Object() {
+            ResourceLocation overlayTexture = Analyzer.OVERLAY_TEXTURE;
+        };
+
+        int size = rgb == 8 ? 8 : 0;
+        int overlayIndex = IHatePackets.loadGUI();
+        coloredGUI.overlayTexture = AnalyzerPrismatic.OVERLAY_TEXTURE.get(overlayIndex);
+
+        this.addRenderableWidget(Button.builder(
+                Component.literal(""),
+                btn -> {
+                    showIVs = !showIVs;
+                    btn.setMessage(Component.literal(""));
+                }
+        ).bounds(guiLeft + 152, guiTop + 110, 8, 8).build());
+
+        this.addRenderableWidget(Button.builder(Component.empty(), btn -> {
+            int currentGUI = IHatePackets.loadGUI();
+            int nextGUI = (currentGUI + 1) % AnalyzerPrismatic.OVERLAY_TEXTURE.size();
+            IHatePackets.saveGUI(nextGUI);
+        }).bounds(guiLeft + 140, guiTop + 110, size, size).build());
+
+
+        if (rgb == 1) coloredGUI.overlayTexture = AnalyzerRed.OVERLAY_TEXTURE;
+        if (rgb == 2) coloredGUI.overlayTexture = AnalyzerOrange.OVERLAY_TEXTURE;
+        if (rgb == 3) coloredGUI.overlayTexture = AnalyzerYellow.OVERLAY_TEXTURE;
+        if (rgb == 4) coloredGUI.overlayTexture = AnalyzerGreen.OVERLAY_TEXTURE;
+        if (rgb == 5) coloredGUI.overlayTexture = AnalyzerBlue.OVERLAY_TEXTURE;
+        if (rgb == 6) coloredGUI.overlayTexture = AnalyzerPink.OVERLAY_TEXTURE;
+        if (rgb == 7) coloredGUI.overlayTexture = AnalyzerPurple.OVERLAY_TEXTURE;
+        if (rgb == 8) {
+            Player player = Minecraft.getInstance().player;
+            if (player != null) {
+                ItemStack stack = CurioUtil.getCurioPersistent(player, PotatoRegistry.PRISMATIC_ANALYZER.get());
+                if (!stack.isEmpty()) {
+                    coloredGUI.overlayTexture = AnalyzerPrismatic.OVERLAY_TEXTURE.get(overlayIndex);
+                }
+            }
+        }
+
 
         RenderSystem.enableBlend();
         RenderSystem.defaultBlendFunc();
         graphics.setColor(1f, 1f, 1f, 1f);
         RenderSystem.setShaderColor(1f, 1f, 1f, 1f);
-        RenderSystem.setShaderTexture(0, overlayTexture);
+        RenderSystem.setShaderTexture(0, coloredGUI.overlayTexture);
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
 
-        Minecraft.getInstance().getTextureManager().getTexture(overlayTexture).setFilter(false, false);
+        Minecraft.getInstance().getTextureManager().getTexture(coloredGUI.overlayTexture).setFilter(false, false);
 
-        graphics.blit(overlayTexture, guiLeft, guiTop, 0, 0, GUI_WIDTH, GUI_HEIGHT);
+        graphics.blit(coloredGUI.overlayTexture, guiLeft, guiTop, 0, 0, GUI_WIDTH, GUI_HEIGHT);
         graphics.blit(DEFAULT_ICONS, guiLeft, guiTop, 0, 0, GUI_WIDTH, GUI_HEIGHT);
+        if (rgb == 8) graphics.blit(COLORS_BUTTON, guiLeft, guiTop, 0, 0, GUI_WIDTH, GUI_HEIGHT);
         RenderSystem.disableBlend();
 
         graphics.pose().pushPose();
@@ -302,7 +345,6 @@ public class MobInteractionScreen extends Screen {
         double critChanceParse = critChance * 100;
         double armorShredParse = armorShred * 100;
         double protShredParse = protShred * 100;
-
 
         //Colored natures text stuff
         var nat1 = TextColor.parseColor("#ffffff").getOrThrow();
@@ -392,7 +434,7 @@ public class MobInteractionScreen extends Screen {
         final String[] race = {"none"};
         final String[] element = {"none"};
 
-        final double[] parseIV = {0,1,2,3,4,5,6,7,8};
+        final double[] parseIV = {0, 1, 2, 3, 4, 5, 6, 7, 8};
 
         double mobMod = 0;
         parseIV[0] = firstIV;
@@ -414,45 +456,42 @@ public class MobInteractionScreen extends Screen {
                 ResourceLocation dataId = ResourceLocation.fromNamespaceAndPath(MOD_ID, raceName);
                 var data = MobRaceLoader.get(dataId);
 
-                if (entity.getType().is(PotatoTags.BOSS)) {
-                    mobType = boss_mod;
-                    ArmorMod = boss_mod * (3 * (1 + randMax));
-                    ToughMod = boss_mod * (2 * (1 + randMax));
-                    AttackMod = boss_mod * (2 * (1 + randMax));
-                }
-                else if (entity.getType().is(PotatoTags.MINIBOSS)) {
-                    mobType = mini_mod;
-                    ArmorMod = mini_mod * (1.5 * (1 + randMax));
-                    ToughMod = mini_mod * (1.5 * (1 + randMax));
-                    AttackMod = mini_mod * (1 * (1 + randMax));
-                }
-                else if (entity.getType().is(PotatoTags.NORMAL)) {
-                    mobType = mob_mod;
-                    ArmorMod = mob_mod * (0.75 * (1 + randMax));
-                    ToughMod = mob_mod * (0.5 * (1 + randMax));
-                    AttackMod = mob_mod * (0.65 * (1 + randMax));
-                }
-                else if (entity.getType().is(PotatoTags.SUMMON)) {
-                    mobType = summon_mod;
-                    ArmorMod = summon_mod * (1 * (1 + randMax));
-                    ToughMod = summon_mod * (0.5 * (1 + randMax));
-                    AttackMod = summon_mod * (0.5 * (1 + randMax));
-                }
-                else {
-                    mobType = 1;
-                    ArmorMod = 1;
-                    ToughMod = 1;
-                    AttackMod = 1;
-                }
+                    if (entity.getType().is(PotatoTags.BOSS)) {
+                        mobType = boss_mod;
+                        ArmorMod = boss_mod * (3 * (1 + randMax));
+                        ToughMod = boss_mod * (2 * (1 + randMax));
+                        AttackMod = boss_mod * (2 * (1 + randMax));
+                    } else if (entity.getType().is(PotatoTags.MINIBOSS)) {
+                        mobType = mini_mod;
+                        ArmorMod = mini_mod * (1.5 * (1 + randMax));
+                        ToughMod = mini_mod * (1.5 * (1 + randMax));
+                        AttackMod = mini_mod * (1 * (1 + randMax));
+                    } else if (entity.getType().is(PotatoTags.NORMAL)) {
+                        mobType = mob_mod;
+                        ArmorMod = mob_mod * (0.75 * (1 + randMax));
+                        ToughMod = mob_mod * (0.5 * (1 + randMax));
+                        AttackMod = mob_mod * (0.65 * (1 + randMax));
+                    } else if (entity.getType().is(PotatoTags.SUMMON)) {
+                        mobType = summon_mod;
+                        ArmorMod = summon_mod * (1 * (1 + randMax));
+                        ToughMod = summon_mod * (0.5 * (1 + randMax));
+                        AttackMod = summon_mod * (0.5 * (1 + randMax));
+                    } else {
+                        mobType = 1;
+                        ArmorMod = 1;
+                        ToughMod = 1;
+                        AttackMod = 1;
+                    }
 
-                parseIV[0] /= data.attack() == 0 ? 1 : (data.attack() * AttackMod);
-                parseIV[1] /= data.armor() == 0 ? 1 : (data.armor() * ArmorMod);
-                parseIV[2] /= (data.spellPower() + randMax) - 1;
-                parseIV[3] /= (data.castReduction() + randMax) - 1;
-                parseIV[8] = (data.resist() + randMax);
-                parseIV[5] /= (data.armorPierce() * (1 + randMax));
-                parseIV[6] /= (data.protPierce() * (1 + randMax));
-                parseIV[7] /= 0.05 + (data.crit() + randMax);
+                    parseIV[0] /= data.attack() == 0 ? 1 : (data.attack() * AttackMod);
+                    parseIV[1] /= data.armor() == 0 ? 1 : (data.armor() * ArmorMod);
+                    parseIV[2] /= (data.spellPower() + randMax) - 1;
+                    parseIV[3] /= (data.castReduction() + randMax) - 1;
+                    parseIV[8] = (data.resist() + randMax);
+                    parseIV[5] /= (data.armorPierce() * (1 + randMax));
+                    parseIV[6] /= (data.protPierce() * (1 + randMax));
+                    parseIV[7] /= 0.05 + (data.crit() + randMax);
+
                 race[0] = data.race();
             }
         });
@@ -466,18 +505,13 @@ public class MobInteractionScreen extends Screen {
                 ResourceLocation dataId = ResourceLocation.fromNamespaceAndPath(MOD_ID, elementName);
                 var data = MobElementLoader.get(dataId);
 
-                parseIV[4] /= (parseIV[8] * (data.resist() * mobType)) - 1;
+
+                    parseIV[4] /= (parseIV[8] * (data.resist() * mobType)) - 1;
+                    firstRender = false;
+
                 element[0] = data.element();
             }
         });
-
-        this.addRenderableWidget(Button.builder(
-                Component.literal(""),
-                btn -> {
-                    showIVs = !showIVs;
-                    btn.setMessage(Component.literal(""));
-                }
-        ).bounds(guiLeft + 153, guiTop + 96, 9, 9).build());
 
 
         Component mobName = entity.getDisplayName();
@@ -485,6 +519,41 @@ public class MobInteractionScreen extends Screen {
                 && scaledMouseY >= (guiTop + 37) / textScale && scaledMouseY <= (guiTop + 81) / textScale) {
             graphics.renderTooltip(font, mobName, (int) scaledMouseX, (int) scaledMouseY);
         }
+
+
+        var buttonTooltipColor = TextColor.parseColor("#bbe0f9").getOrThrow();
+        if (scaledMouseX >= ((guiLeft + 152) / textScale) && scaledMouseX <= ((guiLeft + 160) / textScale)
+                && scaledMouseY >= ((guiTop + 110) / textScale) && scaledMouseY <= ((guiTop + 118) / textScale)) {
+            graphics.renderTooltip(font, Component.literal("Toggle IVs").withStyle(Style.EMPTY.withColor(buttonTooltipColor)), (int) scaledMouseX, (int) scaledMouseY);
+        }
+
+        if (rgb == 8) {
+            if (scaledMouseX >= ((guiLeft + 140) / textScale) && scaledMouseX <= ((guiLeft + 148) / textScale)
+                    && scaledMouseY >= ((guiTop + 110) / textScale) && scaledMouseY <= ((guiTop + 118) / textScale)) {
+
+                String baseText = "Change Colors"; // tooltip text
+                MutableComponent rainbowTooltip = Component.literal("");
+
+                Minecraft mc = Minecraft.getInstance();
+                long ticks = (mc.level != null) ? mc.level.getGameTime() : 0;
+
+                for (int i = 0; i < baseText.length(); i++) {
+                    // Same hue calculation as your item name
+                    float hue = ((i * 40) + (ticks * 2.25f)) % 360 / 360f;
+                    int rgbColor = java.awt.Color.HSBtoRGB(hue, 1f, 1f);
+                    String hex = String.format("#%06X", (0xFFFFFF & rgbColor));
+                    TextColor color = TextColor.parseColor(hex).getOrThrow();
+
+                    rainbowTooltip = rainbowTooltip.append(
+                            Component.literal(String.valueOf(baseText.charAt(i)))
+                                    .withStyle(style -> style.withColor(color))
+                    );
+                }
+
+                graphics.renderTooltip(font, rainbowTooltip, (int) scaledMouseX, (int) scaledMouseY);
+            }
+        }
+
 
         // LEFT SIDE
         if (health < 1000) {
@@ -662,7 +731,7 @@ public class MobInteractionScreen extends Screen {
         RenderSystem.defaultBlendFunc();
         graphics.setColor(1f, 1f, 1f, 1f);
         RenderSystem.setShaderColor(1f, 1f, 1f, 1f);
-        RenderSystem.setShaderTexture(0, overlayTexture);
+        RenderSystem.setShaderTexture(0, coloredGUI.overlayTexture);
 
         // Rendering icons and tooltips
         ResourceLocation schoolTexture = ResourceLocation.fromNamespaceAndPath("potatospellbookstweaks", "textures/gui/elements/" + element[0] + "_icon.png");
@@ -708,6 +777,21 @@ public class MobInteractionScreen extends Screen {
         }
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.disableBlend();
+
+        long currentTime = System.currentTimeMillis();
+        if (currentTime - lastCleanupTime >= 5000L) {
+            System.gc();
+            lastCleanupTime = currentTime;
+        }
+    }
+
+    @Override
+    public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
+        if (keyCode == GLFW.GLFW_KEY_E || keyCode == GLFW.GLFW_KEY_G || keyCode == GLFW.GLFW_KEY_ESCAPE) {
+            this.onClose();
+            return true;
+        }
+        return super.keyPressed(keyCode, scanCode, modifiers);
     }
 
     private static final Map<ResourceLocation, Component> NATURES = Map.ofEntries(

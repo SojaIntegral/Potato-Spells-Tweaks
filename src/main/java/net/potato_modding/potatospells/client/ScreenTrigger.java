@@ -58,34 +58,40 @@ public class ScreenTrigger {
                     * getAttr(mc.player, ALObjects.Attributes.CRIT_CHANCE);
             rgb = 1;
         }
-        if (hasCurio(mc.player, PotatoRegistry.GREEN_ANALYZER.get())) {
-            curioModifier = 8 + 16 * (getAttr(mc.player, Attributes.ARMOR)
-                    + getAttr(mc.player, Attributes.ARMOR_TOUGHNESS)) / 6;
-            rgb = 2;
-        }
-        if (hasCurio(mc.player, PotatoRegistry.BLUE_ANALYZER.get())) {
-            curioModifier = pow2(getAttr(mc.player, AttributeRegistry.SPELL_POWER));
-            rgb = 3;
-        }
         if (hasCurio(mc.player, PotatoRegistry.YELLOW_ANALYZER.get())) {
             curioModifier = (10 * getAttr(mc.player, Attributes.MOVEMENT_SPEED)
                     + getAttr(mc.player, Attributes.ATTACK_SPEED) / 2)
                     * (getAttr(mc.player, Attributes.SNEAKING_SPEED));
+            rgb = 2;
+        }
+        if (hasCurio(mc.player, PotatoRegistry.ORANGE_ANALYZER.get())) {
+            curioModifier = (10 * getAttr(mc.player, Attributes.MOVEMENT_SPEED)
+                    + getAttr(mc.player, Attributes.ATTACK_SPEED) / 2)
+                    * (getAttr(mc.player, Attributes.SNEAKING_SPEED));
+            rgb = 3;
+        }
+        if (hasCurio(mc.player, PotatoRegistry.GREEN_ANALYZER.get())) {
+            curioModifier = 8 + 16 * (getAttr(mc.player, Attributes.ARMOR)
+                    + getAttr(mc.player, Attributes.ARMOR_TOUGHNESS)) / 6;
             rgb = 4;
+        }
+        if (hasCurio(mc.player, PotatoRegistry.BLUE_ANALYZER.get())) {
+            curioModifier = pow2(getAttr(mc.player, AttributeRegistry.SPELL_POWER));
+            rgb = 5;
         }
         if (hasCurio(mc.player, PotatoRegistry.PINK_ANALYZER.get())) {
             curioModifier = (getAttr(mc.player, AttributeRegistry.CAST_TIME_REDUCTION)
                     * getAttr(mc.player, AttributeRegistry.COOLDOWN_REDUCTION));
-            rgb = 5;
+            rgb = 6;
         }
         if (hasCurio(mc.player, PotatoRegistry.PURPLE_ANALYZER.get())) {
             curioModifier = (1 + getAttr(mc.player, PotatoEssentialsAttributes.SPELL_RESIST_PIERCE))
                     * (1 + getAttr(mc.player, PotatoEssentialsAttributes.SPELL_RESIST_SHRED)) * 1.25;
-            rgb = 1;
+            rgb = 7;
         }
         if (hasCurio(mc.player, PotatoRegistry.PRISMATIC_ANALYZER.get())) {
             curioModifier = 7.5;
-            rgb = 1;
+            rgb = 8;
         }
         LivingEntity target = mc.player.isShiftKeyDown()
                 ? mc.player

@@ -7,7 +7,7 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredRegister;
-import net.potato_modding.potatospells.config.ServerConfigs;
+import net.potato_modding.potatoessentials.config.ServerConfigs;
 
 import java.util.function.Supplier;
 

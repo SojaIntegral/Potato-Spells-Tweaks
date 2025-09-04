@@ -23,7 +23,6 @@ import net.neoforged.neoforge.event.AddReloadListenerEvent;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
 import net.potato_modding.potatospells.config.ClientConfigs;
-import net.potato_modding.potatospells.config.ServerConfigs;
 import net.potato_modding.potatospells.entity.render.items.AnalyzerCurioRenderer;
 import net.potato_modding.potatospells.registry.*;
 import org.jetbrains.annotations.NotNull;
@@ -42,7 +41,7 @@ public class PotatoSpells {
     public PotatoSpells(IEventBus modEventBus, ModContainer modContainer) {
         // Register the commonSetup method for modloading
 
-        modContainer.registerConfig(ModConfig.Type.SERVER, ServerConfigs.BUILDING, String.format("%s-server.toml", PotatoSpells.MOD_ID));
+        //modContainer.registerConfig(ModConfig.Type.SERVER, ServerConfigs.BUILDING, String.format("%s-server.toml", PotatoSpells.MOD_ID));
         modContainer.registerConfig(ModConfig.Type.CLIENT, ClientConfigs.BUILDING, String.format("%s-client.toml", PotatoSpells.MOD_ID));
 
         modEventBus.addListener(this::commonSetup);

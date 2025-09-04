@@ -2,12 +2,12 @@ package net.potato_modding.potatospells.items;
 
 import com.google.common.collect.LinkedHashMultimap;
 import com.google.common.collect.Multimap;
-import io.redspace.ironsspellbooks.api.registry.AttributeRegistry;
 import io.redspace.ironsspellbooks.api.registry.SpellDataRegistryHolder;
 import io.redspace.ironsspellbooks.util.ItemPropertiesHelper;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.Holder;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.TextColor;
@@ -15,14 +15,12 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
-import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.CustomData;
 import net.neoforged.api.distmarker.Dist;
 import net.potato_modding.potatospells.client.Keybinds;
-import net.potato_modding.potatospells.registry.PotatoAttributes;
-import net.potato_modding.potatospells.registry.SpellRegistries;
 import net.potato_modding.potatospells.utils.ImbuableCurio;
 import top.theillusivec4.curios.api.SlotContext;
 
@@ -55,10 +53,6 @@ public class AnalyzerPrismatic extends ImbuableCurio {
     @Override
     public Multimap<Holder<Attribute>, AttributeModifier> getAttributeModifiers(SlotContext slotContext, ResourceLocation id, ItemStack stack) {
         Multimap<Holder<Attribute>, AttributeModifier> attr = LinkedHashMultimap.create();
-        attr.put(AttributeRegistry.SPELL_RESIST, new AttributeModifier(id, 0.125, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL));
-        attr.put(PotatoAttributes.BOSS_SLAYER, new AttributeModifier(id, 0.2, AttributeModifier.Operation.ADD_VALUE));
-        attr.put(PotatoAttributes.MONSTER_SLAYER, new AttributeModifier(id, -0.15, AttributeModifier.Operation.ADD_VALUE));
-        attr.put(PotatoAttributes.PLAYER_SLAYER, new AttributeModifier(id, -0.15, AttributeModifier.Operation.ADD_VALUE));
         return attr;
     }
 
@@ -69,14 +63,16 @@ public class AnalyzerPrismatic extends ImbuableCurio {
 
     @Override
     public Component getName(ItemStack stack) {
-        // Get base item name as plain string
         String baseName = super.getName(stack).getString();
 
-        // Start as a MutableComponent
         MutableComponent rainbowName = Component.literal("");
 
+        Minecraft mc = Minecraft.getInstance();
+        long ticks = (mc.level != null) ? mc.level.getGameTime() : 0;
+
         for (int i = 0; i < baseName.length(); i++) {
-            float hue = (i * 40 % 360) / 360f;
+            float hue = ((i * 40) + (ticks * 2.25f)) % 360 / 360f;
+
             int rgb = java.awt.Color.HSBtoRGB(hue, 1f, 1f);
             String hex = String.format("#%06X", (0xFFFFFF & rgb));
 
@@ -91,8 +87,34 @@ public class AnalyzerPrismatic extends ImbuableCurio {
         return rainbowName;
     }
 
+    public static final List<ResourceLocation> OVERLAY_TEXTURE = List.of(
+            Analyzer.OVERLAY_TEXTURE,
+            AnalyzerRed.OVERLAY_TEXTURE,
+            AnalyzerOrange.OVERLAY_TEXTURE,
+            AnalyzerYellow.OVERLAY_TEXTURE,
+            AnalyzerGreen.OVERLAY_TEXTURE,
+            AnalyzerBlue.OVERLAY_TEXTURE,
+            AnalyzerPink.OVERLAY_TEXTURE,
+            AnalyzerPurple.OVERLAY_TEXTURE
+    );
+    public static void setOverlayIndex(ItemStack stack, int index) {
+        CustomData existing = stack.get(DataComponents.CUSTOM_DATA);
+        CustomData customData = CustomData.of(existing != null ? existing.copyTag() : CustomData.EMPTY.copyTag());
+        customData.getUnsafe().putInt("OverlayIndex", index);
+        stack.set(DataComponents.CUSTOM_DATA, customData);
+    }
 
-    public static final ResourceLocation OVERLAY_TEXTURE =
-            ResourceLocation.fromNamespaceAndPath("potatospellbookstweaks", "textures/gui/identify_gui.png");
+    public static int getOverlayIndex(ItemStack stack) {
+        CustomData customData = stack.get(DataComponents.CUSTOM_DATA);
+        if (customData != null && customData.getUnsafe().contains("OverlayIndex")) {
+            return customData.getUnsafe().getInt("OverlayIndex");
+        }
+        return 0; // default
+    }
+
+    @Override
+    public void onUnequip(SlotContext slotContext, ItemStack newStack, ItemStack stack) {
+        super.onUnequip(slotContext, newStack, stack);
+    }
 }
 
