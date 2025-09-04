@@ -2,6 +2,7 @@ package net.potato_modding.potatospells.items;
 
 import com.google.common.collect.LinkedHashMultimap;
 import com.google.common.collect.Multimap;
+import io.redspace.ironsspellbooks.api.registry.AttributeRegistry;
 import io.redspace.ironsspellbooks.api.registry.SpellDataRegistryHolder;
 import io.redspace.ironsspellbooks.util.ItemPropertiesHelper;
 import net.minecraft.ChatFormatting;
@@ -15,6 +16,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.TooltipFlag;
@@ -48,11 +50,15 @@ public class AnalyzerPrismatic extends ImbuableCurio {
         tooltip.add(Component.literal("Range: " + curioModifier + " blocks | Press [")
                 .append(Keybinds.OPEN_SCREEN_KEY.getTranslatedKeyMessage()).append("] to analyze")
                 .withStyle(ChatFormatting.GRAY));
+        tooltip.add(Component.literal("Might do something in the future...").withStyle(ChatFormatting.OBFUSCATED));
     }
 
     @Override
     public Multimap<Holder<Attribute>, AttributeModifier> getAttributeModifiers(SlotContext slotContext, ResourceLocation id, ItemStack stack) {
         Multimap<Holder<Attribute>, AttributeModifier> attr = LinkedHashMultimap.create();
+        attr.put(AttributeRegistry.SPELL_RESIST, new AttributeModifier(id, 0.15, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL));
+        attr.put(Attributes.MAX_HEALTH, new AttributeModifier(id, 0.15, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL));
+        attr.put(AttributeRegistry.MAX_MANA, new AttributeModifier(id, 0.15, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL));
         return attr;
     }
 

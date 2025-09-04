@@ -101,16 +101,9 @@ public class MiracleCrystal extends Item {
         var instance = target.getAttributes().getInstance(attribute);
         if (instance == null) return;
 
-        CompoundTag nbtdata = target.getPersistentData();
-        CompoundTag potatoData = nbtdata.getCompound("PotatoData");
-        var shinyCheck = false;
-        if(!target.level().isClientSide()) shinyCheck = potatoData.getBoolean("shiny");
-
-        if(!shinyCheck) {
-            ResourceLocation id = ResourceLocation.fromNamespaceAndPath("potatoessentials", idName);
-            instance.removeModifier(id);
-            instance.addPermanentModifier(new AttributeModifier(id, value, AttributeModifier.Operation.ADD_VALUE));
-        }
+        ResourceLocation id = ResourceLocation.fromNamespaceAndPath("potatoessentials", idName);
+        instance.removeModifier(id);
+        instance.addPermanentModifier(new AttributeModifier(id, value, AttributeModifier.Operation.ADD_VALUE));
     }
 
     // Add modifier (multiplied base)
@@ -118,16 +111,9 @@ public class MiracleCrystal extends Item {
         var instance = target.getAttributes().getInstance(attribute);
         if (instance == null) return;
 
-        CompoundTag nbtdata = target.getPersistentData();
-        CompoundTag potatoData = nbtdata.getCompound("PotatoData");
-        var shinyCheck = false;
-        if(!target.level().isClientSide()) shinyCheck = potatoData.getBoolean("shiny");
-
-        if(!shinyCheck) {
-            ResourceLocation id = ResourceLocation.fromNamespaceAndPath("potatoessentials", idName);
-            instance.removeModifier(id);
-            instance.addPermanentModifier(new AttributeModifier(id, value, AttributeModifier.Operation.ADD_MULTIPLIED_BASE));
-        }
+        ResourceLocation id = ResourceLocation.fromNamespaceAndPath("potatoessentials", idName);
+        instance.removeModifier(id);
+        instance.addPermanentModifier(new AttributeModifier(id, value, AttributeModifier.Operation.ADD_MULTIPLIED_BASE));
     }
 
     private static boolean shinyAttribute() {

@@ -1,6 +1,7 @@
 package net.potato_modding.potatospells.registry;
 
 import net.acetheeldritchking.cataclysm_spellbooks.CataclysmSpellbooks;
+import net.minecraft.client.User;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
@@ -30,7 +31,7 @@ public class PotatoCreativeTab {
                         output.accept(PotatoRegistry.PINK_ANALYZER.get());
                         output.accept(PotatoRegistry.PURPLE_ANALYZER.get());
                         output.accept(PotatoRegistry.PRISMATIC_ANALYZER.get());
-                        output.accept(PotatoRegistry.DUSTY_BOOK.get());
+                        //output.accept(PotatoRegistry.DUSTY_BOOK.get());
                         if(ServerConfigs.IV_SYSTEM.get()) output.accept(PotatoRegistry.ATTRIBUTE_REROLLER.get());
                         if(ServerConfigs.NATURE_SYSTEM.get()) output.accept(PotatoRegistry.NATURE_REROLLER.get());
                     }).build());
