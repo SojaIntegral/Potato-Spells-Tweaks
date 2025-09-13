@@ -9,6 +9,7 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.potato_modding.potatospells.PotatoSpells;
 import net.potato_modding.potatospells.items.*;
+import net.potato_modding.potatospells.items.analyzer.*;
 
 import java.util.Collection;
 import java.util.function.Supplier;
@@ -27,6 +28,7 @@ public class PotatoRegistry {
     public static final Supplier<CurioBaseItem> GREEN_ANALYZER = ITEMS.register("analyzer_green", AnalyzerGreen::new);
     public static final Supplier<CurioBaseItem> YELLOW_ANALYZER = ITEMS.register("analyzer_yellow", AnalyzerYellow::new);
     public static final Supplier<CurioBaseItem> ORANGE_ANALYZER = ITEMS.register("analyzer_orange", AnalyzerOrange::new);
+    public static final Supplier<CurioBaseItem> BRACELET_DUMMY = ITEMS.register("bracelet_dummy", BraceletDummy::new);
     public static final Supplier<Item> ATTRIBUTE_REROLLER = ITEMS.register("miracle_crystal",
             () -> new MiracleCrystal(new Item.Properties().stacksTo(64).fireResistant().component(DataComponents.ENCHANTMENT_GLINT_OVERRIDE, true).rarity(Rarity.UNCOMMON)));
     public static final Supplier<Item> NATURE_REROLLER = ITEMS.register("mood_crystal",

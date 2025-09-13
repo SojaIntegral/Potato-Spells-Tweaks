@@ -12,9 +12,9 @@ import net.potato_modding.potatospells.PotatoSpells;
 
 public class ManaShieldEffect extends MobEffect {
     public ManaShieldEffect() {
-        super(MobEffectCategory.BENEFICIAL, 0xbaf7ff);
+        super(MobEffectCategory.BENEFICIAL, 0x38daa0);
         this.addAttributeModifier(PotatoEssentialsAttributes.MANA_SHIELD, PotatoSpells.id("mana_shield_effect"),
-                ManaShieldEffect.MANA_SHIELD_PER_LEVEL, AttributeModifier.Operation.ADD_MULTIPLIED_BASE);
+                ManaShieldEffect.MANA_SHIELD_PER_LEVEL, AttributeModifier.Operation.ADD_VALUE);
     }
 
     public static final float MANA_SHIELD_PER_LEVEL = 0.01f;

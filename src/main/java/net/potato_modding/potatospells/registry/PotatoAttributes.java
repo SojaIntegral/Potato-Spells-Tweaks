@@ -19,19 +19,23 @@ public class PotatoAttributes {
 
     //Slayer Attributes
     public static final DeferredHolder<Attribute, Attribute> BOSS_SLAYER =
-            registerSpecialAttributes("boss_slayer", 0, -100, 100);
+            registerSpecialAttributes("boss_slayer", 0, -100, 1);
     public static final DeferredHolder<Attribute, Attribute> MONSTER_SLAYER =
-            registerSpecialAttributes("monster_slayer", 0, -100, 100);
+            registerSpecialAttributes("monster_slayer", 0, -100, 1);
     public static final DeferredHolder<Attribute, Attribute> PLAYER_SLAYER =
-            registerSpecialAttributes("player_slayer", 0, -100, 100);
+            registerSpecialAttributes("player_slayer", 0, -100, 1);
     public static final DeferredHolder<Attribute, Attribute> SLAYER =
-            registerSpecialAttributes("slayer", 0, -100, 100);
+            registerSpecialAttributes("slayer", 0, -100, 1);
+    public static final DeferredHolder<Attribute, Attribute> RESISTANCE =
+            registerSpecialAttributes("resistance", 0, -100, 0.8);
 
     //Magic attributes
     public static final DeferredHolder<Attribute, Attribute> GENERIC_SPELL_POWER =
             registerMagicAttributes("mana_spell_power", 1, 1, 1);
     public static final DeferredHolder<Attribute, Attribute> GENERIC_MAGIC_RESIST =
             registerMagicAttributes("mana_magic_resist",1 ,1 ,1);
+    public static final DeferredHolder<Attribute, Attribute> MANA_COST =
+            registerSpecialAttributes("mana_cost",1 ,0 ,100);
 
     public static void register(IEventBus eventBus) {
         ATTRIBUTES.register(eventBus);

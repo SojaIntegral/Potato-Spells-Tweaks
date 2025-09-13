@@ -1,8 +1,0 @@
-{
-  "replace": false,
-  "values": [
-    "minecraft:breeze",
-    {"id": "aero_additions:summoned_breeze", "required": false },
-    {"id": "cataclysm:scylla", "required": false }
-  ]
-}

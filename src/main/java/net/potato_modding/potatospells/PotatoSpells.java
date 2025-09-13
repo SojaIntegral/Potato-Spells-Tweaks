@@ -24,6 +24,7 @@ import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
 import net.potato_modding.potatospells.config.ClientConfigs;
 import net.potato_modding.potatospells.entity.render.items.AnalyzerCurioRenderer;
+import net.potato_modding.potatospells.entity.render.items.BraceletCurioRender;
 import net.potato_modding.potatospells.registry.*;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
@@ -93,6 +94,7 @@ public class PotatoSpells {
                 CuriosRendererRegistry.register(PotatoRegistry.PINK_ANALYZER.get(), AnalyzerCurioRenderer::new);
                 CuriosRendererRegistry.register(PotatoRegistry.PURPLE_ANALYZER.get(), AnalyzerCurioRenderer::new);
                 CuriosRendererRegistry.register(PotatoRegistry.PRISMATIC_ANALYZER.get(), AnalyzerCurioRenderer::new);
+                CuriosRendererRegistry.register(PotatoRegistry.BRACELET_DUMMY.get(), BraceletCurioRender::new);
             });
         }
     }

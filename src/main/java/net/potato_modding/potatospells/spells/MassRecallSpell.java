@@ -2,6 +2,7 @@ package net.potato_modding.potatospells.spells;
 
 import io.redspace.ironsspellbooks.api.config.DefaultConfig;
 import io.redspace.ironsspellbooks.api.magic.MagicData;
+import io.redspace.ironsspellbooks.api.registry.AttributeRegistry;
 import io.redspace.ironsspellbooks.api.spells.*;
 import io.redspace.ironsspellbooks.api.util.AnimationHolder;
 import io.redspace.ironsspellbooks.entity.mobs.goals.HomeOwner;
@@ -9,12 +10,15 @@ import io.redspace.ironsspellbooks.entity.spells.target_area.TargetedAreaEntity;
 import io.redspace.ironsspellbooks.network.particles.FortifyAreaParticlesPacket;
 import io.redspace.ironsspellbooks.registries.SoundRegistry;
 import io.redspace.ironsspellbooks.spells.TargetAreaCastData;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.portal.DimensionTransition;
 import net.minecraft.world.phys.AABB;
@@ -25,10 +29,29 @@ import net.potato_modding.potatospells.PotatoSpells;
 import net.potato_modding.potatospells.registry.PotatoSchool;
 
 import javax.annotation.Nullable;
+import java.util.List;
 import java.util.Optional;
 
+@AutoSpellConfig
 public class MassRecallSpell extends AbstractSpell {
     private final ResourceLocation spellId = ResourceLocation.fromNamespaceAndPath(PotatoSpells.MOD_ID, "mass_recall");
+
+    @Override
+    public List<MutableComponent> getUniqueInfo(int spellLevel, LivingEntity caster) {
+        return List.of(
+                Component.translatable("ui.irons_spellbooks.cast_long", String.format("%.2f",(getEffectiveCastTime(spellLevel, caster) / 20f)) + "s"),
+                Component.literal("range: " + radius + " blocks"),
+                Component.literal("Recalls the user and all nearby allies.")
+        );
+    }
+
+    private final DefaultConfig defaultConfig = new DefaultConfig()
+            .setMinRarity(SpellRarity.LEGENDARY)
+            .setSchoolResource(PotatoSchool.GENERIC_RESOURCE)
+            .setMaxLevel(1)
+            .setCooldownSeconds(150)
+            .setAllowCrafting(false)
+            .build();
 
     public MassRecallSpell() {
         this.manaCostPerLevel = 0;
@@ -38,14 +61,6 @@ public class MassRecallSpell extends AbstractSpell {
         this.baseManaCost = 500;
     }
 
-    private final DefaultConfig defaultConfig = new DefaultConfig()
-            .setMinRarity(SpellRarity.LEGENDARY)
-            .setSchoolResource(PotatoSchool.GENERIC_RESOURCE)
-            .setMaxLevel(1)
-            .setCooldownSeconds(300)
-            .setAllowCrafting(false)
-            .build();
-
     @Override
     public CastType getCastType() {
         return CastType.LONG;
@@ -53,8 +68,8 @@ public class MassRecallSpell extends AbstractSpell {
 
     @Override
     public int getEffectiveCastTime(int spellLevel, @Nullable LivingEntity entity) {
-        // do not allow cast time scaling
-        return castTime;
+        double manaPower = (entity instanceof Player player) ? player.getAttributeValue(AttributeRegistry.MAX_MANA) * 0.001 : 1;
+        return (int)Math.round(this.getCastTime(spellLevel) / manaPower);
     }
 
     @Override
@@ -92,7 +107,7 @@ public class MassRecallSpell extends AbstractSpell {
         super.onServerPreCast(level, spellLevel, entity, playerMagicData);
         if (playerMagicData == null)
             return;
-        TargetedAreaEntity targetedAreaEntity = TargetedAreaEntity.createTargetAreaEntity(level, entity.position(), radius, 16239960, entity);
+        TargetedAreaEntity targetedAreaEntity = TargetedAreaEntity.createTargetAreaEntity(level, entity.position(), radius, 0x38daa0, entity);
         playerMagicData.setAdditionalCastData(new TargetAreaCastData(entity.position(), targetedAreaEntity));
     }
 

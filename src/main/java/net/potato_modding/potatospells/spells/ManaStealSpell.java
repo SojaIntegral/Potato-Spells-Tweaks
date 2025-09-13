@@ -2,18 +2,23 @@ package net.potato_modding.potatospells.spells;
 
 import io.redspace.ironsspellbooks.api.config.DefaultConfig;
 import io.redspace.ironsspellbooks.api.magic.MagicData;
+import io.redspace.ironsspellbooks.api.registry.AttributeRegistry;
 import io.redspace.ironsspellbooks.api.spells.*;
 import io.redspace.ironsspellbooks.api.util.Utils;
+import io.redspace.ironsspellbooks.config.ServerConfigs;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.potato_modding.potatospells.PotatoSpells;
 import net.potato_modding.potatospells.registry.PotatoEffects;
 import net.potato_modding.potatospells.registry.PotatoSchool;
 
+import javax.annotation.Nullable;
 import java.util.List;
 
 @AutoSpellConfig
@@ -32,17 +37,24 @@ public class ManaStealSpell extends AbstractSpell {
             .setMinRarity(SpellRarity.LEGENDARY)
             .setSchoolResource(PotatoSchool.GENERIC_RESOURCE)
             .setMaxLevel(1)
-            .setCooldownSeconds(120)
+            .setCooldownSeconds(47.5)
             .setAllowCrafting(false)
             .build();
 
-    public ManaStealSpell()
-    {
+    public ManaStealSpell() {
         this.manaCostPerLevel = 0;
-        this.baseSpellPower = 100;
+        this.baseSpellPower = 50;
         this.spellPowerPerLevel = 0;
         this.castTime = 20;
         this.baseManaCost = 100;
+    }
+
+    @Override
+    public float getSpellPower(int spellLevel, @Nullable Entity sourceEntity) {
+        var entitySpellPowerModifier = (float) ((sourceEntity instanceof LivingEntity entity) ? entity.getAttributeValue(AttributeRegistry.SPELL_POWER) : 1);
+        float configPowerModifier = (float) ServerConfigs.getSpellConfig(this).powerMultiplier();
+        double manaPower = (sourceEntity instanceof Player player) ? player.getAttributeValue(AttributeRegistry.MAX_MANA) * 0.001 : 1;
+        return (float) ((baseSpellPower + spellPowerPerLevel * (spellLevel - 1)) * entitySpellPowerModifier * configPowerModifier * manaPower);
     }
 
     @Override

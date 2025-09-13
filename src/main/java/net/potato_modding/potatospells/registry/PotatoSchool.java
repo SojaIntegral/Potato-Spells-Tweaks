@@ -16,13 +16,11 @@ import static io.redspace.ironsspellbooks.api.registry.SchoolRegistry.SCHOOL_REG
 public class PotatoSchool {
     private static final DeferredRegister<SchoolType> POTATO_SCHOOLS = DeferredRegister.create(SCHOOL_REGISTRY_KEY, PotatoSpells.MOD_ID);
 
-    public static void register(IEventBus eventBus)
-    {
+    public static void register(IEventBus eventBus) {
         POTATO_SCHOOLS.register(eventBus);
     }
 
-    private static Supplier<SchoolType> registerSchool(SchoolType type)
-    {
+    private static Supplier<SchoolType> registerSchool(SchoolType type) {
         return POTATO_SCHOOLS.register(type.getId().getPath(), () -> type);
     }
 
@@ -32,12 +30,10 @@ public class PotatoSchool {
             (
                     GENERIC_RESOURCE,
                     PotatoFocuses.GENERIC_FOCUS,
-                    Component.translatable("school.potatospellbookstweaks.generic").withStyle(Style.EMPTY.withColor(0xbaf7ff)),
+                    Component.translatable("school.potatospellbookstweaks.generic").withStyle(Style.EMPTY.withColor(0x38daa0)),
                     PotatoAttributes.GENERIC_SPELL_POWER,
                     PotatoAttributes.GENERIC_MAGIC_RESIST,
                     SoundRegistry.EVOCATION_CAST,
-                    PotatoDamageTypes.GENERIC_MAGIC,
-                    false,
-                    false
+                    PotatoDamageTypes.GENERIC_MAGIC
             ));
 }

@@ -3,6 +3,7 @@
   "package": "net.potato_modding.potatospells.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
+    "ManaRegenMixin"
   ],
   "client": [
   ],

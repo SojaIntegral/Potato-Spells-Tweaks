@@ -25,7 +25,7 @@ import net.potato_modding.potatoessentials.datagen.MobElementLoader;
 import net.potato_modding.potatoessentials.datagen.MobRaceLoader;
 import net.potato_modding.potatoessentials.tags.PotatoTags;
 import net.potato_modding.potatoessentials.utils.RebalanceHandler;
-import net.potato_modding.potatospells.items.*;
+import net.potato_modding.potatospells.items.analyzer.*;
 import net.potato_modding.potatospells.registry.PotatoRegistry;
 import net.potato_modding.potatospells.utils.CurioUtil;
 import net.potato_modding.potatospells.utils.IHatePackets;
@@ -513,6 +513,24 @@ public class MobInteractionScreen extends Screen {
                 element[0] = data.element();
             }
         });
+
+        if (!(parseIV[0] >= 0 || parseIV[0] < 0)) {
+            parseIV[0] = 0;
+        }if (!(parseIV[1] >= 0 || parseIV[1] < 0)) {
+            parseIV[1] = 0;
+        }if (!(parseIV[2] >= 0 || parseIV[2] < 0)) {
+            parseIV[2] = 0;
+        }if (!(parseIV[3] >= 0 || parseIV[3] < 0)) {
+            parseIV[3] = 0;
+        }if (!(parseIV[4] >= 0 || parseIV[4] < 0)) {
+            parseIV[4] = 0;
+        }if (!(parseIV[5] >= 0 || parseIV[5] < 0)) {
+            parseIV[5] = 0;
+        }if (!(parseIV[6] >= 0 || parseIV[6] < 0)) {
+            parseIV[6] = 0;
+        }if (!(parseIV[7] >= 0 || parseIV[7] < 0)) {
+            parseIV[7] = 0;
+        }
 
         parseIV[0] = BigDecimal.valueOf(parseIV[0] * 31).setScale(0, RoundingMode.HALF_UP).doubleValue();
         parseIV[1] = BigDecimal.valueOf(parseIV[1] * 31).setScale(0, RoundingMode.HALF_UP).doubleValue();
